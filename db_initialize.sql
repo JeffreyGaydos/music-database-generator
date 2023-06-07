@@ -66,9 +66,11 @@ GO
 USE MusicLibrary
 
 --This table can be matched with the main table to detemine the mood/genre of a track
+--IDs are big int to accommodate granularity. Playlists could be designated using moods.
+--NOTE: "Mood group IDs" may be necessar in the future should 64 moods be restrictive
 IF (SELECT [dbo].[MusicTableExists] (N'ListMood')) = 0
 BEGIN
-	CREATE TABLE ListMood (MoodID INT, MoodDesc NVARCHAR(100))
+	CREATE TABLE ListMood (MoodID BIGINT, MoodDesc NVARCHAR(100))
 END
 
 --This table can be matched with the main table to determine the extension type
@@ -89,6 +91,13 @@ BEGIN
 	CREATE TABLE ListOwner (OwnerID INT, OwnerName NVARCHAR(1000))
 END
 
+--traditional genre designation, directly form the MP3 files
+--may or may not be a read only table in future applications
+IF (SELECT [dbo].[MusicTableExists] (N'ListGenre')) = 0
+BEGIN
+	CREATE TABLE ListGenre (GenreID INT, GenreName INT)
+END
+
 --"Album" is used loosely here, and represents any collection of songs that may or may
 --not have track numbers associated with them. The AlbumID can matched with on the Main
 --table to determine all the songs within 1 album.
@@ -97,10 +106,19 @@ BEGIN
 	CREATE TABLE Album (AlbumID INT, AlbumTracks INT, AlbumName NVARCHAR(1000))
 END
 
+--Linked Tracks are any tracks that are best when played back-to-back.
+--Take the songs "Parabol" and "Porabola" by the artist "Tool". There could be an
+--option during future development to force songs like this to be played one after
+--the other, for a more pleasent listenning experience while shuffling.
+IF (SELECT [dbo].[MusicTableExists] (N'LinkedTracks')) = 0
+BEGIN
+	CREATE TABLE LinkedTracks (TrackID1 INT, TrackID2 INT)
+END
+
 --The main table has a list of all your songs, some metadata, and IDs that link to other
 --tables with additional meatadata
 IF (SELECT [dbo].[MusicTableExists] (N'Main')) = 0
 BEGIN
-	CREATE TABLE Main (TrackID INT, Title NVARCHAR(4000), Duration DECIMAL, ExtensionID INT, AverageDecibels DECIMAL, Moods INT, AlbumID INT, AlbumTrackNumber INT, OwnerID INT)
+	CREATE TABLE Main (TrackID INT, Title NVARCHAR(4000), Duration DECIMAL, ExtensionID INT, AverageDecibels DECIMAL, MoodIDs BIGINT, AlbumID INT, AlbumTrackNumber INT, OwnerID INT, GenreID INT, Linked BIT)
 END
 GO
