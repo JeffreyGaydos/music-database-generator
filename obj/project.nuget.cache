@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "h6Boq53SXywSrCnfS2YBollxLD8U47xpFEj3LLPErXRDeGFjpDze29j1NwTN9Mbr4+vneXKU5E12K4HPq+5oeQ==",
+  "dgSpecHash": "NnI/9OHiTjDKZRfa0vnuhLFDIrQ+7II7vm7Kalu8zxdvgkEF+jVUhMh/ag2wU8VPcSc43w/sGcxkT2vyD56nRQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\jeff1\\source\\repos\\MusicDatabaseGenerator\\MusicDatabaseGenerator\\MusicDatabaseGenerator.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\jeff1\\.nuget\\packages\\taglibsharp\\2.3.0\\taglibsharp.2.3.0.nupkg.sha512"
+  ],
   "logs": []
 }
