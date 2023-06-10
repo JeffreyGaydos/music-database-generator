@@ -70,32 +70,47 @@ USE MusicLibrary
 --NOTE: "Mood group IDs" may be necessar in the future should 64 moods be restrictive
 IF (SELECT [dbo].[MusicTableExists] (N'ListMood')) = 0
 BEGIN
-	CREATE TABLE ListMood (MoodID BIGINT, MoodDesc NVARCHAR(100))
+	CREATE TABLE ListMood (
+		MoodID BIGINT PRIMARY KEY,
+		MoodDesc NVARCHAR(100)
+	)
 END
 
 --This table can be matched with the main table to determine the extension type
 IF (SELECT [dbo].[MusicTableExists] (N'ListExtension')) = 0
 BEGIN
-	CREATE TABLE ListExtension (ExtensionID INT, FileType VARCHAR(100))
+	CREATE TABLE ListExtension (
+		ExtensionID INT PRIMARY KEY,
+		FileType VARCHAR(100)
+	)
 END
 
 --This table can be matched with the main table to deremine the artist
 IF (SELECT [dbo].[MusicTableExists] (N'ListArtist')) = 0
 BEGIN
-	CREATE TABLE ListArtist (ArtistID INT, ArtistName NVARCHAR(100))
+	CREATE TABLE ListArtist (
+		ArtistID INT PRIMARY KEY,
+		ArtistName NVARCHAR(100)
+	)
 END
 
 --This table can be matched with the main table to determine the owner of the track
 IF (SELECT [dbo].[MusicTableExists] (N'ListOwner')) = 0
 BEGIN
-	CREATE TABLE ListOwner (OwnerID INT, OwnerName NVARCHAR(1000))
+	CREATE TABLE ListOwner (
+		OwnerID INT PRIMARY KEY,
+		OwnerName NVARCHAR(1000)
+	)
 END
 
 --traditional genre designation, directly form the MP3 files
 --may or may not be a read only table in future applications
 IF (SELECT [dbo].[MusicTableExists] (N'ListGenre')) = 0
 BEGIN
-	CREATE TABLE ListGenre (GenreID INT, GenreName INT)
+	CREATE TABLE ListGenre (
+		GenreID INT PRIMARY KEY,
+		GenreName INT
+	)
 END
 
 --"Album" is used loosely here, and represents any collection of songs that may or may
@@ -103,7 +118,11 @@ END
 --table to determine all the songs within 1 album.
 IF (SELECT [dbo].[MusicTableExists] (N'Album')) = 0
 BEGIN
-	CREATE TABLE Album (AlbumID INT, AlbumTracks INT, AlbumName NVARCHAR(1000))
+	CREATE TABLE Album (
+		AlbumID INT PRIMARY KEY,
+		AlbumTracks INT,
+		AlbumName NVARCHAR(1000)
+	)
 END
 
 --Linked Tracks are any tracks that are best when played back-to-back.
@@ -112,13 +131,27 @@ END
 --the other, for a more pleasent listenning experience while shuffling.
 IF (SELECT [dbo].[MusicTableExists] (N'LinkedTracks')) = 0
 BEGIN
-	CREATE TABLE LinkedTracks (TrackID1 INT, TrackID2 INT)
+	CREATE TABLE LinkedTracks (
+		TrackID1 INT PRIMARY KEY,
+		TrackID2 INT
+	)
 END
 
 --The main table has a list of all your songs, some metadata, and IDs that link to other
 --tables with additional meatadata
 IF (SELECT [dbo].[MusicTableExists] (N'Main')) = 0
 BEGIN
-	CREATE TABLE Main (TrackID INT, Title NVARCHAR(4000), Duration DECIMAL, ExtensionID INT, AverageDecibels DECIMAL, MoodIDs BIGINT, AlbumID INT, AlbumTrackNumber INT, OwnerID INT, GenreID INT, Linked BIT)
+	CREATE TABLE Main (
+		TrackID INT	PRIMARY KEY,
+		Title NVARCHAR(4000),
+		Duration DECIMAL,
+		ExtensionID INT,
+		AverageDecibels DECIMAL,
+		MoodIDs BIGINT,
+		AlbumID INT,
+		AlbumTrackNumber INT,
+		OwnerID INT,
+		GenreID INT,
+		Linked BIT)
 END
 GO
