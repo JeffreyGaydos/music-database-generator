@@ -64,14 +64,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Album.cs" />
-    <Compile Include="LinkedTrack.cs" />
-    <Compile Include="ListArtist.cs" />
-    <Compile Include="ListExtension.cs" />
-    <Compile Include="ListGenre.cs" />
-    <Compile Include="ListMood.cs" />
-    <Compile Include="ListOwner.cs" />
-    <Compile Include="Main.cs" />
+    <Compile Include="Models\Album.cs" />
+    <Compile Include="Models\LinkedTrack.cs" />
+    <Compile Include="Models\ListArtist.cs" />
+    <Compile Include="Models\ListExtension.cs" />
+    <Compile Include="Models\ListGenre.cs" />
+    <Compile Include="Models\ListMood.cs" />
+    <Compile Include="Models\ListOwner.cs" />
+    <Compile Include="Models\Main.cs" />
     <Compile Include="MusicLibraryContext.cs" />
     <Compile Include="MusicLibraryDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -108,8 +108,8 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="db_drop.sql" />
-    <Content Include="db_initialize.sql" />
+    <Content Include="Schema\db_drop.sql" />
+    <Content Include="Schema\db_initialize.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
