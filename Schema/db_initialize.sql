@@ -137,6 +137,16 @@ BEGIN
 	)
 END
 
+--This table is just to prevent the main table from being bloated with a bunch of fields
+--and contains data on how frequently and when tracks were played.
+IF (SELECT [dbo].[MusicTableExists] (N'PlayLogs')) = 0
+BEGIN
+	CREATE TABLE PlayLogs (
+		TrackID INT PRIMARY KEY,
+		DatePlayed DATETIME
+	)
+END
+
 --The main table has a list of all your songs, some metadata, and IDs that link to other
 --tables with additional meatadata
 IF (SELECT [dbo].[MusicTableExists] (N'Main')) = 0
