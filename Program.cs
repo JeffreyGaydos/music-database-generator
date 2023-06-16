@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -13,13 +14,15 @@ namespace MusicDatabaseGenerator
         {
             //TODO: Replace this later with a config or something
             string musicFolder = "data"; //point this to where the mp3s are located, relative to the top level folder of this repo
-            /*
-             * - musicFolder
+
+            /* - musicFolder
              *      ∟ Artist name or album name
              *          ∟ Album name
              *          |    ∟ mp3 files
              *          ∟ mp3 files
              */
+
+
 
             List<string> SupportedExtensions = new List<string>
             {
@@ -28,7 +31,7 @@ namespace MusicDatabaseGenerator
             };
 
             //FileStream stream = File.Open(musicPath);
-            List<string> musicGroupings = Directory.GetDirectories("../../../" + musicFolder).ToList();
+            List<string> musicGroupings = Directory.GetDirectories("../../" + musicFolder).ToList();
             List<string> musicFiles = new List<string>();
             foreach (string musicGroup in musicGroupings)
             {
@@ -45,11 +48,22 @@ namespace MusicDatabaseGenerator
                     musicFiles.AddRange(subFiles.Where(file => SupportedExtensions.Contains(file.Substring(file.LastIndexOf(".")))));
                 }
             }
+            List<TagLib.File> tagFiles = new List<TagLib.File>();
             foreach (string file in musicFiles)
             {
                 //FileStream stream = File.OpenRead(file);
                 var taglibfile = TagLib.File.Create(file);
-                Console.WriteLine(taglibfile.Tag.Title);
+                tagFiles.Add(taglibfile);
+                //Console.WriteLine(taglibfile.Tag.Title);
+            }
+
+            using (MusicLibraryDataContext mdbContext = new MusicLibraryDataContext())
+            {
+                foreach(Main data in Generators.MainFields(tagFiles, musicFiles))
+                {
+                    mdbContext.Main.Add(data);
+                }
+                mdbContext.SaveChanges();
             }
         }
     }

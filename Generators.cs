@@ -1,20 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TagLib.Matroska;
 
 namespace MusicDatabaseGenerator
 {
     public static class Generators
     {
-        public Main MainFields(List<TagLib.File> tracks)
+        public static List<Main> MainFields(List<TagLib.File> tracks, List<string> filenames)
         {
-            foreach(TagLib.Tag track in tracks.Select(t => t.Tag))
+            List<Main> mains = new List<Main>();
+            for(int i = 0; i < tracks.Count; i++)
             {
-                Console.log(track.Title);
+                var track = tracks[i];
+                mains.Add(new Main()
+                {
+                    Title = track.Tag.Title,
+                    FilePath = Path.GetFullPath(filenames[i]),
+                    Duration = (decimal)track.Properties.Duration.TotalSeconds, //NOTE: Overflow exception possible, but unlikely
+                });
             }
+            return mains;
         }
     }
 }
