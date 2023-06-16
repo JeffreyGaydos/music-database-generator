@@ -24,14 +24,14 @@ namespace MusicDatabaseGenerator
 
         public long? MoodIDs { get; set; }
 
-        public int? AlbumID { get; set; }
-
-        public int? AlbumTrackNumber { get; set; }
-
         public int? OwnerID { get; set; }
 
         public int? GenreID { get; set; }
 
         public bool? Linked { get; set; }
+
+        public DateTime? ReleaseDate { get; set; }
+
+        public DateTime? AddDate { get; set; }
     }
 }

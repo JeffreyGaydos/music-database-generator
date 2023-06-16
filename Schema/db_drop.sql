@@ -9,14 +9,15 @@
 
 BEGIN TRAN
 
-DROP TABLE Album
 DROP TABLE LinkedTracks
 DROP TABLE ListArtist
 DROP TABLE ListExtension
 DROP TABLE ListGenre
 DROP TABLE ListMood
-DROP TABLE Playlists
+DROP TABLE Playlist
 DROP TABLE PlaylistTracks
+DROP TABLE Album
+DROP TABLE AlbumTracks
 DROP TABLE ListOwner
 DROP TABLE PlayLogs
 DROP TABLE Main

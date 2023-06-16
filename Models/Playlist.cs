@@ -6,6 +6,7 @@ namespace MusicDatabaseGenerator
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
+    [Table("Playlist")]
     public partial class Playlist
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]

@@ -26,6 +26,8 @@ namespace MusicDatabaseGenerator {
         
         private AlbumDataTable tableAlbum;
         
+        private AlbumTracksDataTable tableAlbumTracks;
+        
         private LinkedTracksDataTable tableLinkedTracks;
         
         private ListArtistDataTable tableListArtist;
@@ -38,7 +40,7 @@ namespace MusicDatabaseGenerator {
         
         private MainDataTable tableMain;
         
-        private PlaylistsDataTable tablePlaylists;
+        private PlaylistDataTable tablePlaylist;
         
         private PlaylistTracksDataTable tablePlaylistTracks;
         
@@ -75,6 +77,9 @@ namespace MusicDatabaseGenerator {
                 if ((ds.Tables["Album"] != null)) {
                     base.Tables.Add(new AlbumDataTable(ds.Tables["Album"]));
                 }
+                if ((ds.Tables["AlbumTracks"] != null)) {
+                    base.Tables.Add(new AlbumTracksDataTable(ds.Tables["AlbumTracks"]));
+                }
                 if ((ds.Tables["LinkedTracks"] != null)) {
                     base.Tables.Add(new LinkedTracksDataTable(ds.Tables["LinkedTracks"]));
                 }
@@ -93,8 +98,8 @@ namespace MusicDatabaseGenerator {
                 if ((ds.Tables["Main"] != null)) {
                     base.Tables.Add(new MainDataTable(ds.Tables["Main"]));
                 }
-                if ((ds.Tables["Playlists"] != null)) {
-                    base.Tables.Add(new PlaylistsDataTable(ds.Tables["Playlists"]));
+                if ((ds.Tables["Playlist"] != null)) {
+                    base.Tables.Add(new PlaylistDataTable(ds.Tables["Playlist"]));
                 }
                 if ((ds.Tables["PlaylistTracks"] != null)) {
                     base.Tables.Add(new PlaylistTracksDataTable(ds.Tables["PlaylistTracks"]));
@@ -127,6 +132,16 @@ namespace MusicDatabaseGenerator {
         public AlbumDataTable Album {
             get {
                 return this.tableAlbum;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public AlbumTracksDataTable AlbumTracks {
+            get {
+                return this.tableAlbumTracks;
             }
         }
         
@@ -194,9 +209,9 @@ namespace MusicDatabaseGenerator {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public PlaylistsDataTable Playlists {
+        public PlaylistDataTable Playlist {
             get {
-                return this.tablePlaylists;
+                return this.tablePlaylist;
             }
         }
         
@@ -290,6 +305,9 @@ namespace MusicDatabaseGenerator {
                 if ((ds.Tables["Album"] != null)) {
                     base.Tables.Add(new AlbumDataTable(ds.Tables["Album"]));
                 }
+                if ((ds.Tables["AlbumTracks"] != null)) {
+                    base.Tables.Add(new AlbumTracksDataTable(ds.Tables["AlbumTracks"]));
+                }
                 if ((ds.Tables["LinkedTracks"] != null)) {
                     base.Tables.Add(new LinkedTracksDataTable(ds.Tables["LinkedTracks"]));
                 }
@@ -308,8 +326,8 @@ namespace MusicDatabaseGenerator {
                 if ((ds.Tables["Main"] != null)) {
                     base.Tables.Add(new MainDataTable(ds.Tables["Main"]));
                 }
-                if ((ds.Tables["Playlists"] != null)) {
-                    base.Tables.Add(new PlaylistsDataTable(ds.Tables["Playlists"]));
+                if ((ds.Tables["Playlist"] != null)) {
+                    base.Tables.Add(new PlaylistDataTable(ds.Tables["Playlist"]));
                 }
                 if ((ds.Tables["PlaylistTracks"] != null)) {
                     base.Tables.Add(new PlaylistTracksDataTable(ds.Tables["PlaylistTracks"]));
@@ -356,6 +374,12 @@ namespace MusicDatabaseGenerator {
                     this.tableAlbum.InitVars();
                 }
             }
+            this.tableAlbumTracks = ((AlbumTracksDataTable)(base.Tables["AlbumTracks"]));
+            if ((initTable == true)) {
+                if ((this.tableAlbumTracks != null)) {
+                    this.tableAlbumTracks.InitVars();
+                }
+            }
             this.tableLinkedTracks = ((LinkedTracksDataTable)(base.Tables["LinkedTracks"]));
             if ((initTable == true)) {
                 if ((this.tableLinkedTracks != null)) {
@@ -392,10 +416,10 @@ namespace MusicDatabaseGenerator {
                     this.tableMain.InitVars();
                 }
             }
-            this.tablePlaylists = ((PlaylistsDataTable)(base.Tables["Playlists"]));
+            this.tablePlaylist = ((PlaylistDataTable)(base.Tables["Playlist"]));
             if ((initTable == true)) {
-                if ((this.tablePlaylists != null)) {
-                    this.tablePlaylists.InitVars();
+                if ((this.tablePlaylist != null)) {
+                    this.tablePlaylist.InitVars();
                 }
             }
             this.tablePlaylistTracks = ((PlaylistTracksDataTable)(base.Tables["PlaylistTracks"]));
@@ -422,6 +446,8 @@ namespace MusicDatabaseGenerator {
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
             this.tableAlbum = new AlbumDataTable();
             base.Tables.Add(this.tableAlbum);
+            this.tableAlbumTracks = new AlbumTracksDataTable();
+            base.Tables.Add(this.tableAlbumTracks);
             this.tableLinkedTracks = new LinkedTracksDataTable();
             base.Tables.Add(this.tableLinkedTracks);
             this.tableListArtist = new ListArtistDataTable();
@@ -434,8 +460,8 @@ namespace MusicDatabaseGenerator {
             base.Tables.Add(this.tableListOwner);
             this.tableMain = new MainDataTable();
             base.Tables.Add(this.tableMain);
-            this.tablePlaylists = new PlaylistsDataTable();
-            base.Tables.Add(this.tablePlaylists);
+            this.tablePlaylist = new PlaylistDataTable();
+            base.Tables.Add(this.tablePlaylist);
             this.tablePlaylistTracks = new PlaylistTracksDataTable();
             base.Tables.Add(this.tablePlaylistTracks);
             this.tablePlayLogs = new PlayLogsDataTable();
@@ -445,6 +471,12 @@ namespace MusicDatabaseGenerator {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private bool ShouldSerializeAlbum() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        private bool ShouldSerializeAlbumTracks() {
             return false;
         }
         
@@ -486,7 +518,7 @@ namespace MusicDatabaseGenerator {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        private bool ShouldSerializePlaylists() {
+        private bool ShouldSerializePlaylist() {
             return false;
         }
         
@@ -561,6 +593,9 @@ namespace MusicDatabaseGenerator {
         public delegate void AlbumRowChangeEventHandler(object sender, AlbumRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        public delegate void AlbumTracksRowChangeEventHandler(object sender, AlbumTracksRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         public delegate void LinkedTracksRowChangeEventHandler(object sender, LinkedTracksRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
@@ -579,7 +614,7 @@ namespace MusicDatabaseGenerator {
         public delegate void MainRowChangeEventHandler(object sender, MainRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        public delegate void PlaylistsRowChangeEventHandler(object sender, PlaylistsRowChangeEvent e);
+        public delegate void PlaylistRowChangeEventHandler(object sender, PlaylistRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         public delegate void PlaylistTracksRowChangeEventHandler(object sender, PlaylistTracksRowChangeEvent e);
@@ -834,6 +869,280 @@ namespace MusicDatabaseGenerator {
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
                 attribute2.FixedValue = "AlbumDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class AlbumTracksDataTable : global::System.Data.TypedTableBase<AlbumTracksRow> {
+            
+            private global::System.Data.DataColumn columnAlbumID;
+            
+            private global::System.Data.DataColumn columnTrackID;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public AlbumTracksDataTable() {
+                this.TableName = "AlbumTracks";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            internal AlbumTracksDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected AlbumTracksDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn AlbumIDColumn {
+                get {
+                    return this.columnAlbumID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn TrackIDColumn {
+                get {
+                    return this.columnTrackID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public AlbumTracksRow this[int index] {
+                get {
+                    return ((AlbumTracksRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public event AlbumTracksRowChangeEventHandler AlbumTracksRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public event AlbumTracksRowChangeEventHandler AlbumTracksRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public event AlbumTracksRowChangeEventHandler AlbumTracksRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public event AlbumTracksRowChangeEventHandler AlbumTracksRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void AddAlbumTracksRow(AlbumTracksRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public AlbumTracksRow AddAlbumTracksRow(int AlbumID, int TrackID) {
+                AlbumTracksRow rowAlbumTracksRow = ((AlbumTracksRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        AlbumID,
+                        TrackID};
+                rowAlbumTracksRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowAlbumTracksRow);
+                return rowAlbumTracksRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public AlbumTracksRow FindByAlbumIDTrackID(int AlbumID, int TrackID) {
+                return ((AlbumTracksRow)(this.Rows.Find(new object[] {
+                            AlbumID,
+                            TrackID})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                AlbumTracksDataTable cln = ((AlbumTracksDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new AlbumTracksDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            internal void InitVars() {
+                this.columnAlbumID = base.Columns["AlbumID"];
+                this.columnTrackID = base.Columns["TrackID"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            private void InitClass() {
+                this.columnAlbumID = new global::System.Data.DataColumn("AlbumID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAlbumID);
+                this.columnTrackID = new global::System.Data.DataColumn("TrackID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTrackID);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnAlbumID,
+                                this.columnTrackID}, true));
+                this.columnAlbumID.AllowDBNull = false;
+                this.columnTrackID.AllowDBNull = false;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public AlbumTracksRow NewAlbumTracksRow() {
+                return ((AlbumTracksRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new AlbumTracksRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(AlbumTracksRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.AlbumTracksRowChanged != null)) {
+                    this.AlbumTracksRowChanged(this, new AlbumTracksRowChangeEvent(((AlbumTracksRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.AlbumTracksRowChanging != null)) {
+                    this.AlbumTracksRowChanging(this, new AlbumTracksRowChangeEvent(((AlbumTracksRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.AlbumTracksRowDeleted != null)) {
+                    this.AlbumTracksRowDeleted(this, new AlbumTracksRowChangeEvent(((AlbumTracksRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.AlbumTracksRowDeleting != null)) {
+                    this.AlbumTracksRowDeleting(this, new AlbumTracksRowChangeEvent(((AlbumTracksRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void RemoveAlbumTracksRow(AlbumTracksRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                MusicLibraryDataSet ds = new MusicLibraryDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "AlbumTracksDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -2256,15 +2565,15 @@ namespace MusicDatabaseGenerator {
             
             private global::System.Data.DataColumn columnMoodIDs;
             
-            private global::System.Data.DataColumn columnAlbumID;
-            
-            private global::System.Data.DataColumn columnAlbumTrackNumber;
-            
             private global::System.Data.DataColumn columnOwnerID;
             
             private global::System.Data.DataColumn columnGenreID;
             
             private global::System.Data.DataColumn columnLinked;
+            
+            private global::System.Data.DataColumn columnReleaseDate;
+            
+            private global::System.Data.DataColumn columnAddDate;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
@@ -2349,22 +2658,6 @@ namespace MusicDatabaseGenerator {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn AlbumIDColumn {
-                get {
-                    return this.columnAlbumID;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn AlbumTrackNumberColumn {
-                get {
-                    return this.columnAlbumTrackNumber;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public global::System.Data.DataColumn OwnerIDColumn {
                 get {
                     return this.columnOwnerID;
@@ -2384,6 +2677,22 @@ namespace MusicDatabaseGenerator {
             public global::System.Data.DataColumn LinkedColumn {
                 get {
                     return this.columnLinked;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn ReleaseDateColumn {
+                get {
+                    return this.columnReleaseDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn AddDateColumn {
+                get {
+                    return this.columnAddDate;
                 }
             }
             
@@ -2424,20 +2733,20 @@ namespace MusicDatabaseGenerator {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public MainRow AddMainRow(int TrackID, string Title, decimal Duration, string FilePath, decimal AverageDecibels, long MoodIDs, int AlbumID, int AlbumTrackNumber, int OwnerID, int GenreID, bool Linked) {
+            public MainRow AddMainRow(string Title, decimal Duration, string FilePath, decimal AverageDecibels, long MoodIDs, int OwnerID, int GenreID, bool Linked, System.DateTime ReleaseDate, System.DateTime AddDate) {
                 MainRow rowMainRow = ((MainRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        TrackID,
+                        null,
                         Title,
                         Duration,
                         FilePath,
                         AverageDecibels,
                         MoodIDs,
-                        AlbumID,
-                        AlbumTrackNumber,
                         OwnerID,
                         GenreID,
-                        Linked};
+                        Linked,
+                        ReleaseDate,
+                        AddDate};
                 rowMainRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowMainRow);
                 return rowMainRow;
@@ -2473,11 +2782,11 @@ namespace MusicDatabaseGenerator {
                 this.columnFilePath = base.Columns["FilePath"];
                 this.columnAverageDecibels = base.Columns["AverageDecibels"];
                 this.columnMoodIDs = base.Columns["MoodIDs"];
-                this.columnAlbumID = base.Columns["AlbumID"];
-                this.columnAlbumTrackNumber = base.Columns["AlbumTrackNumber"];
                 this.columnOwnerID = base.Columns["OwnerID"];
                 this.columnGenreID = base.Columns["GenreID"];
                 this.columnLinked = base.Columns["Linked"];
+                this.columnReleaseDate = base.Columns["ReleaseDate"];
+                this.columnAddDate = base.Columns["AddDate"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2495,19 +2804,23 @@ namespace MusicDatabaseGenerator {
                 base.Columns.Add(this.columnAverageDecibels);
                 this.columnMoodIDs = new global::System.Data.DataColumn("MoodIDs", typeof(long), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnMoodIDs);
-                this.columnAlbumID = new global::System.Data.DataColumn("AlbumID", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnAlbumID);
-                this.columnAlbumTrackNumber = new global::System.Data.DataColumn("AlbumTrackNumber", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnAlbumTrackNumber);
                 this.columnOwnerID = new global::System.Data.DataColumn("OwnerID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnOwnerID);
                 this.columnGenreID = new global::System.Data.DataColumn("GenreID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnGenreID);
                 this.columnLinked = new global::System.Data.DataColumn("Linked", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnLinked);
+                this.columnReleaseDate = new global::System.Data.DataColumn("ReleaseDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnReleaseDate);
+                this.columnAddDate = new global::System.Data.DataColumn("AddDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAddDate);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnTrackID}, true));
+                this.columnTrackID.AutoIncrement = true;
+                this.columnTrackID.AutoIncrementSeed = -1;
+                this.columnTrackID.AutoIncrementStep = -1;
                 this.columnTrackID.AllowDBNull = false;
+                this.columnTrackID.ReadOnly = true;
                 this.columnTrackID.Unique = true;
                 this.columnTitle.MaxLength = 4000;
                 this.columnFilePath.MaxLength = 260;
@@ -2642,7 +2955,7 @@ namespace MusicDatabaseGenerator {
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class PlaylistsDataTable : global::System.Data.TypedTableBase<PlaylistsRow> {
+        public partial class PlaylistDataTable : global::System.Data.TypedTableBase<PlaylistRow> {
             
             private global::System.Data.DataColumn columnPlaylistID;
             
@@ -2656,8 +2969,8 @@ namespace MusicDatabaseGenerator {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public PlaylistsDataTable() {
-                this.TableName = "Playlists";
+            public PlaylistDataTable() {
+                this.TableName = "Playlist";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -2665,7 +2978,7 @@ namespace MusicDatabaseGenerator {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            internal PlaylistsDataTable(global::System.Data.DataTable table) {
+            internal PlaylistDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -2682,7 +2995,7 @@ namespace MusicDatabaseGenerator {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            protected PlaylistsDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected PlaylistDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
@@ -2738,49 +3051,56 @@ namespace MusicDatabaseGenerator {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public PlaylistsRow this[int index] {
+            public PlaylistRow this[int index] {
                 get {
-                    return ((PlaylistsRow)(this.Rows[index]));
+                    return ((PlaylistRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public event PlaylistsRowChangeEventHandler PlaylistsRowChanging;
+            public event PlaylistRowChangeEventHandler PlaylistRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public event PlaylistsRowChangeEventHandler PlaylistsRowChanged;
+            public event PlaylistRowChangeEventHandler PlaylistRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public event PlaylistsRowChangeEventHandler PlaylistsRowDeleting;
+            public event PlaylistRowChangeEventHandler PlaylistRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public event PlaylistsRowChangeEventHandler PlaylistsRowDeleted;
+            public event PlaylistRowChangeEventHandler PlaylistRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void AddPlaylistsRow(PlaylistsRow row) {
+            public void AddPlaylistRow(PlaylistRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public PlaylistsRow AddPlaylistsRow(int PlaylistID, string PlaylistName, string PlaylistDescription, System.DateTime CreationDate, System.DateTime LastEditDate) {
-                PlaylistsRow rowPlaylistsRow = ((PlaylistsRow)(this.NewRow()));
+            public PlaylistRow AddPlaylistRow(int PlaylistID, string PlaylistName, string PlaylistDescription, System.DateTime CreationDate, System.DateTime LastEditDate) {
+                PlaylistRow rowPlaylistRow = ((PlaylistRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         PlaylistID,
                         PlaylistName,
                         PlaylistDescription,
                         CreationDate,
                         LastEditDate};
-                rowPlaylistsRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowPlaylistsRow);
-                return rowPlaylistsRow;
+                rowPlaylistRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowPlaylistRow);
+                return rowPlaylistRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public PlaylistRow FindByPlaylistID(int PlaylistID) {
+                return ((PlaylistRow)(this.Rows.Find(new object[] {
+                            PlaylistID})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                PlaylistsDataTable cln = ((PlaylistsDataTable)(base.Clone()));
+                PlaylistDataTable cln = ((PlaylistDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -2788,7 +3108,7 @@ namespace MusicDatabaseGenerator {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new PlaylistsDataTable();
+                return new PlaylistDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2814,35 +3134,38 @@ namespace MusicDatabaseGenerator {
                 base.Columns.Add(this.columnCreationDate);
                 this.columnLastEditDate = new global::System.Data.DataColumn("LastEditDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnLastEditDate);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnPlaylistID}, true));
                 this.columnPlaylistID.AllowDBNull = false;
+                this.columnPlaylistID.Unique = true;
                 this.columnPlaylistName.MaxLength = 1000;
                 this.columnPlaylistDescription.MaxLength = 4000;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public PlaylistsRow NewPlaylistsRow() {
-                return ((PlaylistsRow)(this.NewRow()));
+            public PlaylistRow NewPlaylistRow() {
+                return ((PlaylistRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new PlaylistsRow(builder);
+                return new PlaylistRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(PlaylistsRow);
+                return typeof(PlaylistRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.PlaylistsRowChanged != null)) {
-                    this.PlaylistsRowChanged(this, new PlaylistsRowChangeEvent(((PlaylistsRow)(e.Row)), e.Action));
+                if ((this.PlaylistRowChanged != null)) {
+                    this.PlaylistRowChanged(this, new PlaylistRowChangeEvent(((PlaylistRow)(e.Row)), e.Action));
                 }
             }
             
@@ -2850,8 +3173,8 @@ namespace MusicDatabaseGenerator {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.PlaylistsRowChanging != null)) {
-                    this.PlaylistsRowChanging(this, new PlaylistsRowChangeEvent(((PlaylistsRow)(e.Row)), e.Action));
+                if ((this.PlaylistRowChanging != null)) {
+                    this.PlaylistRowChanging(this, new PlaylistRowChangeEvent(((PlaylistRow)(e.Row)), e.Action));
                 }
             }
             
@@ -2859,8 +3182,8 @@ namespace MusicDatabaseGenerator {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.PlaylistsRowDeleted != null)) {
-                    this.PlaylistsRowDeleted(this, new PlaylistsRowChangeEvent(((PlaylistsRow)(e.Row)), e.Action));
+                if ((this.PlaylistRowDeleted != null)) {
+                    this.PlaylistRowDeleted(this, new PlaylistRowChangeEvent(((PlaylistRow)(e.Row)), e.Action));
                 }
             }
             
@@ -2868,14 +3191,14 @@ namespace MusicDatabaseGenerator {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.PlaylistsRowDeleting != null)) {
-                    this.PlaylistsRowDeleting(this, new PlaylistsRowChangeEvent(((PlaylistsRow)(e.Row)), e.Action));
+                if ((this.PlaylistRowDeleting != null)) {
+                    this.PlaylistRowDeleting(this, new PlaylistRowChangeEvent(((PlaylistRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void RemovePlaylistsRow(PlaylistsRow row) {
+            public void RemovePlaylistRow(PlaylistRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -2902,7 +3225,7 @@ namespace MusicDatabaseGenerator {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "PlaylistsDataTable";
+                attribute2.FixedValue = "PlaylistDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -3574,6 +3897,43 @@ namespace MusicDatabaseGenerator {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
+        public partial class AlbumTracksRow : global::System.Data.DataRow {
+            
+            private AlbumTracksDataTable tableAlbumTracks;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            internal AlbumTracksRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableAlbumTracks = ((AlbumTracksDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public int AlbumID {
+                get {
+                    return ((int)(this[this.tableAlbumTracks.AlbumIDColumn]));
+                }
+                set {
+                    this[this.tableAlbumTracks.AlbumIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public int TrackID {
+                get {
+                    return ((int)(this[this.tableAlbumTracks.TrackIDColumn]));
+                }
+                set {
+                    this[this.tableAlbumTracks.TrackIDColumn] = value;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
         public partial class LinkedTracksRow : global::System.Data.DataRow {
             
             private LinkedTracksDataTable tableLinkedTracks;
@@ -3948,38 +4308,6 @@ namespace MusicDatabaseGenerator {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public int AlbumID {
-                get {
-                    try {
-                        return ((int)(this[this.tableMain.AlbumIDColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'AlbumID\' in table \'Main\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableMain.AlbumIDColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public int AlbumTrackNumber {
-                get {
-                    try {
-                        return ((int)(this[this.tableMain.AlbumTrackNumberColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'AlbumTrackNumber\' in table \'Main\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableMain.AlbumTrackNumberColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public int OwnerID {
                 get {
                     try {
@@ -4023,6 +4351,38 @@ namespace MusicDatabaseGenerator {
                 }
                 set {
                     this[this.tableMain.LinkedColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public System.DateTime ReleaseDate {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableMain.ReleaseDateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ReleaseDate\' in table \'Main\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMain.ReleaseDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public System.DateTime AddDate {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableMain.AddDateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'AddDate\' in table \'Main\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMain.AddDateColumn] = value;
                 }
             }
             
@@ -4088,30 +4448,6 @@ namespace MusicDatabaseGenerator {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsAlbumIDNull() {
-                return this.IsNull(this.tableMain.AlbumIDColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetAlbumIDNull() {
-                this[this.tableMain.AlbumIDColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsAlbumTrackNumberNull() {
-                return this.IsNull(this.tableMain.AlbumTrackNumberColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetAlbumTrackNumberNull() {
-                this[this.tableMain.AlbumTrackNumberColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool IsOwnerIDNull() {
                 return this.IsNull(this.tableMain.OwnerIDColumn);
             }
@@ -4145,30 +4481,54 @@ namespace MusicDatabaseGenerator {
             public void SetLinkedNull() {
                 this[this.tableMain.LinkedColumn] = global::System.Convert.DBNull;
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsReleaseDateNull() {
+                return this.IsNull(this.tableMain.ReleaseDateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetReleaseDateNull() {
+                this[this.tableMain.ReleaseDateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsAddDateNull() {
+                return this.IsNull(this.tableMain.AddDateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetAddDateNull() {
+                this[this.tableMain.AddDateColumn] = global::System.Convert.DBNull;
+            }
         }
         
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class PlaylistsRow : global::System.Data.DataRow {
+        public partial class PlaylistRow : global::System.Data.DataRow {
             
-            private PlaylistsDataTable tablePlaylists;
+            private PlaylistDataTable tablePlaylist;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            internal PlaylistsRow(global::System.Data.DataRowBuilder rb) : 
+            internal PlaylistRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tablePlaylists = ((PlaylistsDataTable)(this.Table));
+                this.tablePlaylist = ((PlaylistDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public int PlaylistID {
                 get {
-                    return ((int)(this[this.tablePlaylists.PlaylistIDColumn]));
+                    return ((int)(this[this.tablePlaylist.PlaylistIDColumn]));
                 }
                 set {
-                    this[this.tablePlaylists.PlaylistIDColumn] = value;
+                    this[this.tablePlaylist.PlaylistIDColumn] = value;
                 }
             }
             
@@ -4177,14 +4537,14 @@ namespace MusicDatabaseGenerator {
             public string PlaylistName {
                 get {
                     try {
-                        return ((string)(this[this.tablePlaylists.PlaylistNameColumn]));
+                        return ((string)(this[this.tablePlaylist.PlaylistNameColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PlaylistName\' in table \'Playlists\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'PlaylistName\' in table \'Playlist\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tablePlaylists.PlaylistNameColumn] = value;
+                    this[this.tablePlaylist.PlaylistNameColumn] = value;
                 }
             }
             
@@ -4193,14 +4553,14 @@ namespace MusicDatabaseGenerator {
             public string PlaylistDescription {
                 get {
                     try {
-                        return ((string)(this[this.tablePlaylists.PlaylistDescriptionColumn]));
+                        return ((string)(this[this.tablePlaylist.PlaylistDescriptionColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PlaylistDescription\' in table \'Playlists\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'PlaylistDescription\' in table \'Playlist\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tablePlaylists.PlaylistDescriptionColumn] = value;
+                    this[this.tablePlaylist.PlaylistDescriptionColumn] = value;
                 }
             }
             
@@ -4209,14 +4569,14 @@ namespace MusicDatabaseGenerator {
             public System.DateTime CreationDate {
                 get {
                     try {
-                        return ((global::System.DateTime)(this[this.tablePlaylists.CreationDateColumn]));
+                        return ((global::System.DateTime)(this[this.tablePlaylist.CreationDateColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'CreationDate\' in table \'Playlists\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'CreationDate\' in table \'Playlist\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tablePlaylists.CreationDateColumn] = value;
+                    this[this.tablePlaylist.CreationDateColumn] = value;
                 }
             }
             
@@ -4225,63 +4585,63 @@ namespace MusicDatabaseGenerator {
             public System.DateTime LastEditDate {
                 get {
                     try {
-                        return ((global::System.DateTime)(this[this.tablePlaylists.LastEditDateColumn]));
+                        return ((global::System.DateTime)(this[this.tablePlaylist.LastEditDateColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'LastEditDate\' in table \'Playlists\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'LastEditDate\' in table \'Playlist\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tablePlaylists.LastEditDateColumn] = value;
+                    this[this.tablePlaylist.LastEditDateColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool IsPlaylistNameNull() {
-                return this.IsNull(this.tablePlaylists.PlaylistNameColumn);
+                return this.IsNull(this.tablePlaylist.PlaylistNameColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void SetPlaylistNameNull() {
-                this[this.tablePlaylists.PlaylistNameColumn] = global::System.Convert.DBNull;
+                this[this.tablePlaylist.PlaylistNameColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool IsPlaylistDescriptionNull() {
-                return this.IsNull(this.tablePlaylists.PlaylistDescriptionColumn);
+                return this.IsNull(this.tablePlaylist.PlaylistDescriptionColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void SetPlaylistDescriptionNull() {
-                this[this.tablePlaylists.PlaylistDescriptionColumn] = global::System.Convert.DBNull;
+                this[this.tablePlaylist.PlaylistDescriptionColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool IsCreationDateNull() {
-                return this.IsNull(this.tablePlaylists.CreationDateColumn);
+                return this.IsNull(this.tablePlaylist.CreationDateColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void SetCreationDateNull() {
-                this[this.tablePlaylists.CreationDateColumn] = global::System.Convert.DBNull;
+                this[this.tablePlaylist.CreationDateColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool IsLastEditDateNull() {
-                return this.IsNull(this.tablePlaylists.LastEditDateColumn);
+                return this.IsNull(this.tablePlaylist.LastEditDateColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void SetLastEditDateNull() {
-                this[this.tablePlaylists.LastEditDateColumn] = global::System.Convert.DBNull;
+                this[this.tablePlaylist.LastEditDateColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -4396,6 +4756,40 @@ namespace MusicDatabaseGenerator {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public AlbumRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        public class AlbumTracksRowChangeEvent : global::System.EventArgs {
+            
+            private AlbumTracksRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public AlbumTracksRowChangeEvent(AlbumTracksRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public AlbumTracksRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -4618,22 +5012,22 @@ namespace MusicDatabaseGenerator {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        public class PlaylistsRowChangeEvent : global::System.EventArgs {
+        public class PlaylistRowChangeEvent : global::System.EventArgs {
             
-            private PlaylistsRow eventRow;
+            private PlaylistRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public PlaylistsRowChangeEvent(PlaylistsRow row, global::System.Data.DataRowAction action) {
+            public PlaylistRowChangeEvent(PlaylistRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public PlaylistsRow Row {
+            public PlaylistRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -5077,6 +5471,308 @@ SELECT AlbumID, AlbumTracks, AlbumName FROM Album WHERE (AlbumID = @AlbumID)";
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(global::System.Nullable<int> AlbumTracks, string AlbumName, int Original_AlbumID, global::System.Nullable<int> Original_AlbumTracks, string Original_AlbumName) {
             return this.Update(Original_AlbumID, AlbumTracks, AlbumName, Original_AlbumID, Original_AlbumTracks, Original_AlbumName);
+        }
+    }
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class AlbumTracksTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private global::System.Data.SqlClient.SqlConnection _connection;
+        
+        private global::System.Data.SqlClient.SqlTransaction _transaction;
+        
+        private global::System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        public AlbumTracksTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        protected internal global::System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        internal global::System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        internal global::System.Data.SqlClient.SqlTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        protected global::System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "AlbumTracks";
+            tableMapping.ColumnMappings.Add("AlbumID", "AlbumID");
+            tableMapping.ColumnMappings.Add("TrackID", "TrackID");
+            this._adapter.TableMappings.Add(tableMapping);
+            this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.DeleteCommand.Connection = this.Connection;
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[AlbumTracks] WHERE (([AlbumID] = @Original_AlbumID) AND ([Trac" +
+                "kID] = @Original_TrackID))";
+            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AlbumID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TrackID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TrackID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.InsertCommand.Connection = this.Connection;
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[AlbumTracks] ([AlbumID], [TrackID]) VALUES (@AlbumID, @TrackID" +
+                ");\r\nSELECT AlbumID, TrackID FROM AlbumTracks WHERE (AlbumID = @AlbumID) AND (Tra" +
+                "ckID = @TrackID)";
+            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AlbumID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TrackID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TrackID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.UpdateCommand.Connection = this.Connection;
+            this._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[AlbumTracks] SET [AlbumID] = @AlbumID, [TrackID] = @TrackID WHERE (" +
+                "([AlbumID] = @Original_AlbumID) AND ([TrackID] = @Original_TrackID));\r\nSELECT Al" +
+                "bumID, TrackID FROM AlbumTracks WHERE (AlbumID = @AlbumID) AND (TrackID = @Track" +
+                "ID)";
+            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AlbumID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TrackID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TrackID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AlbumID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TrackID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TrackID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::MusicDatabaseGenerator.Properties.Settings.Default.MusicLibraryConnectionString;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "SELECT AlbumID, TrackID FROM dbo.AlbumTracks";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(MusicLibraryDataSet.AlbumTracksDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual MusicLibraryDataSet.AlbumTracksDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            MusicLibraryDataSet.AlbumTracksDataTable dataTable = new MusicLibraryDataSet.AlbumTracksDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(MusicLibraryDataSet.AlbumTracksDataTable dataTable) {
+            return this.Adapter.Update(dataTable);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(MusicLibraryDataSet dataSet) {
+            return this.Adapter.Update(dataSet, "AlbumTracks");
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow dataRow) {
+            return this.Adapter.Update(new global::System.Data.DataRow[] {
+                        dataRow});
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow[] dataRows) {
+            return this.Adapter.Update(dataRows);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
+        public virtual int Delete(int Original_AlbumID, int Original_TrackID) {
+            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_AlbumID));
+            this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_TrackID));
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
+            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.DeleteCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.DeleteCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
+        public virtual int Insert(int AlbumID, int TrackID) {
+            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(AlbumID));
+            this.Adapter.InsertCommand.Parameters[1].Value = ((int)(TrackID));
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
+            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.InsertCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.InsertCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(int AlbumID, int TrackID, int Original_AlbumID, int Original_TrackID) {
+            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(AlbumID));
+            this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(TrackID));
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_AlbumID));
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_TrackID));
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
+            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.UpdateCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.UpdateCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(int Original_AlbumID, int Original_TrackID) {
+            return this.Update(Original_AlbumID, Original_TrackID, Original_AlbumID, Original_TrackID);
         }
     }
     
@@ -6838,15 +7534,15 @@ SELECT OwnerID, OwnerName FROM ListOwner WHERE (OwnerID = @OwnerID)";
             tableMapping.ColumnMappings.Add("FilePath", "FilePath");
             tableMapping.ColumnMappings.Add("AverageDecibels", "AverageDecibels");
             tableMapping.ColumnMappings.Add("MoodIDs", "MoodIDs");
-            tableMapping.ColumnMappings.Add("AlbumID", "AlbumID");
-            tableMapping.ColumnMappings.Add("AlbumTrackNumber", "AlbumTrackNumber");
             tableMapping.ColumnMappings.Add("OwnerID", "OwnerID");
             tableMapping.ColumnMappings.Add("GenreID", "GenreID");
             tableMapping.ColumnMappings.Add("Linked", "Linked");
+            tableMapping.ColumnMappings.Add("ReleaseDate", "ReleaseDate");
+            tableMapping.ColumnMappings.Add("AddDate", "AddDate");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[Main] WHERE (([TrackID] = @Original_TrackID) AND ((@IsNull_Title = 1 AND [Title] IS NULL) OR ([Title] = @Original_Title)) AND ((@IsNull_Duration = 1 AND [Duration] IS NULL) OR ([Duration] = @Original_Duration)) AND ((@IsNull_FilePath = 1 AND [FilePath] IS NULL) OR ([FilePath] = @Original_FilePath)) AND ((@IsNull_AverageDecibels = 1 AND [AverageDecibels] IS NULL) OR ([AverageDecibels] = @Original_AverageDecibels)) AND ((@IsNull_MoodIDs = 1 AND [MoodIDs] IS NULL) OR ([MoodIDs] = @Original_MoodIDs)) AND ((@IsNull_AlbumID = 1 AND [AlbumID] IS NULL) OR ([AlbumID] = @Original_AlbumID)) AND ((@IsNull_AlbumTrackNumber = 1 AND [AlbumTrackNumber] IS NULL) OR ([AlbumTrackNumber] = @Original_AlbumTrackNumber)) AND ((@IsNull_OwnerID = 1 AND [OwnerID] IS NULL) OR ([OwnerID] = @Original_OwnerID)) AND ((@IsNull_GenreID = 1 AND [GenreID] IS NULL) OR ([GenreID] = @Original_GenreID)) AND ((@IsNull_Linked = 1 AND [Linked] IS NULL) OR ([Linked] = @Original_Linked)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[Main] WHERE (([TrackID] = @Original_TrackID) AND ((@IsNull_Title = 1 AND [Title] IS NULL) OR ([Title] = @Original_Title)) AND ((@IsNull_Duration = 1 AND [Duration] IS NULL) OR ([Duration] = @Original_Duration)) AND ((@IsNull_FilePath = 1 AND [FilePath] IS NULL) OR ([FilePath] = @Original_FilePath)) AND ((@IsNull_AverageDecibels = 1 AND [AverageDecibels] IS NULL) OR ([AverageDecibels] = @Original_AverageDecibels)) AND ((@IsNull_MoodIDs = 1 AND [MoodIDs] IS NULL) OR ([MoodIDs] = @Original_MoodIDs)) AND ((@IsNull_OwnerID = 1 AND [OwnerID] IS NULL) OR ([OwnerID] = @Original_OwnerID)) AND ((@IsNull_GenreID = 1 AND [GenreID] IS NULL) OR ([GenreID] = @Original_GenreID)) AND ((@IsNull_Linked = 1 AND [Linked] IS NULL) OR ([Linked] = @Original_Linked)) AND ((@IsNull_ReleaseDate = 1 AND [ReleaseDate] IS NULL) OR ([ReleaseDate] = @Original_ReleaseDate)) AND ((@IsNull_AddDate = 1 AND [AddDate] IS NULL) OR ([AddDate] = @Original_AddDate)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TrackID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TrackID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Title", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Title", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
@@ -6859,48 +7555,46 @@ SELECT OwnerID, OwnerName FROM ListOwner WHERE (OwnerID = @OwnerID)";
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AverageDecibels", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 0, "AverageDecibels", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_MoodIDs", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "MoodIDs", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_MoodIDs", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "MoodIDs", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_AlbumID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumID", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AlbumID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_AlbumTrackNumber", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumTrackNumber", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AlbumTrackNumber", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumTrackNumber", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_OwnerID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OwnerID", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_OwnerID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OwnerID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_GenreID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "GenreID", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_GenreID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "GenreID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Linked", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Linked", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Linked", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Linked", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_ReleaseDate", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ReleaseDate", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ReleaseDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ReleaseDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_AddDate", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AddDate", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AddDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AddDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[Main] ([TrackID], [Title], [Duration], [FilePath], [AverageDecibels], [MoodIDs], [AlbumID], [AlbumTrackNumber], [OwnerID], [GenreID], [Linked]) VALUES (@TrackID, @Title, @Duration, @FilePath, @AverageDecibels, @MoodIDs, @AlbumID, @AlbumTrackNumber, @OwnerID, @GenreID, @Linked);
-SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, AlbumID, AlbumTrackNumber, OwnerID, GenreID, Linked FROM Main WHERE (TrackID = @TrackID)";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[Main] ([Title], [Duration], [FilePath], [AverageDecibels], [MoodIDs], [OwnerID], [GenreID], [Linked], [ReleaseDate], [AddDate]) VALUES (@Title, @Duration, @FilePath, @AverageDecibels, @MoodIDs, @OwnerID, @GenreID, @Linked, @ReleaseDate, @AddDate);
+SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, OwnerID, GenreID, Linked, ReleaseDate, AddDate FROM Main WHERE (TrackID = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TrackID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TrackID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Title", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Title", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Duration", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 0, "Duration", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@FilePath", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "FilePath", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AverageDecibels", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 0, "AverageDecibels", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@MoodIDs", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "MoodIDs", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AlbumID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AlbumTrackNumber", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumTrackNumber", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@OwnerID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OwnerID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@GenreID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "GenreID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Linked", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Linked", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ReleaseDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ReleaseDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AddDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AddDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Main] SET [TrackID] = @TrackID, [Title] = @Title, [Duration] = @Duration, [FilePath] = @FilePath, [AverageDecibels] = @AverageDecibels, [MoodIDs] = @MoodIDs, [AlbumID] = @AlbumID, [AlbumTrackNumber] = @AlbumTrackNumber, [OwnerID] = @OwnerID, [GenreID] = @GenreID, [Linked] = @Linked WHERE (([TrackID] = @Original_TrackID) AND ((@IsNull_Title = 1 AND [Title] IS NULL) OR ([Title] = @Original_Title)) AND ((@IsNull_Duration = 1 AND [Duration] IS NULL) OR ([Duration] = @Original_Duration)) AND ((@IsNull_FilePath = 1 AND [FilePath] IS NULL) OR ([FilePath] = @Original_FilePath)) AND ((@IsNull_AverageDecibels = 1 AND [AverageDecibels] IS NULL) OR ([AverageDecibels] = @Original_AverageDecibels)) AND ((@IsNull_MoodIDs = 1 AND [MoodIDs] IS NULL) OR ([MoodIDs] = @Original_MoodIDs)) AND ((@IsNull_AlbumID = 1 AND [AlbumID] IS NULL) OR ([AlbumID] = @Original_AlbumID)) AND ((@IsNull_AlbumTrackNumber = 1 AND [AlbumTrackNumber] IS NULL) OR ([AlbumTrackNumber] = @Original_AlbumTrackNumber)) AND ((@IsNull_OwnerID = 1 AND [OwnerID] IS NULL) OR ([OwnerID] = @Original_OwnerID)) AND ((@IsNull_GenreID = 1 AND [GenreID] IS NULL) OR ([GenreID] = @Original_GenreID)) AND ((@IsNull_Linked = 1 AND [Linked] IS NULL) OR ([Linked] = @Original_Linked)));
-SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, AlbumID, AlbumTrackNumber, OwnerID, GenreID, Linked FROM Main WHERE (TrackID = @TrackID)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Main] SET [Title] = @Title, [Duration] = @Duration, [FilePath] = @FilePath, [AverageDecibels] = @AverageDecibels, [MoodIDs] = @MoodIDs, [OwnerID] = @OwnerID, [GenreID] = @GenreID, [Linked] = @Linked, [ReleaseDate] = @ReleaseDate, [AddDate] = @AddDate WHERE (([TrackID] = @Original_TrackID) AND ((@IsNull_Title = 1 AND [Title] IS NULL) OR ([Title] = @Original_Title)) AND ((@IsNull_Duration = 1 AND [Duration] IS NULL) OR ([Duration] = @Original_Duration)) AND ((@IsNull_FilePath = 1 AND [FilePath] IS NULL) OR ([FilePath] = @Original_FilePath)) AND ((@IsNull_AverageDecibels = 1 AND [AverageDecibels] IS NULL) OR ([AverageDecibels] = @Original_AverageDecibels)) AND ((@IsNull_MoodIDs = 1 AND [MoodIDs] IS NULL) OR ([MoodIDs] = @Original_MoodIDs)) AND ((@IsNull_OwnerID = 1 AND [OwnerID] IS NULL) OR ([OwnerID] = @Original_OwnerID)) AND ((@IsNull_GenreID = 1 AND [GenreID] IS NULL) OR ([GenreID] = @Original_GenreID)) AND ((@IsNull_Linked = 1 AND [Linked] IS NULL) OR ([Linked] = @Original_Linked)) AND ((@IsNull_ReleaseDate = 1 AND [ReleaseDate] IS NULL) OR ([ReleaseDate] = @Original_ReleaseDate)) AND ((@IsNull_AddDate = 1 AND [AddDate] IS NULL) OR ([AddDate] = @Original_AddDate)));
+SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, OwnerID, GenreID, Linked, ReleaseDate, AddDate FROM Main WHERE (TrackID = @TrackID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TrackID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TrackID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Title", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Title", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Duration", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 0, "Duration", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@FilePath", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "FilePath", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AverageDecibels", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 0, "AverageDecibels", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@MoodIDs", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "MoodIDs", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AlbumID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AlbumTrackNumber", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumTrackNumber", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@OwnerID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OwnerID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@GenreID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "GenreID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Linked", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Linked", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ReleaseDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ReleaseDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AddDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AddDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TrackID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TrackID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Title", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Title", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Title", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Title", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
@@ -6912,16 +7606,17 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, AlbumID, Al
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AverageDecibels", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 0, "AverageDecibels", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_MoodIDs", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "MoodIDs", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_MoodIDs", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "MoodIDs", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_AlbumID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumID", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AlbumID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_AlbumTrackNumber", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumTrackNumber", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AlbumTrackNumber", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumTrackNumber", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_OwnerID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OwnerID", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_OwnerID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OwnerID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_GenreID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "GenreID", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_GenreID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "GenreID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Linked", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Linked", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Linked", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Linked", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_ReleaseDate", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ReleaseDate", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ReleaseDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ReleaseDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_AddDate", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AddDate", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AddDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AddDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TrackID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "TrackID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6937,8 +7632,8 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, AlbumID, Al
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, AlbumID, Alb" +
-                "umTrackNumber, OwnerID, GenreID, Linked FROM dbo.Main";
+            this._commandCollection[0].CommandText = "SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, OwnerID, Gen" +
+                "reID, Linked, ReleaseDate, AddDate FROM dbo.Main";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -6999,7 +7694,7 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, AlbumID, Al
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_TrackID, string Original_Title, global::System.Nullable<decimal> Original_Duration, string Original_FilePath, global::System.Nullable<decimal> Original_AverageDecibels, global::System.Nullable<long> Original_MoodIDs, global::System.Nullable<int> Original_AlbumID, global::System.Nullable<int> Original_AlbumTrackNumber, global::System.Nullable<int> Original_OwnerID, global::System.Nullable<int> Original_GenreID, global::System.Nullable<bool> Original_Linked) {
+        public virtual int Delete(int Original_TrackID, string Original_Title, global::System.Nullable<decimal> Original_Duration, string Original_FilePath, global::System.Nullable<decimal> Original_AverageDecibels, global::System.Nullable<long> Original_MoodIDs, global::System.Nullable<int> Original_OwnerID, global::System.Nullable<int> Original_GenreID, global::System.Nullable<bool> Original_Linked, global::System.Nullable<global::System.DateTime> Original_ReleaseDate, global::System.Nullable<global::System.DateTime> Original_AddDate) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_TrackID));
             if ((Original_Title == null)) {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
@@ -7041,41 +7736,41 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, AlbumID, Al
                 this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[10].Value = global::System.DBNull.Value;
             }
-            if ((Original_AlbumID.HasValue == true)) {
+            if ((Original_OwnerID.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[12].Value = ((int)(Original_AlbumID.Value));
+                this.Adapter.DeleteCommand.Parameters[12].Value = ((int)(Original_OwnerID.Value));
             }
             else {
                 this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[12].Value = global::System.DBNull.Value;
             }
-            if ((Original_AlbumTrackNumber.HasValue == true)) {
+            if ((Original_GenreID.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[13].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[14].Value = ((int)(Original_AlbumTrackNumber.Value));
+                this.Adapter.DeleteCommand.Parameters[14].Value = ((int)(Original_GenreID.Value));
             }
             else {
                 this.Adapter.DeleteCommand.Parameters[13].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[14].Value = global::System.DBNull.Value;
             }
-            if ((Original_OwnerID.HasValue == true)) {
+            if ((Original_Linked.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[15].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[16].Value = ((int)(Original_OwnerID.Value));
+                this.Adapter.DeleteCommand.Parameters[16].Value = ((bool)(Original_Linked.Value));
             }
             else {
                 this.Adapter.DeleteCommand.Parameters[15].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[16].Value = global::System.DBNull.Value;
             }
-            if ((Original_GenreID.HasValue == true)) {
+            if ((Original_ReleaseDate.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[17].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[18].Value = ((int)(Original_GenreID.Value));
+                this.Adapter.DeleteCommand.Parameters[18].Value = ((System.DateTime)(Original_ReleaseDate.Value));
             }
             else {
                 this.Adapter.DeleteCommand.Parameters[17].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[18].Value = global::System.DBNull.Value;
             }
-            if ((Original_Linked.HasValue == true)) {
+            if ((Original_AddDate.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[19].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[20].Value = ((bool)(Original_Linked.Value));
+                this.Adapter.DeleteCommand.Parameters[20].Value = ((System.DateTime)(Original_AddDate.Value));
             }
             else {
                 this.Adapter.DeleteCommand.Parameters[19].Value = ((object)(1));
@@ -7101,67 +7796,66 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, AlbumID, Al
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int TrackID, string Title, global::System.Nullable<decimal> Duration, string FilePath, global::System.Nullable<decimal> AverageDecibels, global::System.Nullable<long> MoodIDs, global::System.Nullable<int> AlbumID, global::System.Nullable<int> AlbumTrackNumber, global::System.Nullable<int> OwnerID, global::System.Nullable<int> GenreID, global::System.Nullable<bool> Linked) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(TrackID));
+        public virtual int Insert(string Title, global::System.Nullable<decimal> Duration, string FilePath, global::System.Nullable<decimal> AverageDecibels, global::System.Nullable<long> MoodIDs, global::System.Nullable<int> OwnerID, global::System.Nullable<int> GenreID, global::System.Nullable<bool> Linked, global::System.Nullable<global::System.DateTime> ReleaseDate, global::System.Nullable<global::System.DateTime> AddDate) {
             if ((Title == null)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
+                this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(Title));
+                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(Title));
             }
             if ((Duration.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((decimal)(Duration.Value));
+                this.Adapter.InsertCommand.Parameters[1].Value = ((decimal)(Duration.Value));
             }
             else {
-                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
+                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             if ((FilePath == null)) {
-                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
+                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(FilePath));
+                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(FilePath));
             }
             if ((AverageDecibels.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[4].Value = ((decimal)(AverageDecibels.Value));
+                this.Adapter.InsertCommand.Parameters[3].Value = ((decimal)(AverageDecibels.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            if ((MoodIDs.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[4].Value = ((long)(MoodIDs.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
-            if ((MoodIDs.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[5].Value = ((long)(MoodIDs.Value));
+            if ((OwnerID.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[5].Value = ((int)(OwnerID.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
-            if ((AlbumID.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[6].Value = ((int)(AlbumID.Value));
+            if ((GenreID.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[6].Value = ((int)(GenreID.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
-            if ((AlbumTrackNumber.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[7].Value = ((int)(AlbumTrackNumber.Value));
+            if ((Linked.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[7].Value = ((bool)(Linked.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
-            if ((OwnerID.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[8].Value = ((int)(OwnerID.Value));
+            if ((ReleaseDate.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[8].Value = ((System.DateTime)(ReleaseDate.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[8].Value = global::System.DBNull.Value;
             }
-            if ((GenreID.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[9].Value = ((int)(GenreID.Value));
+            if ((AddDate.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[9].Value = ((System.DateTime)(AddDate.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[9].Value = global::System.DBNull.Value;
-            }
-            if ((Linked.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[10].Value = ((bool)(Linked.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[10].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -7184,170 +7878,170 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, AlbumID, Al
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(
-                    int TrackID, 
                     string Title, 
                     global::System.Nullable<decimal> Duration, 
                     string FilePath, 
                     global::System.Nullable<decimal> AverageDecibels, 
                     global::System.Nullable<long> MoodIDs, 
-                    global::System.Nullable<int> AlbumID, 
-                    global::System.Nullable<int> AlbumTrackNumber, 
                     global::System.Nullable<int> OwnerID, 
                     global::System.Nullable<int> GenreID, 
                     global::System.Nullable<bool> Linked, 
+                    global::System.Nullable<global::System.DateTime> ReleaseDate, 
+                    global::System.Nullable<global::System.DateTime> AddDate, 
                     int Original_TrackID, 
                     string Original_Title, 
                     global::System.Nullable<decimal> Original_Duration, 
                     string Original_FilePath, 
                     global::System.Nullable<decimal> Original_AverageDecibels, 
                     global::System.Nullable<long> Original_MoodIDs, 
-                    global::System.Nullable<int> Original_AlbumID, 
-                    global::System.Nullable<int> Original_AlbumTrackNumber, 
                     global::System.Nullable<int> Original_OwnerID, 
                     global::System.Nullable<int> Original_GenreID, 
-                    global::System.Nullable<bool> Original_Linked) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(TrackID));
+                    global::System.Nullable<bool> Original_Linked, 
+                    global::System.Nullable<global::System.DateTime> Original_ReleaseDate, 
+                    global::System.Nullable<global::System.DateTime> Original_AddDate, 
+                    int TrackID) {
             if ((Title == null)) {
-                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(Title));
+                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(Title));
             }
             if ((Duration.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((decimal)(Duration.Value));
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((decimal)(Duration.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             if ((FilePath == null)) {
-                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(FilePath));
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(FilePath));
             }
             if ((AverageDecibels.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((decimal)(AverageDecibels.Value));
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((decimal)(AverageDecibels.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            if ((MoodIDs.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((long)(MoodIDs.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
-            if ((MoodIDs.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((long)(MoodIDs.Value));
+            if ((OwnerID.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(OwnerID.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
-            if ((AlbumID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(AlbumID.Value));
+            if ((GenreID.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(GenreID.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
-            if ((AlbumTrackNumber.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(AlbumTrackNumber.Value));
+            if ((Linked.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((bool)(Linked.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
-            if ((OwnerID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(OwnerID.Value));
+            if ((ReleaseDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((System.DateTime)(ReleaseDate.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
             }
-            if ((GenreID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(GenreID.Value));
+            if ((AddDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((System.DateTime)(AddDate.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
             }
-            if ((Linked.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((bool)(Linked.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
-            }
-            this.Adapter.UpdateCommand.Parameters[11].Value = ((int)(Original_TrackID));
+            this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(Original_TrackID));
             if ((Original_Title == null)) {
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[13].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((string)(Original_Title));
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((string)(Original_Title));
             }
             if ((Original_Duration.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[15].Value = ((decimal)(Original_Duration.Value));
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[14].Value = ((decimal)(Original_Duration.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[15].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[14].Value = global::System.DBNull.Value;
             }
             if ((Original_FilePath == null)) {
-                this.Adapter.UpdateCommand.Parameters[16].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[17].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[16].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[16].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[17].Value = ((string)(Original_FilePath));
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[16].Value = ((string)(Original_FilePath));
             }
             if ((Original_AverageDecibels.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[19].Value = ((decimal)(Original_AverageDecibels.Value));
+                this.Adapter.UpdateCommand.Parameters[17].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[18].Value = ((decimal)(Original_AverageDecibels.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[19].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[17].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[18].Value = global::System.DBNull.Value;
             }
             if ((Original_MoodIDs.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[20].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[21].Value = ((long)(Original_MoodIDs.Value));
+                this.Adapter.UpdateCommand.Parameters[19].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[20].Value = ((long)(Original_MoodIDs.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[20].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[21].Value = global::System.DBNull.Value;
-            }
-            if ((Original_AlbumID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[22].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[23].Value = ((int)(Original_AlbumID.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[22].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[23].Value = global::System.DBNull.Value;
-            }
-            if ((Original_AlbumTrackNumber.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[24].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[25].Value = ((int)(Original_AlbumTrackNumber.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[24].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[25].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[19].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[20].Value = global::System.DBNull.Value;
             }
             if ((Original_OwnerID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[26].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[27].Value = ((int)(Original_OwnerID.Value));
+                this.Adapter.UpdateCommand.Parameters[21].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[22].Value = ((int)(Original_OwnerID.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[26].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[27].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[21].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[22].Value = global::System.DBNull.Value;
             }
             if ((Original_GenreID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[28].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[29].Value = ((int)(Original_GenreID.Value));
+                this.Adapter.UpdateCommand.Parameters[23].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[24].Value = ((int)(Original_GenreID.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[28].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[29].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[23].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[24].Value = global::System.DBNull.Value;
             }
             if ((Original_Linked.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[30].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[31].Value = ((bool)(Original_Linked.Value));
+                this.Adapter.UpdateCommand.Parameters[25].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[26].Value = ((bool)(Original_Linked.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[30].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[31].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[25].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[26].Value = global::System.DBNull.Value;
             }
+            if ((Original_ReleaseDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[27].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[28].Value = ((System.DateTime)(Original_ReleaseDate.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[27].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[28].Value = global::System.DBNull.Value;
+            }
+            if ((Original_AddDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[29].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[30].Value = ((System.DateTime)(Original_AddDate.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[29].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[30].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[31].Value = ((int)(TrackID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -7374,23 +8068,23 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, AlbumID, Al
                     string FilePath, 
                     global::System.Nullable<decimal> AverageDecibels, 
                     global::System.Nullable<long> MoodIDs, 
-                    global::System.Nullable<int> AlbumID, 
-                    global::System.Nullable<int> AlbumTrackNumber, 
                     global::System.Nullable<int> OwnerID, 
                     global::System.Nullable<int> GenreID, 
                     global::System.Nullable<bool> Linked, 
+                    global::System.Nullable<global::System.DateTime> ReleaseDate, 
+                    global::System.Nullable<global::System.DateTime> AddDate, 
                     int Original_TrackID, 
                     string Original_Title, 
                     global::System.Nullable<decimal> Original_Duration, 
                     string Original_FilePath, 
                     global::System.Nullable<decimal> Original_AverageDecibels, 
                     global::System.Nullable<long> Original_MoodIDs, 
-                    global::System.Nullable<int> Original_AlbumID, 
-                    global::System.Nullable<int> Original_AlbumTrackNumber, 
                     global::System.Nullable<int> Original_OwnerID, 
                     global::System.Nullable<int> Original_GenreID, 
-                    global::System.Nullable<bool> Original_Linked) {
-            return this.Update(Original_TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, AlbumID, AlbumTrackNumber, OwnerID, GenreID, Linked, Original_TrackID, Original_Title, Original_Duration, Original_FilePath, Original_AverageDecibels, Original_MoodIDs, Original_AlbumID, Original_AlbumTrackNumber, Original_OwnerID, Original_GenreID, Original_Linked);
+                    global::System.Nullable<bool> Original_Linked, 
+                    global::System.Nullable<global::System.DateTime> Original_ReleaseDate, 
+                    global::System.Nullable<global::System.DateTime> Original_AddDate) {
+            return this.Update(Title, Duration, FilePath, AverageDecibels, MoodIDs, OwnerID, GenreID, Linked, ReleaseDate, AddDate, Original_TrackID, Original_Title, Original_Duration, Original_FilePath, Original_AverageDecibels, Original_MoodIDs, Original_OwnerID, Original_GenreID, Original_Linked, Original_ReleaseDate, Original_AddDate, Original_TrackID);
         }
     }
     
@@ -7403,7 +8097,7 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, AlbumID, Al
     [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
         ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class PlaylistsTableAdapter : global::System.ComponentModel.Component {
+    public partial class PlaylistTableAdapter : global::System.ComponentModel.Component {
         
         private global::System.Data.SqlClient.SqlDataAdapter _adapter;
         
@@ -7417,7 +8111,7 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, AlbumID, Al
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        public PlaylistsTableAdapter() {
+        public PlaylistTableAdapter() {
             this.ClearBeforeFill = true;
         }
         
@@ -7514,24 +8208,55 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, AlbumID, Al
             this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "Playlists";
+            tableMapping.DataSetTable = "Playlist";
             tableMapping.ColumnMappings.Add("PlaylistID", "PlaylistID");
             tableMapping.ColumnMappings.Add("PlaylistName", "PlaylistName");
             tableMapping.ColumnMappings.Add("PlaylistDescription", "PlaylistDescription");
             tableMapping.ColumnMappings.Add("CreationDate", "CreationDate");
             tableMapping.ColumnMappings.Add("LastEditDate", "LastEditDate");
             this._adapter.TableMappings.Add(tableMapping);
+            this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.DeleteCommand.Connection = this.Connection;
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[Playlist] WHERE (([PlaylistID] = @Original_PlaylistID) AND ((@IsNull_PlaylistName = 1 AND [PlaylistName] IS NULL) OR ([PlaylistName] = @Original_PlaylistName)) AND ((@IsNull_PlaylistDescription = 1 AND [PlaylistDescription] IS NULL) OR ([PlaylistDescription] = @Original_PlaylistDescription)) AND ((@IsNull_CreationDate = 1 AND [CreationDate] IS NULL) OR ([CreationDate] = @Original_CreationDate)) AND ((@IsNull_LastEditDate = 1 AND [LastEditDate] IS NULL) OR ([LastEditDate] = @Original_LastEditDate)))";
+            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PlaylistID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlaylistID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_PlaylistName", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlaylistName", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PlaylistName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlaylistName", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_PlaylistDescription", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlaylistDescription", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PlaylistDescription", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlaylistDescription", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_CreationDate", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreationDate", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CreationDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreationDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_LastEditDate", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastEditDate", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_LastEditDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastEditDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Playlists] ([PlaylistID], [PlaylistName], [PlaylistDescription" +
-                "], [CreationDate], [LastEditDate]) VALUES (@PlaylistID, @PlaylistName, @Playlist" +
-                "Description, @CreationDate, @LastEditDate)";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[Playlist] ([PlaylistID], [PlaylistName], [PlaylistDescription], [CreationDate], [LastEditDate]) VALUES (@PlaylistID, @PlaylistName, @PlaylistDescription, @CreationDate, @LastEditDate);
+SELECT PlaylistID, PlaylistName, PlaylistDescription, CreationDate, LastEditDate FROM Playlist WHERE (PlaylistID = @PlaylistID)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PlaylistID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlaylistID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PlaylistName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlaylistName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PlaylistDescription", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlaylistDescription", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CreationDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreationDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LastEditDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastEditDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.UpdateCommand.Connection = this.Connection;
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Playlist] SET [PlaylistID] = @PlaylistID, [PlaylistName] = @PlaylistName, [PlaylistDescription] = @PlaylistDescription, [CreationDate] = @CreationDate, [LastEditDate] = @LastEditDate WHERE (([PlaylistID] = @Original_PlaylistID) AND ((@IsNull_PlaylistName = 1 AND [PlaylistName] IS NULL) OR ([PlaylistName] = @Original_PlaylistName)) AND ((@IsNull_PlaylistDescription = 1 AND [PlaylistDescription] IS NULL) OR ([PlaylistDescription] = @Original_PlaylistDescription)) AND ((@IsNull_CreationDate = 1 AND [CreationDate] IS NULL) OR ([CreationDate] = @Original_CreationDate)) AND ((@IsNull_LastEditDate = 1 AND [LastEditDate] IS NULL) OR ([LastEditDate] = @Original_LastEditDate)));
+SELECT PlaylistID, PlaylistName, PlaylistDescription, CreationDate, LastEditDate FROM Playlist WHERE (PlaylistID = @PlaylistID)";
+            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PlaylistID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlaylistID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PlaylistName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlaylistName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PlaylistDescription", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlaylistDescription", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CreationDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreationDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LastEditDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastEditDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PlaylistID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlaylistID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_PlaylistName", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlaylistName", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PlaylistName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlaylistName", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_PlaylistDescription", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlaylistDescription", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PlaylistDescription", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlaylistDescription", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_CreationDate", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreationDate", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CreationDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreationDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_LastEditDate", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastEditDate", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_LastEditDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastEditDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7548,7 +8273,7 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, AlbumID, Al
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT PlaylistID, PlaylistName, PlaylistDescription, CreationDate, LastEditDate " +
-                "FROM dbo.Playlists";
+                "FROM dbo.Playlist";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -7556,7 +8281,7 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, AlbumID, Al
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(MusicLibraryDataSet.PlaylistsDataTable dataTable) {
+        public virtual int Fill(MusicLibraryDataSet.PlaylistDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -7569,9 +8294,9 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, AlbumID, Al
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual MusicLibraryDataSet.PlaylistsDataTable GetData() {
+        public virtual MusicLibraryDataSet.PlaylistDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            MusicLibraryDataSet.PlaylistsDataTable dataTable = new MusicLibraryDataSet.PlaylistsDataTable();
+            MusicLibraryDataSet.PlaylistDataTable dataTable = new MusicLibraryDataSet.PlaylistDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -7579,7 +8304,7 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, AlbumID, Al
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(MusicLibraryDataSet.PlaylistsDataTable dataTable) {
+        public virtual int Update(MusicLibraryDataSet.PlaylistDataTable dataTable) {
             return this.Adapter.Update(dataTable);
         }
         
@@ -7587,7 +8312,7 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, AlbumID, Al
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         public virtual int Update(MusicLibraryDataSet dataSet) {
-            return this.Adapter.Update(dataSet, "Playlists");
+            return this.Adapter.Update(dataSet, "Playlist");
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7603,6 +8328,60 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, AlbumID, Al
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         public virtual int Update(global::System.Data.DataRow[] dataRows) {
             return this.Adapter.Update(dataRows);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
+        public virtual int Delete(int Original_PlaylistID, string Original_PlaylistName, string Original_PlaylistDescription, global::System.Nullable<global::System.DateTime> Original_CreationDate, global::System.Nullable<global::System.DateTime> Original_LastEditDate) {
+            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_PlaylistID));
+            if ((Original_PlaylistName == null)) {
+                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[2].Value = ((string)(Original_PlaylistName));
+            }
+            if ((Original_PlaylistDescription == null)) {
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[4].Value = ((string)(Original_PlaylistDescription));
+            }
+            if ((Original_CreationDate.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[6].Value = ((System.DateTime)(Original_CreationDate.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            if ((Original_LastEditDate.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[8].Value = ((System.DateTime)(Original_LastEditDate.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[8].Value = global::System.DBNull.Value;
+            }
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
+            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.DeleteCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.DeleteCommand.Connection.Close();
+                }
+            }
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7649,6 +8428,93 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, AlbumID, Al
                     this.Adapter.InsertCommand.Connection.Close();
                 }
             }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(int PlaylistID, string PlaylistName, string PlaylistDescription, global::System.Nullable<global::System.DateTime> CreationDate, global::System.Nullable<global::System.DateTime> LastEditDate, int Original_PlaylistID, string Original_PlaylistName, string Original_PlaylistDescription, global::System.Nullable<global::System.DateTime> Original_CreationDate, global::System.Nullable<global::System.DateTime> Original_LastEditDate) {
+            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(PlaylistID));
+            if ((PlaylistName == null)) {
+                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(PlaylistName));
+            }
+            if ((PlaylistDescription == null)) {
+                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(PlaylistDescription));
+            }
+            if ((CreationDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((System.DateTime)(CreationDate.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            if ((LastEditDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((System.DateTime)(LastEditDate.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_PlaylistID));
+            if ((Original_PlaylistName == null)) {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(Original_PlaylistName));
+            }
+            if ((Original_PlaylistDescription == null)) {
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((string)(Original_PlaylistDescription));
+            }
+            if ((Original_CreationDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((System.DateTime)(Original_CreationDate.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[11].Value = global::System.DBNull.Value;
+            }
+            if ((Original_LastEditDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((System.DateTime)(Original_LastEditDate.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[13].Value = global::System.DBNull.Value;
+            }
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
+            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.UpdateCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.UpdateCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(string PlaylistName, string PlaylistDescription, global::System.Nullable<global::System.DateTime> CreationDate, global::System.Nullable<global::System.DateTime> LastEditDate, int Original_PlaylistID, string Original_PlaylistName, string Original_PlaylistDescription, global::System.Nullable<global::System.DateTime> Original_CreationDate, global::System.Nullable<global::System.DateTime> Original_LastEditDate) {
+            return this.Update(Original_PlaylistID, PlaylistName, PlaylistDescription, CreationDate, LastEditDate, Original_PlaylistID, Original_PlaylistName, Original_PlaylistDescription, Original_CreationDate, Original_LastEditDate);
         }
     }
     
@@ -8279,6 +9145,122 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
     }
     
     /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class QueriesTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.IDbCommand[] _commandCollection;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        protected global::System.Data.IDbCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.IDbCommand[2];
+            this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Connection = new global::System.Data.SqlClient.SqlConnection(global::MusicDatabaseGenerator.Properties.Settings.Default.MusicLibraryConnectionString);
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).CommandText = "dbo.MusicTableColumnExists";
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).CommandType = global::System.Data.CommandType.StoredProcedure;
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Bit, 1, global::System.Data.ParameterDirection.ReturnValue, 1, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@tableName", global::System.Data.SqlDbType.VarChar, 100, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@columnName", global::System.Data.SqlDbType.VarChar, 100, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Connection = new global::System.Data.SqlClient.SqlConnection(global::MusicDatabaseGenerator.Properties.Settings.Default.MusicLibraryConnectionString);
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).CommandText = "dbo.MusicTableExists";
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).CommandType = global::System.Data.CommandType.StoredProcedure;
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Bit, 1, global::System.Data.ParameterDirection.ReturnValue, 1, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@name", global::System.Data.SqlDbType.NVarChar, 100, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual global::System.Nullable<bool> MusicTableColumnExists(string tableName, string columnName) {
+            global::System.Data.SqlClient.SqlCommand command = ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[0]));
+            if ((tableName == null)) {
+                command.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                command.Parameters[1].Value = ((string)(tableName));
+            }
+            if ((columnName == null)) {
+                command.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            else {
+                command.Parameters[2].Value = ((string)(columnName));
+            }
+            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            try {
+                command.ExecuteNonQuery();
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            if (((command.Parameters[0].Value == null) 
+                        || (command.Parameters[0].Value.GetType() == typeof(global::System.DBNull)))) {
+                return new global::System.Nullable<bool>();
+            }
+            else {
+                return new global::System.Nullable<bool>(((bool)(command.Parameters[0].Value)));
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual global::System.Nullable<bool> MusicTableExists(string name) {
+            global::System.Data.SqlClient.SqlCommand command = ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[1]));
+            if ((name == null)) {
+                command.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                command.Parameters[1].Value = ((string)(name));
+            }
+            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            try {
+                command.ExecuteNonQuery();
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            if (((command.Parameters[0].Value == null) 
+                        || (command.Parameters[0].Value.GetType() == typeof(global::System.DBNull)))) {
+                return new global::System.Nullable<bool>();
+            }
+            else {
+                return new global::System.Nullable<bool>(((bool)(command.Parameters[0].Value)));
+            }
+        }
+    }
+    
+    /// <summary>
     ///TableAdapterManager is used to coordinate TableAdapters in the dataset to enable Hierarchical Update scenarios
     ///</summary>
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -8292,6 +9274,8 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
         
         private AlbumTableAdapter _albumTableAdapter;
         
+        private AlbumTracksTableAdapter _albumTracksTableAdapter;
+        
         private LinkedTracksTableAdapter _linkedTracksTableAdapter;
         
         private ListArtistTableAdapter _listArtistTableAdapter;
@@ -8304,7 +9288,7 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
         
         private MainTableAdapter _mainTableAdapter;
         
-        private PlaylistsTableAdapter _playlistsTableAdapter;
+        private PlaylistTableAdapter _playlistTableAdapter;
         
         private PlaylistTracksTableAdapter _playlistTracksTableAdapter;
         
@@ -8336,6 +9320,20 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
             }
             set {
                 this._albumTableAdapter = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
+            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
+            "a", "System.Drawing.Design.UITypeEditor")]
+        public AlbumTracksTableAdapter AlbumTracksTableAdapter {
+            get {
+                return this._albumTracksTableAdapter;
+            }
+            set {
+                this._albumTracksTableAdapter = value;
             }
         }
         
@@ -8428,12 +9426,12 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
         [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
             "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
             "a", "System.Drawing.Design.UITypeEditor")]
-        public PlaylistsTableAdapter PlaylistsTableAdapter {
+        public PlaylistTableAdapter PlaylistTableAdapter {
             get {
-                return this._playlistsTableAdapter;
+                return this._playlistTableAdapter;
             }
             set {
-                this._playlistsTableAdapter = value;
+                this._playlistTableAdapter = value;
             }
         }
         
@@ -8488,6 +9486,10 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
                             && (this._albumTableAdapter.Connection != null))) {
                     return this._albumTableAdapter.Connection;
                 }
+                if (((this._albumTracksTableAdapter != null) 
+                            && (this._albumTracksTableAdapter.Connection != null))) {
+                    return this._albumTracksTableAdapter.Connection;
+                }
                 if (((this._linkedTracksTableAdapter != null) 
                             && (this._linkedTracksTableAdapter.Connection != null))) {
                     return this._linkedTracksTableAdapter.Connection;
@@ -8512,9 +9514,9 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
                             && (this._mainTableAdapter.Connection != null))) {
                     return this._mainTableAdapter.Connection;
                 }
-                if (((this._playlistsTableAdapter != null) 
-                            && (this._playlistsTableAdapter.Connection != null))) {
-                    return this._playlistsTableAdapter.Connection;
+                if (((this._playlistTableAdapter != null) 
+                            && (this._playlistTableAdapter.Connection != null))) {
+                    return this._playlistTableAdapter.Connection;
                 }
                 if (((this._playlistTracksTableAdapter != null) 
                             && (this._playlistTracksTableAdapter.Connection != null))) {
@@ -8540,6 +9542,9 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
                 if ((this._albumTableAdapter != null)) {
                     count = (count + 1);
                 }
+                if ((this._albumTracksTableAdapter != null)) {
+                    count = (count + 1);
+                }
                 if ((this._linkedTracksTableAdapter != null)) {
                     count = (count + 1);
                 }
@@ -8558,7 +9563,7 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
                 if ((this._mainTableAdapter != null)) {
                     count = (count + 1);
                 }
-                if ((this._playlistsTableAdapter != null)) {
+                if ((this._playlistTableAdapter != null)) {
                     count = (count + 1);
                 }
                 if ((this._playlistTracksTableAdapter != null)) {
@@ -8584,6 +9589,15 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._albumTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._albumTracksTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.AlbumTracks.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._albumTracksTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -8641,12 +9655,12 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._playlistsTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Playlists.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._playlistTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Playlist.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._playlistsTableAdapter.Update(updatedRows));
+                    result = (result + this._playlistTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -8683,6 +9697,14 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._albumTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._albumTracksTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.AlbumTracks.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._albumTracksTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -8734,11 +9756,11 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._playlistsTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Playlists.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._playlistTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Playlist.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._playlistsTableAdapter.Update(addedRows));
+                    result = (result + this._playlistTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -8784,11 +9806,11 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._playlistsTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Playlists.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._playlistTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Playlist.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._playlistsTableAdapter.Update(deletedRows));
+                    result = (result + this._playlistTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -8837,6 +9859,14 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._linkedTracksTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._albumTracksTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.AlbumTracks.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._albumTracksTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -8892,6 +9922,11 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
                 throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
                         "tring.");
             }
+            if (((this._albumTracksTableAdapter != null) 
+                        && (this.MatchTableAdapterConnection(this._albumTracksTableAdapter.Connection) == false))) {
+                throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
+                        "tring.");
+            }
             if (((this._linkedTracksTableAdapter != null) 
                         && (this.MatchTableAdapterConnection(this._linkedTracksTableAdapter.Connection) == false))) {
                 throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
@@ -8922,8 +9957,8 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
                 throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
                         "tring.");
             }
-            if (((this._playlistsTableAdapter != null) 
-                        && (this.MatchTableAdapterConnection(this._playlistsTableAdapter.Connection) == false))) {
+            if (((this._playlistTableAdapter != null) 
+                        && (this.MatchTableAdapterConnection(this._playlistTableAdapter.Connection) == false))) {
                 throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
                         "tring.");
             }
@@ -8976,6 +10011,15 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
                     if (this._albumTableAdapter.Adapter.AcceptChangesDuringUpdate) {
                         this._albumTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
                         adaptersWithAcceptChangesDuringUpdate.Add(this._albumTableAdapter.Adapter);
+                    }
+                }
+                if ((this._albumTracksTableAdapter != null)) {
+                    revertConnections.Add(this._albumTracksTableAdapter, this._albumTracksTableAdapter.Connection);
+                    this._albumTracksTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
+                    this._albumTracksTableAdapter.Transaction = ((global::System.Data.SqlClient.SqlTransaction)(workTransaction));
+                    if (this._albumTracksTableAdapter.Adapter.AcceptChangesDuringUpdate) {
+                        this._albumTracksTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
+                        adaptersWithAcceptChangesDuringUpdate.Add(this._albumTracksTableAdapter.Adapter);
                     }
                 }
                 if ((this._linkedTracksTableAdapter != null)) {
@@ -9032,13 +10076,13 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
                         adaptersWithAcceptChangesDuringUpdate.Add(this._mainTableAdapter.Adapter);
                     }
                 }
-                if ((this._playlistsTableAdapter != null)) {
-                    revertConnections.Add(this._playlistsTableAdapter, this._playlistsTableAdapter.Connection);
-                    this._playlistsTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
-                    this._playlistsTableAdapter.Transaction = ((global::System.Data.SqlClient.SqlTransaction)(workTransaction));
-                    if (this._playlistsTableAdapter.Adapter.AcceptChangesDuringUpdate) {
-                        this._playlistsTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
-                        adaptersWithAcceptChangesDuringUpdate.Add(this._playlistsTableAdapter.Adapter);
+                if ((this._playlistTableAdapter != null)) {
+                    revertConnections.Add(this._playlistTableAdapter, this._playlistTableAdapter.Connection);
+                    this._playlistTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
+                    this._playlistTableAdapter.Transaction = ((global::System.Data.SqlClient.SqlTransaction)(workTransaction));
+                    if (this._playlistTableAdapter.Adapter.AcceptChangesDuringUpdate) {
+                        this._playlistTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
+                        adaptersWithAcceptChangesDuringUpdate.Add(this._playlistTableAdapter.Adapter);
                     }
                 }
                 if ((this._playlistTracksTableAdapter != null)) {
@@ -9121,6 +10165,10 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
                     this._albumTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._albumTableAdapter]));
                     this._albumTableAdapter.Transaction = null;
                 }
+                if ((this._albumTracksTableAdapter != null)) {
+                    this._albumTracksTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._albumTracksTableAdapter]));
+                    this._albumTracksTableAdapter.Transaction = null;
+                }
                 if ((this._linkedTracksTableAdapter != null)) {
                     this._linkedTracksTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._linkedTracksTableAdapter]));
                     this._linkedTracksTableAdapter.Transaction = null;
@@ -9145,9 +10193,9 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
                     this._mainTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._mainTableAdapter]));
                     this._mainTableAdapter.Transaction = null;
                 }
-                if ((this._playlistsTableAdapter != null)) {
-                    this._playlistsTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._playlistsTableAdapter]));
-                    this._playlistsTableAdapter.Transaction = null;
+                if ((this._playlistTableAdapter != null)) {
+                    this._playlistTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._playlistTableAdapter]));
+                    this._playlistTableAdapter.Transaction = null;
                 }
                 if ((this._playlistTracksTableAdapter != null)) {
                     this._playlistTracksTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._playlistTracksTableAdapter]));

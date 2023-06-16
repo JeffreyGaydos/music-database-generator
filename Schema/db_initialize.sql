@@ -77,9 +77,9 @@ BEGIN
 END
 
 --The metadata of the playlists that you create.
-IF (SELECT [dbo].[MusicTableExists] (N'Playlists')) = 0
+IF (SELECT [dbo].[MusicTableExists] (N'Playlist')) = 0
 BEGIN
-	CREATE TABLE Playlists (
+	CREATE TABLE Playlist (
 		PlaylistID INT NOT NULL PRIMARY KEY,
 		PlaylistName NVARCHAR(1000),
 		PlaylistDescription NVARCHAR(4000),
@@ -133,8 +133,17 @@ IF (SELECT [dbo].[MusicTableExists] (N'Album')) = 0
 BEGIN
 	CREATE TABLE Album (
 		AlbumID INT PRIMARY KEY,
-		AlbumTracks INT,
-		AlbumName NVARCHAR(1000)
+		AlbumName NVARCHAR(1000),
+		ReleaseDate DATETIME
+	)
+END
+
+IF (SELECT [dbo].[MusicTableExists] (N'AlbumTracks')) = 0
+BEGIN
+	CREATE TABLE AlbumTracks (
+		AlbumID INT,
+		TrackID INT,
+		PRIMARY KEY (AlbumID, TrackID)
 	)
 END
 
@@ -171,10 +180,11 @@ BEGIN
 		FilePath VARCHAR(260), --windows max path length = 260 characters
 		AverageDecibels DECIMAL,
 		MoodIDs BIGINT,
-		AlbumID INT,
-		AlbumTrackNumber INT,
 		OwnerID INT,
 		GenreID INT,
-		Linked BIT)
+		Linked BIT,
+		ReleaseDate DATETIME,
+		AddDate DATETIME
+		)
 END
 GO

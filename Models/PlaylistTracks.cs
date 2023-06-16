@@ -6,12 +6,16 @@ namespace MusicDatabaseGenerator
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class LinkedTrack
+    public partial class PlaylistTracks
     {
         [Key]
+        [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int TrackID1 { get; set; }
+        public int PlaylistID { get; set; }
 
-        public int? TrackID2 { get; set; }
+        [Key]
+        [Column(Order = 1)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int TrackID { get; set; }
     }
 }
