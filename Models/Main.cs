@@ -30,7 +30,7 @@ namespace MusicDatabaseGenerator
 
         public bool? Linked { get; set; }
 
-        public DateTime? ReleaseDate { get; set; }
+        public int? ReleaseYear { get; set; }
 
         public DateTime? AddDate { get; set; }
     }

@@ -2571,7 +2571,7 @@ namespace MusicDatabaseGenerator {
             
             private global::System.Data.DataColumn columnLinked;
             
-            private global::System.Data.DataColumn columnReleaseDate;
+            private global::System.Data.DataColumn columnReleaseYear;
             
             private global::System.Data.DataColumn columnAddDate;
             
@@ -2682,9 +2682,9 @@ namespace MusicDatabaseGenerator {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn ReleaseDateColumn {
+            public global::System.Data.DataColumn ReleaseYearColumn {
                 get {
-                    return this.columnReleaseDate;
+                    return this.columnReleaseYear;
                 }
             }
             
@@ -2733,7 +2733,7 @@ namespace MusicDatabaseGenerator {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public MainRow AddMainRow(string Title, decimal Duration, string FilePath, decimal AverageDecibels, long MoodIDs, int OwnerID, int GenreID, bool Linked, System.DateTime ReleaseDate, System.DateTime AddDate) {
+            public MainRow AddMainRow(string Title, decimal Duration, string FilePath, decimal AverageDecibels, long MoodIDs, int OwnerID, int GenreID, bool Linked, int ReleaseYear, System.DateTime AddDate) {
                 MainRow rowMainRow = ((MainRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -2745,7 +2745,7 @@ namespace MusicDatabaseGenerator {
                         OwnerID,
                         GenreID,
                         Linked,
-                        ReleaseDate,
+                        ReleaseYear,
                         AddDate};
                 rowMainRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowMainRow);
@@ -2785,7 +2785,7 @@ namespace MusicDatabaseGenerator {
                 this.columnOwnerID = base.Columns["OwnerID"];
                 this.columnGenreID = base.Columns["GenreID"];
                 this.columnLinked = base.Columns["Linked"];
-                this.columnReleaseDate = base.Columns["ReleaseDate"];
+                this.columnReleaseYear = base.Columns["ReleaseYear"];
                 this.columnAddDate = base.Columns["AddDate"];
             }
             
@@ -2810,8 +2810,8 @@ namespace MusicDatabaseGenerator {
                 base.Columns.Add(this.columnGenreID);
                 this.columnLinked = new global::System.Data.DataColumn("Linked", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnLinked);
-                this.columnReleaseDate = new global::System.Data.DataColumn("ReleaseDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnReleaseDate);
+                this.columnReleaseYear = new global::System.Data.DataColumn("ReleaseYear", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnReleaseYear);
                 this.columnAddDate = new global::System.Data.DataColumn("AddDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnAddDate);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
@@ -4356,17 +4356,17 @@ namespace MusicDatabaseGenerator {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public System.DateTime ReleaseDate {
+            public int ReleaseYear {
                 get {
                     try {
-                        return ((global::System.DateTime)(this[this.tableMain.ReleaseDateColumn]));
+                        return ((int)(this[this.tableMain.ReleaseYearColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'ReleaseDate\' in table \'Main\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'ReleaseYear\' in table \'Main\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableMain.ReleaseDateColumn] = value;
+                    this[this.tableMain.ReleaseYearColumn] = value;
                 }
             }
             
@@ -4484,14 +4484,14 @@ namespace MusicDatabaseGenerator {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsReleaseDateNull() {
-                return this.IsNull(this.tableMain.ReleaseDateColumn);
+            public bool IsReleaseYearNull() {
+                return this.IsNull(this.tableMain.ReleaseYearColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetReleaseDateNull() {
-                this[this.tableMain.ReleaseDateColumn] = global::System.Convert.DBNull;
+            public void SetReleaseYearNull() {
+                this[this.tableMain.ReleaseYearColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7537,12 +7537,12 @@ SELECT OwnerID, OwnerName FROM ListOwner WHERE (OwnerID = @OwnerID)";
             tableMapping.ColumnMappings.Add("OwnerID", "OwnerID");
             tableMapping.ColumnMappings.Add("GenreID", "GenreID");
             tableMapping.ColumnMappings.Add("Linked", "Linked");
-            tableMapping.ColumnMappings.Add("ReleaseDate", "ReleaseDate");
+            tableMapping.ColumnMappings.Add("ReleaseYear", "ReleaseYear");
             tableMapping.ColumnMappings.Add("AddDate", "AddDate");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[Main] WHERE (([TrackID] = @Original_TrackID) AND ((@IsNull_Title = 1 AND [Title] IS NULL) OR ([Title] = @Original_Title)) AND ((@IsNull_Duration = 1 AND [Duration] IS NULL) OR ([Duration] = @Original_Duration)) AND ((@IsNull_FilePath = 1 AND [FilePath] IS NULL) OR ([FilePath] = @Original_FilePath)) AND ((@IsNull_AverageDecibels = 1 AND [AverageDecibels] IS NULL) OR ([AverageDecibels] = @Original_AverageDecibels)) AND ((@IsNull_MoodIDs = 1 AND [MoodIDs] IS NULL) OR ([MoodIDs] = @Original_MoodIDs)) AND ((@IsNull_OwnerID = 1 AND [OwnerID] IS NULL) OR ([OwnerID] = @Original_OwnerID)) AND ((@IsNull_GenreID = 1 AND [GenreID] IS NULL) OR ([GenreID] = @Original_GenreID)) AND ((@IsNull_Linked = 1 AND [Linked] IS NULL) OR ([Linked] = @Original_Linked)) AND ((@IsNull_ReleaseDate = 1 AND [ReleaseDate] IS NULL) OR ([ReleaseDate] = @Original_ReleaseDate)) AND ((@IsNull_AddDate = 1 AND [AddDate] IS NULL) OR ([AddDate] = @Original_AddDate)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[Main] WHERE (([TrackID] = @Original_TrackID) AND ((@IsNull_Title = 1 AND [Title] IS NULL) OR ([Title] = @Original_Title)) AND ((@IsNull_Duration = 1 AND [Duration] IS NULL) OR ([Duration] = @Original_Duration)) AND ((@IsNull_FilePath = 1 AND [FilePath] IS NULL) OR ([FilePath] = @Original_FilePath)) AND ((@IsNull_AverageDecibels = 1 AND [AverageDecibels] IS NULL) OR ([AverageDecibels] = @Original_AverageDecibels)) AND ((@IsNull_MoodIDs = 1 AND [MoodIDs] IS NULL) OR ([MoodIDs] = @Original_MoodIDs)) AND ((@IsNull_OwnerID = 1 AND [OwnerID] IS NULL) OR ([OwnerID] = @Original_OwnerID)) AND ((@IsNull_GenreID = 1 AND [GenreID] IS NULL) OR ([GenreID] = @Original_GenreID)) AND ((@IsNull_Linked = 1 AND [Linked] IS NULL) OR ([Linked] = @Original_Linked)) AND ((@IsNull_ReleaseYear = 1 AND [ReleaseYear] IS NULL) OR ([ReleaseYear] = @Original_ReleaseYear)) AND ((@IsNull_AddDate = 1 AND [AddDate] IS NULL) OR ([AddDate] = @Original_AddDate)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TrackID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TrackID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Title", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Title", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
@@ -7561,14 +7561,14 @@ SELECT OwnerID, OwnerName FROM ListOwner WHERE (OwnerID = @OwnerID)";
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_GenreID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "GenreID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Linked", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Linked", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Linked", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Linked", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_ReleaseDate", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ReleaseDate", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ReleaseDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ReleaseDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_ReleaseYear", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ReleaseYear", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ReleaseYear", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ReleaseYear", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_AddDate", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AddDate", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AddDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AddDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[Main] ([Title], [Duration], [FilePath], [AverageDecibels], [MoodIDs], [OwnerID], [GenreID], [Linked], [ReleaseDate], [AddDate]) VALUES (@Title, @Duration, @FilePath, @AverageDecibels, @MoodIDs, @OwnerID, @GenreID, @Linked, @ReleaseDate, @AddDate);
-SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, OwnerID, GenreID, Linked, ReleaseDate, AddDate FROM Main WHERE (TrackID = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[Main] ([Title], [Duration], [FilePath], [AverageDecibels], [MoodIDs], [OwnerID], [GenreID], [Linked], [ReleaseYear], [AddDate]) VALUES (@Title, @Duration, @FilePath, @AverageDecibels, @MoodIDs, @OwnerID, @GenreID, @Linked, @ReleaseYear, @AddDate);
+SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, OwnerID, GenreID, Linked, ReleaseYear, AddDate FROM Main WHERE (TrackID = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Title", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Title", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Duration", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 0, "Duration", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -7578,12 +7578,12 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, OwnerID, Ge
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@OwnerID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OwnerID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@GenreID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "GenreID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Linked", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Linked", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ReleaseDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ReleaseDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ReleaseYear", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ReleaseYear", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AddDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AddDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Main] SET [Title] = @Title, [Duration] = @Duration, [FilePath] = @FilePath, [AverageDecibels] = @AverageDecibels, [MoodIDs] = @MoodIDs, [OwnerID] = @OwnerID, [GenreID] = @GenreID, [Linked] = @Linked, [ReleaseDate] = @ReleaseDate, [AddDate] = @AddDate WHERE (([TrackID] = @Original_TrackID) AND ((@IsNull_Title = 1 AND [Title] IS NULL) OR ([Title] = @Original_Title)) AND ((@IsNull_Duration = 1 AND [Duration] IS NULL) OR ([Duration] = @Original_Duration)) AND ((@IsNull_FilePath = 1 AND [FilePath] IS NULL) OR ([FilePath] = @Original_FilePath)) AND ((@IsNull_AverageDecibels = 1 AND [AverageDecibels] IS NULL) OR ([AverageDecibels] = @Original_AverageDecibels)) AND ((@IsNull_MoodIDs = 1 AND [MoodIDs] IS NULL) OR ([MoodIDs] = @Original_MoodIDs)) AND ((@IsNull_OwnerID = 1 AND [OwnerID] IS NULL) OR ([OwnerID] = @Original_OwnerID)) AND ((@IsNull_GenreID = 1 AND [GenreID] IS NULL) OR ([GenreID] = @Original_GenreID)) AND ((@IsNull_Linked = 1 AND [Linked] IS NULL) OR ([Linked] = @Original_Linked)) AND ((@IsNull_ReleaseDate = 1 AND [ReleaseDate] IS NULL) OR ([ReleaseDate] = @Original_ReleaseDate)) AND ((@IsNull_AddDate = 1 AND [AddDate] IS NULL) OR ([AddDate] = @Original_AddDate)));
-SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, OwnerID, GenreID, Linked, ReleaseDate, AddDate FROM Main WHERE (TrackID = @TrackID)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Main] SET [Title] = @Title, [Duration] = @Duration, [FilePath] = @FilePath, [AverageDecibels] = @AverageDecibels, [MoodIDs] = @MoodIDs, [OwnerID] = @OwnerID, [GenreID] = @GenreID, [Linked] = @Linked, [ReleaseYear] = @ReleaseYear, [AddDate] = @AddDate WHERE (([TrackID] = @Original_TrackID) AND ((@IsNull_Title = 1 AND [Title] IS NULL) OR ([Title] = @Original_Title)) AND ((@IsNull_Duration = 1 AND [Duration] IS NULL) OR ([Duration] = @Original_Duration)) AND ((@IsNull_FilePath = 1 AND [FilePath] IS NULL) OR ([FilePath] = @Original_FilePath)) AND ((@IsNull_AverageDecibels = 1 AND [AverageDecibels] IS NULL) OR ([AverageDecibels] = @Original_AverageDecibels)) AND ((@IsNull_MoodIDs = 1 AND [MoodIDs] IS NULL) OR ([MoodIDs] = @Original_MoodIDs)) AND ((@IsNull_OwnerID = 1 AND [OwnerID] IS NULL) OR ([OwnerID] = @Original_OwnerID)) AND ((@IsNull_GenreID = 1 AND [GenreID] IS NULL) OR ([GenreID] = @Original_GenreID)) AND ((@IsNull_Linked = 1 AND [Linked] IS NULL) OR ([Linked] = @Original_Linked)) AND ((@IsNull_ReleaseYear = 1 AND [ReleaseYear] IS NULL) OR ([ReleaseYear] = @Original_ReleaseYear)) AND ((@IsNull_AddDate = 1 AND [AddDate] IS NULL) OR ([AddDate] = @Original_AddDate)));
+SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, OwnerID, GenreID, Linked, ReleaseYear, AddDate FROM Main WHERE (TrackID = @TrackID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Title", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Title", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Duration", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 0, "Duration", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -7593,7 +7593,7 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, OwnerID, Ge
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@OwnerID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OwnerID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@GenreID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "GenreID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Linked", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Linked", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ReleaseDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ReleaseDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ReleaseYear", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ReleaseYear", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AddDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AddDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TrackID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TrackID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Title", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Title", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
@@ -7612,8 +7612,8 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, OwnerID, Ge
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_GenreID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "GenreID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Linked", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Linked", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Linked", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Linked", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_ReleaseDate", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ReleaseDate", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ReleaseDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ReleaseDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_ReleaseYear", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ReleaseYear", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ReleaseYear", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ReleaseYear", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_AddDate", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AddDate", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AddDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AddDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TrackID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "TrackID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -7633,7 +7633,7 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, OwnerID, Ge
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, OwnerID, Gen" +
-                "reID, Linked, ReleaseDate, AddDate FROM dbo.Main";
+                "reID, Linked, ReleaseYear, AddDate FROM dbo.Main";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -7694,7 +7694,7 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, OwnerID, Ge
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_TrackID, string Original_Title, global::System.Nullable<decimal> Original_Duration, string Original_FilePath, global::System.Nullable<decimal> Original_AverageDecibels, global::System.Nullable<long> Original_MoodIDs, global::System.Nullable<int> Original_OwnerID, global::System.Nullable<int> Original_GenreID, global::System.Nullable<bool> Original_Linked, global::System.Nullable<global::System.DateTime> Original_ReleaseDate, global::System.Nullable<global::System.DateTime> Original_AddDate) {
+        public virtual int Delete(int Original_TrackID, string Original_Title, global::System.Nullable<decimal> Original_Duration, string Original_FilePath, global::System.Nullable<decimal> Original_AverageDecibels, global::System.Nullable<long> Original_MoodIDs, global::System.Nullable<int> Original_OwnerID, global::System.Nullable<int> Original_GenreID, global::System.Nullable<bool> Original_Linked, global::System.Nullable<int> Original_ReleaseYear, global::System.Nullable<global::System.DateTime> Original_AddDate) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_TrackID));
             if ((Original_Title == null)) {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
@@ -7760,9 +7760,9 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, OwnerID, Ge
                 this.Adapter.DeleteCommand.Parameters[15].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[16].Value = global::System.DBNull.Value;
             }
-            if ((Original_ReleaseDate.HasValue == true)) {
+            if ((Original_ReleaseYear.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[17].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[18].Value = ((System.DateTime)(Original_ReleaseDate.Value));
+                this.Adapter.DeleteCommand.Parameters[18].Value = ((int)(Original_ReleaseYear.Value));
             }
             else {
                 this.Adapter.DeleteCommand.Parameters[17].Value = ((object)(1));
@@ -7796,7 +7796,7 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, OwnerID, Ge
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string Title, global::System.Nullable<decimal> Duration, string FilePath, global::System.Nullable<decimal> AverageDecibels, global::System.Nullable<long> MoodIDs, global::System.Nullable<int> OwnerID, global::System.Nullable<int> GenreID, global::System.Nullable<bool> Linked, global::System.Nullable<global::System.DateTime> ReleaseDate, global::System.Nullable<global::System.DateTime> AddDate) {
+        public virtual int Insert(string Title, global::System.Nullable<decimal> Duration, string FilePath, global::System.Nullable<decimal> AverageDecibels, global::System.Nullable<long> MoodIDs, global::System.Nullable<int> OwnerID, global::System.Nullable<int> GenreID, global::System.Nullable<bool> Linked, global::System.Nullable<int> ReleaseYear, global::System.Nullable<global::System.DateTime> AddDate) {
             if ((Title == null)) {
                 this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
@@ -7845,8 +7845,8 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, OwnerID, Ge
             else {
                 this.Adapter.InsertCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
-            if ((ReleaseDate.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[8].Value = ((System.DateTime)(ReleaseDate.Value));
+            if ((ReleaseYear.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[8].Value = ((int)(ReleaseYear.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[8].Value = global::System.DBNull.Value;
@@ -7886,7 +7886,7 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, OwnerID, Ge
                     global::System.Nullable<int> OwnerID, 
                     global::System.Nullable<int> GenreID, 
                     global::System.Nullable<bool> Linked, 
-                    global::System.Nullable<global::System.DateTime> ReleaseDate, 
+                    global::System.Nullable<int> ReleaseYear, 
                     global::System.Nullable<global::System.DateTime> AddDate, 
                     int Original_TrackID, 
                     string Original_Title, 
@@ -7897,7 +7897,7 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, OwnerID, Ge
                     global::System.Nullable<int> Original_OwnerID, 
                     global::System.Nullable<int> Original_GenreID, 
                     global::System.Nullable<bool> Original_Linked, 
-                    global::System.Nullable<global::System.DateTime> Original_ReleaseDate, 
+                    global::System.Nullable<int> Original_ReleaseYear, 
                     global::System.Nullable<global::System.DateTime> Original_AddDate, 
                     int TrackID) {
             if ((Title == null)) {
@@ -7948,8 +7948,8 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, OwnerID, Ge
             else {
                 this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
-            if ((ReleaseDate.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((System.DateTime)(ReleaseDate.Value));
+            if ((ReleaseYear.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(ReleaseYear.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
@@ -8025,9 +8025,9 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, OwnerID, Ge
                 this.Adapter.UpdateCommand.Parameters[25].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[26].Value = global::System.DBNull.Value;
             }
-            if ((Original_ReleaseDate.HasValue == true)) {
+            if ((Original_ReleaseYear.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[27].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[28].Value = ((System.DateTime)(Original_ReleaseDate.Value));
+                this.Adapter.UpdateCommand.Parameters[28].Value = ((int)(Original_ReleaseYear.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[27].Value = ((object)(1));
@@ -8071,7 +8071,7 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, OwnerID, Ge
                     global::System.Nullable<int> OwnerID, 
                     global::System.Nullable<int> GenreID, 
                     global::System.Nullable<bool> Linked, 
-                    global::System.Nullable<global::System.DateTime> ReleaseDate, 
+                    global::System.Nullable<int> ReleaseYear, 
                     global::System.Nullable<global::System.DateTime> AddDate, 
                     int Original_TrackID, 
                     string Original_Title, 
@@ -8082,9 +8082,9 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, MoodIDs, OwnerID, Ge
                     global::System.Nullable<int> Original_OwnerID, 
                     global::System.Nullable<int> Original_GenreID, 
                     global::System.Nullable<bool> Original_Linked, 
-                    global::System.Nullable<global::System.DateTime> Original_ReleaseDate, 
+                    global::System.Nullable<int> Original_ReleaseYear, 
                     global::System.Nullable<global::System.DateTime> Original_AddDate) {
-            return this.Update(Title, Duration, FilePath, AverageDecibels, MoodIDs, OwnerID, GenreID, Linked, ReleaseDate, AddDate, Original_TrackID, Original_Title, Original_Duration, Original_FilePath, Original_AverageDecibels, Original_MoodIDs, Original_OwnerID, Original_GenreID, Original_Linked, Original_ReleaseDate, Original_AddDate, Original_TrackID);
+            return this.Update(Title, Duration, FilePath, AverageDecibels, MoodIDs, OwnerID, GenreID, Linked, ReleaseYear, AddDate, Original_TrackID, Original_Title, Original_Duration, Original_FilePath, Original_AverageDecibels, Original_MoodIDs, Original_OwnerID, Original_GenreID, Original_Linked, Original_ReleaseYear, Original_AddDate, Original_TrackID);
         }
     }
     

@@ -5,10 +5,10 @@ using System.Linq;
 
 namespace MusicDatabaseGenerator
 {
-    public partial class MusicLibraryDataContext : DbContext
+    public partial class MusicLibraryContext : DbContext
     {
-        public MusicLibraryDataContext()
-            : base("name=MusicLibraryDataContext")
+        public MusicLibraryContext()
+            : base("name=MusicLibraryContext1")
         {
         }
 

@@ -183,7 +183,7 @@ BEGIN
 		OwnerID INT,
 		GenreID INT,
 		Linked BIT,
-		ReleaseDate DATETIME,
+		ReleaseYear INT,
 		AddDate DATETIME
 		)
 END
