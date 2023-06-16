@@ -67,7 +67,7 @@ USE MusicLibrary
 
 --This table can be matched with the main table to detemine the mood/genre of a track
 --IDs are big int to accommodate granularity. Playlists could be designated using moods.
---NOTE: "Mood group IDs" may be necessar in the future should 64 moods be restrictive
+--NOTE: "Mood group IDs" may be necessary in the future should 64 moods be restrictive
 IF (SELECT [dbo].[MusicTableExists] (N'ListMood')) = 0
 BEGIN
 	CREATE TABLE ListMood (
@@ -76,12 +76,25 @@ BEGIN
 	)
 END
 
---This table can be matched with the main table to determine the extension type
-IF (SELECT [dbo].[MusicTableExists] (N'ListExtension')) = 0
+--The metadata of the playlists that you create.
+IF (SELECT [dbo].[MusicTableExists] (N'Playlists')) = 0
 BEGIN
-	CREATE TABLE ListExtension (
-		ExtensionID INT PRIMARY KEY,
-		FileType VARCHAR(100)
+	CREATE TABLE Playlists (
+		PlaylistID INT NOT NULL,
+		PlaylistName NVARCHAR(1000),
+		PlaylistDescription NVARCHAR(4000),
+		CreationDate DATETIME,
+		LastEditDate DATETIME,
+	)
+END
+
+--Just maps from the playlist metadata table to the tracks that are in the playlist
+IF (SELECT [dbo].[MusicTableExists] (N'PlaylistTracks')) = 0
+BEGIN
+	CREATE TABLE PlaylistTracks (
+		PlaylistID INT NOT NULL,
+		TrackID INT NOT NULL,
+		PRIMARY KEY (PlaylistID, TrackID)
 	)
 END
 
@@ -155,7 +168,7 @@ BEGIN
 		TrackID INT	PRIMARY KEY,
 		Title NVARCHAR(4000),
 		Duration DECIMAL,
-		ExtensionID INT,
+		FilePath VARCHAR(260), --windows max path length = 260 characters
 		AverageDecibels DECIMAL,
 		MoodIDs BIGINT,
 		AlbumID INT,

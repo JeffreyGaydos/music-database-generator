@@ -64,11 +64,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Album.cs" />
+    <Compile Include="Models\Album.cs" />
     <Compile Include="Generators.cs" />
     <Compile Include="Models\LinkedTrack.cs" />
     <Compile Include="Models\ListArtist.cs" />
-    <Compile Include="Models\ListExtension.cs" />
     <Compile Include="Models\ListGenre.cs" />
     <Compile Include="Models\ListMood.cs" />
     <Compile Include="Models\ListOwner.cs" />
@@ -79,6 +78,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MusicLibraryDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Models\Playlist.cs" />
+    <Compile Include="Models\PlaylistTrack.cs" />
     <Compile Include="Models\PlayLog.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

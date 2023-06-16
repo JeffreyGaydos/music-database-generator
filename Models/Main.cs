@@ -18,7 +18,8 @@ namespace MusicDatabaseGenerator
 
         public decimal? Duration { get; set; }
 
-        public int? ExtensionID { get; set; }
+        [StringLength(260)]
+        public string FilePath { get; set; }
 
         public decimal? AverageDecibels { get; set; }
 

@@ -15,6 +15,8 @@ DROP TABLE ListArtist
 DROP TABLE ListExtension
 DROP TABLE ListGenre
 DROP TABLE ListMood
+DROP TABLE Playlists
+DROP TABLE PlaylistTracks
 DROP TABLE ListOwner
 DROP TABLE PlayLogs
 DROP TABLE Main
