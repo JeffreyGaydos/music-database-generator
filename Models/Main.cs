@@ -10,7 +10,6 @@ namespace MusicDatabaseGenerator
     public partial class Main
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int TrackID { get; set; }
 
         [StringLength(4000)]

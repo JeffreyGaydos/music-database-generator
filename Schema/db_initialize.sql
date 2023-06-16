@@ -165,7 +165,7 @@ END
 IF (SELECT [dbo].[MusicTableExists] (N'Main')) = 0
 BEGIN
 	CREATE TABLE Main (
-		TrackID INT	PRIMARY KEY,
+		TrackID INT IDENTITY(1,1) PRIMARY KEY,
 		Title NVARCHAR(4000),
 		Duration DECIMAL,
 		FilePath VARCHAR(260), --windows max path length = 260 characters
