@@ -19,9 +19,9 @@ namespace MusicDatabaseGenerator
         public virtual DbSet<ListMood> ListMoods { get; set; }
         public virtual DbSet<ListOwner> ListOwners { get; set; }
         public virtual DbSet<Main> Mains { get; set; }
+        public virtual DbSet<Playlist> Playlists { get; set; }
         public virtual DbSet<PlaylistTrack> PlaylistTracks { get; set; }
         public virtual DbSet<PlayLog> PlayLogs { get; set; }
-        public virtual DbSet<Playlist> Playlists { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

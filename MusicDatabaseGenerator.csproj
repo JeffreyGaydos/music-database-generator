@@ -65,13 +65,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Album.cs" />
-    <Compile Include="Generators.cs" />
     <Compile Include="Models\LinkedTrack.cs" />
     <Compile Include="Models\ListArtist.cs" />
     <Compile Include="Models\ListGenre.cs" />
     <Compile Include="Models\ListMood.cs" />
     <Compile Include="Models\ListOwner.cs" />
     <Compile Include="Models\Main.cs" />
+    <Compile Include="Generators.cs" />
     <Compile Include="MusicLibraryContext.cs" />
     <Compile Include="MusicLibraryDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
