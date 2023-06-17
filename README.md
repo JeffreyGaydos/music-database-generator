@@ -16,3 +16,30 @@ Until this is more streamlined, replace line 16 of the file `program.cs` with th
 ```
 string musicFolder = "data"; //point this to where the mp3s are located, relative to the top level folder of this repo
 ```
+
+# Schema Explanation & Intent
+
+## **Main**
+This table stores metadata that can be easily mapped 1-to-1 each track
+- :white_check_mark: TrackID
+  - Use this ID to map songs in other tables. These values are unique across all tables that reference this ID.
+- :white_check_mark: Title
+  - The title of the song, directly from the mp3 metadata
+- :white_check_mark: Duration
+  - The duration of the song in seconds, directly from the mp3 metadata
+- :white_check_mark: FilePath
+  - The filepath of the song, based on where you tell the source code to look for your files
+- :no_entry: AverageDecibels
+  - This field subject to change. The intent is to aid in automatic volume balancing
+- :clock9: MoodIDs
+  - This is not a generated field. See `ListMood` table
+- :clock9: OwnerID
+  - Whoever originally owned the file
+- :clock9: GenreID
+  - The genre of the song, directly from the mp3 metadata
+- :clock9: Linked
+  - The song is often played before or after another song.
+- :white_check_mark: ReleaseYear
+  - The year that the song was released, directly from the mp3 metadata
+- :white_check_mark: AddDate
+  - The date when this file was first downloaded
