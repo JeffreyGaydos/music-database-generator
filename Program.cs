@@ -38,13 +38,13 @@ namespace MusicDatabaseGenerator
                 var files = Directory.GetFiles(musicGroup).ToList();
                 if (files.Any(file => SupportedExtensions.Contains(file.Substring(file.LastIndexOf(".")))))
                 {
-                    Console.WriteLine("Artist+Album Found: " + musicGroup);
+                    //Console.WriteLine("Artist+Album Found: " + musicGroup);
                     musicFiles.AddRange(files.Where(file => SupportedExtensions.Contains(file.Substring(file.LastIndexOf(".")))));
                 }
                 foreach (string musicSubgroup in Directory.GetDirectories(musicGroup))
                 {
                     var subFiles = Directory.GetFiles(musicSubgroup).ToList();
-                    Console.WriteLine("Artist+Album Found (SUB): " + musicGroup + ", Album: " + musicSubgroup);
+                    //Console.WriteLine("Artist+Album Found (SUB): " + musicGroup + ", Album: " + musicSubgroup);
                     musicFiles.AddRange(subFiles.Where(file => SupportedExtensions.Contains(file.Substring(file.LastIndexOf(".")))));
                 }
             }
@@ -57,7 +57,7 @@ namespace MusicDatabaseGenerator
                 //Console.WriteLine(taglibfile.Tag.Title);
             }
 
-            using (MusicLibraryDataContext mdbContext = new MusicLibraryDataContext())
+            using (MusicLibraryContext mdbContext = new MusicLibraryContext())
             {
                 foreach(Main data in Generators.MainFields(tagFiles, musicFiles))
                 {
