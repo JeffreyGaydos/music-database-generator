@@ -36,7 +36,7 @@ This table stores metadata that can be easily mapped 1-to-1 each track
 - :clock9: OwnerID
   - Whoever originally owned the file
 - :clock9: GenreID
-  - The genre of the song, directly from the mp3 metadata
+  - The ID of the genre of the song according to the future table `ListGenre`, directly from the mp3 metadata
 - :clock9: Linked
   - The song is often played before or after another song.
 - :white_check_mark: ReleaseYear
