@@ -12,9 +12,9 @@ namespace MusicDatabaseGenerator
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int AlbumID { get; set; }
 
-        public int? AlbumTracks { get; set; }
-
         [StringLength(1000)]
         public string AlbumName { get; set; }
+
+        public DateTime? ReleaseDate { get; set; }
     }
 }

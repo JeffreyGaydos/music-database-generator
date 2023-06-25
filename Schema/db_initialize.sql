@@ -65,16 +65,28 @@ GO
 
 USE MusicLibrary
 
---This table can be matched with the main table to detemine the mood/genre of a track
---IDs are big int to accommodate granularity. Playlists could be designated using moods.
---NOTE: "Mood group IDs" may be necessary in the future should 64 moods be restrictive
-IF (SELECT [dbo].[MusicTableExists] (N'ListMood')) = 0
+--"Moods" are essentially simplified playlists, but are specific to the
+--track itself, and are perminant descriptors of the song. It's up to
+--the user to decide what moods are associated with which tracks
+IF (SELECT [dbo].[MusicTableExists] (N'Mood')) = 0
 BEGIN
-	CREATE TABLE ListMood (
-		MoodID BIGINT PRIMARY KEY,
+	CREATE TABLE Mood (
+		MoodID INT PRIMARY KEY,
 		MoodDesc NVARCHAR(100)
 	)
 END
+
+--Maps your track to its moods
+IF (SELECT [dbo].[MusicTableExists] (N'MoodTracks')) = 0
+BEGIN
+	CREATE TABLE MoodTracks (
+		MoodID INT,
+		TrackID INT,
+		PRIMARY KEY (MoodID, TrackID)
+	)
+END
+
+
 
 --The metadata of the playlists that you create.
 IF (SELECT [dbo].[MusicTableExists] (N'Playlist')) = 0
@@ -99,18 +111,28 @@ BEGIN
 END
 
 --This table can be matched with the main table to deremine the artist
-IF (SELECT [dbo].[MusicTableExists] (N'ListArtist')) = 0
+IF (SELECT [dbo].[MusicTableExists] (N'Artist')) = 0
 BEGIN
-	CREATE TABLE ListArtist (
+	CREATE TABLE Artist (
 		ArtistID INT PRIMARY KEY,
 		ArtistName NVARCHAR(100)
 	)
 END
 
---This table can be matched with the main table to determine the owner of the track
-IF (SELECT [dbo].[MusicTableExists] (N'ListOwner')) = 0
+--Maps tracks to their artist(s)
+IF (SELECT [dbo].[MusicTableExists] (N'ArtistTracks')) = 0
 BEGIN
-	CREATE TABLE ListOwner (
+	CREATE TABLE ArtistTracks (
+		ArtistID INT,
+		TrackID INT,
+		PRIMARY KEY (ArtistID, TrackID)
+	)
+END
+
+--This table can be matched with the main table to determine the owner of the track
+IF (SELECT [dbo].[MusicTableExists] (N'Owner')) = 0
+BEGIN
+	CREATE TABLE Owner (
 		OwnerID INT PRIMARY KEY,
 		OwnerName NVARCHAR(1000)
 	)
@@ -118,11 +140,21 @@ END
 
 --traditional genre designation, directly form the MP3 files
 --may or may not be a read only table in future applications
-IF (SELECT [dbo].[MusicTableExists] (N'ListGenre')) = 0
+IF (SELECT [dbo].[MusicTableExists] (N'Genre')) = 0
 BEGIN
-	CREATE TABLE ListGenre (
+	CREATE TABLE Genre (
 		GenreID INT PRIMARY KEY,
 		GenreName INT
+	)
+END
+
+--maps tracks to their genre(s)
+IF (SELECT [dbo].[MusicTableExists] (N'GenreTracks')) = 0
+BEGIN
+	CREATE TABLE GenreTracks (
+		GenreID INT,
+		TrackID INT,
+		PRIMARY KEY (GenreID, TrackID)
 	)
 END
 
@@ -138,11 +170,13 @@ BEGIN
 	)
 END
 
+--Maps tracks to their album(s)
 IF (SELECT [dbo].[MusicTableExists] (N'AlbumTracks')) = 0
 BEGIN
 	CREATE TABLE AlbumTracks (
 		AlbumID INT,
 		TrackID INT,
+		TrackOrder INT,
 		PRIMARY KEY (AlbumID, TrackID)
 	)
 END
@@ -179,9 +213,7 @@ BEGIN
 		Duration DECIMAL,
 		FilePath VARCHAR(260), --windows max path length = 260 characters
 		AverageDecibels DECIMAL,
-		MoodIDs BIGINT,
 		OwnerID INT,
-		GenreID INT,
 		Linked BIT,
 		ReleaseYear INT,
 		AddDate DATETIME
