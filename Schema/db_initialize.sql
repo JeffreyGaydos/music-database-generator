@@ -71,7 +71,7 @@ USE MusicLibrary
 IF (SELECT [dbo].[MusicTableExists] (N'Mood')) = 0
 BEGIN
 	CREATE TABLE Mood (
-		MoodID INT PRIMARY KEY,
+		MoodID INT IDENTITY(1,1) PRIMARY KEY,
 		MoodDesc NVARCHAR(100)
 	)
 END
@@ -114,7 +114,7 @@ END
 IF (SELECT [dbo].[MusicTableExists] (N'Artist')) = 0
 BEGIN
 	CREATE TABLE Artist (
-		ArtistID INT PRIMARY KEY,
+		ArtistID INT IDENTITY(1,1) PRIMARY KEY,
 		ArtistName NVARCHAR(100)
 	)
 END
@@ -133,7 +133,7 @@ END
 IF (SELECT [dbo].[MusicTableExists] (N'Owner')) = 0
 BEGIN
 	CREATE TABLE Owner (
-		OwnerID INT PRIMARY KEY,
+		OwnerID INT IDENTITY(1,1) PRIMARY KEY,
 		OwnerName NVARCHAR(1000)
 	)
 END
@@ -143,8 +143,8 @@ END
 IF (SELECT [dbo].[MusicTableExists] (N'Genre')) = 0
 BEGIN
 	CREATE TABLE Genre (
-		GenreID INT PRIMARY KEY,
-		GenreName INT
+		GenreID INT IDENTITY(1,1) PRIMARY KEY,
+		GenreName NVARCHAR(100)
 	)
 END
 
@@ -164,7 +164,7 @@ END
 IF (SELECT [dbo].[MusicTableExists] (N'Album')) = 0
 BEGIN
 	CREATE TABLE Album (
-		AlbumID INT PRIMARY KEY,
+		AlbumID INT IDENTITY(1,1) PRIMARY KEY,
 		AlbumName NVARCHAR(1000),
 		ReleaseDate DATETIME
 	)
