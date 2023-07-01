@@ -9,7 +9,6 @@ namespace MusicDatabaseGenerator
     [Table("Owner")]
     public partial class Owner
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int OwnerID { get; set; }
 
         [StringLength(1000)]

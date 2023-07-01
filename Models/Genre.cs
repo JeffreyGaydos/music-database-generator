@@ -9,9 +9,9 @@ namespace MusicDatabaseGenerator
     [Table("Genre")]
     public partial class Genre
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int GenreID { get; set; }
 
-        public int? GenreName { get; set; }
+        [StringLength(100)]
+        public string GenreName { get; set; }
     }
 }

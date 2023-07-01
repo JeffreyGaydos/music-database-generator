@@ -9,7 +9,6 @@ namespace MusicDatabaseGenerator
     [Table("Mood")]
     public partial class Mood
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int MoodID { get; set; }
 
         [StringLength(100)]

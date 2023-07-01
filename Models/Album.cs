@@ -9,7 +9,6 @@ namespace MusicDatabaseGenerator
     [Table("Album")]
     public partial class Album
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int AlbumID { get; set; }
 
         [StringLength(1000)]

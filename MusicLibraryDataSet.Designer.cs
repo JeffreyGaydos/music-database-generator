@@ -834,10 +834,10 @@ namespace MusicDatabaseGenerator {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public AlbumRow AddAlbumRow(int AlbumID, string AlbumName, System.DateTime ReleaseDate) {
+            public AlbumRow AddAlbumRow(string AlbumName, System.DateTime ReleaseDate) {
                 AlbumRow rowAlbumRow = ((AlbumRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        AlbumID,
+                        null,
                         AlbumName,
                         ReleaseDate};
                 rowAlbumRow.ItemArray = columnValuesArray;
@@ -885,7 +885,11 @@ namespace MusicDatabaseGenerator {
                 base.Columns.Add(this.columnReleaseDate);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnAlbumID}, true));
+                this.columnAlbumID.AutoIncrement = true;
+                this.columnAlbumID.AutoIncrementSeed = -1;
+                this.columnAlbumID.AutoIncrementStep = -1;
                 this.columnAlbumID.AllowDBNull = false;
+                this.columnAlbumID.ReadOnly = true;
                 this.columnAlbumID.Unique = true;
                 this.columnAlbumName.MaxLength = 1000;
             }
@@ -1399,10 +1403,10 @@ namespace MusicDatabaseGenerator {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public ArtistRow AddArtistRow(int ArtistID, string ArtistName) {
+            public ArtistRow AddArtistRow(string ArtistName) {
                 ArtistRow rowArtistRow = ((ArtistRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        ArtistID,
+                        null,
                         ArtistName};
                 rowArtistRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowArtistRow);
@@ -1446,7 +1450,11 @@ namespace MusicDatabaseGenerator {
                 base.Columns.Add(this.columnArtistName);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnArtistID}, true));
+                this.columnArtistID.AutoIncrement = true;
+                this.columnArtistID.AutoIncrementSeed = -1;
+                this.columnArtistID.AutoIncrementStep = -1;
                 this.columnArtistID.AllowDBNull = false;
+                this.columnArtistID.ReadOnly = true;
                 this.columnArtistID.Unique = true;
                 this.columnArtistName.MaxLength = 100;
             }
@@ -1946,10 +1954,10 @@ namespace MusicDatabaseGenerator {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public GenreRow AddGenreRow(int GenreID, int GenreName) {
+            public GenreRow AddGenreRow(string GenreName) {
                 GenreRow rowGenreRow = ((GenreRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        GenreID,
+                        null,
                         GenreName};
                 rowGenreRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowGenreRow);
@@ -1989,12 +1997,17 @@ namespace MusicDatabaseGenerator {
             private void InitClass() {
                 this.columnGenreID = new global::System.Data.DataColumn("GenreID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnGenreID);
-                this.columnGenreName = new global::System.Data.DataColumn("GenreName", typeof(int), null, global::System.Data.MappingType.Element);
+                this.columnGenreName = new global::System.Data.DataColumn("GenreName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnGenreName);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnGenreID}, true));
+                this.columnGenreID.AutoIncrement = true;
+                this.columnGenreID.AutoIncrementSeed = -1;
+                this.columnGenreID.AutoIncrementStep = -1;
                 this.columnGenreID.AllowDBNull = false;
+                this.columnGenreID.ReadOnly = true;
                 this.columnGenreID.Unique = true;
+                this.columnGenreName.MaxLength = 100;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3140,10 +3153,10 @@ namespace MusicDatabaseGenerator {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public MoodRow AddMoodRow(int MoodID, string MoodDesc) {
+            public MoodRow AddMoodRow(string MoodDesc) {
                 MoodRow rowMoodRow = ((MoodRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        MoodID,
+                        null,
                         MoodDesc};
                 rowMoodRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowMoodRow);
@@ -3187,7 +3200,11 @@ namespace MusicDatabaseGenerator {
                 base.Columns.Add(this.columnMoodDesc);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnMoodID}, true));
+                this.columnMoodID.AutoIncrement = true;
+                this.columnMoodID.AutoIncrementSeed = -1;
+                this.columnMoodID.AutoIncrementStep = -1;
                 this.columnMoodID.AllowDBNull = false;
+                this.columnMoodID.ReadOnly = true;
                 this.columnMoodID.Unique = true;
                 this.columnMoodDesc.MaxLength = 100;
             }
@@ -3687,10 +3704,10 @@ namespace MusicDatabaseGenerator {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public OwnerRow AddOwnerRow(int OwnerID, string OwnerName) {
+            public OwnerRow AddOwnerRow(string OwnerName) {
                 OwnerRow rowOwnerRow = ((OwnerRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        OwnerID,
+                        null,
                         OwnerName};
                 rowOwnerRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowOwnerRow);
@@ -3734,7 +3751,11 @@ namespace MusicDatabaseGenerator {
                 base.Columns.Add(this.columnOwnerName);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnOwnerID}, true));
+                this.columnOwnerID.AutoIncrement = true;
+                this.columnOwnerID.AutoIncrementSeed = -1;
+                this.columnOwnerID.AutoIncrementStep = -1;
                 this.columnOwnerID.AllowDBNull = false;
+                this.columnOwnerID.ReadOnly = true;
                 this.columnOwnerID.Unique = true;
                 this.columnOwnerName.MaxLength = 1000;
             }
@@ -4990,10 +5011,10 @@ namespace MusicDatabaseGenerator {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public int GenreName {
+            public string GenreName {
                 get {
                     try {
-                        return ((int)(this[this.tableGenre.GenreNameColumn]));
+                        return ((string)(this[this.tableGenre.GenreNameColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'GenreName\' in table \'Genre\' is DBNull.", e);
@@ -6348,19 +6369,17 @@ namespace MusicDatabaseGenerator.MusicLibraryDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ReleaseDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ReleaseDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Album] ([AlbumID], [AlbumName], [ReleaseDate]) VALUES (@AlbumI" +
-                "D, @AlbumName, @ReleaseDate);\r\nSELECT AlbumID, AlbumName, ReleaseDate FROM Album" +
-                " WHERE (AlbumID = @AlbumID)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Album] ([AlbumName], [ReleaseDate]) VALUES (@AlbumName, @Relea" +
+                "seDate);\r\nSELECT AlbumID, AlbumName, ReleaseDate FROM Album WHERE (AlbumID = SCO" +
+                "PE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AlbumID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AlbumName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ReleaseDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ReleaseDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Album] SET [AlbumID] = @AlbumID, [AlbumName] = @AlbumName, [ReleaseDate] = @ReleaseDate WHERE (([AlbumID] = @Original_AlbumID) AND ((@IsNull_AlbumName = 1 AND [AlbumName] IS NULL) OR ([AlbumName] = @Original_AlbumName)) AND ((@IsNull_ReleaseDate = 1 AND [ReleaseDate] IS NULL) OR ([ReleaseDate] = @Original_ReleaseDate)));
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Album] SET [AlbumName] = @AlbumName, [ReleaseDate] = @ReleaseDate WHERE (([AlbumID] = @Original_AlbumID) AND ((@IsNull_AlbumName = 1 AND [AlbumName] IS NULL) OR ([AlbumName] = @Original_AlbumName)) AND ((@IsNull_ReleaseDate = 1 AND [ReleaseDate] IS NULL) OR ([ReleaseDate] = @Original_ReleaseDate)));
 SELECT AlbumID, AlbumName, ReleaseDate FROM Album WHERE (AlbumID = @AlbumID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AlbumID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AlbumName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ReleaseDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ReleaseDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AlbumID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
@@ -6368,6 +6387,7 @@ SELECT AlbumID, AlbumName, ReleaseDate FROM Album WHERE (AlbumID = @AlbumID)";
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AlbumName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumName", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_ReleaseDate", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ReleaseDate", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ReleaseDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ReleaseDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AlbumID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6482,19 +6502,18 @@ SELECT AlbumID, AlbumName, ReleaseDate FROM Album WHERE (AlbumID = @AlbumID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int AlbumID, string AlbumName, global::System.Nullable<global::System.DateTime> ReleaseDate) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(AlbumID));
+        public virtual int Insert(string AlbumName, global::System.Nullable<global::System.DateTime> ReleaseDate) {
             if ((AlbumName == null)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
+                this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(AlbumName));
+                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(AlbumName));
             }
             if ((ReleaseDate.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((System.DateTime)(ReleaseDate.Value));
+                this.Adapter.InsertCommand.Parameters[1].Value = ((System.DateTime)(ReleaseDate.Value));
             }
             else {
-                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
+                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -6516,37 +6535,37 @@ SELECT AlbumID, AlbumName, ReleaseDate FROM Album WHERE (AlbumID = @AlbumID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int AlbumID, string AlbumName, global::System.Nullable<global::System.DateTime> ReleaseDate, int Original_AlbumID, string Original_AlbumName, global::System.Nullable<global::System.DateTime> Original_ReleaseDate) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(AlbumID));
+        public virtual int Update(string AlbumName, global::System.Nullable<global::System.DateTime> ReleaseDate, int Original_AlbumID, string Original_AlbumName, global::System.Nullable<global::System.DateTime> Original_ReleaseDate, int AlbumID) {
             if ((AlbumName == null)) {
-                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(AlbumName));
+                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(AlbumName));
             }
             if ((ReleaseDate.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((System.DateTime)(ReleaseDate.Value));
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((System.DateTime)(ReleaseDate.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_AlbumID));
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_AlbumID));
             if ((Original_AlbumName == null)) {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(Original_AlbumName));
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(Original_AlbumName));
             }
             if ((Original_ReleaseDate.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((System.DateTime)(Original_ReleaseDate.Value));
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((System.DateTime)(Original_ReleaseDate.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(AlbumID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -6568,7 +6587,7 @@ SELECT AlbumID, AlbumName, ReleaseDate FROM Album WHERE (AlbumID = @AlbumID)";
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(string AlbumName, global::System.Nullable<global::System.DateTime> ReleaseDate, int Original_AlbumID, string Original_AlbumName, global::System.Nullable<global::System.DateTime> Original_ReleaseDate) {
-            return this.Update(Original_AlbumID, AlbumName, ReleaseDate, Original_AlbumID, Original_AlbumName, Original_ReleaseDate);
+            return this.Update(AlbumName, ReleaseDate, Original_AlbumID, Original_AlbumName, Original_ReleaseDate, Original_AlbumID);
         }
     }
     
@@ -7043,21 +7062,20 @@ SELECT AlbumID, TrackID, TrackOrder FROM AlbumTracks WHERE (AlbumID = @AlbumID) 
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ArtistName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ArtistName", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Artist] ([ArtistID], [ArtistName]) VALUES (@ArtistID, @ArtistN" +
-                "ame);\r\nSELECT ArtistID, ArtistName FROM Artist WHERE (ArtistID = @ArtistID)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Artist] ([ArtistName]) VALUES (@ArtistName);\r\nSELECT ArtistID," +
+                " ArtistName FROM Artist WHERE (ArtistID = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ArtistID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ArtistID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ArtistName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ArtistName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Artist] SET [ArtistID] = @ArtistID, [ArtistName] = @ArtistName WHERE (([ArtistID] = @Original_ArtistID) AND ((@IsNull_ArtistName = 1 AND [ArtistName] IS NULL) OR ([ArtistName] = @Original_ArtistName)));
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Artist] SET [ArtistName] = @ArtistName WHERE (([ArtistID] = @Original_ArtistID) AND ((@IsNull_ArtistName = 1 AND [ArtistName] IS NULL) OR ([ArtistName] = @Original_ArtistName)));
 SELECT ArtistID, ArtistName FROM Artist WHERE (ArtistID = @ArtistID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ArtistID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ArtistID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ArtistName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ArtistName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ArtistID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ArtistID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_ArtistName", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ArtistName", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ArtistName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ArtistName", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ArtistID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ArtistID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7164,13 +7182,12 @@ SELECT ArtistID, ArtistName FROM Artist WHERE (ArtistID = @ArtistID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int ArtistID, string ArtistName) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(ArtistID));
+        public virtual int Insert(string ArtistName) {
             if ((ArtistName == null)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
+                this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(ArtistName));
+                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(ArtistName));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -7192,23 +7209,23 @@ SELECT ArtistID, ArtistName FROM Artist WHERE (ArtistID = @ArtistID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int ArtistID, string ArtistName, int Original_ArtistID, string Original_ArtistName) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(ArtistID));
+        public virtual int Update(string ArtistName, int Original_ArtistID, string Original_ArtistName, int ArtistID) {
             if ((ArtistName == null)) {
-                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(ArtistName));
+                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(ArtistName));
             }
-            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_ArtistID));
+            this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(Original_ArtistID));
             if ((Original_ArtistName == null)) {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(Original_ArtistName));
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(Original_ArtistName));
             }
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(ArtistID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -7230,7 +7247,7 @@ SELECT ArtistID, ArtistName FROM Artist WHERE (ArtistID = @ArtistID)";
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(string ArtistName, int Original_ArtistID, string Original_ArtistName) {
-            return this.Update(Original_ArtistID, ArtistName, Original_ArtistID, Original_ArtistName);
+            return this.Update(ArtistName, Original_ArtistID, Original_ArtistName, Original_ArtistID);
         }
     }
     
@@ -7667,24 +7684,25 @@ SELECT ArtistID, ArtistName FROM Artist WHERE (ArtistID = @ArtistID)";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_GenreID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "GenreID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_GenreName", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "GenreName", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_GenreName", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "GenreName", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_GenreName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "GenreName", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Genre] ([GenreID], [GenreName]) VALUES (@GenreID, @GenreName);" +
-                "\r\nSELECT GenreID, GenreName FROM Genre WHERE (GenreID = @GenreID)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Genre] ([GenreName]) VALUES (@GenreName);\r\nSELECT GenreID, Gen" +
+                "reName FROM Genre WHERE (GenreID = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@GenreID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "GenreID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@GenreName", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "GenreName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@GenreName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "GenreName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Genre] SET [GenreID] = @GenreID, [GenreName] = @GenreName WHERE (([GenreID] = @Original_GenreID) AND ((@IsNull_GenreName = 1 AND [GenreName] IS NULL) OR ([GenreName] = @Original_GenreName)));
-SELECT GenreID, GenreName FROM Genre WHERE (GenreID = @GenreID)";
+            this._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[Genre] SET [GenreName] = @GenreName WHERE (([GenreID] = @Original_G" +
+                "enreID) AND ((@IsNull_GenreName = 1 AND [GenreName] IS NULL) OR ([GenreName] = @" +
+                "Original_GenreName)));\r\nSELECT GenreID, GenreName FROM Genre WHERE (GenreID = @G" +
+                "enreID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@GenreID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "GenreID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@GenreName", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "GenreName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@GenreName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "GenreName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_GenreID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "GenreID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_GenreName", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "GenreName", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_GenreName", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "GenreName", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_GenreName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "GenreName", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@GenreID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "GenreID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7761,15 +7779,15 @@ SELECT GenreID, GenreName FROM Genre WHERE (GenreID = @GenreID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_GenreID, global::System.Nullable<int> Original_GenreName) {
+        public virtual int Delete(int Original_GenreID, string Original_GenreName) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_GenreID));
-            if ((Original_GenreName.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((int)(Original_GenreName.Value));
-            }
-            else {
+            if ((Original_GenreName == null)) {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[2].Value = ((string)(Original_GenreName));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -7791,13 +7809,12 @@ SELECT GenreID, GenreName FROM Genre WHERE (GenreID = @GenreID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int GenreID, global::System.Nullable<int> GenreName) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(GenreID));
-            if ((GenreName.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((int)(GenreName.Value));
+        public virtual int Insert(string GenreName) {
+            if ((GenreName == null)) {
+                this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
+                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(GenreName));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -7819,23 +7836,23 @@ SELECT GenreID, GenreName FROM Genre WHERE (GenreID = @GenreID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int GenreID, global::System.Nullable<int> GenreName, int Original_GenreID, global::System.Nullable<int> Original_GenreName) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(GenreID));
-            if ((GenreName.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(GenreName.Value));
+        public virtual int Update(string GenreName, int Original_GenreID, string Original_GenreName, int GenreID) {
+            if ((GenreName == null)) {
+                this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(GenreName));
             }
-            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_GenreID));
-            if ((Original_GenreName.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_GenreName.Value));
+            this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(Original_GenreID));
+            if ((Original_GenreName == null)) {
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(Original_GenreName));
             }
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(GenreID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -7856,8 +7873,8 @@ SELECT GenreID, GenreName FROM Genre WHERE (GenreID = @GenreID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(global::System.Nullable<int> GenreName, int Original_GenreID, global::System.Nullable<int> Original_GenreName) {
-            return this.Update(Original_GenreID, GenreName, Original_GenreID, Original_GenreName);
+        public virtual int Update(string GenreName, int Original_GenreID, string Original_GenreName) {
+            return this.Update(GenreName, Original_GenreID, Original_GenreName, Original_GenreID);
         }
     }
     
@@ -9227,23 +9244,21 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, OwnerID, Linked, Rel
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_MoodDesc", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "MoodDesc", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Mood] ([MoodID], [MoodDesc]) VALUES (@MoodID, @MoodDesc);\r\nSEL" +
-                "ECT MoodID, MoodDesc FROM Mood WHERE (MoodID = @MoodID)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Mood] ([MoodDesc]) VALUES (@MoodDesc);\r\nSELECT MoodID, MoodDes" +
+                "c FROM Mood WHERE (MoodID = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@MoodID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "MoodID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@MoodDesc", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "MoodDesc", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[Mood] SET [MoodID] = @MoodID, [MoodDesc] = @MoodDesc WHERE (([MoodI" +
-                "D] = @Original_MoodID) AND ((@IsNull_MoodDesc = 1 AND [MoodDesc] IS NULL) OR ([M" +
-                "oodDesc] = @Original_MoodDesc)));\r\nSELECT MoodID, MoodDesc FROM Mood WHERE (Mood" +
-                "ID = @MoodID)";
+            this._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[Mood] SET [MoodDesc] = @MoodDesc WHERE (([MoodID] = @Original_MoodI" +
+                "D) AND ((@IsNull_MoodDesc = 1 AND [MoodDesc] IS NULL) OR ([MoodDesc] = @Original" +
+                "_MoodDesc)));\r\nSELECT MoodID, MoodDesc FROM Mood WHERE (MoodID = @MoodID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@MoodID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "MoodID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@MoodDesc", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "MoodDesc", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_MoodID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "MoodID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_MoodDesc", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "MoodDesc", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_MoodDesc", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "MoodDesc", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@MoodID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "MoodID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -9350,13 +9365,12 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, OwnerID, Linked, Rel
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int MoodID, string MoodDesc) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(MoodID));
+        public virtual int Insert(string MoodDesc) {
             if ((MoodDesc == null)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
+                this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(MoodDesc));
+                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(MoodDesc));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -9378,23 +9392,23 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, OwnerID, Linked, Rel
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int MoodID, string MoodDesc, int Original_MoodID, string Original_MoodDesc) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(MoodID));
+        public virtual int Update(string MoodDesc, int Original_MoodID, string Original_MoodDesc, int MoodID) {
             if ((MoodDesc == null)) {
-                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(MoodDesc));
+                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(MoodDesc));
             }
-            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_MoodID));
+            this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(Original_MoodID));
             if ((Original_MoodDesc == null)) {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(Original_MoodDesc));
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(Original_MoodDesc));
             }
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(MoodID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -9416,7 +9430,7 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, OwnerID, Linked, Rel
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(string MoodDesc, int Original_MoodID, string Original_MoodDesc) {
-            return this.Update(Original_MoodID, MoodDesc, Original_MoodID, Original_MoodDesc);
+            return this.Update(MoodDesc, Original_MoodID, Original_MoodDesc, Original_MoodID);
         }
     }
     
@@ -9855,21 +9869,22 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, OwnerID, Linked, Rel
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_OwnerName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OwnerName", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Owner] ([OwnerID], [OwnerName]) VALUES (@OwnerID, @OwnerName);" +
-                "\r\nSELECT OwnerID, OwnerName FROM Owner WHERE (OwnerID = @OwnerID)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Owner] ([OwnerName]) VALUES (@OwnerName);\r\nSELECT OwnerID, Own" +
+                "erName FROM Owner WHERE (OwnerID = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@OwnerID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OwnerID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@OwnerName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OwnerName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Owner] SET [OwnerID] = @OwnerID, [OwnerName] = @OwnerName WHERE (([OwnerID] = @Original_OwnerID) AND ((@IsNull_OwnerName = 1 AND [OwnerName] IS NULL) OR ([OwnerName] = @Original_OwnerName)));
-SELECT OwnerID, OwnerName FROM Owner WHERE (OwnerID = @OwnerID)";
+            this._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[Owner] SET [OwnerName] = @OwnerName WHERE (([OwnerID] = @Original_O" +
+                "wnerID) AND ((@IsNull_OwnerName = 1 AND [OwnerName] IS NULL) OR ([OwnerName] = @" +
+                "Original_OwnerName)));\r\nSELECT OwnerID, OwnerName FROM Owner WHERE (OwnerID = @O" +
+                "wnerID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@OwnerID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OwnerID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@OwnerName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OwnerName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_OwnerID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OwnerID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_OwnerName", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OwnerName", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_OwnerName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OwnerName", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@OwnerID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "OwnerID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -9976,13 +9991,12 @@ SELECT OwnerID, OwnerName FROM Owner WHERE (OwnerID = @OwnerID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int OwnerID, string OwnerName) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(OwnerID));
+        public virtual int Insert(string OwnerName) {
             if ((OwnerName == null)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
+                this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(OwnerName));
+                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(OwnerName));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -10004,23 +10018,23 @@ SELECT OwnerID, OwnerName FROM Owner WHERE (OwnerID = @OwnerID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int OwnerID, string OwnerName, int Original_OwnerID, string Original_OwnerName) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(OwnerID));
+        public virtual int Update(string OwnerName, int Original_OwnerID, string Original_OwnerName, int OwnerID) {
             if ((OwnerName == null)) {
-                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(OwnerName));
+                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(OwnerName));
             }
-            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_OwnerID));
+            this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(Original_OwnerID));
             if ((Original_OwnerName == null)) {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(Original_OwnerName));
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(Original_OwnerName));
             }
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(OwnerID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -10042,7 +10056,7 @@ SELECT OwnerID, OwnerName FROM Owner WHERE (OwnerID = @OwnerID)";
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(string OwnerName, int Original_OwnerID, string Original_OwnerName) {
-            return this.Update(Original_OwnerID, OwnerName, Original_OwnerID, Original_OwnerName);
+            return this.Update(OwnerName, Original_OwnerID, Original_OwnerName, Original_OwnerID);
         }
     }
     
@@ -11099,6 +11113,122 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(global::System.Nullable<global::System.DateTime> DatePlayed, int Original_TrackID, global::System.Nullable<global::System.DateTime> Original_DatePlayed) {
             return this.Update(Original_TrackID, DatePlayed, Original_TrackID, Original_DatePlayed);
+        }
+    }
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class QueriesTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.IDbCommand[] _commandCollection;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        protected global::System.Data.IDbCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.IDbCommand[2];
+            this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Connection = new global::System.Data.SqlClient.SqlConnection(global::MusicDatabaseGenerator.Properties.Settings.Default.MusicLibraryConnectionString);
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).CommandText = "dbo.MusicTableColumnExists";
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).CommandType = global::System.Data.CommandType.StoredProcedure;
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Bit, 1, global::System.Data.ParameterDirection.ReturnValue, 1, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@tableName", global::System.Data.SqlDbType.VarChar, 100, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@columnName", global::System.Data.SqlDbType.VarChar, 100, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Connection = new global::System.Data.SqlClient.SqlConnection(global::MusicDatabaseGenerator.Properties.Settings.Default.MusicLibraryConnectionString);
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).CommandText = "dbo.MusicTableExists";
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).CommandType = global::System.Data.CommandType.StoredProcedure;
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Bit, 1, global::System.Data.ParameterDirection.ReturnValue, 1, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@name", global::System.Data.SqlDbType.NVarChar, 100, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual global::System.Nullable<bool> MusicTableColumnExists(string tableName, string columnName) {
+            global::System.Data.SqlClient.SqlCommand command = ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[0]));
+            if ((tableName == null)) {
+                command.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                command.Parameters[1].Value = ((string)(tableName));
+            }
+            if ((columnName == null)) {
+                command.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            else {
+                command.Parameters[2].Value = ((string)(columnName));
+            }
+            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            try {
+                command.ExecuteNonQuery();
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            if (((command.Parameters[0].Value == null) 
+                        || (command.Parameters[0].Value.GetType() == typeof(global::System.DBNull)))) {
+                return new global::System.Nullable<bool>();
+            }
+            else {
+                return new global::System.Nullable<bool>(((bool)(command.Parameters[0].Value)));
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual global::System.Nullable<bool> MusicTableExists(string name) {
+            global::System.Data.SqlClient.SqlCommand command = ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[1]));
+            if ((name == null)) {
+                command.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                command.Parameters[1].Value = ((string)(name));
+            }
+            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            try {
+                command.ExecuteNonQuery();
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            if (((command.Parameters[0].Value == null) 
+                        || (command.Parameters[0].Value.GetType() == typeof(global::System.DBNull)))) {
+                return new global::System.Nullable<bool>();
+            }
+            else {
+                return new global::System.Nullable<bool>(((bool)(command.Parameters[0].Value)));
+            }
         }
     }
     
