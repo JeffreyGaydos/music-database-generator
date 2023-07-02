@@ -124,6 +124,7 @@
   <ItemGroup>
     <Content Include="Schema\db_delete.sql" />
     <Content Include="Schema\db_drop.sql" />
+    <Content Include="Schema\db_example.sql" />
     <Content Include="Schema\db_initialize.sql" />
   </ItemGroup>
   <ItemGroup />
