@@ -13,7 +13,7 @@ namespace MusicDatabaseGenerator
         public Main main;
         public List<Genre> genre = new List<Genre>();
         public List<Artist> artist = new List<Artist>();
-        public List<Album> album = new List<Album>();
+        public List<(Album, AlbumTracks)> album = new List<(Album, AlbumTracks)>();
 
         //Derived Fields
         //public List<GenreTracks> genreTracks = new List<GenreTracks>();
@@ -77,10 +77,6 @@ namespace MusicDatabaseGenerator
                 {
                     _context.Artist.Add(fullArtist);
                     _context.SaveChanges();
-
-                    fullArtist.ArtistID = _context.Artist.ToList()
-                        .Where(a => a == fullArtist)
-                        .FirstOrDefault().ArtistID;
                 }
             }
 
@@ -96,34 +92,25 @@ namespace MusicDatabaseGenerator
                 _context.ArtistTracks.Add(artistTrack);
             }
 
-            foreach(string newAlbum in album.Select(a => a.AlbumName).ToList().Except(currentAlbums))
+            foreach(string newAlbum in album.Select(a => a.Item1.AlbumName).ToList().Except(currentAlbums))
             {
-                Album fullAlbum = album.Where(a => a.AlbumName == newAlbum).FirstOrDefault();
+                Album fullAlbum = album.Where(a => a.Item1.AlbumName == newAlbum).FirstOrDefault().Item1;
                 if(fullAlbum != null)
                 {
                     _context.Album.Add(fullAlbum);
                     _context.SaveChanges();
-
-                    fullAlbum.AlbumID = _context.Album.ToList()
-                        .Where(a => a == fullAlbum)
-                        .FirstOrDefault().AlbumID;
                 }
             }
 
-            foreach(Album a in album)
+            foreach((Album, AlbumTracks) a in album)
             {
-                a.AlbumID = _context.Album.ToList()
-                        .Where(dba => dba.AlbumName == a.AlbumName)
+                a.Item1.AlbumID = _context.Album.ToList()
+                        .Where(dba => dba.AlbumName == a.Item1.AlbumName)
                         .FirstOrDefault().AlbumID;
 
-                AlbumTracks albumTrack = new AlbumTracks();
-                albumTrack.TrackID = trackID.Value;
-                albumTrack.AlbumID = a.AlbumID;
-                albumTrack.TrackOrder = albumTracks
-                    .Where(ats => ats.AlbumID.Equals(a.AlbumID))
-                    .Select(ats => ats.TrackOrder)
-                    .FirstOrDefault();
-                _context.AlbumTracks.Add(albumTrack);
+                a.Item2.AlbumID = a.Item1.AlbumID;
+                a.Item2.TrackID = trackID.Value;
+                _context.AlbumTracks.Add(a.Item2);
             }
 
             _context.SaveChanges();

@@ -63,7 +63,8 @@ namespace MusicDatabaseGenerator
                 {
                     new MainGenerator(data, trackData),
                     new GenreGenerator(data, trackData),
-                    new ArtistGenerator(data, trackData)
+                    new ArtistGenerator(data, trackData),
+                    new AlbumGenerator(data, trackData)
                 };
 
                 foreach (IGenerator generator in generators)
