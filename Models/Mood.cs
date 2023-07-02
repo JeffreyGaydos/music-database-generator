@@ -6,14 +6,12 @@ namespace MusicDatabaseGenerator
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Album")]
-    public partial class Album
+    [Table("Mood")]
+    public partial class Mood
     {
-        public int AlbumID { get; set; }
+        public int MoodID { get; set; }
 
-        [StringLength(1000)]
-        public string AlbumName { get; set; }
-
-        public DateTime? ReleaseDate { get; set; }
+        [StringLength(100)]
+        public string MoodDesc { get; set; }
     }
 }

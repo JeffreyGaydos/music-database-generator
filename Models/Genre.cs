@@ -6,13 +6,12 @@ namespace MusicDatabaseGenerator
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("ListGenre")]
-    public partial class ListGenre
+    [Table("Genre")]
+    public partial class Genre
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int GenreID { get; set; }
 
-        public int? GenreName { get; set; }
+        [StringLength(100)]
+        public string GenreName { get; set; }
     }
 }

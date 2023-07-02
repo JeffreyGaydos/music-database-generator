@@ -8,18 +8,21 @@ namespace MusicDatabaseGenerator
     public partial class MusicLibraryContext : DbContext
     {
         public MusicLibraryContext()
-            : base("name=MusicLibraryContext1")
+            : base("name=MusicLibraryContext")
         {
         }
 
         public virtual DbSet<Album> Album { get; set; }
         public virtual DbSet<AlbumTracks> AlbumTracks { get; set; }
+        public virtual DbSet<Artist> Artist { get; set; }
+        public virtual DbSet<ArtistTracks> ArtistTracks { get; set; }
+        public virtual DbSet<Genre> Genre { get; set; }
+        public virtual DbSet<GenreTracks> GenreTracks { get; set; }
         public virtual DbSet<LinkedTracks> LinkedTracks { get; set; }
-        public virtual DbSet<ListArtist> ListArtist { get; set; }
-        public virtual DbSet<ListGenre> ListGenre { get; set; }
-        public virtual DbSet<ListMood> ListMood { get; set; }
-        public virtual DbSet<ListOwner> ListOwner { get; set; }
         public virtual DbSet<Main> Main { get; set; }
+        public virtual DbSet<Mood> Mood { get; set; }
+        public virtual DbSet<MoodTracks> MoodTracks { get; set; }
+        public virtual DbSet<Owner> Owner { get; set; }
         public virtual DbSet<Playlist> Playlist { get; set; }
         public virtual DbSet<PlaylistTracks> PlaylistTracks { get; set; }
         public virtual DbSet<PlayLogs> PlayLogs { get; set; }

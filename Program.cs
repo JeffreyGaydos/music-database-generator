@@ -1,10 +1,7 @@
-﻿using System;
+﻿using MusicDatabaseGenerator.Generators;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MusicDatabaseGenerator
 {
@@ -48,22 +45,36 @@ namespace MusicDatabaseGenerator
                     musicFiles.AddRange(subFiles.Where(file => SupportedExtensions.Contains(file.Substring(file.LastIndexOf(".")))));
                 }
             }
-            List<TagLib.File> tagFiles = new List<TagLib.File>();
+            List<TagLibFile> tagFiles = new List<TagLibFile>();
             foreach (string file in musicFiles)
             {
                 //FileStream stream = File.OpenRead(file);
-                var taglibfile = TagLib.File.Create(file);
-                tagFiles.Add(taglibfile);
+                tagFiles.Add(new TagLibFile(TagLib.File.Create(file), file));
                 //Console.WriteLine(taglibfile.Tag.Title);
             }
 
-            using (MusicLibraryContext mdbContext = new MusicLibraryContext())
+            MusicLibraryContext mdbContext = new MusicLibraryContext();
+
+            foreach(TagLibFile data in tagFiles)
             {
-                foreach(Main data in Generators.MainFields(tagFiles, musicFiles))
+                MusicLibraryTrack trackData = new MusicLibraryTrack(mdbContext);
+
+                List<IGenerator> generators = new List<IGenerator>
                 {
-                    mdbContext.Main.Add(data);
+                    new MainGenerator(data, trackData),
+                    new GenreGenerator(data, trackData),
+                    new ArtistGenerator(data, trackData),
+                    new AlbumGenerator(data, trackData)
+                };
+
+                foreach (IGenerator generator in generators)
+                {
+                    generator.Generate();
                 }
-                mdbContext.SaveChanges();
+
+                MusicLibraryTrack.trackIndex += 1;
+
+                trackData.Sync();
             }
         }
     }

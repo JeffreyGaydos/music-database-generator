@@ -22,11 +22,7 @@ namespace MusicDatabaseGenerator
 
         public decimal? AverageDecibels { get; set; }
 
-        public long? MoodIDs { get; set; }
-
         public int? OwnerID { get; set; }
-
-        public int? GenreID { get; set; }
 
         public bool? Linked { get; set; }
 

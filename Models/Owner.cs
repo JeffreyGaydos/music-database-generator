@@ -6,14 +6,12 @@ namespace MusicDatabaseGenerator
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("ListMood")]
-    public partial class ListMood
+    [Table("Owner")]
+    public partial class Owner
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public long MoodID { get; set; }
+        public int OwnerID { get; set; }
 
-        [StringLength(100)]
-        public string MoodDesc { get; set; }
+        [StringLength(1000)]
+        public string OwnerName { get; set; }
     }
 }
