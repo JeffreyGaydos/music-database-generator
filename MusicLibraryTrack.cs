@@ -18,7 +18,6 @@ namespace MusicDatabaseGenerator
         //Derived Fields
         //public List<GenreTracks> genreTracks = new List<GenreTracks>();
         //public List<ArtistTracks> artistTracks = new List<ArtistTracks>();
-        public List<AlbumTracks> albumTracks = new List<AlbumTracks>(); // partially derived field
 
         //Non-Generated Fields
         //public LinkedTracks linkedTracks;
