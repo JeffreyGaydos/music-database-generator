@@ -20,11 +20,11 @@ string musicFolder = "data"; //point this to where the mp3s are located, relativ
 # Schema Explanation & Intent
 
 Legend
-- :clock9:: In Development
-- :no_entry: Subject to change. May be removed
+- :clock9:: In Development.
+- :no_entry:: Subject to change. May be removed or replaced.
 
 ## **Main**
-This table stores metadata that can be easily mapped 1-to-1 each track
+This table stores metadata that can be easily mapped 1-to-1 each track.
 - `TrackID`
   - Use this ID to map songs in other tables. These values are unique across all tables that reference this ID.
 - `Title`
@@ -44,22 +44,22 @@ This table stores metadata that can be easily mapped 1-to-1 each track
   - The date when this file was first downloaded to your device
 
 ## **Artist**
-This table has metadata related to individuals that create music
+This table has metadata related to individuals that create music.
 - `ArtistID`
 - `ArtistName`
 
 ## **ArtistTracks**
-This table maps between the **Main** table and the **Artist** table via the `TrackID` and `ArtistID` columns
+This table maps between the **Main** table and the **Artist** table via the `TrackID` and `ArtistID` columns.
 - `ArtistID`
 - `TrackID`
 
 ## **Genre**
-This table has metadata related to genres
+This table has metadata related to genres.
 - `GenreID`
 - `GenreName`
 
 ## **GenreTracks**
-This table maps between the **Main** table and the **Genre** table via the `TrackID` and `GenreID` columns
+This table maps between the **Main** table and the **Genre** table via the `TrackID` and `GenreID` columns.
 - `GenreID`
 - `TrackID`
 
