@@ -19,23 +19,58 @@ string musicFolder = "data"; //point this to where the mp3s are located, relativ
 
 # Schema Explanation & Intent
 
+Legend
+- :clock9:: In Development
+- :no_entry: Subject to change. May be removed
+
 ## **Main**
 This table stores metadata that can be easily mapped 1-to-1 each track
-- :white_check_mark: TrackID
+- `TrackID`
   - Use this ID to map songs in other tables. These values are unique across all tables that reference this ID.
-- :white_check_mark: Title
-  - The title of the song, directly from the mp3 metadata
-- :white_check_mark: Duration
-  - The duration of the song in seconds, directly from the mp3 metadata
-- :white_check_mark: FilePath
+- `Title`
+- `Duration`
+  - The duration of the song in seconds
+- `FilePath`
   - The filepath of the song, based on where you tell the source code to look for your files
-- :no_entry: AverageDecibels
+- :no_entry: `AverageDecibels`
   - This field subject to change. The intent is to aid in automatic volume balancing
-- :clock9: OwnerID
-  - Whoever originally owned the file
-- :clock9: Linked
-  - The song is often played before or after another song.
-- :white_check_mark: ReleaseYear
-  - The year that the song was released, directly from the mp3 metadata
-- :white_check_mark: AddDate
-  - The date when this file was first downloaded
+- :clock9: `OwnerID`
+  - An ID to map to the `Owner` table
+- :clock9: `LinkedTracks`
+  - True if the song is often played before or after another song and has an association in the `LinkedTracks` table.
+- `ReleaseYear`
+  - The year that the song was released
+- `AddDate`
+  - The date when this file was first downloaded to your device
+
+## **Artist**
+This table has metadata related to individuals that create music
+- `ArtistID`
+- `ArtistName`
+
+## **ArtistTracks**
+This table maps between the **Main** table and the **Artist** table via the `TrackID` and `ArtistID` columns
+- `ArtistID`
+- `TrackID`
+
+## **Genre**
+This table has metadata related to genres
+- `GenreID`
+- `GenreName`
+
+## **GenreTracks**
+This table maps between the **Main** table and the **Genre** table via the `TrackID` and `GenreID` columns
+- `GenreID`
+- `TrackID`
+
+## **Album**
+This table has metadata related to any collection of music. This includes Albums, EPs, LPs, etc.
+- `AlbumID`
+- `AlbumName`
+- :clock9: `ReleaseDate`
+
+## **AlbumTracks**
+This table maps between the **Main** table and the **Album** table and has additional metadata related to the track and album.
+- `AlbumID`
+- `TrackID`
+- `TrackOrder`
