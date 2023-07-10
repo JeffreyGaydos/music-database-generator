@@ -5,3 +5,4 @@ JOIN MusicLibrary.dbo.GenreTracks GTR ON GTR.TrackID = M.TrackID
 JOIN MusicLibrary.dbo.Genre G ON G.GenreID = GTR.GenreID
 JOIN MusicLibrary.dbo.ArtistTracks ARTT ON ARTT.TrackID = M.TrackID
 JOIN MusicLibrary.dbo.Artist ART ON ART.ArtistID = ARTT.ArtistID
+JOIN
