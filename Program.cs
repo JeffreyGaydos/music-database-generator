@@ -1,4 +1,5 @@
 ﻿using MusicDatabaseGenerator.Generators;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -45,17 +46,27 @@ namespace MusicDatabaseGenerator
                     musicFiles.AddRange(subFiles.Where(file => SupportedExtensions.Contains(file.Substring(file.LastIndexOf(".")))));
                 }
             }
-            List<TagLibFile> tagFiles = new List<TagLibFile>();
+            List<TagLib.File> tagFiles = new List<TagLib.File>();
             foreach (string file in musicFiles)
             {
                 //FileStream stream = File.OpenRead(file);
-                tagFiles.Add(new TagLibFile(TagLib.File.Create(file), file));
+                tagFiles.Add(TagLib.File.Create(file));
                 //Console.WriteLine(taglibfile.Tag.Title);
+            }
+
+            List<TagLib.File> corruptFiles = tagFiles.Where(t => t.PossiblyCorrupt).ToList();
+            if (corruptFiles.Any())
+            {
+                Console.WriteLine("Files are possibly corrupt: ");
+                foreach(TagLib.File corruptFile in corruptFiles)
+                {
+                    Console.WriteLine($"{corruptFile.Tag.Title}: {string.Join(",", corruptFile.CorruptionReasons.ToList())}");
+                }
             }
 
             MusicLibraryContext mdbContext = new MusicLibraryContext();
 
-            foreach(TagLibFile data in tagFiles)
+            foreach(TagLib.File data in tagFiles)
             {
                 MusicLibraryTrack trackData = new MusicLibraryTrack(mdbContext);
 
@@ -64,7 +75,8 @@ namespace MusicDatabaseGenerator
                     new MainGenerator(data, trackData),
                     new GenreGenerator(data, trackData),
                     new ArtistGenerator(data, trackData),
-                    new AlbumGenerator(data, trackData)
+                    new AlbumGenerator(data, trackData),
+                    new ArtistPersonGenerator(data, trackData)
                 };
 
                 foreach (IGenerator generator in generators)

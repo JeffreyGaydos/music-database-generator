@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TagLib.Mpeg;
 
 namespace MusicDatabaseGenerator
 {
@@ -14,6 +15,7 @@ namespace MusicDatabaseGenerator
         public List<Genre> genre = new List<Genre>();
         public List<Artist> artist = new List<Artist>();
         public List<(Album, AlbumTracks)> album = new List<(Album, AlbumTracks)>();
+        public List<ArtistPersons> artistPersons = new List<ArtistPersons>();
 
         //Derived Fields
         //public List<GenreTracks> genreTracks = new List<GenreTracks>();
@@ -27,6 +29,7 @@ namespace MusicDatabaseGenerator
         //public List<PlayLogs> playLogs = new List<PlayLogs>();
 
         private MusicLibraryContext _context;
+        private int _trackID;
 
         public MusicLibraryTrack(MusicLibraryContext context) {
             _context = context;
@@ -34,18 +37,35 @@ namespace MusicDatabaseGenerator
 
         public void Sync()
         {
-            List<string> currentGenres = _context.Genre.Select(g => g.GenreName).ToList();
-            List<string> currentArtists = _context.Artist.Select(a => a.ArtistName).ToList();
-            List<string> currentAlbums = _context.Album.Select(a => a.AlbumName).ToList();
+            AddMainData();
+            AddGenreData();
+            AddArtistData();
+            AddArtistPersonsData(); //must come after the artist data
+            AddAlbumData();
 
-            _context.Main.Add(main);
+            LinkCircularIDs();
+
             _context.SaveChanges();
             
+            Console.WriteLine($"Finished processing track {trackIndex} ({main.Title})");
+        }
+
+        private void AddMainData()
+        {
+            _context.Main.Add(main);
+            _context.SaveChanges();
+
             int? trackID = _context.Main.ToList().Where(m => m == main).FirstOrDefault()?.TrackID;
             if (trackID == null)
             {
                 throw new Exception($"Could not create a Main record for track {main.Title}");
             }
+            _trackID = trackID.Value;
+        }
+
+        private void AddGenreData()
+        {
+            List<string> currentGenres = _context.Genre.Select(g => g.GenreName).ToList();
 
             foreach (string newGenre in genre.Select(g => g.GenreName).ToList().Except(currentGenres))
             {
@@ -57,64 +77,94 @@ namespace MusicDatabaseGenerator
                 }
             }
 
-            foreach(Genre g in genre)
+            foreach (Genre g in genre)
             {
                 g.GenreID = _context.Genre.ToList()
                         .Where(dbg => dbg.GenreName == g.GenreName)
                         .FirstOrDefault().GenreID;
 
                 GenreTracks genreTrack = new GenreTracks();
-                genreTrack.TrackID = trackID.Value;
+                genreTrack.TrackID = _trackID;
                 genreTrack.GenreID = g.GenreID;
                 _context.GenreTracks.Add(genreTrack);
             }
+        }
+
+        private void AddArtistData()
+        {
+            List<string> currentArtists = _context.Artist.Select(a => a.ArtistName).ToList();
 
             foreach (string newArtist in artist.Select(a => a.ArtistName).ToList().Except(currentArtists))
             {
                 Artist fullArtist = artist.Where(a => a.ArtistName == newArtist).FirstOrDefault();
-                if(fullArtist != null)
+                if (fullArtist != null)
                 {
                     _context.Artist.Add(fullArtist);
                     _context.SaveChanges();
                 }
             }
 
-            foreach(Artist a in artist)
+            foreach (Artist a in artist)
             {
                 a.ArtistID = _context.Artist.ToList()
                         .Where(dba => dba.ArtistName == a.ArtistName)
                         .FirstOrDefault().ArtistID;
 
                 ArtistTracks artistTrack = new ArtistTracks();
-                artistTrack.TrackID = trackID.Value;
+                artistTrack.TrackID = _trackID;
                 artistTrack.ArtistID = a.ArtistID;
                 _context.ArtistTracks.Add(artistTrack);
             }
+        }
 
-            foreach(string newAlbum in album.Select(a => a.Item1.AlbumName).ToList().Except(currentAlbums))
+        private void AddAlbumData()
+        {
+            List<string> currentAlbums = _context.Album.Select(a => a.AlbumName).ToList();
+
+            foreach (string newAlbum in album.Select(a => a.Item1.AlbumName).ToList().Except(currentAlbums))
             {
                 Album fullAlbum = album.Where(a => a.Item1.AlbumName == newAlbum).FirstOrDefault().Item1;
-                if(fullAlbum != null)
+                if (fullAlbum != null)
                 {
                     _context.Album.Add(fullAlbum);
                     _context.SaveChanges();
                 }
             }
 
-            foreach((Album, AlbumTracks) a in album)
+            foreach ((Album, AlbumTracks) a in album)
             {
                 a.Item1.AlbumID = _context.Album.ToList()
                         .Where(dba => dba.AlbumName == a.Item1.AlbumName)
                         .FirstOrDefault().AlbumID;
 
                 a.Item2.AlbumID = a.Item1.AlbumID;
-                a.Item2.TrackID = trackID.Value;
+                a.Item2.TrackID = _trackID;
                 _context.AlbumTracks.Add(a.Item2);
             }
+        }
 
-            _context.SaveChanges();
-            
-            Console.WriteLine($"Finished processing track {trackIndex} ({main.Title})");
+        private void AddArtistPersonsData()
+        {
+            foreach(ArtistPersons person in artistPersons)
+            {
+                //If there are > 1 artists on 1 track, the standard mp3 metadata on performers is not very useful
+                //and likely will not contain the information needed to map performers to specific artists. In this
+                //case, the artistID that we map here may be inaccurate or relate to a different artist on the same
+                //track
+                if(!_context.ArtistPersons.Select(p => p.PersonName).Contains(person.PersonName))
+                {
+                    person.ArtistID = artist.Select(a => a.ArtistID).First();
+                    _context.ArtistPersons.Add(person);
+                }
+            }
+        }
+
+        private void LinkCircularIDs()
+        {
+            foreach(Artist a in _context.Artist)
+            {
+                a.PrimaryPersonID = _context.ArtistPersons.Where(ap => ap.ArtistID == a.ArtistID).FirstOrDefault()?.PersonID;
+            }
         }
     }
 }

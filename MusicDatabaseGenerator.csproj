@@ -64,12 +64,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Generators\AlbumGenerator.cs" />
-    <Compile Include="Generators\ArtistGenerator.cs" />
+    <Compile Include="Generators\ArtistPersonGenerator.cs" />
     <Compile Include="Models\Album.cs" />
     <Compile Include="Models\AlbumTracks.cs" />
     <Compile Include="Models\Artist.cs" />
+    <Compile Include="Models\ArtistPersons.cs" />
     <Compile Include="Models\ArtistTracks.cs" />
+    <Compile Include="Generators\AlbumGenerator.cs" />
+    <Compile Include="Generators\ArtistGenerator.cs" />
     <Compile Include="Generators\AGenerator.cs" />
     <Compile Include="Generators\GenreGenerator.cs" />
     <Compile Include="Generators\IGenerator.cs" />
@@ -98,7 +100,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="TagLibFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
