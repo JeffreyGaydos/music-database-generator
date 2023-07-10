@@ -29,5 +29,32 @@ namespace MusicDatabaseGenerator
         public int? ReleaseYear { get; set; }
 
         public DateTime? AddDate { get; set; }
+
+        [StringLength(4000)]
+        public string Lyrics { get; set; }
+
+        [StringLength(4000)]
+        public string Comment { get; set; }
+
+        public int? BeatsPerMin { get; set; }
+
+        [StringLength(1000)]
+        public string Copyright { get; set; }
+
+        [StringLength(1000)]
+        public string Publisher { get; set; }
+
+        [StringLength(1000)]
+        public string ISRC { get; set; }
+
+        public int? Bitrate { get; set; }
+
+        public int? Channels { get; set; }
+
+        public int? SampleRate { get; set; }
+
+        public int? BitsPerSample { get; set; }
+
+        public DateTime? GeneratedDate { get; set; }
     }
 }

@@ -115,6 +115,7 @@ IF (SELECT [dbo].[MusicTableExists] (N'Artist')) = 0
 BEGIN
 	CREATE TABLE Artist (
 		ArtistID INT IDENTITY(1,1) PRIMARY KEY,
+		PrimaryPersonID INT,
 		ArtistName NVARCHAR(100)
 	)
 END
@@ -126,6 +127,16 @@ BEGIN
 		ArtistID INT,
 		TrackID INT,
 		PRIMARY KEY (ArtistID, TrackID)
+	)
+END
+
+--Maps artists to persons associated with that artist or group
+IF (SELECT [dbo].[MusicTableExists] (N'ArtistPersons')) = 0
+BEGIN
+	CREATE TABLE ArtistPersons (
+		PersonID INT IDENTITY(1,1) PRIMARY KEY,
+		ArtistID INT,
+		PersonName NVARCHAR(1000)
 	)
 END
 
@@ -216,7 +227,18 @@ BEGIN
 		OwnerID INT,
 		Linked BIT,
 		ReleaseYear INT,
-		AddDate DATETIME
-		)
+		AddDate DATETIME,
+		Lyrics NVARCHAR(4000),
+		Comment NVARCHAR(4000),
+		BeatsPerMin INT,
+		Copyright VARCHAR(1000),
+		Publisher VARCHAR(1000),
+		ISRC VARCHAR(1000),
+		Bitrate INT,
+		Channels INT,
+		SampleRate INT,
+		BitsPerSample INT,
+		GeneratedDate DATETIME
+	)
 END
 GO
