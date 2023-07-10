@@ -773,7 +773,9 @@ namespace MusicDatabaseGenerator {
             
             private global::System.Data.DataColumn columnAlbumName;
             
-            private global::System.Data.DataColumn columnReleaseDate;
+            private global::System.Data.DataColumn columnTrackCount;
+            
+            private global::System.Data.DataColumn columnReleaseYear;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
@@ -826,9 +828,17 @@ namespace MusicDatabaseGenerator {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn ReleaseDateColumn {
+            public global::System.Data.DataColumn TrackCountColumn {
                 get {
-                    return this.columnReleaseDate;
+                    return this.columnTrackCount;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn ReleaseYearColumn {
+                get {
+                    return this.columnReleaseYear;
                 }
             }
             
@@ -869,12 +879,13 @@ namespace MusicDatabaseGenerator {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public AlbumRow AddAlbumRow(string AlbumName, System.DateTime ReleaseDate) {
+            public AlbumRow AddAlbumRow(string AlbumName, int TrackCount, int ReleaseYear) {
                 AlbumRow rowAlbumRow = ((AlbumRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         AlbumName,
-                        ReleaseDate};
+                        TrackCount,
+                        ReleaseYear};
                 rowAlbumRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowAlbumRow);
                 return rowAlbumRow;
@@ -906,7 +917,8 @@ namespace MusicDatabaseGenerator {
             internal void InitVars() {
                 this.columnAlbumID = base.Columns["AlbumID"];
                 this.columnAlbumName = base.Columns["AlbumName"];
-                this.columnReleaseDate = base.Columns["ReleaseDate"];
+                this.columnTrackCount = base.Columns["TrackCount"];
+                this.columnReleaseYear = base.Columns["ReleaseYear"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -916,8 +928,10 @@ namespace MusicDatabaseGenerator {
                 base.Columns.Add(this.columnAlbumID);
                 this.columnAlbumName = new global::System.Data.DataColumn("AlbumName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnAlbumName);
-                this.columnReleaseDate = new global::System.Data.DataColumn("ReleaseDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnReleaseDate);
+                this.columnTrackCount = new global::System.Data.DataColumn("TrackCount", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTrackCount);
+                this.columnReleaseYear = new global::System.Data.DataColumn("ReleaseYear", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnReleaseYear);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnAlbumID}, true));
                 this.columnAlbumID.AutoIncrement = true;
@@ -5307,17 +5321,33 @@ namespace MusicDatabaseGenerator {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public System.DateTime ReleaseDate {
+            public int TrackCount {
                 get {
                     try {
-                        return ((global::System.DateTime)(this[this.tableAlbum.ReleaseDateColumn]));
+                        return ((int)(this[this.tableAlbum.TrackCountColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'ReleaseDate\' in table \'Album\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'TrackCount\' in table \'Album\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableAlbum.ReleaseDateColumn] = value;
+                    this[this.tableAlbum.TrackCountColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public int ReleaseYear {
+                get {
+                    try {
+                        return ((int)(this[this.tableAlbum.ReleaseYearColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ReleaseYear\' in table \'Album\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableAlbum.ReleaseYearColumn] = value;
                 }
             }
             
@@ -5335,14 +5365,26 @@ namespace MusicDatabaseGenerator {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsReleaseDateNull() {
-                return this.IsNull(this.tableAlbum.ReleaseDateColumn);
+            public bool IsTrackCountNull() {
+                return this.IsNull(this.tableAlbum.TrackCountColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetReleaseDateNull() {
-                this[this.tableAlbum.ReleaseDateColumn] = global::System.Convert.DBNull;
+            public void SetTrackCountNull() {
+                this[this.tableAlbum.TrackCountColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsReleaseYearNull() {
+                return this.IsNull(this.tableAlbum.ReleaseYearColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetReleaseYearNull() {
+                this[this.tableAlbum.ReleaseYearColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -7326,37 +7368,44 @@ namespace MusicDatabaseGenerator.MusicLibraryDataSetTableAdapters {
             tableMapping.DataSetTable = "Album";
             tableMapping.ColumnMappings.Add("AlbumID", "AlbumID");
             tableMapping.ColumnMappings.Add("AlbumName", "AlbumName");
-            tableMapping.ColumnMappings.Add("ReleaseDate", "ReleaseDate");
+            tableMapping.ColumnMappings.Add("TrackCount", "TrackCount");
+            tableMapping.ColumnMappings.Add("ReleaseYear", "ReleaseYear");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[Album] WHERE (([AlbumID] = @Original_AlbumID) AND ((@IsNull_AlbumName = 1 AND [AlbumName] IS NULL) OR ([AlbumName] = @Original_AlbumName)) AND ((@IsNull_ReleaseDate = 1 AND [ReleaseDate] IS NULL) OR ([ReleaseDate] = @Original_ReleaseDate)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[Album] WHERE (([AlbumID] = @Original_AlbumID) AND ((@IsNull_AlbumName = 1 AND [AlbumName] IS NULL) OR ([AlbumName] = @Original_AlbumName)) AND ((@IsNull_TrackCount = 1 AND [TrackCount] IS NULL) OR ([TrackCount] = @Original_TrackCount)) AND ((@IsNull_ReleaseYear = 1 AND [ReleaseYear] IS NULL) OR ([ReleaseYear] = @Original_ReleaseYear)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AlbumID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_AlbumName", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumName", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AlbumName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumName", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_ReleaseDate", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ReleaseDate", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ReleaseDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ReleaseDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_TrackCount", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TrackCount", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TrackCount", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TrackCount", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_ReleaseYear", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ReleaseYear", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ReleaseYear", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ReleaseYear", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Album] ([AlbumName], [ReleaseDate]) VALUES (@AlbumName, @Relea" +
-                "seDate);\r\nSELECT AlbumID, AlbumName, ReleaseDate FROM Album WHERE (AlbumID = SCO" +
-                "PE_IDENTITY())";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Album] ([AlbumName], [TrackCount], [ReleaseYear]) VALUES (@Alb" +
+                "umName, @TrackCount, @ReleaseYear);\r\nSELECT AlbumID, AlbumName, TrackCount, Rele" +
+                "aseYear FROM Album WHERE (AlbumID = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AlbumName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ReleaseDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ReleaseDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TrackCount", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TrackCount", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ReleaseYear", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ReleaseYear", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Album] SET [AlbumName] = @AlbumName, [ReleaseDate] = @ReleaseDate WHERE (([AlbumID] = @Original_AlbumID) AND ((@IsNull_AlbumName = 1 AND [AlbumName] IS NULL) OR ([AlbumName] = @Original_AlbumName)) AND ((@IsNull_ReleaseDate = 1 AND [ReleaseDate] IS NULL) OR ([ReleaseDate] = @Original_ReleaseDate)));
-SELECT AlbumID, AlbumName, ReleaseDate FROM Album WHERE (AlbumID = @AlbumID)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Album] SET [AlbumName] = @AlbumName, [TrackCount] = @TrackCount, [ReleaseYear] = @ReleaseYear WHERE (([AlbumID] = @Original_AlbumID) AND ((@IsNull_AlbumName = 1 AND [AlbumName] IS NULL) OR ([AlbumName] = @Original_AlbumName)) AND ((@IsNull_TrackCount = 1 AND [TrackCount] IS NULL) OR ([TrackCount] = @Original_TrackCount)) AND ((@IsNull_ReleaseYear = 1 AND [ReleaseYear] IS NULL) OR ([ReleaseYear] = @Original_ReleaseYear)));
+SELECT AlbumID, AlbumName, TrackCount, ReleaseYear FROM Album WHERE (AlbumID = @AlbumID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AlbumName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ReleaseDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ReleaseDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TrackCount", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TrackCount", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ReleaseYear", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ReleaseYear", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AlbumID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_AlbumName", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumName", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AlbumName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumName", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_ReleaseDate", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ReleaseDate", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ReleaseDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ReleaseDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_TrackCount", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TrackCount", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TrackCount", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TrackCount", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_ReleaseYear", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ReleaseYear", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ReleaseYear", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ReleaseYear", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AlbumID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
@@ -7373,7 +7422,7 @@ SELECT AlbumID, AlbumName, ReleaseDate FROM Album WHERE (AlbumID = @AlbumID)";
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT AlbumID, AlbumName, ReleaseDate FROM dbo.Album";
+            this._commandCollection[0].CommandText = "SELECT AlbumID, AlbumName, TrackCount, ReleaseYear FROM dbo.Album";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -7434,7 +7483,7 @@ SELECT AlbumID, AlbumName, ReleaseDate FROM Album WHERE (AlbumID = @AlbumID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_AlbumID, string Original_AlbumName, global::System.Nullable<global::System.DateTime> Original_ReleaseDate) {
+        public virtual int Delete(int Original_AlbumID, string Original_AlbumName, global::System.Nullable<int> Original_TrackCount, global::System.Nullable<int> Original_ReleaseYear) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_AlbumID));
             if ((Original_AlbumName == null)) {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
@@ -7444,13 +7493,21 @@ SELECT AlbumID, AlbumName, ReleaseDate FROM Album WHERE (AlbumID = @AlbumID)";
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
                 this.Adapter.DeleteCommand.Parameters[2].Value = ((string)(Original_AlbumName));
             }
-            if ((Original_ReleaseDate.HasValue == true)) {
+            if ((Original_TrackCount.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[4].Value = ((System.DateTime)(Original_ReleaseDate.Value));
+                this.Adapter.DeleteCommand.Parameters[4].Value = ((int)(Original_TrackCount.Value));
             }
             else {
                 this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            if ((Original_ReleaseYear.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[6].Value = ((int)(Original_ReleaseYear.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -7472,18 +7529,24 @@ SELECT AlbumID, AlbumName, ReleaseDate FROM Album WHERE (AlbumID = @AlbumID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string AlbumName, global::System.Nullable<global::System.DateTime> ReleaseDate) {
+        public virtual int Insert(string AlbumName, global::System.Nullable<int> TrackCount, global::System.Nullable<int> ReleaseYear) {
             if ((AlbumName == null)) {
                 this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.InsertCommand.Parameters[0].Value = ((string)(AlbumName));
             }
-            if ((ReleaseDate.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((System.DateTime)(ReleaseDate.Value));
+            if ((TrackCount.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[1].Value = ((int)(TrackCount.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            if ((ReleaseYear.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((int)(ReleaseYear.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -7505,37 +7568,51 @@ SELECT AlbumID, AlbumName, ReleaseDate FROM Album WHERE (AlbumID = @AlbumID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string AlbumName, global::System.Nullable<global::System.DateTime> ReleaseDate, int Original_AlbumID, string Original_AlbumName, global::System.Nullable<global::System.DateTime> Original_ReleaseDate, int AlbumID) {
+        public virtual int Update(string AlbumName, global::System.Nullable<int> TrackCount, global::System.Nullable<int> ReleaseYear, int Original_AlbumID, string Original_AlbumName, global::System.Nullable<int> Original_TrackCount, global::System.Nullable<int> Original_ReleaseYear, int AlbumID) {
             if ((AlbumName == null)) {
                 this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(AlbumName));
             }
-            if ((ReleaseDate.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((System.DateTime)(ReleaseDate.Value));
+            if ((TrackCount.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(TrackCount.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_AlbumID));
+            if ((ReleaseYear.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(ReleaseYear.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_AlbumID));
             if ((Original_AlbumName == null)) {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(Original_AlbumName));
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(Original_AlbumName));
             }
-            if ((Original_ReleaseDate.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((System.DateTime)(Original_ReleaseDate.Value));
+            if ((Original_TrackCount.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_TrackCount.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(AlbumID));
+            if ((Original_ReleaseYear.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_ReleaseYear.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(AlbumID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -7556,8 +7633,8 @@ SELECT AlbumID, AlbumName, ReleaseDate FROM Album WHERE (AlbumID = @AlbumID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string AlbumName, global::System.Nullable<global::System.DateTime> ReleaseDate, int Original_AlbumID, string Original_AlbumName, global::System.Nullable<global::System.DateTime> Original_ReleaseDate) {
-            return this.Update(AlbumName, ReleaseDate, Original_AlbumID, Original_AlbumName, Original_ReleaseDate, Original_AlbumID);
+        public virtual int Update(string AlbumName, global::System.Nullable<int> TrackCount, global::System.Nullable<int> ReleaseYear, int Original_AlbumID, string Original_AlbumName, global::System.Nullable<int> Original_TrackCount, global::System.Nullable<int> Original_ReleaseYear) {
+            return this.Update(AlbumName, TrackCount, ReleaseYear, Original_AlbumID, Original_AlbumName, Original_TrackCount, Original_ReleaseYear, Original_AlbumID);
         }
     }
     

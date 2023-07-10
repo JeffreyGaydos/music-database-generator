@@ -17,8 +17,7 @@ namespace MusicDatabaseGenerator.Generators
         {
             _data.album.Add((new Album()
             {
-                AlbumName = _file.Tag.Album,
-                //_file.Tag.TrackCount
+                AlbumName = _file.Tag.Album
             }, new AlbumTracks()
             {
                 TrackOrder = (int)_file.Tag.Track

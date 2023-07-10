@@ -64,12 +64,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Generators\ArtistPersonGenerator.cs" />
     <Compile Include="Models\Album.cs" />
     <Compile Include="Models\AlbumTracks.cs" />
     <Compile Include="Models\Artist.cs" />
     <Compile Include="Models\ArtistPersons.cs" />
     <Compile Include="Models\ArtistTracks.cs" />
+    <Compile Include="Generators\ArtistPersonGenerator.cs" />
     <Compile Include="Generators\AlbumGenerator.cs" />
     <Compile Include="Generators\ArtistGenerator.cs" />
     <Compile Include="Generators\AGenerator.cs" />

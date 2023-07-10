@@ -177,7 +177,8 @@ BEGIN
 	CREATE TABLE Album (
 		AlbumID INT IDENTITY(1,1) PRIMARY KEY,
 		AlbumName NVARCHAR(1000),
-		ReleaseDate DATETIME
+		TrackCount INT,
+		ReleaseYear INT
 	)
 END
 
