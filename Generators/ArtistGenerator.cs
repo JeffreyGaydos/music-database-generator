@@ -1,8 +1,10 @@
-﻿namespace MusicDatabaseGenerator.Generators
+﻿using System;
+
+namespace MusicDatabaseGenerator.Generators
 {
     public class ArtistGenerator : AGenerator, IGenerator
     {
-        public ArtistGenerator(TagLibFile file, MusicLibraryTrack data)
+        public ArtistGenerator(TagLib.File file, MusicLibraryTrack data)
         {
             _file = file;
             _data = data;
@@ -10,7 +12,7 @@
 
         public void Generate()
         {
-            foreach(string artistName in _file.mp3.Tag.Performers)
+            foreach (string artistName in _file.Tag.AlbumArtists)
             {
                 _data.artist.Add(new Artist
                 {
