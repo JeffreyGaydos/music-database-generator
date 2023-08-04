@@ -43,7 +43,7 @@ namespace MusicDatabaseGenerator
             AddArtistPersonsData(); //must come after the artist data
             AddAlbumData();
 
-            LinkCircularIDs();
+            PostProcessing();
 
             _context.SaveChanges();
             
@@ -89,6 +89,7 @@ namespace MusicDatabaseGenerator
                 genreTrack.GenreID = g.GenreID;
                 _context.GenreTracks.Add(genreTrack);
             }
+            _context.SaveChanges();
         }
 
         private void AddArtistData()
@@ -116,6 +117,7 @@ namespace MusicDatabaseGenerator
                 artistTrack.ArtistID = a.ArtistID;
                 _context.ArtistTracks.Add(artistTrack);
             }
+            _context.SaveChanges();
         }
 
         private void AddAlbumData()
@@ -142,6 +144,7 @@ namespace MusicDatabaseGenerator
                 a.Item2.TrackID = _trackID;
                 _context.AlbumTracks.Add(a.Item2);
             }
+            _context.SaveChanges();
         }
 
         private void AddArtistPersonsData()
@@ -158,9 +161,10 @@ namespace MusicDatabaseGenerator
                     _context.ArtistPersons.Add(person);
                 }
             }
+            _context.SaveChanges();
         }
 
-        private void LinkCircularIDs()
+        private void PostProcessing()
         {
             foreach(Artist a in _context.Artist)
             {
