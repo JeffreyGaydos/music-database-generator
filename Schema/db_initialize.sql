@@ -73,6 +73,7 @@ BEGIN
 	CREATE TABLE Mood (
 		MoodID INT IDENTITY(1,1) PRIMARY KEY,
 		MoodDesc NVARCHAR(100)
+		CONSTRAINT UC_MoodDesc UNIQUE (MoodDesc)
 	)
 END
 
@@ -93,10 +94,11 @@ IF (SELECT [dbo].[MusicTableExists] (N'Playlist')) = 0
 BEGIN
 	CREATE TABLE Playlist (
 		PlaylistID INT IDENTITY(1,1) PRIMARY KEY,
-		PlaylistName NVARCHAR(1000),
+		PlaylistName NVARCHAR(450),
 		PlaylistDescription NVARCHAR(4000),
 		CreationDate DATETIME,
 		LastEditDate DATETIME,
+		CONSTRAINT UC_PlaylistName UNIQUE (PlaylistName)
 	)
 END
 
@@ -117,6 +119,7 @@ BEGIN
 		ArtistID INT IDENTITY(1,1) PRIMARY KEY,
 		PrimaryPersonID INT,
 		ArtistName NVARCHAR(100)
+		CONSTRAINT UC_Artist UNIQUE (PrimaryPersonID, ArtistName)
 	)
 END
 
@@ -136,7 +139,8 @@ BEGIN
 	CREATE TABLE ArtistPersons (
 		PersonID INT IDENTITY(1,1) PRIMARY KEY,
 		ArtistID INT,
-		PersonName NVARCHAR(1000)
+		PersonName NVARCHAR(100)
+		CONSTRAINT UC_ArtistPerson UNIQUE (ArtistID, PersonName)
 	)
 END
 
@@ -147,6 +151,7 @@ BEGIN
 	CREATE TABLE Genre (
 		GenreID INT IDENTITY(1,1) PRIMARY KEY,
 		GenreName NVARCHAR(100)
+		CONSTRAINT UC_GenreName UNIQUE (GenreName)
 	)
 END
 
@@ -167,9 +172,10 @@ IF (SELECT [dbo].[MusicTableExists] (N'Album')) = 0
 BEGIN
 	CREATE TABLE Album (
 		AlbumID INT IDENTITY(1,1) PRIMARY KEY,
-		AlbumName NVARCHAR(1000),
+		AlbumName NVARCHAR(446),
 		TrackCount INT,
 		ReleaseYear INT
+		CONSTRAINT UC_Album UNIQUE (AlbumName, TrackCount, ReleaseYear)
 	)
 END
 
@@ -212,7 +218,7 @@ IF (SELECT [dbo].[MusicTableExists] (N'Main')) = 0
 BEGIN
 	CREATE TABLE Main (
 		TrackID INT IDENTITY(1,1) PRIMARY KEY,
-		Title NVARCHAR(4000),
+		Title NVARCHAR(444), --The max key length is 900, this takes the rest of the bits
 		Duration DECIMAL,
 		FilePath VARCHAR(260), --windows max path length = 260 characters
 		AverageDecibels DECIMAL,
@@ -225,12 +231,16 @@ BEGIN
 		BeatsPerMin INT,
 		Copyright VARCHAR(1000),
 		Publisher VARCHAR(1000),
-		ISRC VARCHAR(1000),
+		ISRC VARCHAR(12), --ISRC codes are explicitly 12 characters long
 		Bitrate INT,
 		Channels INT,
 		SampleRate INT,
 		BitsPerSample INT,
 		GeneratedDate DATETIME
+		CONSTRAINT UC_Main UNIQUE (
+			Title,
+			ISRC
+		)
 	)
 END
 GO

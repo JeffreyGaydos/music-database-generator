@@ -11,7 +11,7 @@ namespace MusicDatabaseGenerator
     {
         public int PlaylistID { get; set; }
 
-        [StringLength(1000)]
+        [StringLength(450)]
         public string PlaylistName { get; set; }
 
         [StringLength(4000)]

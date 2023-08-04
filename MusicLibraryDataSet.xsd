@@ -971,7 +971,7 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)</CommandText
               <xs:element name="AlbumName" msprop:Generator_ColumnPropNameInRow="AlbumName" msprop:Generator_ColumnPropNameInTable="AlbumNameColumn" msprop:Generator_ColumnVarNameInTable="columnAlbumName" msprop:Generator_UserColumnName="AlbumName" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="1000" />
+                    <xs:maxLength value="446" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
@@ -1012,7 +1012,7 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)</CommandText
               <xs:element name="PersonName" msprop:Generator_ColumnPropNameInRow="PersonName" msprop:Generator_ColumnPropNameInTable="PersonNameColumn" msprop:Generator_ColumnVarNameInTable="columnPersonName" msprop:Generator_UserColumnName="PersonName" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="1000" />
+                    <xs:maxLength value="100" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
@@ -1064,7 +1064,7 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)</CommandText
               <xs:element name="Title" msprop:Generator_ColumnPropNameInRow="Title" msprop:Generator_ColumnPropNameInTable="TitleColumn" msprop:Generator_ColumnVarNameInTable="columnTitle" msprop:Generator_UserColumnName="Title" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="4000" />
+                    <xs:maxLength value="444" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
@@ -1119,7 +1119,7 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)</CommandText
               <xs:element name="ISRC" msprop:Generator_ColumnPropNameInRow="ISRC" msprop:Generator_ColumnPropNameInTable="ISRCColumn" msprop:Generator_ColumnVarNameInTable="columnISRC" msprop:Generator_UserColumnName="ISRC" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="1000" />
+                    <xs:maxLength value="12" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
@@ -1160,7 +1160,7 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)</CommandText
               <xs:element name="PlaylistName" msprop:Generator_ColumnPropNameInRow="PlaylistName" msprop:Generator_ColumnPropNameInTable="PlaylistNameColumn" msprop:Generator_ColumnVarNameInTable="columnPlaylistName" msprop:Generator_UserColumnName="PlaylistName" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="1000" />
+                    <xs:maxLength value="450" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
@@ -1207,14 +1207,14 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)</CommandText
               <xs:element name="PersonName" msprop:Generator_ColumnPropNameInRow="PersonName" msprop:Generator_ColumnPropNameInTable="PersonNameColumn" msprop:Generator_ColumnVarNameInTable="columnPersonName" msprop:Generator_UserColumnName="PersonName" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="1000" />
+                    <xs:maxLength value="100" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
               <xs:element name="PrimaryPerson" msprop:Generator_ColumnPropNameInRow="PrimaryPerson" msprop:Generator_ColumnPropNameInTable="PrimaryPersonColumn" msprop:Generator_ColumnVarNameInTable="columnPrimaryPerson" msprop:Generator_UserColumnName="PrimaryPerson" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="1000" />
+                    <xs:maxLength value="100" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
@@ -1228,7 +1228,7 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)</CommandText
               <xs:element name="Title" msprop:Generator_ColumnPropNameInRow="Title" msprop:Generator_ColumnPropNameInTable="TitleColumn" msprop:Generator_ColumnVarNameInTable="columnTitle" msprop:Generator_UserColumnName="Title" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="4000" />
+                    <xs:maxLength value="444" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
@@ -1283,7 +1283,7 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)</CommandText
               <xs:element name="ISRC" msprop:Generator_ColumnPropNameInRow="ISRC" msprop:Generator_ColumnPropNameInTable="ISRCColumn" msprop:Generator_ColumnVarNameInTable="columnISRC" msprop:Generator_UserColumnName="ISRC" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="1000" />
+                    <xs:maxLength value="12" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
@@ -1296,7 +1296,7 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)</CommandText
               <xs:element name="AlbumName" msprop:Generator_ColumnPropNameInRow="AlbumName" msprop:Generator_ColumnPropNameInTable="AlbumNameColumn" msprop:Generator_ColumnVarNameInTable="columnAlbumName" msprop:Generator_UserColumnName="AlbumName" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="1000" />
+                    <xs:maxLength value="446" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>

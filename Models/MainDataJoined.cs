@@ -13,7 +13,7 @@ namespace MusicDatabaseGenerator
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int TrackID { get; set; }
 
-        [StringLength(4000)]
+        [StringLength(444)]
         public string Title { get; set; }
 
         public decimal? Duration { get; set; }
@@ -46,7 +46,7 @@ namespace MusicDatabaseGenerator
         [StringLength(1000)]
         public string Publisher { get; set; }
 
-        [StringLength(1000)]
+        [StringLength(12)]
         public string ISRC { get; set; }
 
         public int? Bitrate { get; set; }
@@ -61,7 +61,7 @@ namespace MusicDatabaseGenerator
 
         public int? TrackOrder { get; set; }
 
-        [StringLength(1000)]
+        [StringLength(446)]
         public string AlbumName { get; set; }
 
         public int? AlbumReleaseYear { get; set; }

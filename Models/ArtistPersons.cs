@@ -13,7 +13,7 @@ namespace MusicDatabaseGenerator
 
         public int? ArtistID { get; set; }
 
-        [StringLength(1000)]
+        [StringLength(100)]
         public string PersonName { get; set; }
     }
 }
