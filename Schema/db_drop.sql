@@ -26,5 +26,8 @@ DROP TABLE LinkedTracks
 DROP TABLE PlayLogs
 DROP TABLE Main
 
+DROP VIEW [MainDataJoined]
+DROP VIEW [LeadArtists]
+
 --ROLLBACK TRAN
 COMMIT TRAN

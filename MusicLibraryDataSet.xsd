@@ -872,6 +872,66 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)</CommandText
             </Mappings>
             <Sources />
           </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="LeadArtistsTableAdapter" GeneratorDataComponentClassName="LeadArtistsTableAdapter" Name="LeadArtists" UserDataComponentName="LeadArtistsTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="MusicLibraryConnectionString (Settings)" DbObjectName="MusicLibrary.dbo.LeadArtists" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT ArtistID, PrimaryPersonID, ArtistName, PersonName, PrimaryPerson FROM dbo.LeadArtists</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="ArtistID" DataSetColumn="ArtistID" />
+              <Mapping SourceColumn="PrimaryPersonID" DataSetColumn="PrimaryPersonID" />
+              <Mapping SourceColumn="ArtistName" DataSetColumn="ArtistName" />
+              <Mapping SourceColumn="PersonName" DataSetColumn="PersonName" />
+              <Mapping SourceColumn="PrimaryPerson" DataSetColumn="PrimaryPerson" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="MainDataJoinedTableAdapter" GeneratorDataComponentClassName="MainDataJoinedTableAdapter" Name="MainDataJoined" UserDataComponentName="MainDataJoinedTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="MusicLibraryConnectionString (Settings)" DbObjectName="MusicLibrary.dbo.MainDataJoined" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT TrackID, Title, Duration, FilePath, AverageDecibels, Owner, Linked, ReleaseYear, AddDate, Lyrics, Comment, BeatsPerMin, Copyright, Publisher, ISRC, Bitrate, Channels, SampleRate, BitsPerSample, GeneratedDate, TrackOrder, AlbumName, AlbumReleaseYear, GenreName, ArtistName FROM dbo.MainDataJoined</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="TrackID" DataSetColumn="TrackID" />
+              <Mapping SourceColumn="Title" DataSetColumn="Title" />
+              <Mapping SourceColumn="Duration" DataSetColumn="Duration" />
+              <Mapping SourceColumn="FilePath" DataSetColumn="FilePath" />
+              <Mapping SourceColumn="AverageDecibels" DataSetColumn="AverageDecibels" />
+              <Mapping SourceColumn="Owner" DataSetColumn="Owner" />
+              <Mapping SourceColumn="Linked" DataSetColumn="Linked" />
+              <Mapping SourceColumn="ReleaseYear" DataSetColumn="ReleaseYear" />
+              <Mapping SourceColumn="AddDate" DataSetColumn="AddDate" />
+              <Mapping SourceColumn="Lyrics" DataSetColumn="Lyrics" />
+              <Mapping SourceColumn="Comment" DataSetColumn="Comment" />
+              <Mapping SourceColumn="BeatsPerMin" DataSetColumn="BeatsPerMin" />
+              <Mapping SourceColumn="Copyright" DataSetColumn="Copyright" />
+              <Mapping SourceColumn="Publisher" DataSetColumn="Publisher" />
+              <Mapping SourceColumn="ISRC" DataSetColumn="ISRC" />
+              <Mapping SourceColumn="Bitrate" DataSetColumn="Bitrate" />
+              <Mapping SourceColumn="Channels" DataSetColumn="Channels" />
+              <Mapping SourceColumn="SampleRate" DataSetColumn="SampleRate" />
+              <Mapping SourceColumn="BitsPerSample" DataSetColumn="BitsPerSample" />
+              <Mapping SourceColumn="GeneratedDate" DataSetColumn="GeneratedDate" />
+              <Mapping SourceColumn="TrackOrder" DataSetColumn="TrackOrder" />
+              <Mapping SourceColumn="AlbumName" DataSetColumn="AlbumName" />
+              <Mapping SourceColumn="AlbumReleaseYear" DataSetColumn="AlbumReleaseYear" />
+              <Mapping SourceColumn="GenreName" DataSetColumn="GenreName" />
+              <Mapping SourceColumn="ArtistName" DataSetColumn="ArtistName" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
         </Tables>
         <Sources>
           <DbSource ConnectionRef="MusicLibraryConnectionString (Settings)" DbObjectName="MusicLibrary.dbo.MusicTableColumnExists" DbObjectType="Function" GenerateShortCommands="true" GeneratorSourceName="MusicTableColumnExists" MethodsParameterType="CLR" Modifier="Public" Name="MusicTableColumnExists" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="MusicTableColumnExists">
@@ -1132,6 +1192,132 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)</CommandText
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="LeadArtists" msprop:Generator_RowEvHandlerName="LeadArtistsRowChangeEventHandler" msprop:Generator_RowDeletedName="LeadArtistsRowDeleted" msprop:Generator_RowDeletingName="LeadArtistsRowDeleting" msprop:Generator_RowEvArgName="LeadArtistsRowChangeEvent" msprop:Generator_TablePropName="LeadArtists" msprop:Generator_RowChangedName="LeadArtistsRowChanged" msprop:Generator_RowChangingName="LeadArtistsRowChanging" msprop:Generator_TableClassName="LeadArtistsDataTable" msprop:Generator_RowClassName="LeadArtistsRow" msprop:Generator_TableVarName="tableLeadArtists" msprop:Generator_UserTableName="LeadArtists">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ArtistID" msprop:Generator_ColumnPropNameInRow="ArtistID" msprop:Generator_ColumnPropNameInTable="ArtistIDColumn" msprop:Generator_ColumnVarNameInTable="columnArtistID" msprop:Generator_UserColumnName="ArtistID" type="xs:int" />
+              <xs:element name="PrimaryPersonID" msprop:Generator_ColumnPropNameInRow="PrimaryPersonID" msprop:Generator_ColumnPropNameInTable="PrimaryPersonIDColumn" msprop:Generator_ColumnVarNameInTable="columnPrimaryPersonID" msprop:Generator_UserColumnName="PrimaryPersonID" type="xs:int" minOccurs="0" />
+              <xs:element name="ArtistName" msprop:Generator_ColumnPropNameInRow="ArtistName" msprop:Generator_ColumnPropNameInTable="ArtistNameColumn" msprop:Generator_ColumnVarNameInTable="columnArtistName" msprop:Generator_UserColumnName="ArtistName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PersonName" msprop:Generator_ColumnPropNameInRow="PersonName" msprop:Generator_ColumnPropNameInTable="PersonNameColumn" msprop:Generator_ColumnVarNameInTable="columnPersonName" msprop:Generator_UserColumnName="PersonName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PrimaryPerson" msprop:Generator_ColumnPropNameInRow="PrimaryPerson" msprop:Generator_ColumnPropNameInTable="PrimaryPersonColumn" msprop:Generator_ColumnVarNameInTable="columnPrimaryPerson" msprop:Generator_UserColumnName="PrimaryPerson" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="MainDataJoined" msprop:Generator_RowEvHandlerName="MainDataJoinedRowChangeEventHandler" msprop:Generator_RowDeletedName="MainDataJoinedRowDeleted" msprop:Generator_RowDeletingName="MainDataJoinedRowDeleting" msprop:Generator_RowEvArgName="MainDataJoinedRowChangeEvent" msprop:Generator_TablePropName="MainDataJoined" msprop:Generator_RowChangedName="MainDataJoinedRowChanged" msprop:Generator_RowChangingName="MainDataJoinedRowChanging" msprop:Generator_TableClassName="MainDataJoinedDataTable" msprop:Generator_RowClassName="MainDataJoinedRow" msprop:Generator_TableVarName="tableMainDataJoined" msprop:Generator_UserTableName="MainDataJoined">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="TrackID" msprop:Generator_ColumnPropNameInRow="TrackID" msprop:Generator_ColumnPropNameInTable="TrackIDColumn" msprop:Generator_ColumnVarNameInTable="columnTrackID" msprop:Generator_UserColumnName="TrackID" type="xs:int" />
+              <xs:element name="Title" msprop:Generator_ColumnPropNameInRow="Title" msprop:Generator_ColumnPropNameInTable="TitleColumn" msprop:Generator_ColumnVarNameInTable="columnTitle" msprop:Generator_UserColumnName="Title" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Duration" msprop:Generator_ColumnPropNameInRow="Duration" msprop:Generator_ColumnPropNameInTable="DurationColumn" msprop:Generator_ColumnVarNameInTable="columnDuration" msprop:Generator_UserColumnName="Duration" type="xs:decimal" minOccurs="0" />
+              <xs:element name="FilePath" msprop:Generator_ColumnPropNameInRow="FilePath" msprop:Generator_ColumnPropNameInTable="FilePathColumn" msprop:Generator_ColumnVarNameInTable="columnFilePath" msprop:Generator_UserColumnName="FilePath" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="260" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="AverageDecibels" msprop:Generator_ColumnPropNameInRow="AverageDecibels" msprop:Generator_ColumnPropNameInTable="AverageDecibelsColumn" msprop:Generator_ColumnVarNameInTable="columnAverageDecibels" msprop:Generator_UserColumnName="AverageDecibels" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Owner" msprop:Generator_ColumnPropNameInRow="Owner" msprop:Generator_ColumnPropNameInTable="OwnerColumn" msprop:Generator_ColumnVarNameInTable="columnOwner" msprop:Generator_UserColumnName="Owner" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Linked" msprop:Generator_ColumnPropNameInRow="Linked" msprop:Generator_ColumnPropNameInTable="LinkedColumn" msprop:Generator_ColumnVarNameInTable="columnLinked" msprop:Generator_UserColumnName="Linked" type="xs:boolean" minOccurs="0" />
+              <xs:element name="ReleaseYear" msprop:Generator_ColumnPropNameInRow="ReleaseYear" msprop:Generator_ColumnPropNameInTable="ReleaseYearColumn" msprop:Generator_ColumnVarNameInTable="columnReleaseYear" msprop:Generator_UserColumnName="ReleaseYear" type="xs:int" minOccurs="0" />
+              <xs:element name="AddDate" msprop:Generator_ColumnPropNameInRow="AddDate" msprop:Generator_ColumnPropNameInTable="AddDateColumn" msprop:Generator_ColumnVarNameInTable="columnAddDate" msprop:Generator_UserColumnName="AddDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Lyrics" msprop:Generator_ColumnPropNameInRow="Lyrics" msprop:Generator_ColumnPropNameInTable="LyricsColumn" msprop:Generator_ColumnVarNameInTable="columnLyrics" msprop:Generator_UserColumnName="Lyrics" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Comment" msprop:Generator_ColumnPropNameInRow="Comment" msprop:Generator_ColumnPropNameInTable="CommentColumn" msprop:Generator_ColumnVarNameInTable="columnComment" msprop:Generator_UserColumnName="Comment" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BeatsPerMin" msprop:Generator_ColumnPropNameInRow="BeatsPerMin" msprop:Generator_ColumnPropNameInTable="BeatsPerMinColumn" msprop:Generator_ColumnVarNameInTable="columnBeatsPerMin" msprop:Generator_UserColumnName="BeatsPerMin" type="xs:int" minOccurs="0" />
+              <xs:element name="Copyright" msprop:Generator_ColumnPropNameInRow="Copyright" msprop:Generator_ColumnPropNameInTable="CopyrightColumn" msprop:Generator_ColumnVarNameInTable="columnCopyright" msprop:Generator_UserColumnName="Copyright" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Publisher" msprop:Generator_ColumnPropNameInRow="Publisher" msprop:Generator_ColumnPropNameInTable="PublisherColumn" msprop:Generator_ColumnVarNameInTable="columnPublisher" msprop:Generator_UserColumnName="Publisher" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ISRC" msprop:Generator_ColumnPropNameInRow="ISRC" msprop:Generator_ColumnPropNameInTable="ISRCColumn" msprop:Generator_ColumnVarNameInTable="columnISRC" msprop:Generator_UserColumnName="ISRC" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Bitrate" msprop:Generator_ColumnPropNameInRow="Bitrate" msprop:Generator_ColumnPropNameInTable="BitrateColumn" msprop:Generator_ColumnVarNameInTable="columnBitrate" msprop:Generator_UserColumnName="Bitrate" type="xs:int" minOccurs="0" />
+              <xs:element name="Channels" msprop:Generator_ColumnPropNameInRow="Channels" msprop:Generator_ColumnPropNameInTable="ChannelsColumn" msprop:Generator_ColumnVarNameInTable="columnChannels" msprop:Generator_UserColumnName="Channels" type="xs:int" minOccurs="0" />
+              <xs:element name="SampleRate" msprop:Generator_ColumnPropNameInRow="SampleRate" msprop:Generator_ColumnPropNameInTable="SampleRateColumn" msprop:Generator_ColumnVarNameInTable="columnSampleRate" msprop:Generator_UserColumnName="SampleRate" type="xs:int" minOccurs="0" />
+              <xs:element name="BitsPerSample" msprop:Generator_ColumnPropNameInRow="BitsPerSample" msprop:Generator_ColumnPropNameInTable="BitsPerSampleColumn" msprop:Generator_ColumnVarNameInTable="columnBitsPerSample" msprop:Generator_UserColumnName="BitsPerSample" type="xs:int" minOccurs="0" />
+              <xs:element name="GeneratedDate" msprop:Generator_ColumnPropNameInRow="GeneratedDate" msprop:Generator_ColumnPropNameInTable="GeneratedDateColumn" msprop:Generator_ColumnVarNameInTable="columnGeneratedDate" msprop:Generator_UserColumnName="GeneratedDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="TrackOrder" msprop:Generator_ColumnPropNameInRow="TrackOrder" msprop:Generator_ColumnPropNameInTable="TrackOrderColumn" msprop:Generator_ColumnVarNameInTable="columnTrackOrder" msprop:Generator_UserColumnName="TrackOrder" type="xs:int" minOccurs="0" />
+              <xs:element name="AlbumName" msprop:Generator_ColumnPropNameInRow="AlbumName" msprop:Generator_ColumnPropNameInTable="AlbumNameColumn" msprop:Generator_ColumnVarNameInTable="columnAlbumName" msprop:Generator_UserColumnName="AlbumName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="AlbumReleaseYear" msprop:Generator_ColumnPropNameInRow="AlbumReleaseYear" msprop:Generator_ColumnPropNameInTable="AlbumReleaseYearColumn" msprop:Generator_ColumnVarNameInTable="columnAlbumReleaseYear" msprop:Generator_UserColumnName="AlbumReleaseYear" type="xs:int" minOccurs="0" />
+              <xs:element name="GenreName" msprop:Generator_ColumnPropNameInRow="GenreName" msprop:Generator_ColumnPropNameInTable="GenreNameColumn" msprop:Generator_ColumnVarNameInTable="columnGenreName" msprop:Generator_UserColumnName="GenreName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ArtistName" msprop:Generator_ColumnPropNameInRow="ArtistName" msprop:Generator_ColumnPropNameInTable="ArtistNameColumn" msprop:Generator_ColumnVarNameInTable="columnArtistName" msprop:Generator_UserColumnName="ArtistName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -1193,6 +1379,14 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)</CommandText
     </xs:unique>
     <xs:unique name="PlayLogs_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:PlayLogs" />
+      <xs:field xpath="mstns:TrackID" />
+    </xs:unique>
+    <xs:unique name="LeadArtists_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:LeadArtists" />
+      <xs:field xpath="mstns:ArtistID" />
+    </xs:unique>
+    <xs:unique name="MainDataJoined_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:MainDataJoined" />
       <xs:field xpath="mstns:TrackID" />
     </xs:unique>
   </xs:element>

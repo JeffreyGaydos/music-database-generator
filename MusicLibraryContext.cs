@@ -26,6 +26,8 @@ namespace MusicDatabaseGenerator
         public virtual DbSet<Playlist> Playlist { get; set; }
         public virtual DbSet<PlaylistTracks> PlaylistTracks { get; set; }
         public virtual DbSet<PlayLogs> PlayLogs { get; set; }
+        public virtual DbSet<LeadArtists> LeadArtists { get; set; }
+        public virtual DbSet<MainDataJoined> MainDataJoined { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -50,6 +52,30 @@ namespace MusicDatabaseGenerator
                 .IsUnicode(false);
 
             modelBuilder.Entity<Main>()
+                .Property(e => e.ISRC)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MainDataJoined>()
+                .Property(e => e.Duration)
+                .HasPrecision(18, 0);
+
+            modelBuilder.Entity<MainDataJoined>()
+                .Property(e => e.FilePath)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MainDataJoined>()
+                .Property(e => e.AverageDecibels)
+                .HasPrecision(18, 0);
+
+            modelBuilder.Entity<MainDataJoined>()
+                .Property(e => e.Copyright)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MainDataJoined>()
+                .Property(e => e.Publisher)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MainDataJoined>()
                 .Property(e => e.ISRC)
                 .IsUnicode(false);
         }
