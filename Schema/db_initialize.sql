@@ -140,15 +140,6 @@ BEGIN
 	)
 END
 
---This table can be matched with the main table to determine the owner of the track
-IF (SELECT [dbo].[MusicTableExists] (N'Owner')) = 0
-BEGIN
-	CREATE TABLE Owner (
-		OwnerID INT IDENTITY(1,1) PRIMARY KEY,
-		OwnerName NVARCHAR(1000)
-	)
-END
-
 --traditional genre designation, directly form the MP3 files
 --may or may not be a read only table in future applications
 IF (SELECT [dbo].[MusicTableExists] (N'Genre')) = 0
@@ -225,7 +216,7 @@ BEGIN
 		Duration DECIMAL,
 		FilePath VARCHAR(260), --windows max path length = 260 characters
 		AverageDecibels DECIMAL,
-		OwnerID INT,
+		[Owner] NVARCHAR(1000), --defaults to the computer username, but can be used for however
 		Linked BIT,
 		ReleaseYear INT,
 		AddDate DATETIME,

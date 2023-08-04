@@ -2,7 +2,7 @@
 <xs:schema id="MusicLibraryDataSet" targetNamespace="http://tempuri.org/MusicLibraryDataSet.xsd" xmlns:mstns="http://tempuri.org/MusicLibraryDataSet.xsd" xmlns="http://tempuri.org/MusicLibraryDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:annotation>
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
-      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" GeneratorFunctionsComponentClassName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" UserFunctionsComponentName="QueriesTableAdapter" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
         <Connections>
           <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="MusicLibraryConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="MusicLibraryConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.MusicDatabaseGenerator.Properties.Settings.GlobalReference.Default.MusicLibraryConnectionString" Provider="System.Data.SqlClient" />
         </Connections>
@@ -437,7 +437,7 @@ SELECT TrackID1, TrackID2 FROM LinkedTracks WHERE (TrackID1 = @TrackID1)</Comman
               <DbSource ConnectionRef="MusicLibraryConnectionString (Settings)" DbObjectName="MusicLibrary.dbo.Main" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>DELETE FROM [dbo].[Main] WHERE (([TrackID] = @Original_TrackID) AND ((@IsNull_Title = 1 AND [Title] IS NULL) OR ([Title] = @Original_Title)) AND ((@IsNull_Duration = 1 AND [Duration] IS NULL) OR ([Duration] = @Original_Duration)) AND ((@IsNull_FilePath = 1 AND [FilePath] IS NULL) OR ([FilePath] = @Original_FilePath)) AND ((@IsNull_AverageDecibels = 1 AND [AverageDecibels] IS NULL) OR ([AverageDecibels] = @Original_AverageDecibels)) AND ((@IsNull_OwnerID = 1 AND [OwnerID] IS NULL) OR ([OwnerID] = @Original_OwnerID)) AND ((@IsNull_Linked = 1 AND [Linked] IS NULL) OR ([Linked] = @Original_Linked)) AND ((@IsNull_ReleaseYear = 1 AND [ReleaseYear] IS NULL) OR ([ReleaseYear] = @Original_ReleaseYear)) AND ((@IsNull_AddDate = 1 AND [AddDate] IS NULL) OR ([AddDate] = @Original_AddDate)) AND ((@IsNull_Lyrics = 1 AND [Lyrics] IS NULL) OR ([Lyrics] = @Original_Lyrics)) AND ((@IsNull_Comment = 1 AND [Comment] IS NULL) OR ([Comment] = @Original_Comment)) AND ((@IsNull_BeatsPerMin = 1 AND [BeatsPerMin] IS NULL) OR ([BeatsPerMin] = @Original_BeatsPerMin)) AND ((@IsNull_Copyright = 1 AND [Copyright] IS NULL) OR ([Copyright] = @Original_Copyright)) AND ((@IsNull_Publisher = 1 AND [Publisher] IS NULL) OR ([Publisher] = @Original_Publisher)) AND ((@IsNull_ISRC = 1 AND [ISRC] IS NULL) OR ([ISRC] = @Original_ISRC)) AND ((@IsNull_Bitrate = 1 AND [Bitrate] IS NULL) OR ([Bitrate] = @Original_Bitrate)) AND ((@IsNull_Channels = 1 AND [Channels] IS NULL) OR ([Channels] = @Original_Channels)) AND ((@IsNull_SampleRate = 1 AND [SampleRate] IS NULL) OR ([SampleRate] = @Original_SampleRate)) AND ((@IsNull_BitsPerSample = 1 AND [BitsPerSample] IS NULL) OR ([BitsPerSample] = @Original_BitsPerSample)) AND ((@IsNull_GeneratedDate = 1 AND [GeneratedDate] IS NULL) OR ([GeneratedDate] = @Original_GeneratedDate)))</CommandText>
+                    <CommandText>DELETE FROM [dbo].[Main] WHERE (([TrackID] = @Original_TrackID) AND ((@IsNull_Title = 1 AND [Title] IS NULL) OR ([Title] = @Original_Title)) AND ((@IsNull_Duration = 1 AND [Duration] IS NULL) OR ([Duration] = @Original_Duration)) AND ((@IsNull_FilePath = 1 AND [FilePath] IS NULL) OR ([FilePath] = @Original_FilePath)) AND ((@IsNull_AverageDecibels = 1 AND [AverageDecibels] IS NULL) OR ([AverageDecibels] = @Original_AverageDecibels)) AND ((@IsNull_Owner = 1 AND [Owner] IS NULL) OR ([Owner] = @Original_Owner)) AND ((@IsNull_Linked = 1 AND [Linked] IS NULL) OR ([Linked] = @Original_Linked)) AND ((@IsNull_ReleaseYear = 1 AND [ReleaseYear] IS NULL) OR ([ReleaseYear] = @Original_ReleaseYear)) AND ((@IsNull_AddDate = 1 AND [AddDate] IS NULL) OR ([AddDate] = @Original_AddDate)) AND ((@IsNull_Lyrics = 1 AND [Lyrics] IS NULL) OR ([Lyrics] = @Original_Lyrics)) AND ((@IsNull_Comment = 1 AND [Comment] IS NULL) OR ([Comment] = @Original_Comment)) AND ((@IsNull_BeatsPerMin = 1 AND [BeatsPerMin] IS NULL) OR ([BeatsPerMin] = @Original_BeatsPerMin)) AND ((@IsNull_Copyright = 1 AND [Copyright] IS NULL) OR ([Copyright] = @Original_Copyright)) AND ((@IsNull_Publisher = 1 AND [Publisher] IS NULL) OR ([Publisher] = @Original_Publisher)) AND ((@IsNull_ISRC = 1 AND [ISRC] IS NULL) OR ([ISRC] = @Original_ISRC)) AND ((@IsNull_Bitrate = 1 AND [Bitrate] IS NULL) OR ([Bitrate] = @Original_Bitrate)) AND ((@IsNull_Channels = 1 AND [Channels] IS NULL) OR ([Channels] = @Original_Channels)) AND ((@IsNull_SampleRate = 1 AND [SampleRate] IS NULL) OR ([SampleRate] = @Original_SampleRate)) AND ((@IsNull_BitsPerSample = 1 AND [BitsPerSample] IS NULL) OR ([BitsPerSample] = @Original_BitsPerSample)) AND ((@IsNull_GeneratedDate = 1 AND [GeneratedDate] IS NULL) OR ([GeneratedDate] = @Original_GeneratedDate)))</CommandText>
                     <Parameters>
                       <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_TrackID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="TrackID" SourceColumnNullMapping="false" SourceVersion="Original" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Title" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Title" SourceColumnNullMapping="true" SourceVersion="Original" />
@@ -448,8 +448,8 @@ SELECT TrackID1, TrackID2 FROM LinkedTracks WHERE (TrackID1 = @TrackID1)</Comman
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_FilePath" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="FilePath" SourceColumnNullMapping="false" SourceVersion="Original" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_AverageDecibels" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="AverageDecibels" SourceColumnNullMapping="true" SourceVersion="Original" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_AverageDecibels" Precision="18" ProviderType="Decimal" Scale="0" Size="0" SourceColumn="AverageDecibels" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_OwnerID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="OwnerID" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_OwnerID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="OwnerID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Owner" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Owner" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_Owner" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Owner" SourceColumnNullMapping="false" SourceVersion="Original" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Linked" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Linked" SourceColumnNullMapping="true" SourceVersion="Original" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Original_Linked" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="Linked" SourceColumnNullMapping="false" SourceVersion="Original" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_ReleaseYear" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ReleaseYear" SourceColumnNullMapping="true" SourceVersion="Original" />
@@ -483,14 +483,14 @@ SELECT TrackID1, TrackID2 FROM LinkedTracks WHERE (TrackID1 = @TrackID1)</Comman
                 </DeleteCommand>
                 <InsertCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>INSERT INTO [dbo].[Main] ([Title], [Duration], [FilePath], [AverageDecibels], [OwnerID], [Linked], [ReleaseYear], [AddDate], [Lyrics], [Comment], [BeatsPerMin], [Copyright], [Publisher], [ISRC], [Bitrate], [Channels], [SampleRate], [BitsPerSample], [GeneratedDate]) VALUES (@Title, @Duration, @FilePath, @AverageDecibels, @OwnerID, @Linked, @ReleaseYear, @AddDate, @Lyrics, @Comment, @BeatsPerMin, @Copyright, @Publisher, @ISRC, @Bitrate, @Channels, @SampleRate, @BitsPerSample, @GeneratedDate);
-SELECT TrackID, Title, Duration, FilePath, AverageDecibels, OwnerID, Linked, ReleaseYear, AddDate, Lyrics, Comment, BeatsPerMin, Copyright, Publisher, ISRC, Bitrate, Channels, SampleRate, BitsPerSample, GeneratedDate FROM Main WHERE (TrackID = SCOPE_IDENTITY())</CommandText>
+                    <CommandText>INSERT INTO [dbo].[Main] ([Title], [Duration], [FilePath], [AverageDecibels], [Owner], [Linked], [ReleaseYear], [AddDate], [Lyrics], [Comment], [BeatsPerMin], [Copyright], [Publisher], [ISRC], [Bitrate], [Channels], [SampleRate], [BitsPerSample], [GeneratedDate]) VALUES (@Title, @Duration, @FilePath, @AverageDecibels, @Owner, @Linked, @ReleaseYear, @AddDate, @Lyrics, @Comment, @BeatsPerMin, @Copyright, @Publisher, @ISRC, @Bitrate, @Channels, @SampleRate, @BitsPerSample, @GeneratedDate);
+SELECT TrackID, Title, Duration, FilePath, AverageDecibels, Owner, Linked, ReleaseYear, AddDate, Lyrics, Comment, BeatsPerMin, Copyright, Publisher, ISRC, Bitrate, Channels, SampleRate, BitsPerSample, GeneratedDate FROM Main WHERE (TrackID = SCOPE_IDENTITY())</CommandText>
                     <Parameters>
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Title" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Title" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Duration" Precision="18" ProviderType="Decimal" Scale="0" Size="0" SourceColumn="Duration" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@FilePath" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="FilePath" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@AverageDecibels" Precision="18" ProviderType="Decimal" Scale="0" Size="0" SourceColumn="AverageDecibels" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@OwnerID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="OwnerID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Owner" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Owner" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Linked" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="Linked" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@ReleaseYear" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ReleaseYear" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@AddDate" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="AddDate" SourceColumnNullMapping="false" SourceVersion="Current" />
@@ -510,20 +510,20 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, OwnerID, Linked, Rel
                 </InsertCommand>
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>SELECT TrackID, Title, Duration, FilePath, AverageDecibels, OwnerID, Linked, ReleaseYear, AddDate, Lyrics, Comment, BeatsPerMin, Copyright, Publisher, ISRC, Bitrate, Channels, SampleRate, BitsPerSample, GeneratedDate FROM dbo.Main</CommandText>
+                    <CommandText>SELECT TrackID, Title, Duration, FilePath, AverageDecibels, Owner, Linked, ReleaseYear, AddDate, Lyrics, Comment, BeatsPerMin, Copyright, Publisher, ISRC, Bitrate, Channels, SampleRate, BitsPerSample, GeneratedDate FROM dbo.Main</CommandText>
                     <Parameters />
                   </DbCommand>
                 </SelectCommand>
                 <UpdateCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>UPDATE [dbo].[Main] SET [Title] = @Title, [Duration] = @Duration, [FilePath] = @FilePath, [AverageDecibels] = @AverageDecibels, [OwnerID] = @OwnerID, [Linked] = @Linked, [ReleaseYear] = @ReleaseYear, [AddDate] = @AddDate, [Lyrics] = @Lyrics, [Comment] = @Comment, [BeatsPerMin] = @BeatsPerMin, [Copyright] = @Copyright, [Publisher] = @Publisher, [ISRC] = @ISRC, [Bitrate] = @Bitrate, [Channels] = @Channels, [SampleRate] = @SampleRate, [BitsPerSample] = @BitsPerSample, [GeneratedDate] = @GeneratedDate WHERE (([TrackID] = @Original_TrackID) AND ((@IsNull_Title = 1 AND [Title] IS NULL) OR ([Title] = @Original_Title)) AND ((@IsNull_Duration = 1 AND [Duration] IS NULL) OR ([Duration] = @Original_Duration)) AND ((@IsNull_FilePath = 1 AND [FilePath] IS NULL) OR ([FilePath] = @Original_FilePath)) AND ((@IsNull_AverageDecibels = 1 AND [AverageDecibels] IS NULL) OR ([AverageDecibels] = @Original_AverageDecibels)) AND ((@IsNull_OwnerID = 1 AND [OwnerID] IS NULL) OR ([OwnerID] = @Original_OwnerID)) AND ((@IsNull_Linked = 1 AND [Linked] IS NULL) OR ([Linked] = @Original_Linked)) AND ((@IsNull_ReleaseYear = 1 AND [ReleaseYear] IS NULL) OR ([ReleaseYear] = @Original_ReleaseYear)) AND ((@IsNull_AddDate = 1 AND [AddDate] IS NULL) OR ([AddDate] = @Original_AddDate)) AND ((@IsNull_Lyrics = 1 AND [Lyrics] IS NULL) OR ([Lyrics] = @Original_Lyrics)) AND ((@IsNull_Comment = 1 AND [Comment] IS NULL) OR ([Comment] = @Original_Comment)) AND ((@IsNull_BeatsPerMin = 1 AND [BeatsPerMin] IS NULL) OR ([BeatsPerMin] = @Original_BeatsPerMin)) AND ((@IsNull_Copyright = 1 AND [Copyright] IS NULL) OR ([Copyright] = @Original_Copyright)) AND ((@IsNull_Publisher = 1 AND [Publisher] IS NULL) OR ([Publisher] = @Original_Publisher)) AND ((@IsNull_ISRC = 1 AND [ISRC] IS NULL) OR ([ISRC] = @Original_ISRC)) AND ((@IsNull_Bitrate = 1 AND [Bitrate] IS NULL) OR ([Bitrate] = @Original_Bitrate)) AND ((@IsNull_Channels = 1 AND [Channels] IS NULL) OR ([Channels] = @Original_Channels)) AND ((@IsNull_SampleRate = 1 AND [SampleRate] IS NULL) OR ([SampleRate] = @Original_SampleRate)) AND ((@IsNull_BitsPerSample = 1 AND [BitsPerSample] IS NULL) OR ([BitsPerSample] = @Original_BitsPerSample)) AND ((@IsNull_GeneratedDate = 1 AND [GeneratedDate] IS NULL) OR ([GeneratedDate] = @Original_GeneratedDate)));
-SELECT TrackID, Title, Duration, FilePath, AverageDecibels, OwnerID, Linked, ReleaseYear, AddDate, Lyrics, Comment, BeatsPerMin, Copyright, Publisher, ISRC, Bitrate, Channels, SampleRate, BitsPerSample, GeneratedDate FROM Main WHERE (TrackID = @TrackID)</CommandText>
+                    <CommandText>UPDATE [dbo].[Main] SET [Title] = @Title, [Duration] = @Duration, [FilePath] = @FilePath, [AverageDecibels] = @AverageDecibels, [Owner] = @Owner, [Linked] = @Linked, [ReleaseYear] = @ReleaseYear, [AddDate] = @AddDate, [Lyrics] = @Lyrics, [Comment] = @Comment, [BeatsPerMin] = @BeatsPerMin, [Copyright] = @Copyright, [Publisher] = @Publisher, [ISRC] = @ISRC, [Bitrate] = @Bitrate, [Channels] = @Channels, [SampleRate] = @SampleRate, [BitsPerSample] = @BitsPerSample, [GeneratedDate] = @GeneratedDate WHERE (([TrackID] = @Original_TrackID) AND ((@IsNull_Title = 1 AND [Title] IS NULL) OR ([Title] = @Original_Title)) AND ((@IsNull_Duration = 1 AND [Duration] IS NULL) OR ([Duration] = @Original_Duration)) AND ((@IsNull_FilePath = 1 AND [FilePath] IS NULL) OR ([FilePath] = @Original_FilePath)) AND ((@IsNull_AverageDecibels = 1 AND [AverageDecibels] IS NULL) OR ([AverageDecibels] = @Original_AverageDecibels)) AND ((@IsNull_Owner = 1 AND [Owner] IS NULL) OR ([Owner] = @Original_Owner)) AND ((@IsNull_Linked = 1 AND [Linked] IS NULL) OR ([Linked] = @Original_Linked)) AND ((@IsNull_ReleaseYear = 1 AND [ReleaseYear] IS NULL) OR ([ReleaseYear] = @Original_ReleaseYear)) AND ((@IsNull_AddDate = 1 AND [AddDate] IS NULL) OR ([AddDate] = @Original_AddDate)) AND ((@IsNull_Lyrics = 1 AND [Lyrics] IS NULL) OR ([Lyrics] = @Original_Lyrics)) AND ((@IsNull_Comment = 1 AND [Comment] IS NULL) OR ([Comment] = @Original_Comment)) AND ((@IsNull_BeatsPerMin = 1 AND [BeatsPerMin] IS NULL) OR ([BeatsPerMin] = @Original_BeatsPerMin)) AND ((@IsNull_Copyright = 1 AND [Copyright] IS NULL) OR ([Copyright] = @Original_Copyright)) AND ((@IsNull_Publisher = 1 AND [Publisher] IS NULL) OR ([Publisher] = @Original_Publisher)) AND ((@IsNull_ISRC = 1 AND [ISRC] IS NULL) OR ([ISRC] = @Original_ISRC)) AND ((@IsNull_Bitrate = 1 AND [Bitrate] IS NULL) OR ([Bitrate] = @Original_Bitrate)) AND ((@IsNull_Channels = 1 AND [Channels] IS NULL) OR ([Channels] = @Original_Channels)) AND ((@IsNull_SampleRate = 1 AND [SampleRate] IS NULL) OR ([SampleRate] = @Original_SampleRate)) AND ((@IsNull_BitsPerSample = 1 AND [BitsPerSample] IS NULL) OR ([BitsPerSample] = @Original_BitsPerSample)) AND ((@IsNull_GeneratedDate = 1 AND [GeneratedDate] IS NULL) OR ([GeneratedDate] = @Original_GeneratedDate)));
+SELECT TrackID, Title, Duration, FilePath, AverageDecibels, Owner, Linked, ReleaseYear, AddDate, Lyrics, Comment, BeatsPerMin, Copyright, Publisher, ISRC, Bitrate, Channels, SampleRate, BitsPerSample, GeneratedDate FROM Main WHERE (TrackID = @TrackID)</CommandText>
                     <Parameters>
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Title" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Title" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Duration" Precision="18" ProviderType="Decimal" Scale="0" Size="0" SourceColumn="Duration" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@FilePath" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="FilePath" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@AverageDecibels" Precision="18" ProviderType="Decimal" Scale="0" Size="0" SourceColumn="AverageDecibels" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@OwnerID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="OwnerID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Owner" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Owner" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Linked" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="Linked" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@ReleaseYear" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ReleaseYear" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@AddDate" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="AddDate" SourceColumnNullMapping="false" SourceVersion="Current" />
@@ -547,8 +547,8 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, OwnerID, Linked, Rel
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_FilePath" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="FilePath" SourceColumnNullMapping="false" SourceVersion="Original" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_AverageDecibels" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="AverageDecibels" SourceColumnNullMapping="true" SourceVersion="Original" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Decimal" Direction="Input" ParameterName="@Original_AverageDecibels" Precision="18" ProviderType="Decimal" Scale="0" Size="0" SourceColumn="AverageDecibels" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_OwnerID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="OwnerID" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_OwnerID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="OwnerID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Owner" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Owner" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_Owner" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Owner" SourceColumnNullMapping="false" SourceVersion="Original" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Linked" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Linked" SourceColumnNullMapping="true" SourceVersion="Original" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Original_Linked" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="Linked" SourceColumnNullMapping="false" SourceVersion="Original" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_ReleaseYear" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ReleaseYear" SourceColumnNullMapping="true" SourceVersion="Original" />
@@ -589,7 +589,7 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, OwnerID, Linked, Rel
               <Mapping SourceColumn="Duration" DataSetColumn="Duration" />
               <Mapping SourceColumn="FilePath" DataSetColumn="FilePath" />
               <Mapping SourceColumn="AverageDecibels" DataSetColumn="AverageDecibels" />
-              <Mapping SourceColumn="OwnerID" DataSetColumn="OwnerID" />
+              <Mapping SourceColumn="Owner" DataSetColumn="Owner" />
               <Mapping SourceColumn="Linked" DataSetColumn="Linked" />
               <Mapping SourceColumn="ReleaseYear" DataSetColumn="ReleaseYear" />
               <Mapping SourceColumn="AddDate" DataSetColumn="AddDate" />
@@ -701,55 +701,6 @@ SELECT MoodID, TrackID FROM MoodTracks WHERE (MoodID = @MoodID) AND (TrackID = @
             <Mappings>
               <Mapping SourceColumn="MoodID" DataSetColumn="MoodID" />
               <Mapping SourceColumn="TrackID" DataSetColumn="TrackID" />
-            </Mappings>
-            <Sources />
-          </TableAdapter>
-          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="OwnerTableAdapter" GeneratorDataComponentClassName="OwnerTableAdapter" Name="Owner" UserDataComponentName="OwnerTableAdapter">
-            <MainSource>
-              <DbSource ConnectionRef="MusicLibraryConnectionString (Settings)" DbObjectName="MusicLibrary.dbo.Owner" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
-                <DeleteCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>DELETE FROM [dbo].[Owner] WHERE (([OwnerID] = @Original_OwnerID) AND ((@IsNull_OwnerName = 1 AND [OwnerName] IS NULL) OR ([OwnerName] = @Original_OwnerName)))</CommandText>
-                    <Parameters>
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_OwnerID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="OwnerID" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_OwnerName" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="OwnerName" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_OwnerName" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="OwnerName" SourceColumnNullMapping="false" SourceVersion="Original" />
-                    </Parameters>
-                  </DbCommand>
-                </DeleteCommand>
-                <InsertCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>INSERT INTO [dbo].[Owner] ([OwnerName]) VALUES (@OwnerName);
-SELECT OwnerID, OwnerName FROM Owner WHERE (OwnerID = SCOPE_IDENTITY())</CommandText>
-                    <Parameters>
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@OwnerName" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="OwnerName" SourceColumnNullMapping="false" SourceVersion="Current" />
-                    </Parameters>
-                  </DbCommand>
-                </InsertCommand>
-                <SelectCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>SELECT OwnerID, OwnerName FROM dbo.Owner</CommandText>
-                    <Parameters />
-                  </DbCommand>
-                </SelectCommand>
-                <UpdateCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>UPDATE [dbo].[Owner] SET [OwnerName] = @OwnerName WHERE (([OwnerID] = @Original_OwnerID) AND ((@IsNull_OwnerName = 1 AND [OwnerName] IS NULL) OR ([OwnerName] = @Original_OwnerName)));
-SELECT OwnerID, OwnerName FROM Owner WHERE (OwnerID = @OwnerID)</CommandText>
-                    <Parameters>
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@OwnerName" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="OwnerName" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_OwnerID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="OwnerID" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_OwnerName" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="OwnerName" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_OwnerName" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="OwnerName" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="OwnerID" ColumnName="OwnerID" DataSourceName="MusicLibrary.dbo.Owner" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@OwnerID" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="OwnerID" SourceColumnNullMapping="false" SourceVersion="Current" />
-                    </Parameters>
-                  </DbCommand>
-                </UpdateCommand>
-              </DbSource>
-            </MainSource>
-            <Mappings>
-              <Mapping SourceColumn="OwnerID" DataSetColumn="OwnerID" />
-              <Mapping SourceColumn="OwnerName" DataSetColumn="OwnerName" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -923,31 +874,7 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)</CommandText
             <Sources />
           </TableAdapter>
         </Tables>
-        <Sources>
-          <DbSource ConnectionRef="MusicLibraryConnectionString (Settings)" DbObjectName="MusicLibrary.dbo.MusicTableColumnExists" DbObjectType="Function" GenerateShortCommands="true" GeneratorSourceName="MusicTableColumnExists" MethodsParameterType="CLR" Modifier="Public" Name="MusicTableColumnExists" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="MusicTableColumnExists">
-            <SelectCommand>
-              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
-                <CommandText>dbo.MusicTableColumnExists</CommandText>
-                <Parameters>
-                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DataTypeServer="bit" DbType="Boolean" Direction="ReturnValue" ParameterName="@RETURN_VALUE" Precision="1" ProviderType="Bit" Scale="0" Size="1" SourceColumnNullMapping="false" SourceVersion="Current" />
-                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DataTypeServer="varchar" DbType="AnsiString" Direction="Input" ParameterName="@tableName" Precision="0" ProviderType="VarChar" Scale="0" Size="100" SourceColumnNullMapping="false" SourceVersion="Current" />
-                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DataTypeServer="varchar" DbType="AnsiString" Direction="Input" ParameterName="@columnName" Precision="0" ProviderType="VarChar" Scale="0" Size="100" SourceColumnNullMapping="false" SourceVersion="Current" />
-                </Parameters>
-              </DbCommand>
-            </SelectCommand>
-          </DbSource>
-          <DbSource ConnectionRef="MusicLibraryConnectionString (Settings)" DbObjectName="MusicLibrary.dbo.MusicTableExists" DbObjectType="Function" GenerateShortCommands="true" GeneratorSourceName="MusicTableExists" MethodsParameterType="CLR" Modifier="Public" Name="MusicTableExists" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="MusicTableExists">
-            <SelectCommand>
-              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
-                <CommandText>dbo.MusicTableExists</CommandText>
-                <Parameters>
-                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DataTypeServer="bit" DbType="Boolean" Direction="ReturnValue" ParameterName="@RETURN_VALUE" Precision="1" ProviderType="Bit" Scale="0" Size="1" SourceColumnNullMapping="false" SourceVersion="Current" />
-                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DataTypeServer="nvarchar" DbType="String" Direction="Input" ParameterName="@name" Precision="0" ProviderType="NVarChar" Scale="0" Size="100" SourceColumnNullMapping="false" SourceVersion="Current" />
-                </Parameters>
-              </DbCommand>
-            </SelectCommand>
-          </DbSource>
-        </Sources>
+        <Sources />
       </DataSource>
     </xs:appinfo>
   </xs:annotation>
@@ -1067,7 +994,13 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)</CommandText
                 </xs:simpleType>
               </xs:element>
               <xs:element name="AverageDecibels" msprop:Generator_ColumnPropNameInRow="AverageDecibels" msprop:Generator_ColumnPropNameInTable="AverageDecibelsColumn" msprop:Generator_ColumnVarNameInTable="columnAverageDecibels" msprop:Generator_UserColumnName="AverageDecibels" type="xs:decimal" minOccurs="0" />
-              <xs:element name="OwnerID" msprop:Generator_ColumnPropNameInRow="OwnerID" msprop:Generator_ColumnPropNameInTable="OwnerIDColumn" msprop:Generator_ColumnVarNameInTable="columnOwnerID" msprop:Generator_UserColumnName="OwnerID" type="xs:int" minOccurs="0" />
+              <xs:element name="Owner" msprop:Generator_ColumnPropNameInRow="Owner" msprop:Generator_ColumnPropNameInTable="OwnerColumn" msprop:Generator_ColumnVarNameInTable="columnOwner" msprop:Generator_UserColumnName="Owner" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
               <xs:element name="Linked" msprop:Generator_ColumnPropNameInRow="Linked" msprop:Generator_ColumnPropNameInTable="LinkedColumn" msprop:Generator_ColumnVarNameInTable="columnLinked" msprop:Generator_UserColumnName="Linked" type="xs:boolean" minOccurs="0" />
               <xs:element name="ReleaseYear" msprop:Generator_ColumnPropNameInRow="ReleaseYear" msprop:Generator_ColumnPropNameInTable="ReleaseYearColumn" msprop:Generator_ColumnVarNameInTable="columnReleaseYear" msprop:Generator_UserColumnName="ReleaseYear" type="xs:int" minOccurs="0" />
               <xs:element name="AddDate" msprop:Generator_ColumnPropNameInRow="AddDate" msprop:Generator_ColumnPropNameInTable="AddDateColumn" msprop:Generator_ColumnVarNameInTable="columnAddDate" msprop:Generator_UserColumnName="AddDate" type="xs:dateTime" minOccurs="0" />
@@ -1134,20 +1067,6 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)</CommandText
             <xs:sequence>
               <xs:element name="MoodID" msprop:Generator_ColumnPropNameInRow="MoodID" msprop:Generator_ColumnPropNameInTable="MoodIDColumn" msprop:Generator_ColumnVarNameInTable="columnMoodID" msprop:Generator_UserColumnName="MoodID" type="xs:int" />
               <xs:element name="TrackID" msprop:Generator_ColumnPropNameInRow="TrackID" msprop:Generator_ColumnPropNameInTable="TrackIDColumn" msprop:Generator_ColumnVarNameInTable="columnTrackID" msprop:Generator_UserColumnName="TrackID" type="xs:int" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="Owner" msprop:Generator_RowEvHandlerName="OwnerRowChangeEventHandler" msprop:Generator_RowDeletedName="OwnerRowDeleted" msprop:Generator_RowDeletingName="OwnerRowDeleting" msprop:Generator_RowEvArgName="OwnerRowChangeEvent" msprop:Generator_TablePropName="Owner" msprop:Generator_RowChangedName="OwnerRowChanged" msprop:Generator_RowChangingName="OwnerRowChanging" msprop:Generator_TableClassName="OwnerDataTable" msprop:Generator_RowClassName="OwnerRow" msprop:Generator_TableVarName="tableOwner" msprop:Generator_UserTableName="Owner">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="OwnerID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnPropNameInRow="OwnerID" msprop:Generator_ColumnPropNameInTable="OwnerIDColumn" msprop:Generator_ColumnVarNameInTable="columnOwnerID" msprop:Generator_UserColumnName="OwnerID" type="xs:int" />
-              <xs:element name="OwnerName" msprop:Generator_ColumnPropNameInRow="OwnerName" msprop:Generator_ColumnPropNameInTable="OwnerNameColumn" msprop:Generator_ColumnVarNameInTable="columnOwnerName" msprop:Generator_UserColumnName="OwnerName" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="1000" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1239,10 +1158,6 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)</CommandText
       <xs:selector xpath=".//mstns:MoodTracks" />
       <xs:field xpath="mstns:MoodID" />
       <xs:field xpath="mstns:TrackID" />
-    </xs:unique>
-    <xs:unique name="Owner_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:Owner" />
-      <xs:field xpath="mstns:OwnerID" />
     </xs:unique>
     <xs:unique name="Playlist_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:Playlist" />

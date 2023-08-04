@@ -25,13 +25,19 @@ namespace MusicDatabaseGenerator
             List<string> SupportedExtensions = new List<string>
             {
                 ".mp3",
-                ".wav",
-                ".flac"
+                ".flac",
+                ".wav"
+            };
+
+            List<string> MinimalDataExtensions = new List<string>
+            {
+                ".wav"
             };
 
             //FileStream stream = File.Open(musicPath);
             List<string> musicGroupings = Directory.GetDirectories("../../" + musicFolder).ToList();
             List<string> musicFiles = new List<string>();
+            List<string> musicFilesToWarnOn = new List<string>();
             foreach (string musicGroup in musicGroupings)
             {
                 var files = Directory.GetFiles(musicGroup).ToList();
@@ -39,12 +45,14 @@ namespace MusicDatabaseGenerator
                 {
                     //Console.WriteLine("Artist+Album Found: " + musicGroup);
                     musicFiles.AddRange(files.Where(file => SupportedExtensions.Contains(file.Substring(file.LastIndexOf(".")))));
+                    musicFilesToWarnOn.AddRange(files.Where(file => MinimalDataExtensions.Contains(file.Substring(file.LastIndexOf(".")))));
                 }
                 foreach (string musicSubgroup in Directory.GetDirectories(musicGroup))
                 {
                     var subFiles = Directory.GetFiles(musicSubgroup).ToList();
                     //Console.WriteLine("Artist+Album Found (SUB): " + musicGroup + ", Album: " + musicSubgroup);
                     musicFiles.AddRange(subFiles.Where(file => SupportedExtensions.Contains(file.Substring(file.LastIndexOf(".")))));
+                    musicFilesToWarnOn.AddRange(files.Where(file => MinimalDataExtensions.Contains(file.Substring(file.LastIndexOf(".")))));
                 }
             }
             List<TagLib.File> tagFiles = new List<TagLib.File>();
@@ -64,6 +72,9 @@ namespace MusicDatabaseGenerator
                     Console.WriteLine($"{corruptFile.Tag.Title}: {string.Join(",", corruptFile.CorruptionReasons.ToList())}");
                 }
             }
+
+            Console.WriteLine($"Found {musicFiles.Count} files to process");
+            Console.WriteLine($"{musicFilesToWarnOn.Count} files had minimal metadata. Consider obtaining .mp3 or .flac version of the files found in ./MinimalDataFiles.txt");
 
             MusicLibraryContext mdbContext = new MusicLibraryContext();
 

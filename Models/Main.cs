@@ -22,7 +22,8 @@ namespace MusicDatabaseGenerator
 
         public decimal? AverageDecibels { get; set; }
 
-        public int? OwnerID { get; set; }
+        [StringLength(1000)]
+        public string Owner { get; set; }
 
         public bool? Linked { get; set; }
 

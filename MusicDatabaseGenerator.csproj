@@ -89,7 +89,6 @@
       <DependentUpon>MusicLibraryDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="MusicLibraryTrack.cs" />
-    <Compile Include="Models\Owner.cs" />
     <Compile Include="Models\Playlist.cs" />
     <Compile Include="Models\PlaylistTracks.cs" />
     <Compile Include="Models\PlayLogs.cs" />
