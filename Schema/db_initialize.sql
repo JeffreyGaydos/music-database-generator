@@ -92,7 +92,7 @@ END
 IF (SELECT [dbo].[MusicTableExists] (N'Playlist')) = 0
 BEGIN
 	CREATE TABLE Playlist (
-		PlaylistID INT NOT NULL PRIMARY KEY,
+		PlaylistID INT IDENTITY(1,1) PRIMARY KEY,
 		PlaylistName NVARCHAR(1000),
 		PlaylistDescription NVARCHAR(4000),
 		CreationDate DATETIME,
@@ -115,6 +115,7 @@ IF (SELECT [dbo].[MusicTableExists] (N'Artist')) = 0
 BEGIN
 	CREATE TABLE Artist (
 		ArtistID INT IDENTITY(1,1) PRIMARY KEY,
+		PrimaryPersonID INT,
 		ArtistName NVARCHAR(100)
 	)
 END
@@ -129,12 +130,13 @@ BEGIN
 	)
 END
 
---This table can be matched with the main table to determine the owner of the track
-IF (SELECT [dbo].[MusicTableExists] (N'Owner')) = 0
+--Maps artists to persons associated with that artist or group
+IF (SELECT [dbo].[MusicTableExists] (N'ArtistPersons')) = 0
 BEGIN
-	CREATE TABLE Owner (
-		OwnerID INT IDENTITY(1,1) PRIMARY KEY,
-		OwnerName NVARCHAR(1000)
+	CREATE TABLE ArtistPersons (
+		PersonID INT IDENTITY(1,1) PRIMARY KEY,
+		ArtistID INT,
+		PersonName NVARCHAR(1000)
 	)
 END
 
@@ -166,7 +168,8 @@ BEGIN
 	CREATE TABLE Album (
 		AlbumID INT IDENTITY(1,1) PRIMARY KEY,
 		AlbumName NVARCHAR(1000),
-		ReleaseDate DATETIME
+		TrackCount INT,
+		ReleaseYear INT
 	)
 END
 
@@ -213,10 +216,37 @@ BEGIN
 		Duration DECIMAL,
 		FilePath VARCHAR(260), --windows max path length = 260 characters
 		AverageDecibels DECIMAL,
-		OwnerID INT,
+		[Owner] NVARCHAR(1000), --defaults to the computer username, but can be used for however
 		Linked BIT,
 		ReleaseYear INT,
-		AddDate DATETIME
-		)
+		AddDate DATETIME,
+		Lyrics NVARCHAR(4000),
+		Comment NVARCHAR(4000),
+		BeatsPerMin INT,
+		Copyright VARCHAR(1000),
+		Publisher VARCHAR(1000),
+		ISRC VARCHAR(1000),
+		Bitrate INT,
+		Channels INT,
+		SampleRate INT,
+		BitsPerSample INT,
+		GeneratedDate DATETIME
+	)
 END
+GO
+
+CREATE VIEW [MainDataJoined] AS
+SELECT M.*, ATR.TrackOrder, A.AlbumName, A.ReleaseYear AS [AlbumReleaseYear], G.GenreName, ART.ArtistName FROM MusicLibrary.dbo.Main M
+JOIN MusicLibrary.dbo.AlbumTracks ATR ON M.TrackID = ATR.TrackID
+JOIN MusicLibrary.dbo.Album A ON A.AlbumID = ATR.AlbumID
+JOIN MusicLibrary.dbo.GenreTracks GTR ON GTR.TrackID = M.TrackID
+JOIN MusicLibrary.dbo.Genre G ON G.GenreID = GTR.GenreID
+JOIN MusicLibrary.dbo.ArtistTracks ARTT ON ARTT.TrackID = M.TrackID
+JOIN MusicLibrary.dbo.Artist ART ON ART.ArtistID = ARTT.ArtistID
+GO
+
+CREATE VIEW [LeadArtists] AS
+SELECT ART.*, AP.PersonName, PRP.PersonName AS PrimaryPerson FROM MusicLibrary.dbo.Artist ART
+LEFT JOIN MusicLibrary.dbo.ArtistPersons AP ON ART.ArtistID = AP.ArtistID
+LEFT JOIN MusicLibrary.dbo.ArtistPersons PRP ON PRP.PersonID = ART.PrimaryPersonID
 GO

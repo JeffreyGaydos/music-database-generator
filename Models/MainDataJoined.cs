@@ -6,10 +6,11 @@ namespace MusicDatabaseGenerator
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Main")]
-    public partial class Main
+    [Table("MainDataJoined")]
+    public partial class MainDataJoined
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int TrackID { get; set; }
 
         [StringLength(4000)]
@@ -57,5 +58,18 @@ namespace MusicDatabaseGenerator
         public int? BitsPerSample { get; set; }
 
         public DateTime? GeneratedDate { get; set; }
+
+        public int? TrackOrder { get; set; }
+
+        [StringLength(1000)]
+        public string AlbumName { get; set; }
+
+        public int? AlbumReleaseYear { get; set; }
+
+        [StringLength(100)]
+        public string GenreName { get; set; }
+
+        [StringLength(100)]
+        public string ArtistName { get; set; }
     }
 }

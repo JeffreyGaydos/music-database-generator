@@ -14,6 +14,8 @@ namespace MusicDatabaseGenerator
         [StringLength(1000)]
         public string AlbumName { get; set; }
 
-        public DateTime? ReleaseDate { get; set; }
+        public int? TrackCount { get; set; }
+
+        public int? ReleaseYear { get; set; }
     }
 }

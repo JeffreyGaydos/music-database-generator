@@ -1,4 +1,5 @@
 ﻿using MusicDatabaseGenerator.Generators;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -24,12 +25,19 @@ namespace MusicDatabaseGenerator
             List<string> SupportedExtensions = new List<string>
             {
                 ".mp3",
+                ".flac",
+                ".wav"
+            };
+
+            List<string> MinimalDataExtensions = new List<string>
+            {
                 ".wav"
             };
 
             //FileStream stream = File.Open(musicPath);
             List<string> musicGroupings = Directory.GetDirectories("../../" + musicFolder).ToList();
             List<string> musicFiles = new List<string>();
+            List<string> musicFilesToWarnOn = new List<string>();
             foreach (string musicGroup in musicGroupings)
             {
                 var files = Directory.GetFiles(musicGroup).ToList();
@@ -37,25 +45,40 @@ namespace MusicDatabaseGenerator
                 {
                     //Console.WriteLine("Artist+Album Found: " + musicGroup);
                     musicFiles.AddRange(files.Where(file => SupportedExtensions.Contains(file.Substring(file.LastIndexOf(".")))));
+                    musicFilesToWarnOn.AddRange(files.Where(file => MinimalDataExtensions.Contains(file.Substring(file.LastIndexOf(".")))));
                 }
                 foreach (string musicSubgroup in Directory.GetDirectories(musicGroup))
                 {
                     var subFiles = Directory.GetFiles(musicSubgroup).ToList();
                     //Console.WriteLine("Artist+Album Found (SUB): " + musicGroup + ", Album: " + musicSubgroup);
                     musicFiles.AddRange(subFiles.Where(file => SupportedExtensions.Contains(file.Substring(file.LastIndexOf(".")))));
+                    musicFilesToWarnOn.AddRange(files.Where(file => MinimalDataExtensions.Contains(file.Substring(file.LastIndexOf(".")))));
                 }
             }
-            List<TagLibFile> tagFiles = new List<TagLibFile>();
+            List<TagLib.File> tagFiles = new List<TagLib.File>();
             foreach (string file in musicFiles)
             {
                 //FileStream stream = File.OpenRead(file);
-                tagFiles.Add(new TagLibFile(TagLib.File.Create(file), file));
+                tagFiles.Add(TagLib.File.Create(file));
                 //Console.WriteLine(taglibfile.Tag.Title);
             }
 
+            List<TagLib.File> corruptFiles = tagFiles.Where(t => t.PossiblyCorrupt).ToList();
+            if (corruptFiles.Any())
+            {
+                Console.WriteLine("Files are possibly corrupt: ");
+                foreach(TagLib.File corruptFile in corruptFiles)
+                {
+                    Console.WriteLine($"{corruptFile.Tag.Title}: {string.Join(",", corruptFile.CorruptionReasons.ToList())}");
+                }
+            }
+
+            Console.WriteLine($"Found {musicFiles.Count} files to process");
+            Console.WriteLine($"{musicFilesToWarnOn.Count} files had minimal metadata. Consider obtaining .mp3 or .flac version of the files found in ./MinimalDataFiles.txt");
+
             MusicLibraryContext mdbContext = new MusicLibraryContext();
 
-            foreach(TagLibFile data in tagFiles)
+            foreach(TagLib.File data in tagFiles)
             {
                 MusicLibraryTrack trackData = new MusicLibraryTrack(mdbContext);
 
@@ -64,7 +87,8 @@ namespace MusicDatabaseGenerator
                     new MainGenerator(data, trackData),
                     new GenreGenerator(data, trackData),
                     new ArtistGenerator(data, trackData),
-                    new AlbumGenerator(data, trackData)
+                    new AlbumGenerator(data, trackData),
+                    new ArtistPersonGenerator(data, trackData)
                 };
 
                 foreach (IGenerator generator in generators)

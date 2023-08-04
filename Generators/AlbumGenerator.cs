@@ -8,7 +8,7 @@ namespace MusicDatabaseGenerator.Generators
 {
     public class AlbumGenerator : AGenerator, IGenerator
     {
-        public AlbumGenerator(TagLibFile file, MusicLibraryTrack track)
+        public AlbumGenerator(TagLib.File file, MusicLibraryTrack track)
         {
             _file = file;
             _data = track;
@@ -17,10 +17,10 @@ namespace MusicDatabaseGenerator.Generators
         {
             _data.album.Add((new Album()
             {
-                AlbumName = _file.mp3.Tag.Album
+                AlbumName = _file.Tag.Album
             }, new AlbumTracks()
             {
-                TrackOrder = (int)_file.mp3.Tag.Track
+                TrackOrder = (int)_file.Tag.Track
             }));
         }
     }

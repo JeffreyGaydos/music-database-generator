@@ -6,12 +6,14 @@ namespace MusicDatabaseGenerator
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Owner")]
-    public partial class Owner
+    public partial class ArtistPersons
     {
-        public int OwnerID { get; set; }
+        [Key]
+        public int PersonID { get; set; }
+
+        public int? ArtistID { get; set; }
 
         [StringLength(1000)]
-        public string OwnerName { get; set; }
+        public string PersonName { get; set; }
     }
 }

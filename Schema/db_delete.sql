@@ -16,12 +16,13 @@ DELETE FROM Mood
 DBCC CHECKIDENT ('dbo.Mood', RESEED, 0)
 DELETE FROM MoodTracks
 DELETE FROM Playlist
---DBCC CHECKIDENT ('dbo.Playlist', RESEED, 0)--Identity column not yet implemented on this table
+DBCC CHECKIDENT ('dbo.Playlist', RESEED, 0)
 DELETE FROM PlaylistTracks
 DELETE FROM Artist
 DBCC CHECKIDENT ('dbo.Artist', RESEED, 0)
 DELETE FROM ArtistTracks
-DELETE FROM Owner
+DELETE FROM ArtistPersons
+DBCC CHECKIDENT ('dbo.ArtistPersons', RESEED, 0)
 DELETE FROM Genre
 DBCC CHECKIDENT ('dbo.Genre', RESEED, 0)
 DELETE FROM GenreTracks
@@ -33,5 +34,5 @@ DELETE FROM PlayLogs
 DELETE FROM Main
 DBCC CHECKIDENT ('dbo.Main', RESEED, 0)
 
-ROLLBACK TRAN
---COMMIT TRAN
+--ROLLBACK TRAN
+COMMIT TRAN

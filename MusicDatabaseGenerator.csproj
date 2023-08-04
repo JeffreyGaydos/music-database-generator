@@ -64,20 +64,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Generators\AlbumGenerator.cs" />
-    <Compile Include="Generators\ArtistGenerator.cs" />
     <Compile Include="Models\Album.cs" />
     <Compile Include="Models\AlbumTracks.cs" />
     <Compile Include="Models\Artist.cs" />
+    <Compile Include="Models\ArtistPersons.cs" />
     <Compile Include="Models\ArtistTracks.cs" />
+    <Compile Include="Generators\ArtistPersonGenerator.cs" />
+    <Compile Include="Generators\AlbumGenerator.cs" />
+    <Compile Include="Generators\ArtistGenerator.cs" />
     <Compile Include="Generators\AGenerator.cs" />
     <Compile Include="Generators\GenreGenerator.cs" />
     <Compile Include="Generators\IGenerator.cs" />
     <Compile Include="Generators\MainGenerator.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\GenreTracks.cs" />
+    <Compile Include="Models\LeadArtists.cs" />
     <Compile Include="Models\LinkedTracks.cs" />
     <Compile Include="Models\Main.cs" />
+    <Compile Include="Models\MainDataJoined.cs" />
     <Compile Include="Models\Mood.cs" />
     <Compile Include="Models\MoodTracks.cs" />
     <Compile Include="MusicLibraryContext.cs" />
@@ -87,7 +91,6 @@
       <DependentUpon>MusicLibraryDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="MusicLibraryTrack.cs" />
-    <Compile Include="Models\Owner.cs" />
     <Compile Include="Models\Playlist.cs" />
     <Compile Include="Models\PlaylistTracks.cs" />
     <Compile Include="Models\PlayLogs.cs" />
@@ -98,7 +101,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="TagLibFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />

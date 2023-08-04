@@ -17,7 +17,7 @@ DROP TABLE Playlist
 DROP TABLE PlaylistTracks
 DROP TABLE Artist
 DROP TABLE ArtistTracks
-DROP TABLE Owner
+DROP TABLE ArtistPersons
 DROP TABLE Genre
 DROP TABLE GenreTracks
 DROP TABLE Album
@@ -25,6 +25,9 @@ DROP TABLE AlbumTracks
 DROP TABLE LinkedTracks
 DROP TABLE PlayLogs
 DROP TABLE Main
+
+DROP VIEW [MainDataJoined]
+DROP VIEW [LeadArtists]
 
 --ROLLBACK TRAN
 COMMIT TRAN

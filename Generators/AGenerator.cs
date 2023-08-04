@@ -2,7 +2,7 @@
 {
     public abstract class AGenerator
     {
-        internal TagLibFile _file;
+        internal TagLib.File _file;
         internal MusicLibraryTrack _data;
     }
 }
