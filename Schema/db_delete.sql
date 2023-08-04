@@ -16,7 +16,7 @@ DELETE FROM Mood
 DBCC CHECKIDENT ('dbo.Mood', RESEED, 0)
 DELETE FROM MoodTracks
 DELETE FROM Playlist
---DBCC CHECKIDENT ('dbo.Playlist', RESEED, 0)--Identity column not yet implemented on this table
+DBCC CHECKIDENT ('dbo.Playlist', RESEED, 0)--Identity column not yet implemented on this table
 DELETE FROM PlaylistTracks
 DELETE FROM Artist
 DBCC CHECKIDENT ('dbo.Artist', RESEED, 0)

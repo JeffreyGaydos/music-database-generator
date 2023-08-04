@@ -92,7 +92,7 @@ END
 IF (SELECT [dbo].[MusicTableExists] (N'Playlist')) = 0
 BEGIN
 	CREATE TABLE Playlist (
-		PlaylistID INT NOT NULL PRIMARY KEY,
+		PlaylistID INT IDENTITY(1,1) PRIMARY KEY,
 		PlaylistName NVARCHAR(1000),
 		PlaylistDescription NVARCHAR(4000),
 		CreationDate DATETIME,

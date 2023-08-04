@@ -9,7 +9,6 @@ namespace MusicDatabaseGenerator
     [Table("Playlist")]
     public partial class Playlist
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int PlaylistID { get; set; }
 
         [StringLength(1000)]

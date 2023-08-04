@@ -4232,10 +4232,10 @@ namespace MusicDatabaseGenerator {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public PlaylistRow AddPlaylistRow(int PlaylistID, string PlaylistName, string PlaylistDescription, System.DateTime CreationDate, System.DateTime LastEditDate) {
+            public PlaylistRow AddPlaylistRow(string PlaylistName, string PlaylistDescription, System.DateTime CreationDate, System.DateTime LastEditDate) {
                 PlaylistRow rowPlaylistRow = ((PlaylistRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        PlaylistID,
+                        null,
                         PlaylistName,
                         PlaylistDescription,
                         CreationDate,
@@ -4291,7 +4291,11 @@ namespace MusicDatabaseGenerator {
                 base.Columns.Add(this.columnLastEditDate);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnPlaylistID}, true));
+                this.columnPlaylistID.AutoIncrement = true;
+                this.columnPlaylistID.AutoIncrementSeed = -1;
+                this.columnPlaylistID.AutoIncrementStep = -1;
                 this.columnPlaylistID.AllowDBNull = false;
+                this.columnPlaylistID.ReadOnly = true;
                 this.columnPlaylistID.Unique = true;
                 this.columnPlaylistName.MaxLength = 1000;
                 this.columnPlaylistDescription.MaxLength = 4000;
@@ -11438,20 +11442,18 @@ SELECT TrackID, Title, Duration, FilePath, AverageDecibels, Owner, Linked, Relea
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_LastEditDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastEditDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[Playlist] ([PlaylistID], [PlaylistName], [PlaylistDescription], [CreationDate], [LastEditDate]) VALUES (@PlaylistID, @PlaylistName, @PlaylistDescription, @CreationDate, @LastEditDate);
-SELECT PlaylistID, PlaylistName, PlaylistDescription, CreationDate, LastEditDate FROM Playlist WHERE (PlaylistID = @PlaylistID)";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[Playlist] ([PlaylistName], [PlaylistDescription], [CreationDate], [LastEditDate]) VALUES (@PlaylistName, @PlaylistDescription, @CreationDate, @LastEditDate);
+SELECT PlaylistID, PlaylistName, PlaylistDescription, CreationDate, LastEditDate FROM Playlist WHERE (PlaylistID = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PlaylistID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlaylistID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PlaylistName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlaylistName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PlaylistDescription", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlaylistDescription", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CreationDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreationDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LastEditDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastEditDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Playlist] SET [PlaylistID] = @PlaylistID, [PlaylistName] = @PlaylistName, [PlaylistDescription] = @PlaylistDescription, [CreationDate] = @CreationDate, [LastEditDate] = @LastEditDate WHERE (([PlaylistID] = @Original_PlaylistID) AND ((@IsNull_PlaylistName = 1 AND [PlaylistName] IS NULL) OR ([PlaylistName] = @Original_PlaylistName)) AND ((@IsNull_PlaylistDescription = 1 AND [PlaylistDescription] IS NULL) OR ([PlaylistDescription] = @Original_PlaylistDescription)) AND ((@IsNull_CreationDate = 1 AND [CreationDate] IS NULL) OR ([CreationDate] = @Original_CreationDate)) AND ((@IsNull_LastEditDate = 1 AND [LastEditDate] IS NULL) OR ([LastEditDate] = @Original_LastEditDate)));
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Playlist] SET [PlaylistName] = @PlaylistName, [PlaylistDescription] = @PlaylistDescription, [CreationDate] = @CreationDate, [LastEditDate] = @LastEditDate WHERE (([PlaylistID] = @Original_PlaylistID) AND ((@IsNull_PlaylistName = 1 AND [PlaylistName] IS NULL) OR ([PlaylistName] = @Original_PlaylistName)) AND ((@IsNull_PlaylistDescription = 1 AND [PlaylistDescription] IS NULL) OR ([PlaylistDescription] = @Original_PlaylistDescription)) AND ((@IsNull_CreationDate = 1 AND [CreationDate] IS NULL) OR ([CreationDate] = @Original_CreationDate)) AND ((@IsNull_LastEditDate = 1 AND [LastEditDate] IS NULL) OR ([LastEditDate] = @Original_LastEditDate)));
 SELECT PlaylistID, PlaylistName, PlaylistDescription, CreationDate, LastEditDate FROM Playlist WHERE (PlaylistID = @PlaylistID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PlaylistID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlaylistID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PlaylistName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlaylistName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PlaylistDescription", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlaylistDescription", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CreationDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreationDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -11465,6 +11467,7 @@ SELECT PlaylistID, PlaylistName, PlaylistDescription, CreationDate, LastEditDate
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CreationDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreationDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_LastEditDate", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastEditDate", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_LastEditDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastEditDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PlaylistID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "PlaylistID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -11596,31 +11599,30 @@ SELECT PlaylistID, PlaylistName, PlaylistDescription, CreationDate, LastEditDate
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int PlaylistID, string PlaylistName, string PlaylistDescription, global::System.Nullable<global::System.DateTime> CreationDate, global::System.Nullable<global::System.DateTime> LastEditDate) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(PlaylistID));
+        public virtual int Insert(string PlaylistName, string PlaylistDescription, global::System.Nullable<global::System.DateTime> CreationDate, global::System.Nullable<global::System.DateTime> LastEditDate) {
             if ((PlaylistName == null)) {
+                this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(PlaylistName));
+            }
+            if ((PlaylistDescription == null)) {
                 this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(PlaylistName));
-            }
-            if ((PlaylistDescription == null)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(PlaylistDescription));
+                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(PlaylistDescription));
             }
             if ((CreationDate.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((System.DateTime)(CreationDate.Value));
+                this.Adapter.InsertCommand.Parameters[2].Value = ((System.DateTime)(CreationDate.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            if ((LastEditDate.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[3].Value = ((System.DateTime)(LastEditDate.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
-            }
-            if ((LastEditDate.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[4].Value = ((System.DateTime)(LastEditDate.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -11642,65 +11644,65 @@ SELECT PlaylistID, PlaylistName, PlaylistDescription, CreationDate, LastEditDate
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int PlaylistID, string PlaylistName, string PlaylistDescription, global::System.Nullable<global::System.DateTime> CreationDate, global::System.Nullable<global::System.DateTime> LastEditDate, int Original_PlaylistID, string Original_PlaylistName, string Original_PlaylistDescription, global::System.Nullable<global::System.DateTime> Original_CreationDate, global::System.Nullable<global::System.DateTime> Original_LastEditDate) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(PlaylistID));
+        public virtual int Update(string PlaylistName, string PlaylistDescription, global::System.Nullable<global::System.DateTime> CreationDate, global::System.Nullable<global::System.DateTime> LastEditDate, int Original_PlaylistID, string Original_PlaylistName, string Original_PlaylistDescription, global::System.Nullable<global::System.DateTime> Original_CreationDate, global::System.Nullable<global::System.DateTime> Original_LastEditDate, int PlaylistID) {
             if ((PlaylistName == null)) {
+                this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(PlaylistName));
+            }
+            if ((PlaylistDescription == null)) {
                 this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(PlaylistName));
-            }
-            if ((PlaylistDescription == null)) {
-                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(PlaylistDescription));
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(PlaylistDescription));
             }
             if ((CreationDate.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((System.DateTime)(CreationDate.Value));
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((System.DateTime)(CreationDate.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            if ((LastEditDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((System.DateTime)(LastEditDate.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
-            if ((LastEditDate.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((System.DateTime)(LastEditDate.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_PlaylistID));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_PlaylistID));
             if ((Original_PlaylistName == null)) {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(Original_PlaylistName));
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(Original_PlaylistName));
             }
             if ((Original_PlaylistDescription == null)) {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((string)(Original_PlaylistDescription));
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(Original_PlaylistDescription));
             }
             if ((Original_CreationDate.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((System.DateTime)(Original_CreationDate.Value));
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((System.DateTime)(Original_CreationDate.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[11].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
             }
             if ((Original_LastEditDate.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((System.DateTime)(Original_LastEditDate.Value));
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((System.DateTime)(Original_LastEditDate.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[13].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
             }
+            this.Adapter.UpdateCommand.Parameters[13].Value = ((int)(PlaylistID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -11722,7 +11724,7 @@ SELECT PlaylistID, PlaylistName, PlaylistDescription, CreationDate, LastEditDate
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(string PlaylistName, string PlaylistDescription, global::System.Nullable<global::System.DateTime> CreationDate, global::System.Nullable<global::System.DateTime> LastEditDate, int Original_PlaylistID, string Original_PlaylistName, string Original_PlaylistDescription, global::System.Nullable<global::System.DateTime> Original_CreationDate, global::System.Nullable<global::System.DateTime> Original_LastEditDate) {
-            return this.Update(Original_PlaylistID, PlaylistName, PlaylistDescription, CreationDate, LastEditDate, Original_PlaylistID, Original_PlaylistName, Original_PlaylistDescription, Original_CreationDate, Original_LastEditDate);
+            return this.Update(PlaylistName, PlaylistDescription, CreationDate, LastEditDate, Original_PlaylistID, Original_PlaylistName, Original_PlaylistDescription, Original_CreationDate, Original_LastEditDate, Original_PlaylistID);
         }
     }
     
@@ -12349,6 +12351,122 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(global::System.Nullable<global::System.DateTime> DatePlayed, int Original_TrackID, global::System.Nullable<global::System.DateTime> Original_DatePlayed) {
             return this.Update(Original_TrackID, DatePlayed, Original_TrackID, Original_DatePlayed);
+        }
+    }
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class QueriesTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.IDbCommand[] _commandCollection;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        protected global::System.Data.IDbCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.IDbCommand[2];
+            this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Connection = new global::System.Data.SqlClient.SqlConnection(global::MusicDatabaseGenerator.Properties.Settings.Default.MusicLibraryConnectionString);
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).CommandText = "dbo.MusicTableColumnExists";
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).CommandType = global::System.Data.CommandType.StoredProcedure;
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Bit, 1, global::System.Data.ParameterDirection.ReturnValue, 1, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@tableName", global::System.Data.SqlDbType.VarChar, 100, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@columnName", global::System.Data.SqlDbType.VarChar, 100, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Connection = new global::System.Data.SqlClient.SqlConnection(global::MusicDatabaseGenerator.Properties.Settings.Default.MusicLibraryConnectionString);
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).CommandText = "dbo.MusicTableExists";
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).CommandType = global::System.Data.CommandType.StoredProcedure;
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Bit, 1, global::System.Data.ParameterDirection.ReturnValue, 1, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@name", global::System.Data.SqlDbType.NVarChar, 100, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual global::System.Nullable<bool> MusicTableColumnExists(string tableName, string columnName) {
+            global::System.Data.SqlClient.SqlCommand command = ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[0]));
+            if ((tableName == null)) {
+                command.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                command.Parameters[1].Value = ((string)(tableName));
+            }
+            if ((columnName == null)) {
+                command.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            else {
+                command.Parameters[2].Value = ((string)(columnName));
+            }
+            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            try {
+                command.ExecuteNonQuery();
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            if (((command.Parameters[0].Value == null) 
+                        || (command.Parameters[0].Value.GetType() == typeof(global::System.DBNull)))) {
+                return new global::System.Nullable<bool>();
+            }
+            else {
+                return new global::System.Nullable<bool>(((bool)(command.Parameters[0].Value)));
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual global::System.Nullable<bool> MusicTableExists(string name) {
+            global::System.Data.SqlClient.SqlCommand command = ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[1]));
+            if ((name == null)) {
+                command.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                command.Parameters[1].Value = ((string)(name));
+            }
+            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            try {
+                command.ExecuteNonQuery();
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            if (((command.Parameters[0].Value == null) 
+                        || (command.Parameters[0].Value.GetType() == typeof(global::System.DBNull)))) {
+                return new global::System.Nullable<bool>();
+            }
+            else {
+                return new global::System.Nullable<bool>(((bool)(command.Parameters[0].Value)));
+            }
         }
     }
     
