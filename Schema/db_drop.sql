@@ -18,7 +18,6 @@ DROP TABLE PlaylistTracks
 DROP TABLE Artist
 DROP TABLE ArtistTracks
 DROP TABLE ArtistPersons
-DROP TABLE Owner
 DROP TABLE Genre
 DROP TABLE GenreTracks
 DROP TABLE Album

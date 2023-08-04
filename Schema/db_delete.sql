@@ -23,7 +23,6 @@ DBCC CHECKIDENT ('dbo.Artist', RESEED, 0)
 DELETE FROM ArtistTracks
 DELETE FROM ArtistPersons
 DBCC CHECKIDENT ('dbo.ArtistPersons', RESEED, 0)
-DELETE FROM Owner
 DELETE FROM Genre
 DBCC CHECKIDENT ('dbo.Genre', RESEED, 0)
 DELETE FROM GenreTracks
