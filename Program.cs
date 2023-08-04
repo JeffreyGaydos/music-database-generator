@@ -25,7 +25,8 @@ namespace MusicDatabaseGenerator
             List<string> SupportedExtensions = new List<string>
             {
                 ".mp3",
-                ".wav"
+                ".wav",
+                ".flac"
             };
 
             //FileStream stream = File.Open(musicPath);
