@@ -190,6 +190,16 @@ BEGIN
 	)
 END
 
+--The fll path to the album art associated with an Album (if present); Maps to Album table by ID
+IF (SELECT [dbo].[MusicTableExists] (N'AlbumArt')) = 0
+BEGIN
+	CREATE TABLE AlbumArt (
+		AlbumArtPath VARCHAR(260) PRIMARY KEY, --windows max path length
+		PrimaryColor VARCHAR(7), --average color in hex format (#000000)
+		AlbumID INT
+	)
+END
+
 --Linked Tracks are any tracks that are best when played back-to-back.
 --Take the songs "Parabol" and "Porabola" by the artist "Tool". There could be an
 --option during future development to force songs like this to be played one after
