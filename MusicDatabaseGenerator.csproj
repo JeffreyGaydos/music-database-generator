@@ -51,6 +51,7 @@
     <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
@@ -64,12 +65,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FolderReader.cs" />
     <Compile Include="Models\Album.cs" />
+    <Compile Include="Models\AlbumArt.cs" />
     <Compile Include="Models\AlbumTracks.cs" />
     <Compile Include="Models\Artist.cs" />
     <Compile Include="Models\ArtistPersons.cs" />
     <Compile Include="Models\ArtistTracks.cs" />
+    <Compile Include="FolderReader.cs" />
+    <Compile Include="Generators\AlbumArtGenerator.cs" />
     <Compile Include="Generators\ArtistPersonGenerator.cs" />
     <Compile Include="Generators\AlbumGenerator.cs" />
     <Compile Include="Generators\ArtistGenerator.cs" />

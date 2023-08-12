@@ -26,6 +26,8 @@ namespace MusicDatabaseGenerator {
         
         private AlbumDataTable tableAlbum;
         
+        private AlbumArtDataTable tableAlbumArt;
+        
         private AlbumTracksDataTable tableAlbumTracks;
         
         private ArtistDataTable tableArtist;
@@ -86,6 +88,9 @@ namespace MusicDatabaseGenerator {
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
                 if ((ds.Tables["Album"] != null)) {
                     base.Tables.Add(new AlbumDataTable(ds.Tables["Album"]));
+                }
+                if ((ds.Tables["AlbumArt"] != null)) {
+                    base.Tables.Add(new AlbumArtDataTable(ds.Tables["AlbumArt"]));
                 }
                 if ((ds.Tables["AlbumTracks"] != null)) {
                     base.Tables.Add(new AlbumTracksDataTable(ds.Tables["AlbumTracks"]));
@@ -157,6 +162,16 @@ namespace MusicDatabaseGenerator {
         public AlbumDataTable Album {
             get {
                 return this.tableAlbum;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public AlbumArtDataTable AlbumArt {
+            get {
+                return this.tableAlbumArt;
             }
         }
         
@@ -380,6 +395,9 @@ namespace MusicDatabaseGenerator {
                 if ((ds.Tables["Album"] != null)) {
                     base.Tables.Add(new AlbumDataTable(ds.Tables["Album"]));
                 }
+                if ((ds.Tables["AlbumArt"] != null)) {
+                    base.Tables.Add(new AlbumArtDataTable(ds.Tables["AlbumArt"]));
+                }
                 if ((ds.Tables["AlbumTracks"] != null)) {
                     base.Tables.Add(new AlbumTracksDataTable(ds.Tables["AlbumTracks"]));
                 }
@@ -462,6 +480,12 @@ namespace MusicDatabaseGenerator {
             if ((initTable == true)) {
                 if ((this.tableAlbum != null)) {
                     this.tableAlbum.InitVars();
+                }
+            }
+            this.tableAlbumArt = ((AlbumArtDataTable)(base.Tables["AlbumArt"]));
+            if ((initTable == true)) {
+                if ((this.tableAlbumArt != null)) {
+                    this.tableAlbumArt.InitVars();
                 }
             }
             this.tableAlbumTracks = ((AlbumTracksDataTable)(base.Tables["AlbumTracks"]));
@@ -566,6 +590,8 @@ namespace MusicDatabaseGenerator {
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
             this.tableAlbum = new AlbumDataTable();
             base.Tables.Add(this.tableAlbum);
+            this.tableAlbumArt = new AlbumArtDataTable();
+            base.Tables.Add(this.tableAlbumArt);
             this.tableAlbumTracks = new AlbumTracksDataTable();
             base.Tables.Add(this.tableAlbumTracks);
             this.tableArtist = new ArtistDataTable();
@@ -601,6 +627,12 @@ namespace MusicDatabaseGenerator {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private bool ShouldSerializeAlbum() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        private bool ShouldSerializeAlbumArt() {
             return false;
         }
         
@@ -751,6 +783,9 @@ namespace MusicDatabaseGenerator {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         public delegate void AlbumRowChangeEventHandler(object sender, AlbumRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        public delegate void AlbumArtRowChangeEventHandler(object sender, AlbumArtRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         public delegate void AlbumTracksRowChangeEventHandler(object sender, AlbumTracksRowChangeEvent e);
@@ -1062,6 +1097,294 @@ namespace MusicDatabaseGenerator {
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
                 attribute2.FixedValue = "AlbumDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class AlbumArtDataTable : global::System.Data.TypedTableBase<AlbumArtRow> {
+            
+            private global::System.Data.DataColumn columnAlbumArtPath;
+            
+            private global::System.Data.DataColumn columnPrimaryColor;
+            
+            private global::System.Data.DataColumn columnAlbumID;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public AlbumArtDataTable() {
+                this.TableName = "AlbumArt";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            internal AlbumArtDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected AlbumArtDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn AlbumArtPathColumn {
+                get {
+                    return this.columnAlbumArtPath;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn PrimaryColorColumn {
+                get {
+                    return this.columnPrimaryColor;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn AlbumIDColumn {
+                get {
+                    return this.columnAlbumID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public AlbumArtRow this[int index] {
+                get {
+                    return ((AlbumArtRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public event AlbumArtRowChangeEventHandler AlbumArtRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public event AlbumArtRowChangeEventHandler AlbumArtRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public event AlbumArtRowChangeEventHandler AlbumArtRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public event AlbumArtRowChangeEventHandler AlbumArtRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void AddAlbumArtRow(AlbumArtRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public AlbumArtRow AddAlbumArtRow(string AlbumArtPath, string PrimaryColor, int AlbumID) {
+                AlbumArtRow rowAlbumArtRow = ((AlbumArtRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        AlbumArtPath,
+                        PrimaryColor,
+                        AlbumID};
+                rowAlbumArtRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowAlbumArtRow);
+                return rowAlbumArtRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public AlbumArtRow FindByAlbumArtPath(string AlbumArtPath) {
+                return ((AlbumArtRow)(this.Rows.Find(new object[] {
+                            AlbumArtPath})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                AlbumArtDataTable cln = ((AlbumArtDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new AlbumArtDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            internal void InitVars() {
+                this.columnAlbumArtPath = base.Columns["AlbumArtPath"];
+                this.columnPrimaryColor = base.Columns["PrimaryColor"];
+                this.columnAlbumID = base.Columns["AlbumID"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            private void InitClass() {
+                this.columnAlbumArtPath = new global::System.Data.DataColumn("AlbumArtPath", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAlbumArtPath);
+                this.columnPrimaryColor = new global::System.Data.DataColumn("PrimaryColor", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPrimaryColor);
+                this.columnAlbumID = new global::System.Data.DataColumn("AlbumID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAlbumID);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnAlbumArtPath}, true));
+                this.columnAlbumArtPath.AllowDBNull = false;
+                this.columnAlbumArtPath.Unique = true;
+                this.columnAlbumArtPath.MaxLength = 260;
+                this.columnPrimaryColor.MaxLength = 7;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public AlbumArtRow NewAlbumArtRow() {
+                return ((AlbumArtRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new AlbumArtRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(AlbumArtRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.AlbumArtRowChanged != null)) {
+                    this.AlbumArtRowChanged(this, new AlbumArtRowChangeEvent(((AlbumArtRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.AlbumArtRowChanging != null)) {
+                    this.AlbumArtRowChanging(this, new AlbumArtRowChangeEvent(((AlbumArtRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.AlbumArtRowDeleted != null)) {
+                    this.AlbumArtRowDeleted(this, new AlbumArtRowChangeEvent(((AlbumArtRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.AlbumArtRowDeleting != null)) {
+                    this.AlbumArtRowDeleting(this, new AlbumArtRowChangeEvent(((AlbumArtRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void RemoveAlbumArtRow(AlbumArtRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                MusicLibraryDataSet ds = new MusicLibraryDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "AlbumArtDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -6101,6 +6424,88 @@ namespace MusicDatabaseGenerator {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
+        public partial class AlbumArtRow : global::System.Data.DataRow {
+            
+            private AlbumArtDataTable tableAlbumArt;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            internal AlbumArtRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableAlbumArt = ((AlbumArtDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string AlbumArtPath {
+                get {
+                    return ((string)(this[this.tableAlbumArt.AlbumArtPathColumn]));
+                }
+                set {
+                    this[this.tableAlbumArt.AlbumArtPathColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string PrimaryColor {
+                get {
+                    try {
+                        return ((string)(this[this.tableAlbumArt.PrimaryColorColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PrimaryColor\' in table \'AlbumArt\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableAlbumArt.PrimaryColorColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public int AlbumID {
+                get {
+                    try {
+                        return ((int)(this[this.tableAlbumArt.AlbumIDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'AlbumID\' in table \'AlbumArt\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableAlbumArt.AlbumIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsPrimaryColorNull() {
+                return this.IsNull(this.tableAlbumArt.PrimaryColorColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetPrimaryColorNull() {
+                this[this.tableAlbumArt.PrimaryColorColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsAlbumIDNull() {
+                return this.IsNull(this.tableAlbumArt.AlbumIDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetAlbumIDNull() {
+                this[this.tableAlbumArt.AlbumIDColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
         public partial class AlbumTracksRow : global::System.Data.DataRow {
             
             private AlbumTracksDataTable tableAlbumTracks;
@@ -8261,6 +8666,40 @@ namespace MusicDatabaseGenerator {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        public class AlbumArtRowChangeEvent : global::System.EventArgs {
+            
+            private AlbumArtRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public AlbumArtRowChangeEvent(AlbumArtRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public AlbumArtRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         public class AlbumTracksRowChangeEvent : global::System.EventArgs {
             
             private AlbumTracksRow eventRow;
@@ -9161,6 +9600,386 @@ SELECT AlbumID, AlbumName, TrackCount, ReleaseYear FROM Album WHERE (AlbumID = @
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(string AlbumName, global::System.Nullable<int> TrackCount, global::System.Nullable<int> ReleaseYear, int Original_AlbumID, string Original_AlbumName, global::System.Nullable<int> Original_TrackCount, global::System.Nullable<int> Original_ReleaseYear) {
             return this.Update(AlbumName, TrackCount, ReleaseYear, Original_AlbumID, Original_AlbumName, Original_TrackCount, Original_ReleaseYear, Original_AlbumID);
+        }
+    }
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class AlbumArtTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private global::System.Data.SqlClient.SqlConnection _connection;
+        
+        private global::System.Data.SqlClient.SqlTransaction _transaction;
+        
+        private global::System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        public AlbumArtTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        protected internal global::System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        internal global::System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        internal global::System.Data.SqlClient.SqlTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        protected global::System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "AlbumArt";
+            tableMapping.ColumnMappings.Add("AlbumArtPath", "AlbumArtPath");
+            tableMapping.ColumnMappings.Add("PrimaryColor", "PrimaryColor");
+            tableMapping.ColumnMappings.Add("AlbumID", "AlbumID");
+            this._adapter.TableMappings.Add(tableMapping);
+            this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.DeleteCommand.Connection = this.Connection;
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[AlbumArt] WHERE (([AlbumArtPath] = @Original_AlbumArtPath) AND ((@IsNull_PrimaryColor = 1 AND [PrimaryColor] IS NULL) OR ([PrimaryColor] = @Original_PrimaryColor)) AND ((@IsNull_AlbumID = 1 AND [AlbumID] IS NULL) OR ([AlbumID] = @Original_AlbumID)))";
+            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AlbumArtPath", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumArtPath", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_PrimaryColor", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PrimaryColor", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PrimaryColor", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PrimaryColor", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_AlbumID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumID", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AlbumID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.InsertCommand.Connection = this.Connection;
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[AlbumArt] ([AlbumArtPath], [PrimaryColor], [AlbumID]) VALUES (" +
+                "@AlbumArtPath, @PrimaryColor, @AlbumID);\r\nSELECT AlbumArtPath, PrimaryColor, Alb" +
+                "umID FROM AlbumArt WHERE (AlbumArtPath = @AlbumArtPath)";
+            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AlbumArtPath", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumArtPath", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PrimaryColor", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PrimaryColor", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AlbumID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.UpdateCommand.Connection = this.Connection;
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[AlbumArt] SET [AlbumArtPath] = @AlbumArtPath, [PrimaryColor] = @PrimaryColor, [AlbumID] = @AlbumID WHERE (([AlbumArtPath] = @Original_AlbumArtPath) AND ((@IsNull_PrimaryColor = 1 AND [PrimaryColor] IS NULL) OR ([PrimaryColor] = @Original_PrimaryColor)) AND ((@IsNull_AlbumID = 1 AND [AlbumID] IS NULL) OR ([AlbumID] = @Original_AlbumID)));
+SELECT AlbumArtPath, PrimaryColor, AlbumID FROM AlbumArt WHERE (AlbumArtPath = @AlbumArtPath)";
+            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AlbumArtPath", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumArtPath", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PrimaryColor", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PrimaryColor", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AlbumID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AlbumArtPath", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumArtPath", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_PrimaryColor", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PrimaryColor", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PrimaryColor", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PrimaryColor", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_AlbumID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumID", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AlbumID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AlbumID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::MusicDatabaseGenerator.Properties.Settings.Default.MusicLibraryConnectionString;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "SELECT AlbumArtPath, PrimaryColor, AlbumID FROM dbo.AlbumArt";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(MusicLibraryDataSet.AlbumArtDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual MusicLibraryDataSet.AlbumArtDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            MusicLibraryDataSet.AlbumArtDataTable dataTable = new MusicLibraryDataSet.AlbumArtDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(MusicLibraryDataSet.AlbumArtDataTable dataTable) {
+            return this.Adapter.Update(dataTable);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(MusicLibraryDataSet dataSet) {
+            return this.Adapter.Update(dataSet, "AlbumArt");
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow dataRow) {
+            return this.Adapter.Update(new global::System.Data.DataRow[] {
+                        dataRow});
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow[] dataRows) {
+            return this.Adapter.Update(dataRows);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
+        public virtual int Delete(string Original_AlbumArtPath, string Original_PrimaryColor, global::System.Nullable<int> Original_AlbumID) {
+            if ((Original_AlbumArtPath == null)) {
+                throw new global::System.ArgumentNullException("Original_AlbumArtPath");
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[0].Value = ((string)(Original_AlbumArtPath));
+            }
+            if ((Original_PrimaryColor == null)) {
+                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[2].Value = ((string)(Original_PrimaryColor));
+            }
+            if ((Original_AlbumID.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[4].Value = ((int)(Original_AlbumID.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
+            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.DeleteCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.DeleteCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
+        public virtual int Insert(string AlbumArtPath, string PrimaryColor, global::System.Nullable<int> AlbumID) {
+            if ((AlbumArtPath == null)) {
+                throw new global::System.ArgumentNullException("AlbumArtPath");
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(AlbumArtPath));
+            }
+            if ((PrimaryColor == null)) {
+                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(PrimaryColor));
+            }
+            if ((AlbumID.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((int)(AlbumID.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
+            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.InsertCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.InsertCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(string AlbumArtPath, string PrimaryColor, global::System.Nullable<int> AlbumID, string Original_AlbumArtPath, string Original_PrimaryColor, global::System.Nullable<int> Original_AlbumID) {
+            if ((AlbumArtPath == null)) {
+                throw new global::System.ArgumentNullException("AlbumArtPath");
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(AlbumArtPath));
+            }
+            if ((PrimaryColor == null)) {
+                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(PrimaryColor));
+            }
+            if ((AlbumID.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(AlbumID.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            if ((Original_AlbumArtPath == null)) {
+                throw new global::System.ArgumentNullException("Original_AlbumArtPath");
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(Original_AlbumArtPath));
+            }
+            if ((Original_PrimaryColor == null)) {
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(Original_PrimaryColor));
+            }
+            if ((Original_AlbumID.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_AlbumID.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
+            }
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
+            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.UpdateCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.UpdateCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(string PrimaryColor, global::System.Nullable<int> AlbumID, string Original_AlbumArtPath, string Original_PrimaryColor, global::System.Nullable<int> Original_AlbumID) {
+            return this.Update(Original_AlbumArtPath, PrimaryColor, AlbumID, Original_AlbumArtPath, Original_PrimaryColor, Original_AlbumID);
         }
     }
     
@@ -14768,6 +15587,8 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
         
         private AlbumTableAdapter _albumTableAdapter;
         
+        private AlbumArtTableAdapter _albumArtTableAdapter;
+        
         private AlbumTracksTableAdapter _albumTracksTableAdapter;
         
         private ArtistTableAdapter _artistTableAdapter;
@@ -14820,6 +15641,20 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
             }
             set {
                 this._albumTableAdapter = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
+            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
+            "a", "System.Drawing.Design.UITypeEditor")]
+        public AlbumArtTableAdapter AlbumArtTableAdapter {
+            get {
+                return this._albumArtTableAdapter;
+            }
+            set {
+                this._albumArtTableAdapter = value;
             }
         }
         
@@ -15028,6 +15863,10 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
                             && (this._albumTableAdapter.Connection != null))) {
                     return this._albumTableAdapter.Connection;
                 }
+                if (((this._albumArtTableAdapter != null) 
+                            && (this._albumArtTableAdapter.Connection != null))) {
+                    return this._albumArtTableAdapter.Connection;
+                }
                 if (((this._albumTracksTableAdapter != null) 
                             && (this._albumTracksTableAdapter.Connection != null))) {
                     return this._albumTracksTableAdapter.Connection;
@@ -15096,6 +15935,9 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
                 if ((this._albumTableAdapter != null)) {
                     count = (count + 1);
                 }
+                if ((this._albumArtTableAdapter != null)) {
+                    count = (count + 1);
+                }
                 if ((this._albumTracksTableAdapter != null)) {
                     count = (count + 1);
                 }
@@ -15155,102 +15997,12 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._albumTracksTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.AlbumTracks.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._playLogsTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.PlayLogs.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._albumTracksTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._artistTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Artist.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._artistTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._artistPersonsTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.ArtistPersons.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._artistPersonsTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._artistTracksTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.ArtistTracks.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._artistTracksTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._genreTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Genre.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._genreTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._genreTracksTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.GenreTracks.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._genreTracksTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._linkedTracksTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.LinkedTracks.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._linkedTracksTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._mainTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Main.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._mainTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._moodTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Mood.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._moodTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._moodTracksTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.MoodTracks.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._moodTracksTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._playlistTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Playlist.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._playlistTableAdapter.Update(updatedRows));
+                    result = (result + this._playLogsTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -15263,12 +16015,111 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._playLogsTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.PlayLogs.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._playlistTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Playlist.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._playLogsTableAdapter.Update(updatedRows));
+                    result = (result + this._playlistTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._moodTracksTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.MoodTracks.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._moodTracksTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._moodTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Mood.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._moodTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._mainTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Main.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._mainTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._linkedTracksTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.LinkedTracks.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._linkedTracksTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._genreTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Genre.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._genreTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._artistTracksTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.ArtistTracks.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._artistTracksTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._artistPersonsTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.ArtistPersons.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._artistPersonsTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._artistTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Artist.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._artistTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._albumTracksTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.AlbumTracks.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._albumTracksTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._albumArtTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.AlbumArt.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._albumArtTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._genreTracksTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.GenreTracks.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._genreTracksTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -15290,91 +16141,11 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._albumTracksTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.AlbumTracks.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._playLogsTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.PlayLogs.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._albumTracksTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._artistTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Artist.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._artistTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._artistPersonsTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.ArtistPersons.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._artistPersonsTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._artistTracksTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.ArtistTracks.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._artistTracksTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._genreTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Genre.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._genreTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._genreTracksTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.GenreTracks.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._genreTracksTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._linkedTracksTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.LinkedTracks.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._linkedTracksTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._mainTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Main.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._mainTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._moodTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Mood.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._moodTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._moodTracksTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.MoodTracks.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._moodTracksTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._playlistTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Playlist.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._playlistTableAdapter.Update(addedRows));
+                    result = (result + this._playLogsTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -15386,11 +16157,99 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._playLogsTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.PlayLogs.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._playlistTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Playlist.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._playLogsTableAdapter.Update(addedRows));
+                    result = (result + this._playlistTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._moodTracksTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.MoodTracks.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._moodTracksTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._moodTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Mood.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._moodTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._mainTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Main.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._mainTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._linkedTracksTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.LinkedTracks.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._linkedTracksTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._genreTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Genre.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._genreTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._artistTracksTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.ArtistTracks.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._artistTracksTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._artistPersonsTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.ArtistPersons.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._artistPersonsTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._artistTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Artist.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._artistTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._albumTracksTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.AlbumTracks.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._albumTracksTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._albumArtTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.AlbumArt.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._albumArtTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._genreTracksTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.GenreTracks.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._genreTracksTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -15404,62 +16263,6 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private int UpdateDeletedRows(MusicLibraryDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
-            if ((this._playLogsTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.PlayLogs.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._playLogsTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._playlistTracksTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.PlaylistTracks.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._playlistTracksTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._playlistTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Playlist.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._playlistTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._moodTracksTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.MoodTracks.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._moodTracksTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._moodTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Mood.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._moodTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._mainTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Main.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._mainTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._linkedTracksTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.LinkedTracks.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._linkedTracksTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             if ((this._genreTracksTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.GenreTracks.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
@@ -15468,27 +16271,19 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._genreTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Genre.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._albumArtTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.AlbumArt.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._genreTableAdapter.Update(deletedRows));
+                    result = (result + this._albumArtTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._artistTracksTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.ArtistTracks.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._albumTracksTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.AlbumTracks.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._artistTracksTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._artistPersonsTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.ArtistPersons.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._artistPersonsTableAdapter.Update(deletedRows));
+                    result = (result + this._albumTracksTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -15500,11 +16295,83 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._albumTracksTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.AlbumTracks.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._artistPersonsTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.ArtistPersons.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._albumTracksTableAdapter.Update(deletedRows));
+                    result = (result + this._artistPersonsTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._artistTracksTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.ArtistTracks.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._artistTracksTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._genreTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Genre.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._genreTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._linkedTracksTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.LinkedTracks.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._linkedTracksTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._mainTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Main.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._mainTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._moodTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Mood.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._moodTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._moodTracksTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.MoodTracks.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._moodTracksTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._playlistTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Playlist.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._playlistTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._playlistTracksTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.PlaylistTracks.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._playlistTracksTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._playLogsTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.PlayLogs.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._playLogsTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -15557,6 +16424,11 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
             }
             if (((this._albumTableAdapter != null) 
                         && (this.MatchTableAdapterConnection(this._albumTableAdapter.Connection) == false))) {
+                throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
+                        "tring.");
+            }
+            if (((this._albumArtTableAdapter != null) 
+                        && (this.MatchTableAdapterConnection(this._albumArtTableAdapter.Connection) == false))) {
                 throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
                         "tring.");
             }
@@ -15664,6 +16536,15 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
                     if (this._albumTableAdapter.Adapter.AcceptChangesDuringUpdate) {
                         this._albumTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
                         adaptersWithAcceptChangesDuringUpdate.Add(this._albumTableAdapter.Adapter);
+                    }
+                }
+                if ((this._albumArtTableAdapter != null)) {
+                    revertConnections.Add(this._albumArtTableAdapter, this._albumArtTableAdapter.Connection);
+                    this._albumArtTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
+                    this._albumArtTableAdapter.Transaction = ((global::System.Data.SqlClient.SqlTransaction)(workTransaction));
+                    if (this._albumArtTableAdapter.Adapter.AcceptChangesDuringUpdate) {
+                        this._albumArtTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
+                        adaptersWithAcceptChangesDuringUpdate.Add(this._albumArtTableAdapter.Adapter);
                     }
                 }
                 if ((this._albumTracksTableAdapter != null)) {
@@ -15844,6 +16725,10 @@ SELECT TrackID, DatePlayed FROM PlayLogs WHERE (TrackID = @TrackID)";
                 if ((this._albumTableAdapter != null)) {
                     this._albumTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._albumTableAdapter]));
                     this._albumTableAdapter.Transaction = null;
+                }
+                if ((this._albumArtTableAdapter != null)) {
+                    this._albumArtTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._albumArtTableAdapter]));
+                    this._albumArtTableAdapter.Transaction = null;
                 }
                 if ((this._albumTracksTableAdapter != null)) {
                     this._albumTracksTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._albumTracksTableAdapter]));

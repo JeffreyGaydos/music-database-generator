@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -55,9 +56,10 @@ namespace MusicDatabaseGenerator
          *       
          *       Any combination of these 2 structures in the same path folder is supported.
          */
-        public static List<TagLib.File> ReadToTagLibFiles(string path, bool absolute = false)
+        public static (List<TagLib.File> tagFiles, List<(string, Bitmap)> coverArt) ReadToTagLibFiles(string path, bool absolute = false)
         {
             List<TagLib.File> tagFiles = new List<TagLib.File>();
+            List<(string, Bitmap)> coverArt = new List<(string, Bitmap)>();
 
             //FileStream stream = File.Open(musicPath);
             List<string> topLevelFolders = Directory.GetDirectories(absolute ? path : "../../" + path).ToList();
@@ -71,10 +73,15 @@ namespace MusicDatabaseGenerator
                     CategorizeFiles(albumFolder);
                 }
             }
-            
+
             foreach (string file in _supportedMusicFiles)
             {
                 tagFiles.Add(TagLib.File.Create(file));
+            }
+
+            foreach(string file in _supportedAlbumArtFiles)
+            {
+                coverArt.Add((file, new Bitmap(file)));
             }
 
             List<TagLib.File> corruptFiles = tagFiles.Where(t => t.PossiblyCorrupt).ToList();
@@ -90,7 +97,7 @@ namespace MusicDatabaseGenerator
             Console.WriteLine($"Found {_supportedMusicFiles.Count} music files and {_supportedAlbumArtFiles.Count} image files to process...");
             Console.WriteLine($"{_partiallySupportedMusicFiles.Count} files had minimal metadata. Consider obtaining .mp3 or .flac version of the files found in ./MinimalDataFiles.txt");
 
-            return tagFiles;
+            return (tagFiles, coverArt);
         }
 
         private static void CategorizeFiles(string folderToSearch)
