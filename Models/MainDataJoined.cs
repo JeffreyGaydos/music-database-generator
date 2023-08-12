@@ -32,6 +32,8 @@ namespace MusicDatabaseGenerator
 
         public DateTime? AddDate { get; set; }
 
+        public DateTime? LastModifiedDate { get; set; }
+
         [StringLength(4000)]
         public string Lyrics { get; set; }
 

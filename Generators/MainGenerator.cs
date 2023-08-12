@@ -16,11 +16,6 @@ namespace MusicDatabaseGenerator.Generators
 
         public void Generate()
         {
-            if(_file.Name.Contains("Prom Queen"))
-            {
-                Console.WriteLine("Hey, Listen!");
-            }
-
             //try to get just the title out of the file string, and if it's in an unexpected format, default to the whole filename
             string fileNameTitle = titleReg.Match(_file.Name).Value;
             fileNameTitle = string.IsNullOrWhiteSpace(fileNameTitle) ? reg.Match(_file.Name).Value : fileNameTitle;
@@ -35,7 +30,8 @@ namespace MusicDatabaseGenerator.Generators
                 FilePath = Path.GetFullPath(_file.Name),
                 Duration = (decimal)_file.Properties.Duration.TotalSeconds, //NOTE: Overflow exception possible, but unlikely
                 ReleaseYear = (int?)_file.Tag.Year == 0 ? null : (int?)_file.Tag.Year, //NOTE: Overflow exception possible, but unlikely
-                AddDate = new FileInfo(_file.Name).LastWriteTime > new FileInfo(_file.Name).CreationTime ? new FileInfo(_file.Name).CreationTime : new FileInfo(_file.Name).LastWriteTime,
+                AddDate = new FileInfo(_file.Name).CreationTime,
+                LastModifiedDate = new FileInfo(_file.Name).LastWriteTime,
                 Lyrics = _file.Tag.Lyrics,
                 Comment = _file.Tag.Comment,
                 BeatsPerMin = (int)_file.Tag.BeatsPerMinute,

@@ -25,6 +25,10 @@ IF OBJECT_ID(N'MusicTableColumnExists', N'FN') IS NOT NULL
     DROP FUNCTION MusicTableColumnExists
 GO
 
+IF OBJECT_ID(N'MusicViewExists', N'FN') IS NOT NULL
+    DROP FUNCTION MusicViewExists
+GO
+
 /*
  * MusicTableExists
  *
@@ -253,7 +257,8 @@ BEGIN
 		[Owner] NVARCHAR(1000), --defaults to the computer username, but can be used for however
 		Linked BIT,
 		ReleaseYear INT,
-		AddDate DATETIME,
+		AddDate DATETIME, --will attempt to persist this value during update operations
+		LastModifiedDate DATETIME,
 		Lyrics NVARCHAR(4000),
 		Comment NVARCHAR(4000),
 		BeatsPerMin INT,
@@ -264,7 +269,7 @@ BEGIN
 		Channels INT,
 		SampleRate INT,
 		BitsPerSample INT,
-		GeneratedDate DATETIME
+		GeneratedDate DATETIME --used to determine if updates are needed
 		CONSTRAINT UC_Main UNIQUE (
 			Title,
 			ISRC
