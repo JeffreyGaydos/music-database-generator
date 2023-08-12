@@ -157,7 +157,7 @@ namespace MusicDatabaseGenerator
                 //track
                 if(!_context.ArtistPersons.Select(p => p.PersonName).Contains(person.PersonName))
                 {
-                    person.ArtistID = artist.Select(a => a.ArtistID).First();
+                    person.ArtistID = artist.Select(a => a.ArtistID).FirstOrDefault();
                     _context.ArtistPersons.Add(person);
                 }
             }
