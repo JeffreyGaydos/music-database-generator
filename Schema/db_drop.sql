@@ -76,8 +76,14 @@ BEGIN
     DROP TABLE __MigrationHistory
 END
 
-DROP VIEW [MainDataJoined]
-DROP VIEW [LeadArtists]
+IF (SELECT [dbo].[MusicViewExists] ('MainDataJoined')) = 1
+BEGIN
+    DROP VIEW [MainDataJoined]
+END
+IF (SELECT [dbo].[MusicViewExists] ('LeadArtists')) = 1
+BEGIN
+    DROP VIEW [LeadArtists]
+END
 
 --ROLLBACK TRAN
 COMMIT TRAN

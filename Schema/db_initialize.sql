@@ -63,6 +63,24 @@ BEGIN
 END
 GO
 
+/*
+ * MusicViewExists
+ *
+ * This helper function determines if the view already exists
+ * before creating it
+ */
+ CREATE FUNCTION dbo.MusicViewExists (@viewName VARCHAR(100))
+ RETURNS BIT
+ AS
+ BEGIN
+	IF EXISTS(SELECT NULL FROM sys.views WHERE name = @viewName)
+	BEGIN
+		RETURN 1
+	END
+	RETURN 0
+ END
+ GO
+
 USE MusicLibrary
 
 --"Moods" are essentially simplified playlists, but are specific to the
@@ -252,6 +270,12 @@ BEGIN
 			ISRC
 		)
 	)
+END
+GO
+
+IF (SELECT [dbo].[MusicViewExists] ('MainDataJoined')) = 0 AND (SELECT [dbo].[MusicViewExists] ('LeadArtists')) = 0
+BEGIN
+	RETURN --Views must be the only statement in the batch, end early since we can't wrap them
 END
 GO
 
