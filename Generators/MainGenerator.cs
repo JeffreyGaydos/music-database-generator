@@ -8,7 +8,7 @@ namespace MusicDatabaseGenerator.Generators
     public class MainGenerator : AGenerator, IGenerator
     {
         private Regex reg = new Regex("(?<=[\\\\\\/])[^\\\\\\/]*(?=\\.[a-zA-Z]+)", RegexOptions.Compiled);
-
+        private Regex titleReg = new Regex("(?<=- [0-9][0-9] )[^\\\\\\/]*(?=\\.[a-zA-Z]+)", RegexOptions.Compiled);
         public MainGenerator(TagLib.File file, MusicLibraryTrack track) {
             _file = file;
             _data = track;
@@ -16,8 +16,15 @@ namespace MusicDatabaseGenerator.Generators
 
         public void Generate()
         {
-            string fileNameTitle = reg.Matches(_file.Name)[0].Value;
-            string title = _file.Tag.Title ?? fileNameTitle;
+            if(_file.Name.Contains("Prom Queen"))
+            {
+                Console.WriteLine("Hey, Listen!");
+            }
+
+            //try to get just the title out of the file string, and if it's in an unexpected format, default to the whole filename
+            string fileNameTitle = titleReg.Match(_file.Name).Value;
+            fileNameTitle = string.IsNullOrWhiteSpace(fileNameTitle) ? reg.Match(_file.Name).Value : fileNameTitle;
+            string title = string.IsNullOrWhiteSpace(_file.Tag.Title) ? fileNameTitle : _file.Tag.Title;
             if(_file.Tag.Title != title)
             {
                 Console.WriteLine($"Title metadata did not exist on file \"{_file.Name}\" and was replaced with path-based name: \"{title}\"");
