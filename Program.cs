@@ -1,6 +1,7 @@
 ﻿using MusicDatabaseGenerator.Generators;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 
@@ -11,74 +12,14 @@ namespace MusicDatabaseGenerator
         static void Main(string[] args)
         {
             //TODO: Replace this later with a config or something
-            string musicFolder = "data"; //point this to where the mp3s are located, relative to the top level folder of this repo
+            string musicFolder = "data2"; //point this to where the mp3s are located, relative to the top level folder of this repo
+            //string musicFolder = "../../../../Music";
 
-            /* - musicFolder
-             *      ∟ Artist name or album name
-             *          ∟ Album name
-             *          |    ∟ mp3 files
-             *          ∟ mp3 files
-             */
-
-
-
-            List<string> SupportedExtensions = new List<string>
-            {
-                ".mp3",
-                ".flac",
-                ".wav"
-            };
-
-            List<string> MinimalDataExtensions = new List<string>
-            {
-                ".wav"
-            };
-
-            //FileStream stream = File.Open(musicPath);
-            List<string> musicGroupings = Directory.GetDirectories("../../" + musicFolder).ToList();
-            List<string> musicFiles = new List<string>();
-            List<string> musicFilesToWarnOn = new List<string>();
-            foreach (string musicGroup in musicGroupings)
-            {
-                var files = Directory.GetFiles(musicGroup).ToList();
-                if (files.Any(file => SupportedExtensions.Contains(file.Substring(file.LastIndexOf(".")))))
-                {
-                    //Console.WriteLine("Artist+Album Found: " + musicGroup);
-                    musicFiles.AddRange(files.Where(file => SupportedExtensions.Contains(file.Substring(file.LastIndexOf(".")))));
-                    musicFilesToWarnOn.AddRange(files.Where(file => MinimalDataExtensions.Contains(file.Substring(file.LastIndexOf(".")))));
-                }
-                foreach (string musicSubgroup in Directory.GetDirectories(musicGroup))
-                {
-                    var subFiles = Directory.GetFiles(musicSubgroup).ToList();
-                    //Console.WriteLine("Artist+Album Found (SUB): " + musicGroup + ", Album: " + musicSubgroup);
-                    musicFiles.AddRange(subFiles.Where(file => SupportedExtensions.Contains(file.Substring(file.LastIndexOf(".")))));
-                    musicFilesToWarnOn.AddRange(files.Where(file => MinimalDataExtensions.Contains(file.Substring(file.LastIndexOf(".")))));
-                }
-            }
-            List<TagLib.File> tagFiles = new List<TagLib.File>();
-            foreach (string file in musicFiles)
-            {
-                //FileStream stream = File.OpenRead(file);
-                tagFiles.Add(TagLib.File.Create(file));
-                //Console.WriteLine(taglibfile.Tag.Title);
-            }
-
-            List<TagLib.File> corruptFiles = tagFiles.Where(t => t.PossiblyCorrupt).ToList();
-            if (corruptFiles.Any())
-            {
-                Console.WriteLine("Files are possibly corrupt: ");
-                foreach(TagLib.File corruptFile in corruptFiles)
-                {
-                    Console.WriteLine($"{corruptFile.Tag.Title}: {string.Join(",", corruptFile.CorruptionReasons.ToList())}");
-                }
-            }
-
-            Console.WriteLine($"Found {musicFiles.Count} files to process");
-            Console.WriteLine($"{musicFilesToWarnOn.Count} files had minimal metadata. Consider obtaining .mp3 or .flac version of the files found in ./MinimalDataFiles.txt");
+            (List<TagLib.File> tagFiles, List<(string, Bitmap)> coverArt) constructedTuple = FolderReader.ReadToTagLibFiles(musicFolder);
 
             MusicLibraryContext mdbContext = new MusicLibraryContext();
 
-            foreach(TagLib.File data in tagFiles)
+            foreach (TagLib.File data in constructedTuple.tagFiles)
             {
                 MusicLibraryTrack trackData = new MusicLibraryTrack(mdbContext);
 
@@ -99,6 +40,27 @@ namespace MusicDatabaseGenerator
                 MusicLibraryTrack.trackIndex += 1;
 
                 trackData.Sync();
+            }
+
+            //Strict ordering, album art must come second so we can match it to an album via our sync function
+            foreach ((string, Bitmap) img in constructedTuple.coverArt)
+            {
+                MusicLibraryTrack trackData = new MusicLibraryTrack(mdbContext);
+
+                List<IGenerator> generators = new List<IGenerator>
+                {
+                    new AlbumArtGenerator(img.Item2, img.Item1, trackData),
+                };
+
+                foreach (IGenerator generator in generators)
+                {
+                    generator.Generate();
+                }
+
+                MusicLibraryTrack.albumArtIndex += 1;
+
+                trackData.Sync();
+                //TODO: Use regex to compare paths to determine which album the art is associated with
             }
         }
     }

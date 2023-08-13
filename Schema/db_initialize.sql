@@ -25,6 +25,10 @@ IF OBJECT_ID(N'MusicTableColumnExists', N'FN') IS NOT NULL
     DROP FUNCTION MusicTableColumnExists
 GO
 
+IF OBJECT_ID(N'MusicViewExists', N'FN') IS NOT NULL
+    DROP FUNCTION MusicViewExists
+GO
+
 /*
  * MusicTableExists
  *
@@ -63,6 +67,24 @@ BEGIN
 END
 GO
 
+/*
+ * MusicViewExists
+ *
+ * This helper function determines if the view already exists
+ * before creating it
+ */
+ CREATE FUNCTION dbo.MusicViewExists (@viewName VARCHAR(100))
+ RETURNS BIT
+ AS
+ BEGIN
+	IF EXISTS(SELECT NULL FROM sys.views WHERE name = @viewName)
+	BEGIN
+		RETURN 1
+	END
+	RETURN 0
+ END
+ GO
+
 USE MusicLibrary
 
 --"Moods" are essentially simplified playlists, but are specific to the
@@ -73,6 +95,7 @@ BEGIN
 	CREATE TABLE Mood (
 		MoodID INT IDENTITY(1,1) PRIMARY KEY,
 		MoodDesc NVARCHAR(100)
+		CONSTRAINT UC_MoodDesc UNIQUE (MoodDesc)
 	)
 END
 
@@ -93,10 +116,11 @@ IF (SELECT [dbo].[MusicTableExists] (N'Playlist')) = 0
 BEGIN
 	CREATE TABLE Playlist (
 		PlaylistID INT IDENTITY(1,1) PRIMARY KEY,
-		PlaylistName NVARCHAR(1000),
+		PlaylistName NVARCHAR(450),
 		PlaylistDescription NVARCHAR(4000),
 		CreationDate DATETIME,
 		LastEditDate DATETIME,
+		CONSTRAINT UC_PlaylistName UNIQUE (PlaylistName)
 	)
 END
 
@@ -117,6 +141,7 @@ BEGIN
 		ArtistID INT IDENTITY(1,1) PRIMARY KEY,
 		PrimaryPersonID INT,
 		ArtistName NVARCHAR(100)
+		CONSTRAINT UC_Artist UNIQUE (PrimaryPersonID, ArtistName)
 	)
 END
 
@@ -136,7 +161,8 @@ BEGIN
 	CREATE TABLE ArtistPersons (
 		PersonID INT IDENTITY(1,1) PRIMARY KEY,
 		ArtistID INT,
-		PersonName NVARCHAR(1000)
+		PersonName NVARCHAR(100)
+		CONSTRAINT UC_ArtistPerson UNIQUE (ArtistID, PersonName)
 	)
 END
 
@@ -147,6 +173,7 @@ BEGIN
 	CREATE TABLE Genre (
 		GenreID INT IDENTITY(1,1) PRIMARY KEY,
 		GenreName NVARCHAR(100)
+		CONSTRAINT UC_GenreName UNIQUE (GenreName)
 	)
 END
 
@@ -167,9 +194,10 @@ IF (SELECT [dbo].[MusicTableExists] (N'Album')) = 0
 BEGIN
 	CREATE TABLE Album (
 		AlbumID INT IDENTITY(1,1) PRIMARY KEY,
-		AlbumName NVARCHAR(1000),
+		AlbumName NVARCHAR(446),
 		TrackCount INT,
 		ReleaseYear INT
+		CONSTRAINT UC_Album UNIQUE (AlbumName, TrackCount, ReleaseYear)
 	)
 END
 
@@ -181,6 +209,16 @@ BEGIN
 		TrackID INT,
 		TrackOrder INT,
 		PRIMARY KEY (AlbumID, TrackID)
+	)
+END
+
+--The fll path to the album art associated with an Album (if present); Maps to Album table by ID
+IF (SELECT [dbo].[MusicTableExists] (N'AlbumArt')) = 0
+BEGIN
+	CREATE TABLE AlbumArt (
+		AlbumArtPath VARCHAR(260) PRIMARY KEY, --windows max path length
+		PrimaryColor VARCHAR(7), --average color in hex format (#000000)
+		AlbumID INT
 	)
 END
 
@@ -212,26 +250,37 @@ IF (SELECT [dbo].[MusicTableExists] (N'Main')) = 0
 BEGIN
 	CREATE TABLE Main (
 		TrackID INT IDENTITY(1,1) PRIMARY KEY,
-		Title NVARCHAR(4000),
+		Title NVARCHAR(444), --The max key length is 900, this takes the rest of the bits
 		Duration DECIMAL,
 		FilePath VARCHAR(260), --windows max path length = 260 characters
 		AverageDecibels DECIMAL,
 		[Owner] NVARCHAR(1000), --defaults to the computer username, but can be used for however
 		Linked BIT,
 		ReleaseYear INT,
-		AddDate DATETIME,
+		AddDate DATETIME, --will attempt to persist this value during update operations
+		LastModifiedDate DATETIME,
 		Lyrics NVARCHAR(4000),
 		Comment NVARCHAR(4000),
 		BeatsPerMin INT,
 		Copyright VARCHAR(1000),
 		Publisher VARCHAR(1000),
-		ISRC VARCHAR(1000),
+		ISRC VARCHAR(12), --ISRC codes are explicitly 12 characters long
 		Bitrate INT,
 		Channels INT,
 		SampleRate INT,
 		BitsPerSample INT,
-		GeneratedDate DATETIME
+		GeneratedDate DATETIME --used to determine if updates are needed
+		CONSTRAINT UC_Main UNIQUE (
+			Title,
+			ISRC
+		)
 	)
+END
+GO
+
+IF (SELECT [dbo].[MusicViewExists] ('MainDataJoined')) = 0 AND (SELECT [dbo].[MusicViewExists] ('LeadArtists')) = 0
+BEGIN
+	RETURN --Views must be the only statement in the batch, end early since we can't wrap them
 END
 GO
 

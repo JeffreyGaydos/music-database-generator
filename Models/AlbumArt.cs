@@ -6,14 +6,16 @@ namespace MusicDatabaseGenerator
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class ArtistPersons
+    [Table("AlbumArt")]
+    public partial class AlbumArt
     {
         [Key]
-        public int PersonID { get; set; }
+        [StringLength(260)]
+        public string AlbumArtPath { get; set; }
 
-        public int? ArtistID { get; set; }
+        [StringLength(7)]
+        public string PrimaryColor { get; set; }
 
-        [StringLength(100)]
-        public string PersonName { get; set; }
+        public int? AlbumID { get; set; }
     }
 }

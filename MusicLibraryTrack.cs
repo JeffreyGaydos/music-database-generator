@@ -1,20 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using TagLib.Mpeg;
 
 namespace MusicDatabaseGenerator
 {
     public class MusicLibraryTrack
     {
-        //NOT the track ID
+        //NOT the track ID or album art ID in the database
         public static int trackIndex = 0;
+        public static int albumArtIndex = 0;
 
         //Generated Fields
         public Main main;
         public List<Genre> genre = new List<Genre>();
         public List<Artist> artist = new List<Artist>();
         public List<(Album, AlbumTracks)> album = new List<(Album, AlbumTracks)>();
+        public List<AlbumArt> albumArt = new List<AlbumArt>();
         public List<ArtistPersons> artistPersons = new List<ArtistPersons>();
 
         //Derived Fields
@@ -37,17 +40,25 @@ namespace MusicDatabaseGenerator
 
         public void Sync()
         {
-            AddMainData();
-            AddGenreData();
-            AddArtistData();
-            AddArtistPersonsData(); //must come after the artist data
-            AddAlbumData();
+            if(albumArt.Any())
+            {
+                AddAlbumArt();
 
-            PostProcessing();
+                Console.WriteLine($"Finished processing album art {albumArtIndex} ({albumArt.FirstOrDefault().AlbumArtPath})");
+            } else
+            {
+                AddMainData();
+                AddGenreData();
+                AddArtistData();
+                AddArtistPersonsData(); //must come after the artist data
+                AddAlbumData();
+
+                PostProcessing();
+
+                Console.WriteLine($"Finished processing track {trackIndex} ({main.Title})");
+            }
 
             _context.SaveChanges();
-            
-            Console.WriteLine($"Finished processing track {trackIndex} ({main.Title})");
         }
 
         private void AddMainData()
@@ -157,9 +168,26 @@ namespace MusicDatabaseGenerator
                 //track
                 if(!_context.ArtistPersons.Select(p => p.PersonName).Contains(person.PersonName))
                 {
-                    person.ArtistID = artist.Select(a => a.ArtistID).First();
+                    person.ArtistID = artist.Select(a => a.ArtistID).FirstOrDefault();
                     _context.ArtistPersons.Add(person);
                 }
+            }
+            _context.SaveChanges();
+        }
+
+        private Regex parentDirectoryMatch = new Regex(".*(?=[\\\\\\/][^\\\\\\/]*\\.[a-zA-Z]+)", RegexOptions.Compiled);
+        private void AddAlbumArt()
+        {
+            List<AlbumTracks> existingAlbumTracks = _context.AlbumTracks.ToList();
+            foreach(AlbumArt art in albumArt)
+            {
+                string parentDirectory = parentDirectoryMatch.Match(art.AlbumArtPath).Value;
+                int trackID = _context.Main
+                    .Where(m => m.FilePath.StartsWith(parentDirectory))
+                    .Select(t => t.TrackID).FirstOrDefault();
+
+                art.AlbumID = existingAlbumTracks.Where(at => at.TrackID == trackID).FirstOrDefault().AlbumID;
+                _context.AlbumArt.Add(art);
             }
             _context.SaveChanges();
         }

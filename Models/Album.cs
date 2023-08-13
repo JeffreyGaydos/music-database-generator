@@ -11,7 +11,7 @@ namespace MusicDatabaseGenerator
     {
         public int AlbumID { get; set; }
 
-        [StringLength(1000)]
+        [StringLength(446)]
         public string AlbumName { get; set; }
 
         public int? TrackCount { get; set; }

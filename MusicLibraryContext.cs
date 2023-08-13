@@ -13,6 +13,7 @@ namespace MusicDatabaseGenerator
         }
 
         public virtual DbSet<Album> Album { get; set; }
+        public virtual DbSet<AlbumArt> AlbumArt { get; set; }
         public virtual DbSet<AlbumTracks> AlbumTracks { get; set; }
         public virtual DbSet<Artist> Artist { get; set; }
         public virtual DbSet<ArtistPersons> ArtistPersons { get; set; }
@@ -31,6 +32,14 @@ namespace MusicDatabaseGenerator
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<AlbumArt>()
+                .Property(e => e.AlbumArtPath)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<AlbumArt>()
+                .Property(e => e.PrimaryColor)
+                .IsUnicode(false);
+
             modelBuilder.Entity<Main>()
                 .Property(e => e.Duration)
                 .HasPrecision(18, 0);

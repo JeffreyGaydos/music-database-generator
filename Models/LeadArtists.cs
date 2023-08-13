@@ -17,10 +17,10 @@ namespace MusicDatabaseGenerator
         [StringLength(100)]
         public string ArtistName { get; set; }
 
-        [StringLength(1000)]
+        [StringLength(100)]
         public string PersonName { get; set; }
 
-        [StringLength(1000)]
+        [StringLength(100)]
         public string PrimaryPerson { get; set; }
     }
 }
