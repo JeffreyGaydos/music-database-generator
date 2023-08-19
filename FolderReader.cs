@@ -14,7 +14,9 @@ namespace MusicDatabaseGenerator
         {
             ".mp3",
             ".flac",
-            ".wav"
+            ".wav",
+            ".m4a",
+            ".wma"
         };
 
         private static readonly List<string> _limitedDataMusicExtensions = new List<string>
@@ -125,6 +127,7 @@ namespace MusicDatabaseGenerator
 
         private static string ExtensionOf(string filePath)
         {
+            if (filePath.LastIndexOf(".") == -1) return "";
             return filePath.Substring(filePath.LastIndexOf("."));
         }
     }
