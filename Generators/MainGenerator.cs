@@ -37,7 +37,7 @@ namespace MusicDatabaseGenerator.Generators
                 BeatsPerMin = (int)_file.Tag.BeatsPerMinute,
                 Copyright = _file.Tag.Copyright,
                 Publisher = _file.Tag.Publisher,
-                ISRC = _file.Tag.ISRC,
+                ISRC = _file.Tag.ISRC ?? "",
                 Bitrate = _file.Properties.AudioBitrate,
                 Channels = _file.Properties.AudioChannels,
                 SampleRate = _file.Properties.AudioSampleRate,

@@ -161,7 +161,7 @@ BEGIN
 	CREATE TABLE ArtistPersons (
 		PersonID INT IDENTITY(1,1) PRIMARY KEY,
 		ArtistID INT,
-		PersonName NVARCHAR(100)
+		PersonName NVARCHAR(200)
 		CONSTRAINT UC_ArtistPerson UNIQUE (ArtistID, PersonName)
 	)
 END
@@ -250,7 +250,7 @@ IF (SELECT [dbo].[MusicTableExists] (N'Main')) = 0
 BEGIN
 	CREATE TABLE Main (
 		TrackID INT IDENTITY(1,1) PRIMARY KEY,
-		Title NVARCHAR(444), --The max key length is 900, this takes the rest of the bits
+		Title NVARCHAR(435), --The max key length is 900, this takes the rest of the bits
 		Duration DECIMAL,
 		FilePath VARCHAR(260), --windows max path length = 260 characters
 		AverageDecibels DECIMAL,
@@ -272,7 +272,8 @@ BEGIN
 		GeneratedDate DATETIME --used to determine if updates are needed
 		CONSTRAINT UC_Main UNIQUE (
 			Title,
-			ISRC
+			ISRC,
+			Duration
 		)
 	)
 END

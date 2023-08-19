@@ -2168,7 +2168,7 @@ namespace MusicDatabaseGenerator {
                 this.columnPersonID.AllowDBNull = false;
                 this.columnPersonID.ReadOnly = true;
                 this.columnPersonID.Unique = true;
-                this.columnPersonName.MaxLength = 100;
+                this.columnPersonName.MaxLength = 200;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3828,7 +3828,7 @@ namespace MusicDatabaseGenerator {
                 this.columnTrackID.AllowDBNull = false;
                 this.columnTrackID.ReadOnly = true;
                 this.columnTrackID.Unique = true;
-                this.columnTitle.MaxLength = 444;
+                this.columnTitle.MaxLength = 435;
                 this.columnFilePath.MaxLength = 260;
                 this.columnOwner.MaxLength = 1000;
                 this.columnLyrics.MaxLength = 4000;
@@ -5568,8 +5568,8 @@ namespace MusicDatabaseGenerator {
                 this.columnArtistID.AllowDBNull = false;
                 this.columnArtistID.Unique = true;
                 this.columnArtistName.MaxLength = 100;
-                this.columnPersonName.MaxLength = 100;
-                this.columnPrimaryPerson.MaxLength = 100;
+                this.columnPersonName.MaxLength = 200;
+                this.columnPrimaryPerson.MaxLength = 200;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6204,7 +6204,7 @@ namespace MusicDatabaseGenerator {
                                 this.columnTrackID}, true));
                 this.columnTrackID.AllowDBNull = false;
                 this.columnTrackID.Unique = true;
-                this.columnTitle.MaxLength = 444;
+                this.columnTitle.MaxLength = 435;
                 this.columnFilePath.MaxLength = 260;
                 this.columnOwner.MaxLength = 1000;
                 this.columnLyrics.MaxLength = 4000;

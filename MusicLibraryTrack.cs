@@ -79,7 +79,7 @@ namespace MusicDatabaseGenerator
         {
             List<string> currentGenres = _context.Genre.Select(g => g.GenreName).ToList();
 
-            foreach (string newGenre in genre.Select(g => g.GenreName).ToList().Except(currentGenres))
+            foreach (string newGenre in genre.Select(g => g.GenreName).Where(gn => !currentGenres.Contains(gn)).ToList())
             {
                 Genre fullGenre = genre.Where(g => g.GenreName == newGenre).FirstOrDefault();
                 if (fullGenre != null)
@@ -186,7 +186,7 @@ namespace MusicDatabaseGenerator
                     .Where(m => m.FilePath.StartsWith(parentDirectory))
                     .Select(t => t.TrackID).FirstOrDefault();
 
-                art.AlbumID = existingAlbumTracks.Where(at => at.TrackID == trackID).FirstOrDefault().AlbumID;
+                art.AlbumID = existingAlbumTracks.Where(at => at.TrackID == trackID).FirstOrDefault()?.AlbumID;
                 _context.AlbumArt.Add(art);
             }
             _context.SaveChanges();
