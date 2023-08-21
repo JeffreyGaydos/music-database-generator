@@ -1,6 +1,11 @@
 data/*
 data2/*
+data3/*
 
 bin/
 
 obj/
+
+files_with_limited_data.txt
+generation.txt
+skipped_duplicates.txt
