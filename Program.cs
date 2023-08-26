@@ -19,10 +19,11 @@ namespace MusicDatabaseGenerator
         static void Main(string[] args)
         {
             IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile(Directory.GetParent("./") + "../../../appsettings.json").Build();
-
+            
             var settings = config.GetSection("Settings").GetChildren().ToDictionary(r => r.Key, r => r.Value);
 
-            string connectionString = settings["ConnectionString"];
+            MusicLibraryContext mdbContext = new MusicLibraryContext();
+            string connectionString = mdbContext.Database.Connection.ConnectionString;
             string pathToSearch = settings["MusicFolderPathAbsolute"];
             bool generateAlbumArtData = settings["GenerateAlbumArtData"] == "True";
             bool generateMusicMetadata = settings["GenerateMusicMetadata"] == "True";
@@ -35,7 +36,7 @@ namespace MusicDatabaseGenerator
             logger.GenerationLogWriteData($"Connecting to database via connection string \"{connectionString}\"...");
             logger.GenerationLogWriteData($"{(regen ? "Deleting existing data and resetting IDs..." : "Existing database persisted...")}");
 
-            if(regen)
+            if (regen)
             {
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
 
@@ -64,8 +65,6 @@ namespace MusicDatabaseGenerator
 
             FolderReader.InjectDependencies(logger);
             (List<TagLib.File> tagFiles, List<(string, Bitmap)> coverArt) constructedTuple = FolderReader.ReadToTagLibFiles(pathToSearch, true);
-
-            MusicLibraryContext mdbContext = new MusicLibraryContext();
             Stopwatch sw = new Stopwatch();
             sw.Start();
 
