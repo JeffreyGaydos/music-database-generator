@@ -15,28 +15,60 @@ namespace MusicDatabaseGenerator.Generators
             _logger = logger;
         }
 
-        public void Generate()
+        List<char> seperators = new List<char> { ',', '/', '&', ';' };
+        private List<string> GetIndividualPersons(string personString)
         {
+            //this situation means that the person string is likely in the form "Last, First M." form, so the comma should not be used as a separater
+            if(personString.Count(c => c == ',') == 1 && personString.Count(c => c != ',' && seperators.Contains(c)) == 0) {
+                return new List<string> { personString };
+            }
+
+            List<string> result = new List<string> { personString };
+
+            foreach(char sep in seperators)
+            {
+                result = result.SelectMany(s => s.Split(sep)).ToList();
+            }
+
+            return result.Select(s => s.Trim()).Distinct().ToList();
+        }
+
+        public void Generate()
+        {//TODO: look for "persons" that have splitters in them (something like "John Smith/Jerry Seinfeld/etc."). Examine the artist persons data!
+            //Separators: "/", ";" "," "&"
+            //Some are "compound" and have all 3 with duplicates (wtf guys...) [ex. Aritst1, Artist2, Artist3 / Artist2 / Artist1 & Artist4]
+            //Problem artists: "Quin, Teagan K." (That's Teagan K. Quin from Teagan & Sara)
+            //Should these artist persons be associated with tracks?? Rather than artists? in addition to artists?
             foreach(string person in _file.Tag.Composers)
             {
-                if(string.IsNullOrWhiteSpace(person))
+                foreach(string individualPerson in GetIndividualPersons(person))
                 {
-                    _data.artistPersons.Add(new ArtistPersons
+                    if (!string.IsNullOrWhiteSpace(individualPerson))
                     {
-                        PersonName = person,
-                    });
+                        _data.artistPersons.Add(new ArtistPersons
+                        {
+                            PersonName = individualPerson,
+                            PermanentMember = true
+                        });
+                        _data.trackPersons.Add((new TrackPersons(), individualPerson));
+                    }
                 }
             }
             if(_data.artistPersons.Count == 0)
             {
                 foreach (string person in _file.Tag.Performers)
                 {
-                    if (string.IsNullOrWhiteSpace(person))
+                    foreach (string individualPerson in GetIndividualPersons(person))
                     {
-                        _data.artistPersons.Add(new ArtistPersons
+                        if (!string.IsNullOrWhiteSpace(individualPerson))
                         {
-                            PersonName = person,
-                        });
+                            _data.artistPersons.Add(new ArtistPersons
+                            {
+                                PersonName = individualPerson,
+                                PermanentMember = true
+                            });
+                            _data.trackPersons.Add((new TrackPersons(), individualPerson));
+                        }
                     }
                 }
             }

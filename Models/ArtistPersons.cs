@@ -15,5 +15,7 @@ namespace MusicDatabaseGenerator
 
         [StringLength(200)]
         public string PersonName { get; set; }
+
+        public bool? PermanentMember { get; set; }
     }
 }

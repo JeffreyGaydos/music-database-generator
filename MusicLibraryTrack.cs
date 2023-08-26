@@ -39,6 +39,7 @@ namespace MusicDatabaseGenerator
         public List<(Album, AlbumTracks)> album = new List<(Album, AlbumTracks)>();
         public List<AlbumArt> albumArt = new List<AlbumArt>();
         public List<ArtistPersons> artistPersons = new List<ArtistPersons>();
+        public List<(TrackPersons tp, string name)> trackPersons = new List<(TrackPersons tp, string name)>();
 
         //Derived Fields
         //public List<GenreTracks> genreTracks = new List<GenreTracks>();
@@ -83,6 +84,7 @@ namespace MusicDatabaseGenerator
                         AddGenreData();
                         AddArtistData();
                         AddArtistPersonsData(); //must come after the artist data
+                        AddTrackPersonsData();
                         AddAlbumData();
 
                         PostProcessing();
@@ -225,11 +227,23 @@ namespace MusicDatabaseGenerator
                 //and likely will not contain the information needed to map performers to specific artists. In this
                 //case, the artistID that we map here may be inaccurate or relate to a different artist on the same
                 //track
-                if(!_context.ArtistPersons.Select(p => p.PersonName).Contains(person.PersonName))
+                person.ArtistID = artist.Select(a => a.ArtistID).FirstOrDefault();
+                if (!_context.ArtistPersons.Select(p => p.PersonName).Contains(person.PersonName))
                 {
-                    person.ArtistID = artist.Select(a => a.ArtistID).FirstOrDefault();
                     _context.ArtistPersons.Add(person);
                 }
+            }
+            _context.SaveChanges();
+        }
+
+        private void AddTrackPersonsData()
+        {
+            foreach((TrackPersons tp, string name) person in trackPersons)
+            {
+                person.tp.PersonID = _context.ArtistPersons.Where(ap => ap.PersonName == person.name).Select(a => a.PersonID).FirstOrDefault();
+                person.tp.TrackID = main.TrackID;
+                if(person.tp.PersonID != 0)
+                    _context.TrackPersons.Add(person.tp);
             }
             _context.SaveChanges();
         }

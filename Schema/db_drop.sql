@@ -39,6 +39,10 @@ IF (SELECT [dbo].[MusicTableExists] (N'ArtistPersons')) = 1
 BEGIN
     DROP TABLE ArtistPersons
 END
+IF (SELECT [dbo].[MusicTableExists] (N'TrackPersons')) = 1
+BEGIN
+    DROP TABLE TrackPersons
+END
 IF (SELECT [dbo].[MusicTableExists] (N'Genre')) = 1
 BEGIN
     DROP TABLE Genre

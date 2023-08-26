@@ -1,10 +1,8 @@
 ﻿/*
- * db_drop.sql
+ * db_restart.sql
  * Schema Version: 1.0.0
  *
- * WARNING: Dropping tables removes all data in that table. Save your data if needed
- * Run this file by uncommenting the "COMMIT TRAN" and commenting "ROLLBACK TRAN"
- * This file is intended to "uninstall" your database to allow for schema change udpates.
+ * This file is intended for internal use only
  */
 
 BEGIN TRAN
@@ -38,6 +36,10 @@ END
 IF (SELECT [dbo].[MusicTableExists] (N'ArtistPersons')) = 1
 BEGIN
     DROP TABLE ArtistPersons
+END
+IF (SELECT [dbo].[MusicTableExists] (N'TrackPersons')) = 1
+BEGIN
+    DROP TABLE TrackPersons
 END
 IF (SELECT [dbo].[MusicTableExists] (N'Genre')) = 1
 BEGIN
@@ -251,8 +253,19 @@ BEGIN
 	CREATE TABLE ArtistPersons (
 		PersonID INT IDENTITY(1,1) PRIMARY KEY,
 		ArtistID INT,
-		PersonName NVARCHAR(200)
+		PersonName NVARCHAR(200),
+		PermanentMember BIT
 		CONSTRAINT UC_ArtistPerson UNIQUE (ArtistID, PersonName)
+	)
+END
+
+--Maps tracks to persons associated with that track specifically. Useful for bands with temporary members
+IF (SELECT [dbo].[MusicTableExists] (N'TrackPersons')) = 0
+BEGIN
+	CREATE TABLE TrackPersons (
+		TrackID INT,
+		PersonID INT,
+		PRIMARY KEY (TrackID, PersonID)
 	)
 END
 

@@ -27,6 +27,7 @@ namespace MusicDatabaseGenerator
         public virtual DbSet<Playlist> Playlist { get; set; }
         public virtual DbSet<PlaylistTracks> PlaylistTracks { get; set; }
         public virtual DbSet<PlayLogs> PlayLogs { get; set; }
+        public virtual DbSet<TrackPersons> TrackPersons { get; set; }
         public virtual DbSet<LeadArtists> LeadArtists { get; set; }
         public virtual DbSet<MainDataJoined> MainDataJoined { get; set; }
 

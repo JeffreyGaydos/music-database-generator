@@ -23,6 +23,7 @@ DBCC CHECKIDENT ('dbo.Artist', RESEED, 0)
 DELETE FROM ArtistTracks
 DELETE FROM ArtistPersons
 DBCC CHECKIDENT ('dbo.ArtistPersons', RESEED, 0)
+DELETE FROM TrackPersons
 DELETE FROM Genre
 DBCC CHECKIDENT ('dbo.Genre', RESEED, 0)
 DELETE FROM GenreTracks
@@ -30,7 +31,6 @@ DELETE FROM Album
 DBCC CHECKIDENT ('dbo.Album', RESEED, 0)
 DELETE FROM AlbumTracks
 DELETE FROM AlbumArt
-DBCC CHECKIDENT ('dbo.AlbumArt', RESEED, 0)
 DELETE FROM LinkedTracks
 DELETE FROM PlayLogs
 DELETE FROM Main

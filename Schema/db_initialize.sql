@@ -161,8 +161,19 @@ BEGIN
 	CREATE TABLE ArtistPersons (
 		PersonID INT IDENTITY(1,1) PRIMARY KEY,
 		ArtistID INT,
-		PersonName NVARCHAR(200)
+		PersonName NVARCHAR(200),
+		PermanentMember BIT
 		CONSTRAINT UC_ArtistPerson UNIQUE (ArtistID, PersonName)
+	)
+END
+
+--Maps tracks to persons associated with that track specifically. Useful for bands with temporary members
+IF (SELECT [dbo].[MusicTableExists] (N'TrackPersons')) = 0
+BEGIN
+	CREATE TABLE TrackPersons (
+		TrackID INT,
+		PersonID INT,
+		PRIMARY KEY (TrackID, PersonID)
 	)
 END
 
