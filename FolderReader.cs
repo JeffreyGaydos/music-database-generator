@@ -111,7 +111,7 @@ namespace MusicDatabaseGenerator
             {
                 _logger.LimitedDataLogWriteData(partiallySupportedFile);
             }
-            _logger.GenerationLogWriteData($"{_partiallySupportedMusicFiles.Count} files had minimal metadata. Consider obtaining .mp3 or .flac version of the files found in ./MinimalDataFiles.txt");
+            _logger.GenerationLogWriteData($"{_partiallySupportedMusicFiles.Count} files had minimal metadata. Consider obtaining .mp3 or .flac version of the files found in ./files_with_limited_data.txt");
 
             return (tagFiles, coverArt);
         }
