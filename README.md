@@ -26,7 +26,7 @@ It is recommended that your music is in `.mp3`, `.m4a`, `.wma` or `.flac` format
 ```
 [Artist Name] - [Album Name] - [Track Order in Album] [Title].wav
 ```
-If you must use `.wav` files, following the above convention will ensure that this tool adds that data to the database. A list of `.wav` files that you may want to replace can be found in `files_with_limited_data.txt` at the root of this project (which is created unpon running the project). Note that files listed in this log are not checked for duplicates (i.e. if you have `.wav` and `.mp3` files, these the `.wav` files will still appear in this log).
+If you must use `.wav` files, following the above convention will ensure that this tool adds that data to the database. A list of `.wav` files that you may want to replace can be found in `files_with_limited_data.txt` at the root of this project (which is created unpon running the project). Note that files listed in this log are not checked for duplicates (i.e. if you have `.wav` and `.mp3` files for the same song, these `.wav` files will still appear in this log).
 
 Additionally, though the fully supported file types have the _potential_ to have much more metadata in them, certain publishers of music may or may not include (many) fields. If you see a lot of `NULL` values associated with a specific track, look at the file's properties directly and add any missing data to the file itself, rather than directly inserting into the database. Additional information on how data was parsed for particular files can be found in `generation.txt` in the root of this project (which is created unpon running the project).
 

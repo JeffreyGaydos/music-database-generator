@@ -34,11 +34,7 @@ namespace MusicDatabaseGenerator.Generators
         }
 
         public void Generate()
-        {//TODO: look for "persons" that have splitters in them (something like "John Smith/Jerry Seinfeld/etc."). Examine the artist persons data!
-            //Separators: "/", ";" "," "&"
-            //Some are "compound" and have all 3 with duplicates (wtf guys...) [ex. Aritst1, Artist2, Artist3 / Artist2 / Artist1 & Artist4]
-            //Problem artists: "Quin, Teagan K." (That's Teagan K. Quin from Teagan & Sara)
-            //Should these artist persons be associated with tracks?? Rather than artists? in addition to artists?
+        {
             foreach(string person in _file.Tag.Composers)
             {
                 foreach(string individualPerson in GetIndividualPersons(person))
