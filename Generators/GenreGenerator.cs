@@ -13,7 +13,7 @@
             {
                 _data.genre.Add(new Genre
                 {
-                    GenreName = genreName
+                    GenreName = genreName.Trim()
                 });
             }
         }        

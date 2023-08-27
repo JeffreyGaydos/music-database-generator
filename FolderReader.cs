@@ -14,7 +14,9 @@ namespace MusicDatabaseGenerator
         {
             ".mp3",
             ".flac",
-            ".wav"
+            ".wav",
+            ".m4a",
+            ".wma"
         };
 
         private static readonly List<string> _limitedDataMusicExtensions = new List<string>
@@ -34,6 +36,13 @@ namespace MusicDatabaseGenerator
         private static List<string> _unsupportedFiles = new List<string>();
 
         private static readonly List<string> _allSupportedExtensions = _supportedMusicExtensions.Union(_supportedAlbumArtExtensions).ToList();
+        
+        private static LoggingUtils _logger;
+
+        public static void InjectDependencies(LoggingUtils log)
+        {
+            _logger = log;
+        }
 
         /**
          * ReadToTagLibFiles
@@ -64,38 +73,45 @@ namespace MusicDatabaseGenerator
             //FileStream stream = File.Open(musicPath);
             List<string> topLevelFolders = Directory.GetDirectories(absolute ? path : "../../" + path).ToList();
 
-            foreach (string topLevelFolder in topLevelFolders)
+            _logger.LoadingBar("Gathering files", topLevelFolders, (toplevelFolder) =>
             {
-                CategorizeFiles(topLevelFolder);
+                CategorizeFiles(toplevelFolder);
 
-                foreach (string albumFolder in Directory.GetDirectories(topLevelFolder))
+                foreach (string albumFolder in Directory.GetDirectories(toplevelFolder))
                 {
                     CategorizeFiles(albumFolder);
                 }
-            }
+                return ""; //ignore output
+            });
 
-            foreach (string file in _supportedMusicFiles)
+            _logger.LoadingBar("Parsing music files", _supportedMusicFiles, (file) =>
             {
                 tagFiles.Add(TagLib.File.Create(file));
-            }
+                return "";
+            });
 
-            foreach(string file in _supportedAlbumArtFiles)
+            _logger.LoadingBar("Parsing album art files", _supportedAlbumArtFiles, (file) =>
             {
                 coverArt.Add((file, new Bitmap(file)));
-            }
+                return "";
+            });
 
             List<TagLib.File> corruptFiles = tagFiles.Where(t => t.PossiblyCorrupt).ToList();
             if (corruptFiles.Any())
             {
-                Console.WriteLine("Files are possibly corrupt: ");
+                _logger.GenerationLogWriteData("Files are possibly corrupt: ");
                 foreach (TagLib.File corruptFile in corruptFiles)
                 {
-                    Console.WriteLine($"{corruptFile.Tag.Title}: {string.Join(",", corruptFile.CorruptionReasons.ToList())}");
+                    _logger.GenerationLogWriteData($"{corruptFile.Tag.Title}: {string.Join(",", corruptFile.CorruptionReasons.ToList())}");
                 }
             }
 
-            Console.WriteLine($"Found {_supportedMusicFiles.Count} music files and {_supportedAlbumArtFiles.Count} image files to process...");
-            Console.WriteLine($"{_partiallySupportedMusicFiles.Count} files had minimal metadata. Consider obtaining .mp3 or .flac version of the files found in ./MinimalDataFiles.txt");
+            _logger.GenerationLogWriteData($"Found {_supportedMusicFiles.Count} music files and {_supportedAlbumArtFiles.Count} image files to process...");
+            foreach(var partiallySupportedFile in _partiallySupportedMusicFiles)
+            {
+                _logger.LimitedDataLogWriteData(partiallySupportedFile);
+            }
+            _logger.GenerationLogWriteData($"{_partiallySupportedMusicFiles.Count} files had minimal metadata. Consider obtaining .mp3 or .flac version of the files found in ./files_with_limited_data.txt");
 
             return (tagFiles, coverArt);
         }
@@ -125,6 +141,7 @@ namespace MusicDatabaseGenerator
 
         private static string ExtensionOf(string filePath)
         {
+            if (filePath.LastIndexOf(".") == -1) return "";
             return filePath.Substring(filePath.LastIndexOf("."));
         }
     }

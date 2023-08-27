@@ -1,9 +1,16 @@
 ﻿using MusicDatabaseGenerator.Generators;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
+using Microsoft.Extensions.Configuration;
+using MusicDatabaseGenerator.Properties;
+using System.Data.SqlClient;
 
 namespace MusicDatabaseGenerator
 {
@@ -11,56 +18,119 @@ namespace MusicDatabaseGenerator
     {
         static void Main(string[] args)
         {
-            //TODO: Replace this later with a config or something
-            string musicFolder = "data2"; //point this to where the mp3s are located, relative to the top level folder of this repo
-            //string musicFolder = "../../../../Music";
-
-            (List<TagLib.File> tagFiles, List<(string, Bitmap)> coverArt) constructedTuple = FolderReader.ReadToTagLibFiles(musicFolder);
+            IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile(Directory.GetParent("./") + "../../../appsettings.json").Build();
+            
+            var settings = config.GetSection("Settings").GetChildren().ToDictionary(r => r.Key, r => r.Value);
 
             MusicLibraryContext mdbContext = new MusicLibraryContext();
+            string connectionString = mdbContext.Database.Connection.ConnectionString;
+            string pathToSearch = settings["MusicFolderPathAbsolute"];
+            bool generateAlbumArtData = settings["GenerateAlbumArtData"] == "True";
+            bool generateMusicMetadata = settings["GenerateMusicMetadata"] == "True";
+            bool regen = settings["DeleteDataOnGeneration"] == "True";
 
-            foreach (TagLib.File data in constructedTuple.tagFiles)
+            LoggingUtils logger = new LoggingUtils();
+
+            logger.GenerationLogWriteData("_CONFIGURATION:__________________________________");
+
+            logger.GenerationLogWriteData($"Connecting to database via connection string \"{connectionString}\"...");
+            logger.GenerationLogWriteData($"{(regen ? "Deleting existing data and resetting IDs..." : "Existing database persisted...")}");
+
+            if (regen)
             {
-                MusicLibraryTrack trackData = new MusicLibraryTrack(mdbContext);
+                SqlConnection sqlConnection = new SqlConnection(connectionString);
 
-                List<IGenerator> generators = new List<IGenerator>
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    new MainGenerator(data, trackData),
-                    new GenreGenerator(data, trackData),
-                    new ArtistGenerator(data, trackData),
-                    new AlbumGenerator(data, trackData),
-                    new ArtistPersonGenerator(data, trackData)
-                };
-
-                foreach (IGenerator generator in generators)
-                {
-                    generator.Generate();
+                    connection.Open();
+                    string sql = File.ReadAllText("../../Schema/db_delete.sql").Replace("\\r\\n", @"
+").Replace("\\t", "  ");
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.ExecuteNonQuery();
+                    }
                 }
-
-                MusicLibraryTrack.trackIndex += 1;
-
-                trackData.Sync();
             }
 
-            //Strict ordering, album art must come second so we can match it to an album via our sync function
-            foreach ((string, Bitmap) img in constructedTuple.coverArt)
-            {
-                MusicLibraryTrack trackData = new MusicLibraryTrack(mdbContext);
+            logger.GenerationLogWriteData($"Searching for data at location \"{pathToSearch}\"");
+            logger.GenerationLogWriteData($@"{(generateAlbumArtData ? 
+                generateMusicMetadata ?
+                    "Will generate music metadata and album art metadata"
+                    : "Will generate album art metadata ONLY"
+                : generateMusicMetadata ?
+                    "Will generate music metadata ONLY"
+                    : "Config was set to generate no data. Will still check for files with limited meatadata.")}");
 
-                List<IGenerator> generators = new List<IGenerator>
+            logger.GenerationLogWriteData("_________________________________________________");
+
+            FolderReader.InjectDependencies(logger);
+            (List<TagLib.File> tagFiles, List<(string, Bitmap)> coverArt) constructedTuple = FolderReader.ReadToTagLibFiles(pathToSearch, true);
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+
+            if (generateMusicMetadata)
+            {
+                int total = constructedTuple.tagFiles.Count;
+                foreach (TagLib.File data in constructedTuple.tagFiles)
                 {
-                    new AlbumArtGenerator(img.Item2, img.Item1, trackData),
+                    MusicLibraryTrack trackData = new MusicLibraryTrack(mdbContext, logger, total);
+
+                    List<IGenerator> generators = new List<IGenerator>
+                {
+                    new MainGenerator(data, trackData, logger),
+                    new GenreGenerator(data, trackData),
+                    new ArtistGenerator(data, trackData, pathToSearch, logger),
+                    new AlbumGenerator(data, trackData, pathToSearch, logger),
+                    new ArtistPersonGenerator(data, trackData, logger)
                 };
 
-                foreach (IGenerator generator in generators)
-                {
-                    generator.Generate();
+                    foreach (IGenerator generator in generators)
+                    {
+                        generator.Generate();
+                    }
+
+                    MusicLibraryTrack.trackIndex += 1;
+
+                    trackData.Sync();
                 }
+                logger.GenerationLogWriteComment($"Song Data Inserted Into Database in {sw.Elapsed.TotalSeconds} seconds");
+                sw.Restart();
+            }
 
-                MusicLibraryTrack.albumArtIndex += 1;
+            if(generateAlbumArtData)
+            {
+                int total = constructedTuple.coverArt.Count;
+                //Strict ordering, album art must come second so we can match it to an album via our sync function
+                foreach ((string, Bitmap) img in constructedTuple.coverArt)
+                {
+                    MusicLibraryTrack trackData = new MusicLibraryTrack(mdbContext, logger, total);
 
-                trackData.Sync();
-                //TODO: Use regex to compare paths to determine which album the art is associated with
+                    List<IGenerator> generators = new List<IGenerator>
+                    {
+                        new AlbumArtGenerator(img.Item2, img.Item1, trackData),
+                    };
+
+                    foreach (IGenerator generator in generators)
+                    {
+                        generator.Generate();
+                    }
+
+                    MusicLibraryTrack.albumArtIndex += 1;
+                
+                    try
+                    {
+                        trackData.Sync();
+                    }
+                    catch (UpdateException ue)
+                    {
+                        if (ue.Message.Contains("Violation of PRIMARY KEY constraint"))
+                        {
+                            logger.GenerationLogWriteData($"Found duplicate content for file, skipping {trackData.main.FilePath}");
+                            logger.DuplicateLogWriteData(trackData.main.FilePath);
+                        }
+                    }
+                }
+                logger.GenerationLogWriteComment($"Album Art Data Inserted Into Database in {sw.Elapsed.TotalSeconds} seconds");
             }
         }
     }

@@ -1,11 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using TagLib.Mpeg;
 
 namespace MusicDatabaseGenerator
 {
+    internal class SQLStringComparison : IEqualityComparer<string>
+    {
+        public bool Equals(string x, string y)
+        {
+            if (x == y) return true;
+            if (x?.ToLower() == y?.ToLower()) return true;
+            return string.Compare(x?.ToLower(), y?.ToLower(), CultureInfo.InvariantCulture, CompareOptions.IgnoreNonSpace | CompareOptions.IgnoreCase | CompareOptions.IgnoreSymbols) == 0;
+        }
+
+        public int GetHashCode(string obj)
+        {
+            return obj?.ToLower().GetHashCode() ?? 0;
+        }
+    }
+
     public class MusicLibraryTrack
     {
         //NOT the track ID or album art ID in the database
@@ -19,6 +39,7 @@ namespace MusicDatabaseGenerator
         public List<(Album, AlbumTracks)> album = new List<(Album, AlbumTracks)>();
         public List<AlbumArt> albumArt = new List<AlbumArt>();
         public List<ArtistPersons> artistPersons = new List<ArtistPersons>();
+        public List<(TrackPersons tp, string name)> trackPersons = new List<(TrackPersons tp, string name)>();
 
         //Derived Fields
         //public List<GenreTracks> genreTracks = new List<GenreTracks>();
@@ -32,33 +53,62 @@ namespace MusicDatabaseGenerator
         //public List<PlayLogs> playLogs = new List<PlayLogs>();
 
         private MusicLibraryContext _context;
+        private LoggingUtils _logger;
         private int _trackID;
 
-        public MusicLibraryTrack(MusicLibraryContext context) {
+        private static Regex R_PKViolationTable = new Regex("dbo\\.[a-zA-Z]+", RegexOptions.Compiled);
+        private static Regex R_PKViolationViolatingKey = new Regex("(?<=\\().+(?=\\))", RegexOptions.Compiled);
+
+        private int _totalCount;
+
+        public MusicLibraryTrack(MusicLibraryContext context, LoggingUtils logger, int count) {
             _context = context;
+            _logger = logger;
+            _totalCount = count;
         }
 
         public void Sync()
         {
-            if(albumArt.Any())
+            if (albumArt.Any())
             {
                 AddAlbumArt();
 
-                Console.WriteLine($"Finished processing album art {albumArtIndex} ({albumArt.FirstOrDefault().AlbumArtPath})");
+                _logger.GenerationLogWriteData($"{100 * albumArtIndex / (decimal)_totalCount:00.00}% Finished processing album art {albumArtIndex} ({albumArt.FirstOrDefault().AlbumArtPath})");
             } else
             {
-                AddMainData();
-                AddGenreData();
-                AddArtistData();
-                AddArtistPersonsData(); //must come after the artist data
-                AddAlbumData();
+                using (DbContextTransaction transaction = _context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        AddMainData();
+                        AddGenreData();
+                        AddArtistData();
+                        AddArtistPersonsData(); //must come after the artist data
+                        AddTrackPersonsData();
+                        AddAlbumData();
 
-                PostProcessing();
+                        PostProcessing();
 
-                Console.WriteLine($"Finished processing track {trackIndex} ({main.Title})");
+                        transaction.Commit();
+
+                        _logger.GenerationLogWriteData($"{100 * trackIndex / (decimal)_totalCount:00.00}% Finished processing track {trackIndex} ({main.Title})");
+                    }
+                    catch (DbUpdateException ue)
+                    {
+                        string innerMessage = ue.InnerException.InnerException.Message;
+                        if (innerMessage.Contains("Violation of UNIQUE KEY constraint"))
+                        {
+                            string key = R_PKViolationViolatingKey.Match(innerMessage).Value;
+                            string table = R_PKViolationTable.Match(innerMessage).Value;
+                            _logger.GenerationLogWriteData($"{100 * trackIndex / (decimal)_totalCount:00.00}% Finished processing track {trackIndex} DUPLICATE (skipped) ({main.Title})");
+                            _logger.DuplicateLogWriteData($"{main.FilePath}: UNIQUE constraint violation on table '{table}' from key: [{key}]");
+                            transaction.Rollback();
+                            //The first entry in the change tracker is the most recent change, i.e. the thing that threw an exception. We need to remove it from the context
+                            _context.ChangeTracker.Entries().First().State = EntityState.Detached;
+                        }
+                    }
+                }
             }
-
-            _context.SaveChanges();
         }
 
         private void AddMainData()
@@ -66,7 +116,6 @@ namespace MusicDatabaseGenerator
             main.GeneratedDate = DateTime.Now;
             _context.Main.Add(main);
             _context.SaveChanges();
-
             int? trackID = _context.Main.ToList().Where(m => m == main).FirstOrDefault()?.TrackID;
             if (trackID == null)
             {
@@ -79,9 +128,10 @@ namespace MusicDatabaseGenerator
         {
             List<string> currentGenres = _context.Genre.Select(g => g.GenreName).ToList();
 
-            foreach (string newGenre in genre.Select(g => g.GenreName).ToList().Except(currentGenres))
+            foreach (string newGenre in genre.Select(g => g.GenreName).Where(gn => !currentGenres.Contains(gn, new SQLStringComparison())).ToList())
             {
-                Genre fullGenre = genre.Where(g => g.GenreName == newGenre).FirstOrDefault();
+                List<string> newGenreList = new List<string> { newGenre };
+                Genre fullGenre = genre.Where(g => newGenreList.Contains(g.GenreName, new SQLStringComparison())).FirstOrDefault();
                 if (fullGenre != null)
                 {
                     _context.Genre.Add(fullGenre);
@@ -92,7 +142,10 @@ namespace MusicDatabaseGenerator
             foreach (Genre g in genre)
             {
                 g.GenreID = _context.Genre.ToList()
-                        .Where(dbg => dbg.GenreName == g.GenreName)
+                        .Where(dbg => {
+                            List<string> list = new List<string> { dbg.GenreName };
+                            return list.Contains(g.GenreName, new SQLStringComparison());
+                        })
                         .FirstOrDefault().GenreID;
 
                 GenreTracks genreTrack = new GenreTracks();
@@ -107,9 +160,10 @@ namespace MusicDatabaseGenerator
         {
             List<string> currentArtists = _context.Artist.Select(a => a.ArtistName).ToList();
 
-            foreach (string newArtist in artist.Select(a => a.ArtistName).ToList().Except(currentArtists))
+            foreach (string newArtist in artist.Select(a => a.ArtistName).Where(a => !currentArtists.Contains(a, new SQLStringComparison())).ToList())
             {
-                Artist fullArtist = artist.Where(a => a.ArtistName == newArtist).FirstOrDefault();
+                List<string> newArtistList = new List<string> { newArtist };
+                Artist fullArtist = artist.Where(a => newArtistList.Contains(a.ArtistName, new SQLStringComparison())).FirstOrDefault();
                 if (fullArtist != null)
                 {
                     _context.Artist.Add(fullArtist);
@@ -120,7 +174,10 @@ namespace MusicDatabaseGenerator
             foreach (Artist a in artist)
             {
                 a.ArtistID = _context.Artist.ToList()
-                        .Where(dba => dba.ArtistName == a.ArtistName)
+                        .Where(dba => {
+                            List<string> list = new List<string> { dba.ArtistName };
+                            return list.Contains(a.ArtistName, new SQLStringComparison());
+                        })
                         .FirstOrDefault().ArtistID;
 
                 ArtistTracks artistTrack = new ArtistTracks();
@@ -135,9 +192,10 @@ namespace MusicDatabaseGenerator
         {
             List<string> currentAlbums = _context.Album.Select(a => a.AlbumName).ToList();
 
-            foreach (string newAlbum in album.Select(a => a.Item1.AlbumName).ToList().Except(currentAlbums))
+            foreach (string newAlbum in album.Select(a => a.Item1.AlbumName).Where(a => !currentAlbums.Contains(a, new SQLStringComparison())).ToList())
             {
-                Album fullAlbum = album.Where(a => a.Item1.AlbumName == newAlbum).FirstOrDefault().Item1;
+                List<string> newAlbumList = new List<string> { newAlbum };
+                Album fullAlbum = album.Where(a => newAlbumList.Contains(a.Item1.AlbumName, new SQLStringComparison())).FirstOrDefault().Item1;
                 if (fullAlbum != null)
                 {
                     _context.Album.Add(fullAlbum);
@@ -148,7 +206,10 @@ namespace MusicDatabaseGenerator
             foreach ((Album, AlbumTracks) a in album)
             {
                 a.Item1.AlbumID = _context.Album.ToList()
-                        .Where(dba => dba.AlbumName == a.Item1.AlbumName)
+                        .Where(dba => {
+                            List<string> list = new List<string> { dba.AlbumName };
+                            return list.Contains(a.Item1.AlbumName, new SQLStringComparison());
+                        })
                         .FirstOrDefault().AlbumID;
 
                 a.Item2.AlbumID = a.Item1.AlbumID;
@@ -166,11 +227,23 @@ namespace MusicDatabaseGenerator
                 //and likely will not contain the information needed to map performers to specific artists. In this
                 //case, the artistID that we map here may be inaccurate or relate to a different artist on the same
                 //track
-                if(!_context.ArtistPersons.Select(p => p.PersonName).Contains(person.PersonName))
+                person.ArtistID = artist.Select(a => a.ArtistID).FirstOrDefault();
+                if (!_context.ArtistPersons.Select(p => p.PersonName).Contains(person.PersonName))
                 {
-                    person.ArtistID = artist.Select(a => a.ArtistID).FirstOrDefault();
                     _context.ArtistPersons.Add(person);
                 }
+            }
+            _context.SaveChanges();
+        }
+
+        private void AddTrackPersonsData()
+        {
+            foreach((TrackPersons tp, string name) person in trackPersons)
+            {
+                person.tp.PersonID = _context.ArtistPersons.Where(ap => ap.PersonName == person.name).Select(a => a.PersonID).FirstOrDefault();
+                person.tp.TrackID = main.TrackID;
+                if(person.tp.PersonID != 0)
+                    _context.TrackPersons.Add(person.tp);
             }
             _context.SaveChanges();
         }
@@ -186,7 +259,7 @@ namespace MusicDatabaseGenerator
                     .Where(m => m.FilePath.StartsWith(parentDirectory))
                     .Select(t => t.TrackID).FirstOrDefault();
 
-                art.AlbumID = existingAlbumTracks.Where(at => at.TrackID == trackID).FirstOrDefault().AlbumID;
+                art.AlbumID = existingAlbumTracks.Where(at => at.TrackID == trackID).FirstOrDefault()?.AlbumID;
                 _context.AlbumArt.Add(art);
             }
             _context.SaveChanges();

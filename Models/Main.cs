@@ -12,7 +12,7 @@ namespace MusicDatabaseGenerator
         [Key]
         public int TrackID { get; set; }
 
-        [StringLength(444)]
+        [StringLength(435)]
         public string Title { get; set; }
 
         public decimal? Duration { get; set; }

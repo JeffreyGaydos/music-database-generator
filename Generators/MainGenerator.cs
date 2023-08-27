@@ -9,9 +9,10 @@ namespace MusicDatabaseGenerator.Generators
     {
         private Regex reg = new Regex("(?<=[\\\\\\/])[^\\\\\\/]*(?=\\.[a-zA-Z]+)", RegexOptions.Compiled);
         private Regex titleReg = new Regex("(?<=- [0-9][0-9] )[^\\\\\\/]*(?=\\.[a-zA-Z]+)", RegexOptions.Compiled);
-        public MainGenerator(TagLib.File file, MusicLibraryTrack track) {
+        public MainGenerator(TagLib.File file, MusicLibraryTrack track, LoggingUtils logger) {
             _file = file;
             _data = track;
+            _logger = logger;
         }
 
         public void Generate()
@@ -22,7 +23,7 @@ namespace MusicDatabaseGenerator.Generators
             string title = string.IsNullOrWhiteSpace(_file.Tag.Title) ? fileNameTitle : _file.Tag.Title;
             if(_file.Tag.Title != title)
             {
-                Console.WriteLine($"Title metadata did not exist on file \"{_file.Name}\" and was replaced with path-based name: \"{title}\"");
+                _logger.GenerationLogWriteData($"Title metadata did not exist on file \"{_file.Name}\" and was replaced with path-based name: \"{title}\"", true);
             }
             _data.main = new Main()
             {
@@ -37,7 +38,7 @@ namespace MusicDatabaseGenerator.Generators
                 BeatsPerMin = (int)_file.Tag.BeatsPerMinute,
                 Copyright = _file.Tag.Copyright,
                 Publisher = _file.Tag.Publisher,
-                ISRC = _file.Tag.ISRC,
+                ISRC = _file.Tag.ISRC ?? "",
                 Bitrate = _file.Properties.AudioBitrate,
                 Channels = _file.Properties.AudioChannels,
                 SampleRate = _file.Properties.AudioSampleRate,
