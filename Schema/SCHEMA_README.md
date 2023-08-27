@@ -66,13 +66,20 @@ This table maps between the **Main** table and the **Artist** table via the `Tra
   - The position this track holds within the associated album
 
 ## **ArtistPersons**
-This table adds a 1-many relationship to the artists table to map the real name of the artist (members) to the artist "stage name"
+This table adds a 1-many relationship to the **Artist** table to map the real name of the artist (members) to the artist "stage name"
 - `PersonID`
   - The ID of this table
 - `ArtistID`
   - Foreign key to the `Artist` table
 - `PeresonName`
   - The real name of the artist. Multiple people can be associated with the same artist
+
+## **TrackPersons**
+This table adds a 1-many relationship from track to the **ArtistPersons** table. Since person data is only stored in that table, it serves as a "Persons" table to which this table matches with. Note that the data in the **ArtistPersons** table is derived from the raw person data on each music file, which is represented by this table.
+- `TrackID`
+  - Foreign key to the `Main` table
+- `PersonID`
+  - Foreign key to the `ArtistPersons` table
 
 ## **Album**
 This table has metadata related to any collection of music. This includes Albums, EPs, LPs, etc.
