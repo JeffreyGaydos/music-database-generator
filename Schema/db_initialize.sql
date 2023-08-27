@@ -161,8 +161,7 @@ BEGIN
 	CREATE TABLE ArtistPersons (
 		PersonID INT IDENTITY(1,1) PRIMARY KEY,
 		ArtistID INT,
-		PersonName NVARCHAR(200),
-		PermanentMember BIT
+		PersonName NVARCHAR(200)
 		CONSTRAINT UC_ArtistPerson UNIQUE (ArtistID, PersonName)
 	)
 END
