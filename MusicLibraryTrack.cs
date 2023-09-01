@@ -78,8 +78,24 @@ namespace MusicDatabaseGenerator
             {
                 using (DbContextTransaction transaction = _context.Database.BeginTransaction())
                 {
+                    string percentageString = $"{100 * trackIndex / (decimal)_totalCount:00.00}%";
                     try
                     {
+                        Main existing = _context.Main.Where(m => m.FilePath == main.FilePath).FirstOrDefault();
+                        bool update = false;
+                        if(existing != null)
+                        {
+                            if (new FileInfo(main.FilePath).LastWriteTime < existing.GeneratedDate)
+                            {
+                                _logger.GenerationLogWriteData($"{percentageString} No updates found for track {main.Title} ({existing.TrackID})");
+                                return;
+                            } else
+                            {
+                                update = true;
+                                //call delete sproc, let insert run
+                            }
+                        }
+
                         AddMainData();
                         AddGenreData();
                         AddArtistData();
@@ -91,7 +107,7 @@ namespace MusicDatabaseGenerator
 
                         transaction.Commit();
 
-                        _logger.GenerationLogWriteData($"{100 * trackIndex / (decimal)_totalCount:00.00}% Finished processing track {trackIndex} ({main.Title})");
+                        _logger.GenerationLogWriteData($"{percentageString} Finished {(update ? "updating" : "processing")} track {trackIndex} ({main.Title})");
                     }
                     catch (DbUpdateException ue)
                     {
@@ -100,7 +116,7 @@ namespace MusicDatabaseGenerator
                         {
                             string key = R_PKViolationViolatingKey.Match(innerMessage).Value;
                             string table = R_PKViolationTable.Match(innerMessage).Value;
-                            _logger.GenerationLogWriteData($"{100 * trackIndex / (decimal)_totalCount:00.00}% Finished processing track {trackIndex} DUPLICATE (skipped) ({main.Title})");
+                            _logger.GenerationLogWriteData($"{percentageString} Finished processing track {trackIndex} DUPLICATE (skipped) ({main.Title})");
                             _logger.DuplicateLogWriteData($"{main.FilePath}: UNIQUE constraint violation on table '{table}' from key: [{key}]");
                             transaction.Rollback();
                             //The first entry in the change tracker is the most recent change, i.e. the thing that threw an exception. We need to remove it from the context

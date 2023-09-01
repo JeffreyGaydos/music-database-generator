@@ -1,16 +1,13 @@
-﻿using MusicDatabaseGenerator.Generators;
+﻿using Microsoft.Extensions.Configuration;
+using MusicDatabaseGenerator.Generators;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
-using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
-using Microsoft.Extensions.Configuration;
-using MusicDatabaseGenerator.Properties;
-using System.Data.SqlClient;
 
 namespace MusicDatabaseGenerator
 {
