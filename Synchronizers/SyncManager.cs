@@ -37,11 +37,12 @@ namespace MusicDatabaseGenerator.Synchronizers
                 synchronizers.Add(new AlbumArtSynchronizer(_mlt, _context));
             }
             else
-            {
+            {   //order matters...
                 synchronizers.Add(new MainSynchonizer(_mlt, _context));
                 synchronizers.Add(new GenreSynchronizer(_mlt, _context));
                 synchronizers.Add(new ArtistSynchronizer(_mlt, _context));
                 synchronizers.Add(new AlbumSynchronizer(_mlt, _context));
+                synchronizers.Add(new ArtistPersonsSynchronizer(_mlt, _context));
                 //TODO Add the rest of the synchronizers...
             }
 
