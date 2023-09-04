@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace MusicDatabaseGenerator.Synchronizers
 {
@@ -16,7 +17,15 @@ namespace MusicDatabaseGenerator.Synchronizers
 
         internal override void Insert()
         {
-            base.Insert();
+            _mlt.main.GeneratedDate = DateTime.Now;
+            _context.Main.Add(_mlt.main);
+            _context.SaveChanges();
+            int? trackID = _context.Main.ToList().Where(m => m == _mlt.main).FirstOrDefault()?.TrackID;
+            if (trackID == null)
+            {
+                throw new Exception($"Could not create a Main record for track {_mlt.main.Title}");
+            }
+            _mlt.main.TrackID = trackID.Value;
         }
 
         internal override void Update()
