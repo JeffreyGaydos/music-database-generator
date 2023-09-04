@@ -60,8 +60,9 @@ namespace MusicDatabaseGenerator.Synchronizers
                     }
 
                     transaction.Commit();
+                    trackIndex++;
 
-                    switch(ops)
+                    switch (ops)
                     {
                         case SyncOperation.None:
                             _logger.GenerationLogWriteData($"{percentageString} No updates found for track {_mlt.main.Title} ({_mlt.main.TrackID})");

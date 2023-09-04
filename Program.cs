@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using MusicDatabaseGenerator.Generators;
+using MusicDatabaseGenerator.Synchronizers;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
@@ -70,16 +71,17 @@ namespace MusicDatabaseGenerator
                 int total = constructedTuple.tagFiles.Count;
                 foreach (TagLib.File data in constructedTuple.tagFiles)
                 {
-                    MusicLibraryTrack trackData = new MusicLibraryTrack(mdbContext, logger, total);
+                    MusicLibraryTrack trackData = new MusicLibraryTrack();
+                    SyncManager syncManager = new SyncManager(mdbContext, logger, total, trackData);
 
                     List<IGenerator> generators = new List<IGenerator>
-                {
-                    new MainGenerator(data, trackData, logger),
-                    new GenreGenerator(data, trackData),
-                    new ArtistGenerator(data, trackData, pathToSearch, logger),
-                    new AlbumGenerator(data, trackData, pathToSearch, logger),
-                    new ArtistPersonGenerator(data, trackData, logger)
-                };
+                    {
+                        new MainGenerator(data, trackData, logger),
+                        new GenreGenerator(data, trackData),
+                        new ArtistGenerator(data, trackData, pathToSearch, logger),
+                        new AlbumGenerator(data, trackData, pathToSearch, logger),
+                        new ArtistPersonGenerator(data, trackData, logger)
+                    };
 
                     foreach (IGenerator generator in generators)
                     {
@@ -88,7 +90,7 @@ namespace MusicDatabaseGenerator
 
                     MusicLibraryTrack.trackIndex += 1;
 
-                    trackData.Sync();
+                    syncManager.Sync();
                 }
                 logger.GenerationLogWriteComment($"Song Data Inserted Into Database in {sw.Elapsed.TotalSeconds} seconds");
                 sw.Restart();
@@ -100,7 +102,8 @@ namespace MusicDatabaseGenerator
                 //Strict ordering, album art must come second so we can match it to an album via our sync function
                 foreach ((string, Bitmap) img in constructedTuple.coverArt)
                 {
-                    MusicLibraryTrack trackData = new MusicLibraryTrack(mdbContext, logger, total);
+                    MusicLibraryTrack trackData = new MusicLibraryTrack();
+                    SyncManager syncManager = new SyncManager(mdbContext, logger, total, trackData);
 
                     List<IGenerator> generators = new List<IGenerator>
                     {
@@ -116,7 +119,7 @@ namespace MusicDatabaseGenerator
                 
                     try
                     {
-                        trackData.Sync();
+                        syncManager.Sync();
                     }
                     catch (UpdateException ue)
                     {
