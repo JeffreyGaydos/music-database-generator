@@ -10,9 +10,10 @@ namespace MusicDatabaseGenerator.Synchronizers
             _context = context;
         }
 
-        public void Synchronize()
+        public SyncOperation Synchronize()
         {
             Insert();
+            return SyncOperation.Insert;
         }
 
         internal override void Insert()

@@ -17,9 +17,10 @@ namespace MusicDatabaseGenerator.Synchronizers
             _mlt = mlt;
         }
 
-        public void Synchronize()
+        public SyncOperation Synchronize()
         {
-            Insert();   
+            Insert();
+            return SyncOperation.Insert;
         }
 
         internal override void Insert()

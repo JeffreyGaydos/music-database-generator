@@ -190,6 +190,7 @@
     <Compile Include="Synchronizers\ISynchronizer.cs" />
     <Compile Include="Synchronizers\MainSynchonizer.cs" />
     <Compile Include="Synchronizers\SyncManager.cs" />
+    <Compile Include="Synchronizers\SyncOperation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
