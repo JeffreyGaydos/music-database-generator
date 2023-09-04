@@ -193,6 +193,7 @@
     <Compile Include="Synchronizers\GenreSynchronizer.cs" />
     <Compile Include="Synchronizers\ISynchronizer.cs" />
     <Compile Include="Synchronizers\MainSynchonizer.cs" />
+    <Compile Include="Synchronizers\PostProcessingSynchronizer.cs" />
     <Compile Include="Synchronizers\SyncManager.cs" />
     <Compile Include="Synchronizers\SyncOperation.cs" />
     <Compile Include="Synchronizers\TrackPersonsSynchronizer.cs" />

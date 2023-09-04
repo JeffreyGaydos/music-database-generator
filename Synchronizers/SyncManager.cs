@@ -44,7 +44,8 @@ namespace MusicDatabaseGenerator.Synchronizers
                 synchronizers.Add(new AlbumSynchronizer(_mlt, _context));
                 synchronizers.Add(new ArtistPersonsSynchronizer(_mlt, _context));
                 synchronizers.Add(new TrackPersonsSynchronizer(_mlt, _context));
-                //TODO Add the rest of the synchronizers...
+
+                synchronizers.Add(new PostProcessingSynchronizer(_context));                
             }
 
             using (DbContextTransaction transaction = _context.Database.BeginTransaction())
