@@ -195,6 +195,7 @@
     <Compile Include="Synchronizers\MainSynchonizer.cs" />
     <Compile Include="Synchronizers\SyncManager.cs" />
     <Compile Include="Synchronizers\SyncOperation.cs" />
+    <Compile Include="Synchronizers\TrackPersonsSynchronizer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
