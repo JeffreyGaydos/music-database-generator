@@ -67,7 +67,7 @@ namespace MusicDatabaseGenerator
             _totalCount = count;
         }
 
-        public void Sync()
+        private void Sync()
         {
             if (albumArt.Any())
             {
@@ -81,7 +81,8 @@ namespace MusicDatabaseGenerator
                     string percentageString = $"{100 * trackIndex / (decimal)_totalCount:00.00}%";
                     try
                     {
-                        Main existing = _context.Main.Where(m => m.FilePath == main.FilePath).FirstOrDefault();
+                        Main existing = _context.Main.Where(m => m.FilePath == main.FilePath).FirstOrDefault() ??
+                            _context.Main.Where(m => m.Title == main.Title && m.ISRC == main.ISRC && m.Duration == main.Duration).FirstOrDefault();
                         bool update = false;
                         if(existing != null)
                         {
@@ -93,6 +94,7 @@ namespace MusicDatabaseGenerator
                             {
                                 update = true;
                                 //call delete sproc, let insert run
+                                //Sratch that, We need to preserve the trackID and nothing else
                             }
                         }
 

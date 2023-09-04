@@ -185,6 +185,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Models\TrackPersons.cs" />
+    <Compile Include="Synchronizers\AlbumArtSynchronizer.cs" />
+    <Compile Include="Synchronizers\ASynchronizer.cs" />
+    <Compile Include="Synchronizers\ISynchronizer.cs" />
+    <Compile Include="Synchronizers\MainSynchonizer.cs" />
+    <Compile Include="Synchronizers\SyncManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
