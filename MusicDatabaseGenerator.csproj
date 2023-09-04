@@ -186,6 +186,7 @@
     </Compile>
     <Compile Include="Models\TrackPersons.cs" />
     <Compile Include="Synchronizers\AlbumArtSynchronizer.cs" />
+    <Compile Include="Synchronizers\AlbumSynchronizer.cs" />
     <Compile Include="Synchronizers\ArtistSynchronizer.cs" />
     <Compile Include="Synchronizers\ASynchronizer.cs" />
     <Compile Include="Synchronizers\GenreSynchronizer.cs" />
