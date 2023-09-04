@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+/**
+ * Data Dependecies: Main.TrackID (set by MainSynchronizer)
+ */
 namespace MusicDatabaseGenerator.Synchronizers
 {
     public class ArtistSynchronizer : ASynchronizer, ISynchronizer
