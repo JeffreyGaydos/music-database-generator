@@ -18,15 +18,25 @@ GO
 USE MusicLibrary;
 
 IF OBJECT_ID(N'MusicTableExists', N'FN') IS NOT NULL
+BEGIN
     DROP FUNCTION MusicTableExists
+END
 GO
+
+USE MusicLibrary;
 
 IF OBJECT_ID(N'MusicTableColumnExists', N'FN') IS NOT NULL
+BEGIN
     DROP FUNCTION MusicTableColumnExists
+END
 GO
 
+USE MusicLibrary;
+
 IF OBJECT_ID(N'MusicViewExists', N'FN') IS NOT NULL
+BEGIN
     DROP FUNCTION MusicViewExists
+END
 GO
 
 /*
@@ -291,6 +301,11 @@ GO
 
 IF (SELECT [dbo].[MusicViewExists] ('MainDataJoined')) = 0 AND (SELECT [dbo].[MusicViewExists] ('LeadArtists')) = 0
 BEGIN
+	SELECT 1
+END
+ELSE
+BEGIN
+	SELECT 0
 	RETURN --Views must be the only statement in the batch, end early since we can't wrap them
 END
 GO

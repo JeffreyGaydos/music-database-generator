@@ -16,57 +16,18 @@ namespace MusicDatabaseGenerator
     {
         static void Main(string[] args)
         {
-            IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile(Directory.GetParent("./") + "../../../appsettings.json").Build();
-            
-            var settings = config.GetSection("Settings").GetChildren().ToDictionary(r => r.Key, r => r.Value);
-
             MusicLibraryContext mdbContext = new MusicLibraryContext();
-            string connectionString = mdbContext.Database.Connection.ConnectionString;
-            string pathToSearch = settings["MusicFolderPathAbsolute"];
-            bool generateAlbumArtData = settings["GenerateAlbumArtData"] == "True";
-            bool generateMusicMetadata = settings["GenerateMusicMetadata"] == "True";
-            bool regen = settings["DeleteDataOnGeneration"] == "True";
-
             LoggingUtils logger = new LoggingUtils();
 
-            logger.GenerationLogWriteData("_CONFIGURATION:__________________________________");
-
-            logger.GenerationLogWriteData($"Connecting to database via connection string \"{connectionString}\"...");
-            logger.GenerationLogWriteData($"{(regen ? "Deleting existing data and resetting IDs..." : "Existing database persisted...")}");
-
-            if (regen)
-            {
-                SqlConnection sqlConnection = new SqlConnection(connectionString);
-
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    string sql = File.ReadAllText("../../Schema/db_delete.sql").Replace("\\r\\n", @"
-").Replace("\\t", "  ");
-                    using (SqlCommand command = new SqlCommand(sql, connection))
-                    {
-                        command.ExecuteNonQuery();
-                    }
-                }
-            }
-
-            logger.GenerationLogWriteData($"Searching for data at location \"{pathToSearch}\"");
-            logger.GenerationLogWriteData($@"{(generateAlbumArtData ? 
-                generateMusicMetadata ?
-                    "Will generate music metadata and album art metadata"
-                    : "Will generate album art metadata ONLY"
-                : generateMusicMetadata ?
-                    "Will generate music metadata ONLY"
-                    : "Config was set to generate no data. Will still check for files with limited meatadata.")}");
-
-            logger.GenerationLogWriteData("_________________________________________________");
+            Configurator configHandle = new Configurator(mdbContext, logger);
+            ConfiguratorValues config = configHandle.HandleConfiguration();
 
             FolderReader.InjectDependencies(logger);
-            (List<TagLib.File> tagFiles, List<(string, Bitmap)> coverArt) constructedTuple = FolderReader.ReadToTagLibFiles(pathToSearch, true);
+            (List<TagLib.File> tagFiles, List<(string, Bitmap)> coverArt) constructedTuple = FolderReader.ReadToTagLibFiles(config.pathToSearch, true);
             Stopwatch sw = new Stopwatch();
             sw.Start();
 
-            if (generateMusicMetadata)
+            if (config.generateMusicMetadata)
             {
                 int total = constructedTuple.tagFiles.Count;
                 foreach (TagLib.File data in constructedTuple.tagFiles)
@@ -78,8 +39,8 @@ namespace MusicDatabaseGenerator
                     {
                         new MainGenerator(data, trackData, logger),
                         new GenreGenerator(data, trackData),
-                        new ArtistGenerator(data, trackData, pathToSearch, logger),
-                        new AlbumGenerator(data, trackData, pathToSearch, logger),
+                        new ArtistGenerator(data, trackData, config.pathToSearch, logger),
+                        new AlbumGenerator(data, trackData, config.pathToSearch, logger),
                         new ArtistPersonGenerator(data, trackData, logger)
                     };
 
@@ -96,7 +57,7 @@ namespace MusicDatabaseGenerator
                 sw.Restart();
             }
 
-            if(generateAlbumArtData)
+            if(config.generateAlbumArtData)
             {
                 int total = constructedTuple.coverArt.Count;
                 //Strict ordering, album art must come second so we can match it to an album via our sync function
