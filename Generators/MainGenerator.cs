@@ -29,7 +29,7 @@ namespace MusicDatabaseGenerator.Generators
             {
                 Title = title,
                 FilePath = Path.GetFullPath(_file.Name),
-                Duration = (decimal)_file.Properties.Duration.TotalSeconds, //NOTE: Overflow exception possible, but unlikely
+                Duration = decimal.Round((decimal)_file.Properties.Duration.TotalSeconds), //NOTE: Overflow exception possible, but unlikely
                 ReleaseYear = (int?)_file.Tag.Year == 0 ? null : (int?)_file.Tag.Year, //NOTE: Overflow exception possible, but unlikely
                 AddDate = new FileInfo(_file.Name).CreationTime,
                 LastModifiedDate = new FileInfo(_file.Name).LastWriteTime,

@@ -14,11 +14,10 @@ namespace MusicDatabaseGenerator.Synchronizers
 
         public SyncOperation Synchronize()
         {
-            Insert();
-            return SyncOperation.Insert;
+            return Insert();
         }
 
-        internal override void Insert()
+        internal override SyncOperation Insert()
         {
             foreach ((TrackPersons tp, string name) person in _mlt.trackPersons)
             {
@@ -28,11 +27,12 @@ namespace MusicDatabaseGenerator.Synchronizers
                     _context.TrackPersons.Add(person.tp);
             }
             _context.SaveChanges();
+            return SyncOperation.Insert;
         }
 
-        internal override void Update()
+        internal override SyncOperation Update()
         {
-            base.Update();
+            return base.Update();
         }
 
         internal override void Delete()

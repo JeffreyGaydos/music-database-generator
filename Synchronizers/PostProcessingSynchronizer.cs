@@ -11,11 +11,10 @@ namespace MusicDatabaseGenerator.Synchronizers
 
         public SyncOperation Synchronize()
         {
-            Insert();
-            return SyncOperation.Insert;
+            return Insert();
         }
 
-        internal override void Insert()
+        internal override SyncOperation Insert()
         {
             foreach (Artist a in _context.Artist)
             {
@@ -34,11 +33,12 @@ namespace MusicDatabaseGenerator.Synchronizers
                 alb.ReleaseYear = albumYear == 0 ? null : (int?)albumYear;
                 alb.TrackCount = albumTracks.Count == 0 ? null : (int?)albumTracks.Count;
             }
+            return SyncOperation.Insert;
         }
 
-        internal override void Update()
+        internal override SyncOperation Update()
         {
-            base.Update();
+            return base.Update();
         }
 
         internal override void Delete()

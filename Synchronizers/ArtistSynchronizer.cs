@@ -15,11 +15,10 @@ namespace MusicDatabaseGenerator.Synchronizers
 
         public SyncOperation Synchronize()
         {
-            Insert();
-            return SyncOperation.Insert;
+            return Insert();
         }
 
-        internal override void Insert()
+        internal override SyncOperation Insert()
         {
             List<string> currentArtists = _context.Artist.Select(a => a.ArtistName).ToList();
 
@@ -49,11 +48,12 @@ namespace MusicDatabaseGenerator.Synchronizers
                 _context.ArtistTracks.Add(artistTrack);
             }
             _context.SaveChanges();
+            return SyncOperation.Insert;
         }
 
-        internal override void Update()
+        internal override SyncOperation Update()
         {
-            base.Update();
+            return base.Update();
         }
 
         internal override void Delete()

@@ -39,13 +39,13 @@ namespace MusicDatabaseGenerator.Synchronizers
             else
             {   //order matters...
                 synchronizers.Add(new MainSynchonizer(_mlt, _context));
-                synchronizers.Add(new GenreSynchronizer(_mlt, _context));
-                synchronizers.Add(new ArtistSynchronizer(_mlt, _context));
-                synchronizers.Add(new AlbumSynchronizer(_mlt, _context));
-                synchronizers.Add(new ArtistPersonsSynchronizer(_mlt, _context));
-                synchronizers.Add(new TrackPersonsSynchronizer(_mlt, _context));
+                //synchronizers.Add(new GenreSynchronizer(_mlt, _context));
+                //synchronizers.Add(new ArtistSynchronizer(_mlt, _context));
+                //synchronizers.Add(new AlbumSynchronizer(_mlt, _context));
+                //synchronizers.Add(new ArtistPersonsSynchronizer(_mlt, _context));
+                //synchronizers.Add(new TrackPersonsSynchronizer(_mlt, _context));
 
-                synchronizers.Add(new PostProcessingSynchronizer(_context));                
+                //synchronizers.Add(new PostProcessingSynchronizer(_context));                
             }
 
             using (DbContextTransaction transaction = _context.Database.BeginTransaction())
@@ -84,6 +84,9 @@ namespace MusicDatabaseGenerator.Synchronizers
                         transaction.Rollback();
                         //The first entry in the change tracker is the most recent change, i.e. the thing that threw an exception. We need to remove it from the context
                         _context.ChangeTracker.Entries().First().State = EntityState.Detached;
+                    } else
+                    {
+                        throw ue; //we don't actually know what's going on then...
                     }
                 }
             }

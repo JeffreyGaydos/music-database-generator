@@ -12,12 +12,12 @@ namespace MusicDatabaseGenerator.Synchronizers
             throw new NotImplementedException();
         }
 
-        internal virtual void Insert()
+        internal virtual SyncOperation Insert()
         {
             throw new NotImplementedException();
         }
 
-        internal virtual void Update()
+        internal virtual SyncOperation Update()
         {
             throw new NotImplementedException();
         }
