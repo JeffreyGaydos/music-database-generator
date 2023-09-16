@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace MusicDatabaseGenerator.Synchronizers
@@ -39,7 +40,8 @@ namespace MusicDatabaseGenerator.Synchronizers
         {
             Main match = _context.Main.First(m => m.ISRC == _mlt.main.ISRC && m.Duration == _mlt.main.Duration && m.Title == _mlt.main.Title);
             _mlt.main.TrackID = match.TrackID; //maintain ID so other mappings remain sound
-            if (DataEquivalent(_mlt.main, match))
+            string differences = DataEquivalent(_mlt.main, match);            
+            if (differences == "")
             {
                 return SyncOperation.None; //no-op data-wise
             } else
@@ -77,27 +79,102 @@ namespace MusicDatabaseGenerator.Synchronizers
             base.Delete();
         }
 
-        private bool DataEquivalent(Main self, Main other)
+        private string DataEquivalent(Main self, Main other)
         {
-            if(self == other) return true;
-            if(self == null || other == null) return false;
-            return self.SampleRate == other.SampleRate
-                && self.Duration == other.Duration
-                && self.Title == other.Title
-                && self.Channels == other.Channels
-                && self.Publisher == other.Publisher
-                && self.AverageDecibels == other.AverageDecibels
-                && self.BitsPerSample == other.BitsPerSample
-                && self.BeatsPerMin == other.BeatsPerMin
-                && self.Comment == other.Comment
-                && self.Copyright == other.Copyright
-                && self.FilePath == other.FilePath
-                && self.ISRC == other.ISRC
-                && self.Linked == other.Linked
-                && self.Owner == other.Owner
-                && self.ReleaseYear == other.ReleaseYear
-                && self.Bitrate == other.Bitrate
-                && self.Lyrics == other.Lyrics;
+            List<string> diffs = new List<string>();
+            if(self == other) return string.Join(",", diffs);
+            if(self == null || other == null)
+            {
+                diffs.Add("object was null");
+                return string.Join(",", diffs);
+            }
+            if(self.SampleRate != other.SampleRate)
+            {
+                diffs.Add(nameof(self.SampleRate));
+                
+            }
+            if (self.Duration != other.Duration)
+            {
+                diffs.Add(nameof(self.Duration));
+                
+            }
+            if(self.Title != other.Title)
+            {
+                diffs.Add(nameof(self.Title));
+                
+            }
+            if(self.Channels != other.Channels)
+            {
+                diffs.Add(nameof(self.Channels));
+                
+            }
+            if(self.Publisher != other.Publisher)
+            {
+                diffs.Add(nameof(self.Publisher));
+                
+            }
+            if(self.AverageDecibels != other.AverageDecibels)
+            {
+                diffs.Add(nameof(self.AverageDecibels));
+                
+            }
+            if(self.BitsPerSample != other.BitsPerSample)
+            {
+                diffs.Add(nameof(self.BitsPerSample));
+                
+            }
+            if(self.BeatsPerMin != other.BeatsPerMin)
+            {
+                diffs.Add(nameof(self.BeatsPerMin));
+                
+            }
+            if(self.Comment != other.Comment)
+            {
+                diffs.Add(nameof(self.Comment));
+                
+            }
+            if(self.Copyright != other.Copyright)
+            {
+                diffs.Add(nameof(self.Copyright));
+                
+            }
+            if(self.FilePath != other.FilePath)
+            {
+                diffs.Add(nameof(self.FilePath));
+                
+            }
+            if(self.ISRC != other.ISRC)
+            {
+                diffs.Add(nameof(self.ISRC));
+                
+            }
+            if(self.Linked != other.Linked)
+            {
+                diffs.Add(nameof(self.Linked));
+                
+            }
+            if(self.Owner != other.Owner)
+            {
+                diffs.Add(nameof(self.Owner));
+                
+            }
+            if(self.ReleaseYear != other.ReleaseYear)
+            {
+                diffs.Add(nameof(self.ReleaseYear));
+                
+            }
+            if(self.Bitrate != other.Bitrate)
+            {
+                diffs.Add(nameof(self.Bitrate));
+                
+            }
+            if(self.Lyrics != other.Lyrics)
+            {
+                diffs.Add(nameof(self.Lyrics));
+                
+            }
+
+            return string.Join(",", diffs);
         }
     }
 }

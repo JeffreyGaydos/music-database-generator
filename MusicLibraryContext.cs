@@ -54,14 +54,6 @@ namespace MusicDatabaseGenerator
                 .HasPrecision(18, 0);
 
             modelBuilder.Entity<Main>()
-                .Property(e => e.Copyright)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Main>()
-                .Property(e => e.Publisher)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Main>()
                 .Property(e => e.ISRC)
                 .IsUnicode(false);
 
@@ -76,14 +68,6 @@ namespace MusicDatabaseGenerator
             modelBuilder.Entity<MainDataJoined>()
                 .Property(e => e.AverageDecibels)
                 .HasPrecision(18, 0);
-
-            modelBuilder.Entity<MainDataJoined>()
-                .Property(e => e.Copyright)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<MainDataJoined>()
-                .Property(e => e.Publisher)
-                .IsUnicode(false);
 
             modelBuilder.Entity<MainDataJoined>()
                 .Property(e => e.ISRC)

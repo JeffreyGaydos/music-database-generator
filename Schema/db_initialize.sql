@@ -282,8 +282,8 @@ BEGIN
 		Lyrics NVARCHAR(4000),
 		Comment NVARCHAR(4000),
 		BeatsPerMin INT,
-		Copyright VARCHAR(1000),
-		Publisher VARCHAR(1000),
+		Copyright NVARCHAR(1000),
+		Publisher NVARCHAR(1000),
 		ISRC VARCHAR(12), --ISRC codes are explicitly 12 characters long
 		Bitrate INT,
 		Channels INT,
