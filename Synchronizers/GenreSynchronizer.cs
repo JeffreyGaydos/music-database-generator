@@ -21,6 +21,7 @@ namespace MusicDatabaseGenerator.Synchronizers
         internal override SyncOperation Insert()
         {
             List<string> currentGenres = _context.Genre.Select(g => g.GenreName).ToList();
+            SyncOperation op = SyncOperation.None;
 
             foreach (string newGenre in _mlt.genre.Select(g => g.GenreName).Where(gn => !currentGenres.Contains(gn, new SQLStringComparison())).ToList())
             {
@@ -29,36 +30,22 @@ namespace MusicDatabaseGenerator.Synchronizers
                 if (fullGenre != null)
                 {
                     _context.Genre.Add(fullGenre);
-                    _context.SaveChanges();
+                    op |= SyncOperation.Insert;
                 }
             }
 
-            foreach (Genre g in _mlt.genre)
-            {
-                g.GenreID = _context.Genre.ToList()
-                        .Where(dbg => {
-                            List<string> list = new List<string> { dbg.GenreName };
-                            return list.Contains(g.GenreName, new SQLStringComparison());
-                        })
-                        .FirstOrDefault().GenreID;
-
-                GenreTracks genreTrack = new GenreTracks();
-                genreTrack.TrackID = _mlt.main.TrackID;
-                genreTrack.GenreID = g.GenreID;
-                _context.GenreTracks.Add(genreTrack);
-            }
             _context.SaveChanges();
-            return SyncOperation.Insert;
+            return op;
         }
 
         internal override SyncOperation Update()
         {
-            return base.Update();
+            return base.Update(); //Tracks are handled one at a time, so we can't be sure if there is an update until all tracks have run
         }
 
-        internal override void Delete()
+        public SyncOperation Delete()
         {
-            base.Delete();
+            return SyncOperation.None;
         }
     }
 }

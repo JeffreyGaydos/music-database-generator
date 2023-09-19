@@ -188,10 +188,13 @@
     <Compile Include="SQLStringComparison.cs" />
     <Compile Include="Synchronizers\AlbumArtSynchronizer.cs" />
     <Compile Include="Synchronizers\AlbumSynchronizer.cs" />
+    <Compile Include="Synchronizers\AlbumTrackSynchronizer.cs" />
     <Compile Include="Synchronizers\ArtistPersonsSynchronizer.cs" />
     <Compile Include="Synchronizers\ArtistSynchronizer.cs" />
+    <Compile Include="Synchronizers\ArtistTrackSynchronizer.cs" />
     <Compile Include="Synchronizers\ASynchronizer.cs" />
     <Compile Include="Synchronizers\GenreSynchronizer.cs" />
+    <Compile Include="Synchronizers\GenreTrackSynchronizer.cs" />
     <Compile Include="Synchronizers\ISynchronizer.cs" />
     <Compile Include="Synchronizers\MainSynchonizer.cs" />
     <Compile Include="Synchronizers\PostProcessingSynchronizer.cs" />

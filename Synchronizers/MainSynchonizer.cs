@@ -74,9 +74,9 @@ namespace MusicDatabaseGenerator.Synchronizers
             }
         }
 
-        internal override void Delete()
+        public SyncOperation Delete()
         {
-            base.Delete();
+            return SyncOperation.None;
         }
 
         private string DataEquivalent(Main self, Main other)

@@ -7,11 +7,6 @@ namespace MusicDatabaseGenerator.Synchronizers
         internal MusicLibraryTrack _mlt = null;
         internal MusicLibraryContext _context;
 
-        internal virtual void Delete()
-        {
-            throw new NotImplementedException();
-        }
-
         internal virtual SyncOperation Insert()
         {
             throw new NotImplementedException();

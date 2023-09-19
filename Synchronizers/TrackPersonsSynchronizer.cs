@@ -19,25 +19,30 @@ namespace MusicDatabaseGenerator.Synchronizers
 
         internal override SyncOperation Insert()
         {
+            SyncOperation op = SyncOperation.None;
+
             foreach ((TrackPersons tp, string name) person in _mlt.trackPersons)
             {
                 person.tp.PersonID = _context.ArtistPersons.Where(ap => ap.PersonName == person.name).Select(a => a.PersonID).FirstOrDefault();
                 person.tp.TrackID = _mlt.main.TrackID;
-                if (person.tp.PersonID != 0)
+                if (person.tp.PersonID != 0 && !_context.TrackPersons.Where(db => db.TrackID == person.tp.TrackID && db.PersonID == person.tp.PersonID).Any())
+                {
                     _context.TrackPersons.Add(person.tp);
+                    op |= SyncOperation.Insert;
+                }
             }
             _context.SaveChanges();
-            return SyncOperation.Insert;
+            return op;
         }
 
         internal override SyncOperation Update()
         {
-            return base.Update();
+            return base.Update(); //N/A Track Persons has immutable data only
         }
 
-        internal override void Delete()
+        public SyncOperation Delete()
         {
-            base.Delete();
+            return SyncOperation.None;
         }
     }
 }

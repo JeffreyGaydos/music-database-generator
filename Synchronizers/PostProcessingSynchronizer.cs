@@ -18,7 +18,11 @@ namespace MusicDatabaseGenerator.Synchronizers
         {
             foreach (Artist a in _context.Artist)
             {
-                a.PrimaryPersonID = _context.ArtistPersons.Where(ap => ap.ArtistID == a.ArtistID).FirstOrDefault()?.PersonID;
+                int? PrimaryPersonID = _context.ArtistPersons.Where(ap => ap.ArtistID == a.ArtistID).FirstOrDefault()?.PersonID;
+                if(a.PrimaryPersonID != PrimaryPersonID)
+                {
+                    a.PrimaryPersonID = _context.ArtistPersons.Where(ap => ap.ArtistID == a.ArtistID).FirstOrDefault()?.PersonID;
+                }
             }
 
             foreach (Album alb in _context.Album)
@@ -30,10 +34,15 @@ namespace MusicDatabaseGenerator.Synchronizers
                     int trackYear = _context.Main.Where(m => m.TrackID == TrackID).FirstOrDefault()?.ReleaseYear ?? 0;
                     albumYear = trackYear > albumYear ? trackYear : albumYear;
                 }
-                alb.ReleaseYear = albumYear == 0 ? null : (int?)albumYear;
-                alb.TrackCount = albumTracks.Count == 0 ? null : (int?)albumTracks.Count;
+                int? ReleaseYear = albumYear == 0 ? null : (int?)albumYear;
+                int? TrackCount = albumTracks.Count == 0 ? null : (int?)albumTracks.Count;
+                if(alb.ReleaseYear != ReleaseYear || alb.TrackCount != TrackCount)
+                {
+                    alb.ReleaseYear = ReleaseYear;
+                    alb.TrackCount = TrackCount;
+                }
             }
-            return SyncOperation.Insert;
+            return SyncOperation.None; //The operation type is implied from previous synchronizers; return default
         }
 
         internal override SyncOperation Update()
@@ -41,9 +50,9 @@ namespace MusicDatabaseGenerator.Synchronizers
             return base.Update();
         }
 
-        internal override void Delete()
+        public SyncOperation Delete()
         {
-            base.Delete();
+            return SyncOperation.None;
         }
     }
 }

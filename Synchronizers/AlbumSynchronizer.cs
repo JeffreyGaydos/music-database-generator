@@ -22,6 +22,7 @@ namespace MusicDatabaseGenerator.Synchronizers
         internal override SyncOperation Insert()
         {
             List<string> currentAlbums = _context.Album.Select(a => a.AlbumName).ToList();
+            SyncOperation op = SyncOperation.None;
 
             foreach (string newAlbum in _mlt.album.Select(a => a.Item1.AlbumName).Where(a => !currentAlbums.Contains(a, new SQLStringComparison())).ToList())
             {
@@ -30,25 +31,12 @@ namespace MusicDatabaseGenerator.Synchronizers
                 if (fullAlbum != null)
                 {
                     _context.Album.Add(fullAlbum);
-                    _context.SaveChanges();
+                    op |= SyncOperation.Insert;
                 }
             }
 
-            foreach ((Album, AlbumTracks) a in _mlt.album)
-            {
-                a.Item1.AlbumID = _context.Album.ToList()
-                        .Where(dba => {
-                            List<string> list = new List<string> { dba.AlbumName };
-                            return list.Contains(a.Item1.AlbumName, new SQLStringComparison());
-                        })
-                        .FirstOrDefault().AlbumID;
-
-                a.Item2.AlbumID = a.Item1.AlbumID;
-                a.Item2.TrackID = _mlt.main.TrackID;
-                _context.AlbumTracks.Add(a.Item2);
-            }
             _context.SaveChanges();
-            return SyncOperation.Insert;
+            return op;
         }
 
         internal override SyncOperation Update()
@@ -56,9 +44,9 @@ namespace MusicDatabaseGenerator.Synchronizers
             return base.Update();
         }
 
-        internal override void Delete()
+        public SyncOperation Delete()
         {
-            base.Delete();
+            return SyncOperation.None;
         }
     }
 }

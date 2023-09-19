@@ -20,6 +20,7 @@ namespace MusicDatabaseGenerator.Synchronizers
 
         internal override SyncOperation Insert()
         {
+            SyncOperation op = SyncOperation.None;
             foreach (ArtistPersons person in _mlt.artistPersons)
             {
                 //If there are > 1 artists on 1 track, the standard mp3 metadata on performers is not very useful
@@ -30,20 +31,21 @@ namespace MusicDatabaseGenerator.Synchronizers
                 if (!_context.ArtistPersons.Select(p => p.PersonName).Contains(person.PersonName))
                 {
                     _context.ArtistPersons.Add(person);
+                    op |= SyncOperation.Insert;
                 }
             }
             _context.SaveChanges();
-            return SyncOperation.Insert;
+            return op;
         }
 
         internal override SyncOperation Update()
         {
-            return base.Update();
+            return Insert();
         }
 
-        internal override void Delete()
+        public SyncOperation Delete()
         {
-            base.Delete();
+            return SyncOperation.None;
         }
     }
 }

@@ -39,13 +39,16 @@ namespace MusicDatabaseGenerator.Synchronizers
             else
             {   //order matters...
                 synchronizers.Add(new MainSynchonizer(_mlt, _context));
-                //synchronizers.Add(new GenreSynchronizer(_mlt, _context));
-                //synchronizers.Add(new ArtistSynchronizer(_mlt, _context));
-                //synchronizers.Add(new AlbumSynchronizer(_mlt, _context));
-                //synchronizers.Add(new ArtistPersonsSynchronizer(_mlt, _context));
-                //synchronizers.Add(new TrackPersonsSynchronizer(_mlt, _context));
+                synchronizers.Add(new GenreSynchronizer(_mlt, _context));
+                synchronizers.Add(new GenreTrackSynchronizer(_mlt, _context));
+                synchronizers.Add(new ArtistSynchronizer(_mlt, _context));
+                synchronizers.Add(new ArtistTrackSynchronizer(_mlt, _context));
+                synchronizers.Add(new AlbumSynchronizer(_mlt, _context));
+                synchronizers.Add(new AlbumTrackSynchronizer(_mlt, _context));
+                synchronizers.Add(new ArtistPersonsSynchronizer(_mlt, _context));
+                synchronizers.Add(new TrackPersonsSynchronizer(_mlt, _context));
 
-                //synchronizers.Add(new PostProcessingSynchronizer(_context));                
+                synchronizers.Add(new PostProcessingSynchronizer(_context));                
             }
 
             using (DbContextTransaction transaction = _context.Database.BeginTransaction())

@@ -21,6 +21,7 @@ namespace MusicDatabaseGenerator.Synchronizers
         internal override SyncOperation Insert()
         {
             List<string> currentArtists = _context.Artist.Select(a => a.ArtistName).ToList();
+            SyncOperation op = SyncOperation.None;
 
             foreach (string newArtist in _mlt.artist.Select(a => a.ArtistName).Where(a => !currentArtists.Contains(a, new SQLStringComparison())).ToList())
             {
@@ -30,35 +31,22 @@ namespace MusicDatabaseGenerator.Synchronizers
                 {
                     _context.Artist.Add(fullArtist);
                     _context.SaveChanges();
+                    op |= SyncOperation.Insert;
                 }
             }
 
-            foreach (Artist a in _mlt.artist)
-            {
-                a.ArtistID = _context.Artist.ToList()
-                        .Where(dba => {
-                            List<string> list = new List<string> { dba.ArtistName };
-                            return list.Contains(a.ArtistName, new SQLStringComparison());
-                        })
-                        .FirstOrDefault().ArtistID;
-
-                ArtistTracks artistTrack = new ArtistTracks();
-                artistTrack.TrackID = _mlt.main.TrackID;
-                artistTrack.ArtistID = a.ArtistID;
-                _context.ArtistTracks.Add(artistTrack);
-            }
             _context.SaveChanges();
-            return SyncOperation.Insert;
+            return op;
         }
 
         internal override SyncOperation Update()
         {
-            return base.Update();
+            return Insert(); //putting this here to designate that the insert function operates like an update function
         }
 
-        internal override void Delete()
+        public SyncOperation Delete()
         {
-            base.Delete();
+            return SyncOperation.None;
         }
     }
 }
