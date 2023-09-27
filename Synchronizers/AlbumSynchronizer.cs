@@ -44,8 +44,13 @@ namespace MusicDatabaseGenerator.Synchronizers
             return base.Update();
         }
 
-        public SyncOperation Delete()
+        public static new SyncOperation Delete()
         {
+            if(_context.Album.Where(a => !_context.AlbumTracks.Where(at => at.AlbumID == a.AlbumID).Any()).Any())
+            {
+                _context.Album.Where(a => !_context.AlbumTracks.Where(at => at.AlbumID == a.AlbumID).Any());
+                return SyncOperation.Delete;
+            }
             return SyncOperation.None;
         }
     }

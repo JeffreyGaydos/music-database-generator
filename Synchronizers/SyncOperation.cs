@@ -9,5 +9,6 @@ namespace MusicDatabaseGenerator.Synchronizers
         Insert = 1 << 0,
         Update = 1 << 1,
         Delete = 1 << 2,
+        Skip = 1 << 3,
     }
 }

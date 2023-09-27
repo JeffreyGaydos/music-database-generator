@@ -51,8 +51,13 @@ namespace MusicDatabaseGenerator.Synchronizers
             return base.Update(); //N/A Genre Tracks have immutable data only
         }
 
-        public SyncOperation Delete()
+        public static new SyncOperation Delete()
         {
+            if(_context.GenreTracks.Where(gt => !_context.Main.Select(m => m.TrackID == gt.TrackID).Any()).Any())
+            {
+                _context.GenreTracks.RemoveRange(_context.GenreTracks.Where(gt => !_context.Main.Select(m => m.TrackID == gt.TrackID).Any()));
+                return SyncOperation.Delete;
+            }
             return SyncOperation.None;
         }
     }

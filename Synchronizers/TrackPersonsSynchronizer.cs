@@ -40,8 +40,13 @@ namespace MusicDatabaseGenerator.Synchronizers
             return base.Update(); //N/A Track Persons has immutable data only
         }
 
-        public SyncOperation Delete()
+        public static new SyncOperation Delete()
         {
+            if(_context.TrackPersons.Where(tp => !_context.Main.Where(m => m.TrackID == tp.TrackID).Any()).Any())
+            {
+                _context.TrackPersons.RemoveRange(_context.TrackPersons.Where(tp => !_context.Main.Where(m => m.TrackID == tp.TrackID).Any()));
+                return SyncOperation.Delete;
+            }
             return SyncOperation.None;
         }
     }

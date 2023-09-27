@@ -43,8 +43,13 @@ namespace MusicDatabaseGenerator.Synchronizers
             return base.Update(); //Tracks are handled one at a time, so we can't be sure if there is an update until all tracks have run
         }
 
-        public SyncOperation Delete()
+        public static new  SyncOperation Delete()
         {
+            if(_context.Genre.Where(g => !_context.GenreTracks.Where(gt => gt.GenreID == g.GenreID).Any()).Any())
+            {
+                _context.Genre.RemoveRange(_context.Genre.Where(g => !_context.GenreTracks.Where(gt => gt.GenreID == g.GenreID).Any()));
+                return SyncOperation.Delete;
+            }
             return SyncOperation.None;
         }
     }

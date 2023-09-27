@@ -5,7 +5,7 @@ namespace MusicDatabaseGenerator.Synchronizers
     public abstract class ASynchronizer
     {
         internal MusicLibraryTrack _mlt = null;
-        internal MusicLibraryContext _context;
+        internal static MusicLibraryContext _context;
 
         internal virtual SyncOperation Insert()
         {
@@ -13,6 +13,11 @@ namespace MusicDatabaseGenerator.Synchronizers
         }
 
         internal virtual SyncOperation Update()
+        {
+            throw new NotImplementedException();
+        }
+
+        public static SyncOperation Delete()
         {
             throw new NotImplementedException();
         }

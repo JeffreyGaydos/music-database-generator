@@ -44,8 +44,13 @@ namespace MusicDatabaseGenerator.Synchronizers
             return Insert(); //putting this here to designate that the insert function operates like an update function
         }
 
-        public SyncOperation Delete()
+        public static new SyncOperation Delete()
         {
+            if(_context.Artist.Where(a => !_context.ArtistTracks.Where(at => at.ArtistID == a.ArtistID).Any()).Any())
+            {
+                _context.Artist.RemoveRange(_context.Artist.Where(a => !_context.ArtistTracks.Where(at => at.ArtistID == a.ArtistID).Any()));
+                return SyncOperation.Delete;
+            }
             return SyncOperation.None;
         }
     }

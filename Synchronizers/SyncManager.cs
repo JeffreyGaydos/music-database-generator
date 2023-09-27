@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace MusicDatabaseGenerator.Synchronizers
 {
     public class SyncManager
     {
-        private MusicLibraryContext _context;
+        private static MusicLibraryContext _context;
         private LoggingUtils _logger;
         private int _totalCount;
         private MusicLibraryTrack _mlt;
@@ -29,6 +30,7 @@ namespace MusicDatabaseGenerator.Synchronizers
 
         public void Sync()
         {
+            trackIndex++;
             if (_mlt.albumArt.Any())
             {
                 _synchronizers.Add(new AlbumArtSynchronizer(_mlt, _context));
@@ -45,7 +47,7 @@ namespace MusicDatabaseGenerator.Synchronizers
                 _synchronizers.Add(new ArtistPersonsSynchronizer(_mlt, _context));
                 _synchronizers.Add(new TrackPersonsSynchronizer(_mlt, _context));
 
-                _synchronizers.Add(new PostProcessingSynchronizer(_context));                
+                _synchronizers.Add(new PostProcessingSynchronizer(_context));
             }
 
             SyncOperation ops = SyncOperation.None;
@@ -57,6 +59,11 @@ namespace MusicDatabaseGenerator.Synchronizers
                     foreach (ISynchronizer synchronizer in _synchronizers)
                     {
                         ops |= synchronizer.Synchronize();
+                        if((ops & SyncOperation.Skip) > 0)
+                        {
+                            _logger.GenerationLogWriteData($"{100 * (trackIndex) / (decimal)_totalCount:00.00}% Finished processing track {trackIndex} DUPLICATE (skipped) ({_mlt.main.Title})");
+                            return; //skip the title
+                        }
                     }
 
                     transaction.Commit();
@@ -80,19 +87,28 @@ namespace MusicDatabaseGenerator.Synchronizers
                     }
                 }
             }
+            string percentageString = $"{100 * trackIndex / (decimal)_totalCount:00.00}%";
+            LogOperation(ops, percentageString);
+        }
+
+        public static void Delete()
+        {
+            SyncOperation ops = SyncOperation.None;
 
             using (DbContextTransaction transaction = _context.Database.BeginTransaction())
             {
-                foreach (ISynchronizer synchronizer in _synchronizers)
-                {
-                    ops |= synchronizer.Delete();
-                }
+                // order matters!
+                ops |= MainSynchonizer.Delete();
+                ops |= GenreTrackSynchronizer.Delete();
+                ops |= GenreSynchronizer.Delete();
+                ops |= ArtistTrackSynchronizer.Delete();
+                ops |= ArtistSynchronizer.Delete();
+                ops |= AlbumTrackSynchronizer.Delete();
+                ops |= AlbumSynchronizer.Delete();
+                ops |= ArtistPersonsSynchronizer.Delete();
+                ops |= TrackPersonsSynchronizer.Delete();
                 transaction.Commit();
             }
-
-            trackIndex++;
-            string percentageString = $"{100 * trackIndex / (decimal)_totalCount:00.00}%";
-            LogOperation(ops, percentageString);
         }
 
         private void LogOperation(SyncOperation ops, string percentageString)

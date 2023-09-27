@@ -50,8 +50,13 @@ namespace MusicDatabaseGenerator.Synchronizers
             return base.Update(); //N/A Album Tracks only have immutable data in them
         }
 
-        public SyncOperation Delete()
+        public static new SyncOperation Delete()
         {
+            if(_context.ArtistTracks.Where(at => !_context.Main.Where(m => m.TrackID == at.TrackID).Any()).Any())
+            {
+                _context.ArtistTracks.RemoveRange(_context.ArtistTracks.Where(at => !_context.Main.Where(m => m.TrackID == at.TrackID).Any()));
+                return SyncOperation.Delete;
+            }
             return SyncOperation.None;
         }
     }

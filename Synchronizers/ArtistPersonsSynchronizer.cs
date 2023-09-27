@@ -43,8 +43,13 @@ namespace MusicDatabaseGenerator.Synchronizers
             return Insert();
         }
 
-        public SyncOperation Delete()
+        public static new SyncOperation Delete()
         {
+            if(_context.ArtistPersons.Where(ap => !_context.Artist.Where(a => a.ArtistID == ap.ArtistID).Any()).Any())
+            {
+                _context.ArtistPersons.RemoveRange(_context.ArtistPersons.Where(ap => !_context.Artist.Where(a => a.ArtistID == ap.ArtistID).Any()));
+                return SyncOperation.Delete;
+            }
             return SyncOperation.None;
         }
     }

@@ -53,6 +53,7 @@ namespace MusicDatabaseGenerator
 
                     syncManager.Sync();
                 }
+                SyncManager.Delete();
                 logger.GenerationLogWriteComment($"Song Data Inserted Into Database in {sw.Elapsed.TotalSeconds} seconds");
                 sw.Restart();
             }

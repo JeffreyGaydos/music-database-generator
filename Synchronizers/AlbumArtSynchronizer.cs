@@ -41,7 +41,7 @@ namespace MusicDatabaseGenerator.Synchronizers
             return base.Update();
         }
 
-        public SyncOperation Delete()
+        public static new SyncOperation Delete()
         {
             return SyncOperation.None;
         }

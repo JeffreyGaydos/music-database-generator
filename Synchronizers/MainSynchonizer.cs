@@ -1,14 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
+using TagLib.Matroska;
 
 namespace MusicDatabaseGenerator.Synchronizers
 {
     public class MainSynchonizer : ASynchronizer, ISynchronizer
     {
+        private static List<int> _idsSeen = new List<int>();
+        private const int SQLDateTimeMaxPrecision = 99999;
+
         public MainSynchonizer(MusicLibraryTrack mlt, MusicLibraryContext context) {
             _mlt = mlt;
             _context = context;
+
+            if(_idsSeen == null)
+            {
+                _idsSeen = new List<int>();
+            }
         }
 
         public SyncOperation Synchronize()
@@ -33,6 +43,7 @@ namespace MusicDatabaseGenerator.Synchronizers
                 throw new Exception($"Could not create a Main record for track {_mlt.main.Title}");
             }
             _mlt.main.TrackID = trackID.Value;
+            _idsSeen.Add(trackID.Value);
             return SyncOperation.Insert;
         }
 
@@ -40,6 +51,16 @@ namespace MusicDatabaseGenerator.Synchronizers
         {
             Main match = _context.Main.First(m => m.ISRC == _mlt.main.ISRC && m.Duration == _mlt.main.Duration && m.Title == _mlt.main.Title);
             _mlt.main.TrackID = match.TrackID; //maintain ID so other mappings remain sound
+            _idsSeen.Add(match.TrackID);
+            if(match.Title == "Fade Out")
+            {
+                Console.WriteLine("Test case");
+            }
+            if (SQLCSharpDateTimeComparison(match.LastModifiedDate, _mlt.main.LastModifiedDate) <= 0)
+            {
+                match.GeneratedDate = _mlt.main.GeneratedDate;
+                return SyncOperation.Skip;
+            }
             string differences = DataEquivalent(_mlt.main, match);            
             if (differences == "")
             {
@@ -74,9 +95,29 @@ namespace MusicDatabaseGenerator.Synchronizers
             }
         }
 
-        public SyncOperation Delete()
+        public static new SyncOperation Delete()
         {
+            if (_context.Main.Where(m => !_idsSeen.Contains(m.TrackID)).Any())
+            {
+                _context.Main.RemoveRange(_context.Main.Where(m => !_idsSeen.Contains(m.TrackID)));
+                _context.SaveChanges();
+                return SyncOperation.Delete;
+            }
             return SyncOperation.None;
+        }
+
+        private int SQLCSharpDateTimeComparison(DateTime? date1, DateTime? date2)
+        {
+            long dateDiff = (date2 ?? DateTime.MinValue).Ticks - (date1 ?? DateTime.MinValue).Ticks;
+            if(dateDiff > 0 && dateDiff - SQLDateTimeMaxPrecision > 0)
+            {
+                return 1;
+            } else if (dateDiff < 0 && dateDiff + SQLDateTimeMaxPrecision < 0)
+            {
+                return -1;
+            } else {
+                return 0;
+            }
         }
 
         private string DataEquivalent(Main self, Main other)

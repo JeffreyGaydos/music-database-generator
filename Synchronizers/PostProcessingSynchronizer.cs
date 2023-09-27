@@ -50,9 +50,9 @@ namespace MusicDatabaseGenerator.Synchronizers
             return base.Update();
         }
 
-        public SyncOperation Delete()
+        public static new SyncOperation Delete()
         {
-            return SyncOperation.None;
+            return SyncOperation.None; //no operations needed at this point
         }
     }
 }
