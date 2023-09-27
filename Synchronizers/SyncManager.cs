@@ -17,9 +17,6 @@ namespace MusicDatabaseGenerator.Synchronizers
 
         private static int trackIndex = 0;
 
-        private static Regex R_PKViolationTable = new Regex("dbo\\.[a-zA-Z]+", RegexOptions.Compiled);
-        private static Regex R_PKViolationViolatingKey = new Regex("(?<=\\().+(?=\\))", RegexOptions.Compiled);
-
         public SyncManager(MusicLibraryContext context, LoggingUtils logger, int count, MusicLibraryTrack mlt)
         {
             _context = context;
@@ -54,38 +51,17 @@ namespace MusicDatabaseGenerator.Synchronizers
 
             using (DbContextTransaction transaction = _context.Database.BeginTransaction())
             {
-                try
+                foreach (ISynchronizer synchronizer in _synchronizers)
                 {
-                    foreach (ISynchronizer synchronizer in _synchronizers)
+                    ops |= synchronizer.Synchronize();
+                    if((ops & SyncOperation.Skip) > 0)
                     {
-                        ops |= synchronizer.Synchronize();
-                        if((ops & SyncOperation.Skip) > 0)
-                        {
-                            _logger.GenerationLogWriteData($"{100 * (trackIndex) / (decimal)_totalCount:00.00}% Finished processing track {trackIndex} DUPLICATE (skipped) ({_mlt.main.Title})");
-                            return; //skip the title
-                        }
+                        _logger.GenerationLogWriteData($"{100 * (trackIndex) / (decimal)_totalCount:00.00}% Finished processing track {trackIndex} DUPLICATE (skipped) ({_mlt.main.Title})");
+                        return; //skip the title
                     }
+                }
 
-                    transaction.Commit();
-                }
-                catch (DbUpdateException ue)
-                {
-                    string innerMessage = ue.InnerException.InnerException.Message;
-                    if (innerMessage.Contains("Violation of UNIQUE KEY constraint"))
-                    {
-                        //This should be deprecated with the new update stuff...
-                        string key = R_PKViolationViolatingKey.Match(innerMessage).Value;
-                        string table = R_PKViolationTable.Match(innerMessage).Value;
-                        //_logger.GenerationLogWriteData($"{percentageString} Finished processing track {trackIndex} DUPLICATE (skipped) ({_mlt.main.Title})");
-                        _logger.DuplicateLogWriteData($"{_mlt.main.FilePath}: UNIQUE constraint violation on table '{table}' from key: [{key}]");
-                        transaction.Rollback();
-                        //The first entry in the change tracker is the most recent change, i.e. the thing that threw an exception. We need to remove it from the context
-                        _context.ChangeTracker.Entries().First().State = EntityState.Detached;
-                    } else
-                    {
-                        throw ue; //we don't actually know what's going on then...
-                    }
-                }
+                transaction.Commit();
             }
             string percentageString = $"{100 * trackIndex / (decimal)_totalCount:00.00}%";
             LogOperation(ops, percentageString);
