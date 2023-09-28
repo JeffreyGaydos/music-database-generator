@@ -30,19 +30,19 @@ namespace MusicDatabaseGenerator.Synchronizers
             trackIndex++;
             if (_mlt.albumArt.Any())
             {
-                _synchronizers.Add(new AlbumArtSynchronizer(_mlt, _context));
+                _synchronizers.Add(new AlbumArtSynchronizer(_mlt, _context, _logger));
             }
             else
             {   //order matters...
-                _synchronizers.Add(new MainSynchonizer(_mlt, _context));
-                _synchronizers.Add(new GenreSynchronizer(_mlt, _context));
-                _synchronizers.Add(new GenreTrackSynchronizer(_mlt, _context));
-                _synchronizers.Add(new ArtistSynchronizer(_mlt, _context));
-                _synchronizers.Add(new ArtistTrackSynchronizer(_mlt, _context));
-                _synchronizers.Add(new AlbumSynchronizer(_mlt, _context));
-                _synchronizers.Add(new AlbumTrackSynchronizer(_mlt, _context));
-                _synchronizers.Add(new ArtistPersonsSynchronizer(_mlt, _context));
-                _synchronizers.Add(new TrackPersonsSynchronizer(_mlt, _context));
+                _synchronizers.Add(new MainSynchonizer(_mlt, _context, _logger));
+                _synchronizers.Add(new GenreSynchronizer(_mlt, _context, _logger));
+                _synchronizers.Add(new GenreTrackSynchronizer(_mlt, _context, _logger));
+                _synchronizers.Add(new ArtistSynchronizer(_mlt, _context, _logger));
+                _synchronizers.Add(new ArtistTrackSynchronizer(_mlt, _context, _logger));
+                _synchronizers.Add(new AlbumSynchronizer(_mlt, _context, _logger));
+                _synchronizers.Add(new AlbumTrackSynchronizer(_mlt, _context, _logger));
+                _synchronizers.Add(new ArtistPersonsSynchronizer(_mlt, _context, _logger));
+                _synchronizers.Add(new TrackPersonsSynchronizer(_mlt, _context, _logger));
 
                 _synchronizers.Add(new PostProcessingSynchronizer(_context));
             }

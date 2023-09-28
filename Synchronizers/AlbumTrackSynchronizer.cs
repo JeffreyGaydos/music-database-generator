@@ -8,10 +8,11 @@ namespace MusicDatabaseGenerator.Synchronizers
 {
     public class AlbumTrackSynchronizer : ASynchronizer, ISynchronizer
     {
-        public AlbumTrackSynchronizer(MusicLibraryTrack mlt, MusicLibraryContext context)
+        public AlbumTrackSynchronizer(MusicLibraryTrack mlt, MusicLibraryContext context, LoggingUtils logger)
         {
             _mlt = mlt;
             _context = context;
+            _logger = logger;
         }
 
         public SyncOperation Synchronize()
@@ -52,9 +53,10 @@ namespace MusicDatabaseGenerator.Synchronizers
 
         public static new SyncOperation Delete()
         {
-            if(_context.ArtistTracks.Where(at => !_context.Main.Where(m => m.TrackID == at.TrackID).Any()).Any())
+            if(_context.AlbumTracks.Where(at => !_context.Main.Where(m => m.TrackID == at.TrackID).Any()).Any())
             {
-                _context.ArtistTracks.RemoveRange(_context.ArtistTracks.Where(at => !_context.Main.Where(m => m.TrackID == at.TrackID).Any()));
+                _logger.GenerationLogWriteData($"Deleted {_context.AlbumTracks.Where(at => !_context.Main.Where(m => m.TrackID == at.TrackID).Any()).Count()} entries from AlbumTrack");
+                _context.AlbumTracks.RemoveRange(_context.AlbumTracks.Where(at => !_context.Main.Where(m => m.TrackID == at.TrackID).Any()));
                 return SyncOperation.Delete;
             }
             return SyncOperation.None;

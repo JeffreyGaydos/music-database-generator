@@ -7,10 +7,11 @@ namespace MusicDatabaseGenerator.Synchronizers
 {
     public class ArtistPersonsSynchronizer : ASynchronizer, ISynchronizer
     {
-        public ArtistPersonsSynchronizer(MusicLibraryTrack mlt, MusicLibraryContext context)
+        public ArtistPersonsSynchronizer(MusicLibraryTrack mlt, MusicLibraryContext context, LoggingUtils logger)
         {
             _mlt = mlt;
             _context = context;
+            _logger = logger;
         }
 
         public SyncOperation Synchronize()
@@ -47,6 +48,7 @@ namespace MusicDatabaseGenerator.Synchronizers
         {
             if(_context.ArtistPersons.Where(ap => !_context.Artist.Where(a => a.ArtistID == ap.ArtistID).Any()).Any())
             {
+                _logger.GenerationLogWriteData($"Deleted {_context.ArtistPersons.Where(ap => !_context.Artist.Where(a => a.ArtistID == ap.ArtistID).Any()).Count()} entries from ArtistPersons");
                 _context.ArtistPersons.RemoveRange(_context.ArtistPersons.Where(ap => !_context.Artist.Where(a => a.ArtistID == ap.ArtistID).Any()));
                 return SyncOperation.Delete;
             }

@@ -8,10 +8,11 @@ namespace MusicDatabaseGenerator.Synchronizers
     {
         private Regex parentDirectoryMatch = new Regex(".*(?=[\\\\\\/][^\\\\\\/]*\\.[a-zA-Z]+)", RegexOptions.Compiled);
 
-        public AlbumArtSynchronizer(MusicLibraryTrack mlt, MusicLibraryContext context)
+        public AlbumArtSynchronizer(MusicLibraryTrack mlt, MusicLibraryContext context, LoggingUtils logger)
         {
             _context = context;
             _mlt = mlt;
+            _logger = logger;
         }
 
         public SyncOperation Synchronize()

@@ -6,6 +6,7 @@ namespace MusicDatabaseGenerator.Synchronizers
     {
         internal MusicLibraryTrack _mlt = null;
         internal static MusicLibraryContext _context;
+        internal static LoggingUtils _logger;
 
         internal virtual SyncOperation Insert()
         {
