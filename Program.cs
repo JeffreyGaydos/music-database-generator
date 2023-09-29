@@ -1,14 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
-using MusicDatabaseGenerator.Generators;
+﻿using MusicDatabaseGenerator.Generators;
 using MusicDatabaseGenerator.Synchronizers;
-using System;
 using System.Collections.Generic;
-using System.Data.Entity.Core;
-using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Drawing;
-using System.IO;
-using System.Linq;
 
 namespace MusicDatabaseGenerator
 {
@@ -33,7 +27,7 @@ namespace MusicDatabaseGenerator
                 foreach (TagLib.File data in constructedTuple.tagFiles)
                 {
                     MusicLibraryTrack trackData = new MusicLibraryTrack();
-                    SyncManager syncManager = new SyncManager(mdbContext, logger, total, trackData);
+                    SyncManager syncManager = new SyncManager(mdbContext, logger, total, trackData, false);
 
                     List<IGenerator> generators = new List<IGenerator>
                     {
@@ -54,18 +48,25 @@ namespace MusicDatabaseGenerator
                     syncManager.Sync();
                 }
                 SyncManager.Delete();
+                logger.GenerationLogWriteData($"Inserted {SyncManager.Inserts} record(s)");
+                logger.GenerationLogWriteData($"Updated {SyncManager.Updates} record(s)");
+                logger.GenerationLogWriteData($"Skipped {SyncManager.Skips} record(s)");
                 logger.GenerationLogWriteComment($"Song Data Inserted Into Database in {sw.Elapsed.TotalSeconds} seconds");
                 sw.Restart();
             }
 
-            if(config.generateAlbumArtData)
+            SyncManager.Inserts = 0;
+            SyncManager.Updates = 0;
+            SyncManager.Skips = 0;
+
+            if (config.generateAlbumArtData)
             {
                 int total = constructedTuple.coverArt.Count;
                 //Strict ordering, album art must come second so we can match it to an album via our sync function
                 foreach ((string, Bitmap) img in constructedTuple.coverArt)
                 {
                     MusicLibraryTrack trackData = new MusicLibraryTrack();
-                    SyncManager syncManager = new SyncManager(mdbContext, logger, total, trackData);
+                    SyncManager syncManager = new SyncManager(mdbContext, logger, total, trackData, true);
 
                     List<IGenerator> generators = new List<IGenerator>
                     {
@@ -81,7 +82,10 @@ namespace MusicDatabaseGenerator
                 
                     syncManager.Sync();
                 }
-                SyncManager.Delete(true);
+                SyncManager.Delete();
+                logger.GenerationLogWriteData($"Inserted {SyncManager.Inserts} record(s)");
+                logger.GenerationLogWriteData($"Updated {SyncManager.Updates} record(s)");
+                logger.GenerationLogWriteData($"Skipped {SyncManager.Skips} record(s)");
                 logger.GenerationLogWriteComment($"Album Art Data Inserted Into Database in {sw.Elapsed.TotalSeconds} seconds");
             }
         }

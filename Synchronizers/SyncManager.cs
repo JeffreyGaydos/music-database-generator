@@ -14,21 +14,24 @@ namespace MusicDatabaseGenerator.Synchronizers
         private int _totalCount;
         private MusicLibraryTrack _mlt;
         private List<ISynchronizer> _synchronizers = new List<ISynchronizer>();
+        
+        private static bool albumArtSync = false;
+        public static int Inserts = 0;
+        public static int Updates = 0;
+        public static int Skips = 0;
 
-        private static int trackIndex = 0;
-
-        public SyncManager(MusicLibraryContext context, LoggingUtils logger, int count, MusicLibraryTrack mlt)
+        public SyncManager(MusicLibraryContext context, LoggingUtils logger, int count, MusicLibraryTrack mlt, bool in_albumArtSync)
         {
             _context = context;
             _logger = logger;
             _totalCount = count;
             _mlt = mlt;
+            albumArtSync = in_albumArtSync;
         }
 
         public void Sync()
         {
-            trackIndex++;
-            if (!string.IsNullOrWhiteSpace(_mlt.albumArt.AlbumArtPath))
+            if (albumArtSync)
             {
                 _synchronizers.Add(new AlbumArtSynchronizer(_mlt, _context, _logger));
             }
@@ -54,26 +57,27 @@ namespace MusicDatabaseGenerator.Synchronizers
                 foreach (ISynchronizer synchronizer in _synchronizers)
                 {
                     ops |= synchronizer.Synchronize();
-                    if((ops & SyncOperation.Skip) > 0)
+                    UpdateLogVariables(ops);
+                    if ((ops & SyncOperation.Skip) > 0)
                     {
-                        _logger.GenerationLogWriteData($"{100 * (trackIndex) / (decimal)_totalCount:00.00}% Finished processing track {trackIndex} DUPLICATE (skipped) ({_mlt.main.Title})");
+                        _logger.GenerationLogWriteData($"{100 * (albumArtSync ? MusicLibraryTrack.albumArtIndex : MusicLibraryTrack.trackIndex) / (decimal)_totalCount:00.00}% Finished processing track {(albumArtSync ? MusicLibraryTrack.albumArtIndex : MusicLibraryTrack.trackIndex)} (skipped) ({_mlt.main.Title})");
                         return; //skip the title
                     }
                 }
 
                 transaction.Commit();
             }
-            string percentageString = $"{100 * trackIndex / (decimal)_totalCount:00.00}%";
+            string percentageString = $"{100 * (albumArtSync ? MusicLibraryTrack.albumArtIndex : MusicLibraryTrack.trackIndex) / (decimal)_totalCount:00.00}%";
             LogOperation(ops, percentageString);
         }
 
-        public static void Delete(bool albumArtSynchronization = false)
+        public static void Delete()
         {
             SyncOperation ops = SyncOperation.None;
 
             using (DbContextTransaction transaction = _context.Database.BeginTransaction())
             {
-                if (albumArtSynchronization)
+                if (albumArtSync)
                 {
                     ops |= AlbumArtSynchronizer.Delete();
                 } else
@@ -98,10 +102,38 @@ namespace MusicDatabaseGenerator.Synchronizers
             switch (ops)
             {
                 case SyncOperation.None:
-                    _logger.GenerationLogWriteData($"{percentageString} No changes found for track {_mlt.main.Title} ({_mlt.main.TrackID})");
+                    if(albumArtSync)
+                    {
+                        _logger.GenerationLogWriteData($"{percentageString} No changes found for album art {(albumArtSync ? MusicLibraryTrack.albumArtIndex : MusicLibraryTrack.trackIndex)} ({_mlt.albumArt.AlbumArtPath})");
+                    } else
+                    {
+                        _logger.GenerationLogWriteData($"{percentageString} No changes found for track {_mlt.main.Title} ({_mlt.main.TrackID})");
+                    }
                     break;
                 default:
-                    _logger.GenerationLogWriteData($"{percentageString} Finished opertaions {ops} on track {trackIndex} ({_mlt.main.Title})");
+                    if(albumArtSync)
+                    {
+                        _logger.GenerationLogWriteData($"{percentageString} Finished opertaions {ops} on album art {(albumArtSync ? MusicLibraryTrack.albumArtIndex : MusicLibraryTrack.trackIndex)} ({_mlt.albumArt.AlbumArtPath})");
+                    } else
+                    {
+                        _logger.GenerationLogWriteData($"{percentageString} Finished opertaions {ops} on track {(albumArtSync ? MusicLibraryTrack.albumArtIndex : MusicLibraryTrack.trackIndex)} ({_mlt.main.Title})");
+                    }
+                    break;
+            }
+        }
+
+        private void UpdateLogVariables(SyncOperation ops)
+        {
+            switch(ops)
+            {
+                case SyncOperation.None:
+                    Skips++;
+                    break;
+                case SyncOperation.Update:
+                    Updates++;
+                    break;
+                case SyncOperation.Insert:
+                    Inserts++;
                     break;
             }
         }

@@ -47,7 +47,7 @@ namespace MusicDatabaseGenerator.Synchronizers
             AlbumArt match = _context.AlbumArt.Where(aa => aa.AlbumArtPath == _mlt.albumArt.AlbumArtPath).FirstOrDefault();
             if(_mlt.albumArt.PrimaryColor != match.PrimaryColor)
             {
-                _logger.GenerationLogWriteData($"Updated Primary color for Album art associated with AlbumID {match.AlbumID}", true);
+                _logger.GenerationLogWriteData($"Updated Primary color for Album art associated with AlbumID {match.AlbumID} from {match.PrimaryColor} to {_mlt.albumArt.PrimaryColor}", true);
                 match.PrimaryColor = _mlt.albumArt.PrimaryColor;
                 _context.SaveChanges();
                 return SyncOperation.Update;
