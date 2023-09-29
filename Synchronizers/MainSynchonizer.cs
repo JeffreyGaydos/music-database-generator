@@ -63,7 +63,10 @@ namespace MusicDatabaseGenerator.Synchronizers
                 return SyncOperation.Skip;
             }
             string differences = DataEquivalent(_mlt.main, match);            
-            if (differences == "")
+            if (differences == ""
+                || (NumberOfNulls(match) > NumberOfNulls(_mlt.main))
+                || (NumberOfNulls(match) == NumberOfNulls(_mlt.main) && match.Bitrate >= _mlt.main.Bitrate)
+               )
             {
                 return SyncOperation.None; //no-op data-wise
             } else
@@ -224,6 +227,32 @@ namespace MusicDatabaseGenerator.Synchronizers
         private void LogDiff<T>(string fieldName, T self, T other)
         {
             _logger.GenerationLogWriteData($"    {fieldName}: {self} - {other}", true);
+        }
+
+        private int NumberOfNulls(Main obj)
+        {
+            int count = 0;
+            if(obj.SampleRate == null) count++;
+            if(obj.Duration == null) count++;
+            if(obj.Title == null) count++;
+            if(obj.Channels == null) count++;
+            if(obj.Publisher == null) count++;
+            if(obj.AverageDecibels == null) count++;
+            if(obj.BitsPerSample == null) count++;
+            if(obj.BeatsPerMin == null) count++;
+            if(obj.Comment == null) count++;
+            if(obj.Copyright == null) count++;
+            if(obj.FilePath == null) count++;
+            if(obj.ISRC == null) count++;
+            if(obj.Linked == null) count++;
+            if(obj.Owner == null) count++;
+            if(obj.ReleaseYear == null) count++;
+            if(obj.Bitrate == null) count++;
+            if(obj.Lyrics == null) count++;
+            if(obj.AddDate == null) count++;
+            if(obj.GeneratedDate == null) count++;
+            if(obj.LastModifiedDate == null) count++;
+            return count;
         }
     }
 }
