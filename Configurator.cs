@@ -55,7 +55,7 @@ namespace MusicDatabaseGenerator
                 settings["DeleteDataOnGeneration"] == "True"
                 );
 
-            _logger.GenerationLogWriteData("_CONFIGURATION:__________________________________");
+            _logger.GenerationLogWriteData("_CONFIGURATION:__________________________________________________________________");
 
             _logger.GenerationLogWriteData($"Connecting to database via connection string \"{_connectionString}\"...");
             _logger.GenerationLogWriteData($"{(values.deleteExistingData ? "Deleting existing data and resetting IDs..." : "Existing database persisted...")}");
@@ -76,7 +76,7 @@ namespace MusicDatabaseGenerator
                     "Will generate music metadata ONLY"
                     : "Config was set to generate no data. Will still check for files with limited meatadata.")}");
 
-            _logger.GenerationLogWriteData("_________________________________________________");
+            _logger.GenerationLogWriteData("_________________________________________________________________________________");
 
             return values;
         }

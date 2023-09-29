@@ -60,7 +60,7 @@ namespace MusicDatabaseGenerator.Synchronizers
                     UpdateLogVariables(ops);
                     if ((ops & SyncOperation.Skip) > 0)
                     {
-                        _logger.GenerationLogWriteData($"{100 * (albumArtSync ? MusicLibraryTrack.albumArtIndex : MusicLibraryTrack.trackIndex) / (decimal)_totalCount:00.00}% Finished processing track {(albumArtSync ? MusicLibraryTrack.albumArtIndex : MusicLibraryTrack.trackIndex)} (skipped) ({_mlt.main.Title})");
+                        _logger.GenerationLogWriteData($"{100 * (albumArtSync ? MusicLibraryTrack.albumArtIndex : MusicLibraryTrack.trackIndex) / (decimal)_totalCount:00.00}% Finished processing track {(albumArtSync ? MusicLibraryTrack.albumArtIndex : MusicLibraryTrack.trackIndex)} (skipped) ({(albumArtSync ? _mlt.albumArt.AlbumArtPath : _mlt.main.Title)})");
                         return; //skip the title
                     }
                 }
@@ -124,17 +124,17 @@ namespace MusicDatabaseGenerator.Synchronizers
 
         private void UpdateLogVariables(SyncOperation ops)
         {
-            switch(ops)
+            if((ops & SyncOperation.Skip) > 0)
             {
-                case SyncOperation.None:
-                    Skips++;
-                    break;
-                case SyncOperation.Update:
-                    Updates++;
-                    break;
-                case SyncOperation.Insert:
-                    Inserts++;
-                    break;
+                Skips++;
+            }
+            if((ops & SyncOperation.Update) > 0)
+            {
+                Updates++;
+            }
+            if((ops & SyncOperation.Insert) > 0)
+            {
+                Inserts++;
             }
         }
     }

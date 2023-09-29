@@ -52,7 +52,7 @@ namespace MusicDatabaseGenerator.Synchronizers
                 _context.SaveChanges();
                 return SyncOperation.Update;
             }
-            return SyncOperation.None;
+            return SyncOperation.Skip;
         }
 
         public static new SyncOperation Delete()
