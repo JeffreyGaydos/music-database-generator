@@ -312,12 +312,12 @@ GO
 
 CREATE VIEW [MainDataJoined] AS
 SELECT M.*, ATR.TrackOrder, A.AlbumName, A.ReleaseYear AS [AlbumReleaseYear], G.GenreName, ART.ArtistName FROM MusicLibrary.dbo.Main M
-JOIN MusicLibrary.dbo.AlbumTracks ATR ON M.TrackID = ATR.TrackID
-JOIN MusicLibrary.dbo.Album A ON A.AlbumID = ATR.AlbumID
-JOIN MusicLibrary.dbo.GenreTracks GTR ON GTR.TrackID = M.TrackID
-JOIN MusicLibrary.dbo.Genre G ON G.GenreID = GTR.GenreID
-JOIN MusicLibrary.dbo.ArtistTracks ARTT ON ARTT.TrackID = M.TrackID
-JOIN MusicLibrary.dbo.Artist ART ON ART.ArtistID = ARTT.ArtistID
+LEFT JOIN MusicLibrary.dbo.AlbumTracks ATR ON M.TrackID = ATR.TrackID
+LEFT JOIN MusicLibrary.dbo.Album A ON A.AlbumID = ATR.AlbumID
+LEFT JOIN MusicLibrary.dbo.GenreTracks GTR ON GTR.TrackID = M.TrackID
+LEFT JOIN MusicLibrary.dbo.Genre G ON G.GenreID = GTR.GenreID
+LEFT JOIN MusicLibrary.dbo.ArtistTracks ARTT ON ARTT.TrackID = M.TrackID
+LEFT JOIN MusicLibrary.dbo.Artist ART ON ART.ArtistID = ARTT.ArtistID
 GO
 
 CREATE VIEW [LeadArtists] AS
