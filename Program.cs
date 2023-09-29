@@ -79,19 +79,9 @@ namespace MusicDatabaseGenerator
 
                     MusicLibraryTrack.albumArtIndex += 1;
                 
-                    try
-                    {
-                        syncManager.Sync();
-                    }
-                    catch (UpdateException ue)
-                    {
-                        if (ue.Message.Contains("Violation of PRIMARY KEY constraint"))
-                        {
-                            logger.GenerationLogWriteData($"Found duplicate content for file, skipping {trackData.main.FilePath}");
-                            logger.DuplicateLogWriteData(trackData.main.FilePath);
-                        }
-                    }
+                    syncManager.Sync();
                 }
+                SyncManager.Delete(true);
                 logger.GenerationLogWriteComment($"Album Art Data Inserted Into Database in {sw.Elapsed.TotalSeconds} seconds");
             }
         }

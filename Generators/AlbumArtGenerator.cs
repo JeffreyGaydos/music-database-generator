@@ -22,11 +22,11 @@ namespace MusicDatabaseGenerator.Generators
 
         public void Generate()
         {
-            _data.albumArt.Add(new AlbumArt()
+            _data.albumArt = new AlbumArt()
             {
                 AlbumArtPath = Path.GetFullPath(_imgFileName),
                 PrimaryColor = ColorToHexString(GetPrimaryColor())
-            });
+            };
         }
 
         private Color GetPrimaryColor()

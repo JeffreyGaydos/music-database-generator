@@ -28,7 +28,7 @@ namespace MusicDatabaseGenerator.Synchronizers
         public void Sync()
         {
             trackIndex++;
-            if (_mlt.albumArt.Any())
+            if (!string.IsNullOrWhiteSpace(_mlt.albumArt.AlbumArtPath))
             {
                 _synchronizers.Add(new AlbumArtSynchronizer(_mlt, _context, _logger));
             }
@@ -67,22 +67,28 @@ namespace MusicDatabaseGenerator.Synchronizers
             LogOperation(ops, percentageString);
         }
 
-        public static void Delete()
+        public static void Delete(bool albumArtSynchronization = false)
         {
             SyncOperation ops = SyncOperation.None;
 
             using (DbContextTransaction transaction = _context.Database.BeginTransaction())
             {
-                // order matters!
-                ops |= MainSynchonizer.Delete();
-                ops |= GenreTrackSynchronizer.Delete();
-                ops |= GenreSynchronizer.Delete();
-                ops |= ArtistTrackSynchronizer.Delete();
-                ops |= ArtistSynchronizer.Delete();
-                ops |= AlbumTrackSynchronizer.Delete();
-                ops |= AlbumSynchronizer.Delete();
-                ops |= ArtistPersonsSynchronizer.Delete();
-                ops |= TrackPersonsSynchronizer.Delete();
+                if (albumArtSynchronization)
+                {
+                    ops |= AlbumArtSynchronizer.Delete();
+                } else
+                {
+                    // order matters!
+                    ops |= MainSynchonizer.Delete();
+                    ops |= GenreTrackSynchronizer.Delete();
+                    ops |= GenreSynchronizer.Delete();
+                    ops |= ArtistTrackSynchronizer.Delete();
+                    ops |= ArtistSynchronizer.Delete();
+                    ops |= AlbumTrackSynchronizer.Delete();
+                    ops |= AlbumSynchronizer.Delete();
+                    ops |= ArtistPersonsSynchronizer.Delete();
+                    ops |= TrackPersonsSynchronizer.Delete();
+                }
                 transaction.Commit();
             }
         }

@@ -13,7 +13,7 @@ namespace MusicDatabaseGenerator
         public List<Genre> genre = new List<Genre>();
         public List<Artist> artist = new List<Artist>();
         public List<(Album, AlbumTracks)> album = new List<(Album, AlbumTracks)>();
-        public List<AlbumArt> albumArt = new List<AlbumArt>();
+        public AlbumArt albumArt = new AlbumArt();
         public List<ArtistPersons> artistPersons = new List<ArtistPersons>();
         public List<(TrackPersons tp, string name)> trackPersons = new List<(TrackPersons tp, string name)>();
 
