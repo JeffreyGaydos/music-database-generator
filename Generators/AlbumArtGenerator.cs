@@ -36,9 +36,13 @@ namespace MusicDatabaseGenerator.Generators
 
             Dictionary<Color, int> maxColorDictionary = new Dictionary<Color, int>();
 
-            for(int i = 0; i < bounds.Width; i += (int)(bounds.Width / 25))
+            int divisble = 25;
+            int divisbleW = bounds.Width < divisble ? (int)bounds.Width : (int)(bounds.Width / divisble);
+            int divisbleH = bounds.Height < divisble ? (int)bounds.Height : (int)(bounds.Height / divisble);
+
+            for (int i = 0; i < bounds.Width; i += divisbleW)
             {
-                for(int j = 0; j < bounds.Height; j += (int)(bounds.Width / 25))
+                for(int j = 0; j < bounds.Height; j += divisbleH)
                 {
                     Color pixelColor = _imgFile.GetPixel(i, j);
                     if(maxColorDictionary.TryGetValue(pixelColor, out int count))

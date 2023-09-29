@@ -60,7 +60,13 @@ namespace MusicDatabaseGenerator.Synchronizers
                     UpdateLogVariables(ops);
                     if ((ops & SyncOperation.Skip) > 0)
                     {
-                        _logger.GenerationLogWriteData($"{100 * (albumArtSync ? MusicLibraryTrack.albumArtIndex : MusicLibraryTrack.trackIndex) / (decimal)_totalCount:00.00}% Finished processing track {(albumArtSync ? MusicLibraryTrack.albumArtIndex : MusicLibraryTrack.trackIndex)} (skipped) ({(albumArtSync ? _mlt.albumArt.AlbumArtPath : _mlt.main.Title)})");
+                        if(albumArtSync)
+                        {
+                            _logger.GenerationLogWriteData($"{100 * MusicLibraryTrack.albumArtIndex / (decimal)_totalCount:00.00}% Finished processing album art {MusicLibraryTrack.albumArtIndex} (skipped) ({_mlt.albumArt.AlbumArtPath})");
+                        } else
+                        {
+                            _logger.GenerationLogWriteData($"{100 * MusicLibraryTrack.trackIndex / (decimal)_totalCount:00.00}% Finished processing track {(albumArtSync ? MusicLibraryTrack.albumArtIndex : MusicLibraryTrack.trackIndex)} (skipped) ({_mlt.main.Title})");
+                        }
                         return; //skip the title
                     }
                 }
