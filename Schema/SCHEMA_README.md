@@ -6,7 +6,7 @@ This table stores metadata that relates directly to 1 track
 - `Duration`
   - The duration of the song in seconds
 - `FilePath`
-  - The filepath of the song, based on where you tell the source code to look for your files
+  - The file path of the song, based on where you tell the source code to look for your files
 - `Volume`
   - This manual field is a way to set a sort of volume offset that applies just to 1 track, for ease of volume balancing across tracks
 - `OwnerID`
@@ -61,7 +61,7 @@ This table maps between the **Main** table and the **Artist** table via the `Tra
   - Foreign key to the `Main` table
 
 ## **ArtistPersons**
-This table adds a 1-many relationship to the **Artist** table to map the real name of the artist (members) to the artist "stage name"
+This table adds a 1-to-many relationship to the **Artist** table to map the real name of the artist (members) to the artist "stage name"
 - `PersonID`
   - The ID of this table
 - `ArtistID`
@@ -125,7 +125,7 @@ This table maps from moods to tracks so users can assocaite many moods to many t
   - Foreign key to the `Main` table
 
 ## **Playlist**
-Houses the data associated with traditional music playlists. This metadata is not included in the individual music files, and is therefore not generated.
+Houses the data associated with traditional music playlists. This metadata is not included in the individual music files and is therefore not generated.
 - `PlaylistID`
   - The ID of this table
 - `PlaylistName`
@@ -144,11 +144,11 @@ Maps between the playlist data and the tracks in the playlist. Entered manually 
 - `TrackID`
   - Foreign key to the `Main` table
 - `TrackOrder`
-  - The order in which the tracks in the playlist defined by `PlaylistID` are ogranized
-  - Track order is not gaurenteed to be sequential within 1 playlist (i.e. could be 1, 2, 6, 8, etc.)
+  - The order in which the tracks in the playlist defined by `PlaylistID` are organized
+  - Track order is not guaranteed to be sequential within 1 playlist (i.e. could be 1, 2, 6, 8, etc.)
 
 ## **PlayLogs**
-Records which songs were played and when. This table will likely need to be purged preiodically if used by a custom music app. This data is not generated because it is intended for use by a custom music app. One feature of using a table like this is a "persistent shuffle" that avoid playing the same songs that one might have heard from a different playist. This would also allow for statistics on most played and least played songs in one's library.
+Records which songs were played and when. This table will likely need to be purged periodically if used by a custom music app. This data is not generated because it is intended for use by a custom music app. One feature of using a table like this is a "persistent shuffle" that avoid playing the same songs that one might have heard from a different playlist. This would also allow for statistics on most played and least played songs in one's library.
 - `TrackID`
   - Foreign key to the `Main` table
 - `DatePlayed`
@@ -185,4 +185,4 @@ View: _None_:
 
 ## **Where are the Foreign Key Constraints?**
 
-Because this database is generated, it's safe to assume that as long as the tool is correct, the foreign key constraints hold implicitly. Additionally, during udpates or deletes, the database will take on an intermediate state that violdates the constraints. Put simply, it's a pain.
+Because this database is generated, it's safe to assume that as long as the tool is correct, the foreign key constraints hold implicitly. Additionally, during updates or deletes, the database will take on an intermediate state that violates the constraints. Put simply, it's a pain.
