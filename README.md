@@ -3,6 +3,8 @@ This tool takes your existing set of local music files on your file system and t
 
 This project uses `TagLib` to get metadata from MP3 files: https://github.com/taglib/taglib
 
+NOTE: Only data stored within music files are used during generation. This tool does not search the internet or other 3rd parties to get additional data.
+
 # Setup / Installation
 
 ## Database Connection
