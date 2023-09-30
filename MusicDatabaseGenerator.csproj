@@ -193,7 +193,6 @@
     <Compile Include="Synchronizers\GenreSynchronizer.cs" />
     <Compile Include="Synchronizers\GenreTrackSynchronizer.cs" />
     <Compile Include="Synchronizers\ISynchronizer.cs" />
-    <Compile Include="Synchronizers\LinkedTrackSynchronizer.cs" />
     <Compile Include="Synchronizers\MainSynchonizer.cs" />
     <Compile Include="Synchronizers\MoodTrackSynchronizer.cs" />
     <Compile Include="Synchronizers\PlaylistTrackSynchronizer.cs" />
