@@ -59,8 +59,6 @@ This table maps between the **Main** table and the **Artist** table via the `Tra
   - Foreign key to the `Artist` table
 - `TrackID`
   - Foreign key to the `Main` table
-- `TrackOrder`
-  - The position this track holds within the associated album
 
 ## **ArtistPersons**
 This table adds a 1-many relationship to the **Artist** table to map the real name of the artist (members) to the artist "stage name"
@@ -92,8 +90,11 @@ This table has metadata related to any collection of music. This includes Albums
 ## **AlbumTracks**
 This table maps between the **Main** table and the **Album** table and has additional metadata related to the track and album.
 - `AlbumID`
+  - Foreign key to the `Album` table
 - `TrackID`
+  - Foreign key to the `Main` table
 - `TrackOrder`
+  - The position this track holds within the associated album
 
 ## **Genre**
 This table has metadata related to genres.
