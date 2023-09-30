@@ -152,8 +152,6 @@
     <Compile Include="Configurator.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\GenreTracks.cs" />
-    <Compile Include="Models\LeadArtists.cs" />
-    <Compile Include="Models\LinkedTracks.cs" />
     <Compile Include="LoggingUtils.cs" />
     <Compile Include="FolderReader.cs" />
     <Compile Include="Generators\AlbumArtGenerator.cs" />
@@ -165,7 +163,6 @@
     <Compile Include="Generators\IGenerator.cs" />
     <Compile Include="Generators\MainGenerator.cs" />
     <Compile Include="Models\Main.cs" />
-    <Compile Include="Models\MainDataJoined.cs" />
     <Compile Include="Models\Mood.cs" />
     <Compile Include="Models\MoodTracks.cs" />
     <Compile Include="MusicLibraryContext.cs" />
@@ -196,7 +193,6 @@
     <Compile Include="Synchronizers\GenreSynchronizer.cs" />
     <Compile Include="Synchronizers\GenreTrackSynchronizer.cs" />
     <Compile Include="Synchronizers\ISynchronizer.cs" />
-    <Compile Include="Synchronizers\LinkedTrackSynchronizer.cs" />
     <Compile Include="Synchronizers\MainSynchonizer.cs" />
     <Compile Include="Synchronizers\MoodTrackSynchronizer.cs" />
     <Compile Include="Synchronizers\PlaylistTrackSynchronizer.cs" />
@@ -233,7 +229,6 @@
     <Content Include="Schema\db_drop.sql" />
     <Content Include="Schema\db_example.sql" />
     <Content Include="Schema\db_initialize.sql" />
-    <Content Include="Schema\db_restart.sql" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

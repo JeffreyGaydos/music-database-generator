@@ -78,18 +78,19 @@ namespace MusicDatabaseGenerator.Synchronizers
                 match.Title = _mlt.main.Title;
                 match.Channels = _mlt.main.Channels;
                 match.Publisher = _mlt.main.Publisher;
-                match.AverageDecibels = _mlt.main.AverageDecibels;
+                match.Volume = _mlt.main.Volume;
                 match.BitsPerSample = _mlt.main.BitsPerSample;
                 match.BeatsPerMin = _mlt.main.BeatsPerMin;
                 match.Comment = _mlt.main.Comment;
                 match.Copyright = _mlt.main.Copyright;
                 match.FilePath = _mlt.main.FilePath;
                 match.ISRC = _mlt.main.ISRC;
-                match.Linked = _mlt.main.Linked;
+                match.LinkedTrackPlaylistID = _mlt.main.LinkedTrackPlaylistID;
                 match.Owner = _mlt.main.Owner;
                 match.ReleaseYear = _mlt.main.ReleaseYear;
                 match.Bitrate = _mlt.main.Bitrate;
                 match.Lyrics = _mlt.main.Lyrics;
+                match.Rating = _mlt.main.Rating;
 
                 match.AddDate = _mlt.main.AddDate;
                 _mlt.main.GeneratedDate = DateTime.Now;
@@ -163,10 +164,10 @@ namespace MusicDatabaseGenerator.Synchronizers
                 diffs.Add(nameof(self.Publisher));
                 LogDiff(nameof(self.Publisher), self.Publisher, other.Publisher);
             }
-            if(self.AverageDecibels != other.AverageDecibels)
+            if(self.Volume != other.Volume)
             {
-                diffs.Add(nameof(self.AverageDecibels));
-                LogDiff(nameof(self.AverageDecibels), self.AverageDecibels, other.AverageDecibels);
+                diffs.Add(nameof(self.Volume));
+                LogDiff(nameof(self.Volume), self.Volume, other.Volume);
             }
             if(self.BitsPerSample != other.BitsPerSample)
             {
@@ -198,10 +199,10 @@ namespace MusicDatabaseGenerator.Synchronizers
                 diffs.Add(nameof(self.ISRC));
                 LogDiff(nameof(self.ISRC), self.ISRC, other.ISRC);
             }
-            if(self.Linked != other.Linked)
+            if(self.LinkedTrackPlaylistID != other.LinkedTrackPlaylistID)
             {
-                diffs.Add(nameof(self.Linked));
-                LogDiff(nameof(self.Linked), self.Linked, other.Linked);
+                diffs.Add(nameof(self.LinkedTrackPlaylistID));
+                LogDiff(nameof(self.LinkedTrackPlaylistID), self.LinkedTrackPlaylistID, other.LinkedTrackPlaylistID);
             }
             if(self.Owner != other.Owner)
             {
@@ -223,6 +224,11 @@ namespace MusicDatabaseGenerator.Synchronizers
                 diffs.Add(nameof(self.Lyrics));
                 LogDiff(nameof(self.Lyrics), self.Lyrics, other.Lyrics);
             }
+            if (self.Rating != other.Rating)
+            {
+                diffs.Add(nameof(self.Rating));
+                LogDiff(nameof(self.Rating), self.Rating, other.Rating);
+            }
 
             return string.Join(",", diffs);
         }
@@ -240,18 +246,19 @@ namespace MusicDatabaseGenerator.Synchronizers
             if(obj.Title == null) count++;
             if(obj.Channels == null) count++;
             if(obj.Publisher == null) count++;
-            if(obj.AverageDecibels == null) count++;
+            if(obj.Volume == null) count++;
             if(obj.BitsPerSample == null) count++;
             if(obj.BeatsPerMin == null) count++;
             if(obj.Comment == null) count++;
             if(obj.Copyright == null) count++;
             if(obj.FilePath == null) count++;
             if(obj.ISRC == null) count++;
-            if(obj.Linked == null) count++;
+            if(obj.LinkedTrackPlaylistID == null) count++;
             if(obj.Owner == null) count++;
             if(obj.ReleaseYear == null) count++;
             if(obj.Bitrate == null) count++;
             if(obj.Lyrics == null) count++;
+            if(obj.Rating == null) count++;
             if(obj.AddDate == null) count++;
             if(obj.GeneratedDate == null) count++;
             if(obj.LastModifiedDate == null) count++;

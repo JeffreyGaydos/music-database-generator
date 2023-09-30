@@ -140,6 +140,7 @@ BEGIN
 	CREATE TABLE PlaylistTracks (
 		PlaylistID INT NOT NULL,
 		TrackID INT NOT NULL,
+		TrackOrder INT NOT NULL,
 		PRIMARY KEY (PlaylistID, TrackID)
 	)
 END
@@ -242,18 +243,6 @@ BEGIN
 	)
 END
 
---Linked Tracks are any tracks that are best when played back-to-back.
---Take the songs "Parabol" and "Porabola" by the artist "Tool". There could be an
---option during future development to force songs like this to be played one after
---the other, for a more pleasent listenning experience while shuffling.
-IF (SELECT [dbo].[MusicTableExists] (N'LinkedTracks')) = 0
-BEGIN
-	CREATE TABLE LinkedTracks (
-		TrackID1 INT PRIMARY KEY,
-		TrackID2 INT
-	)
-END
-
 --This table is just to prevent the main table from being bloated with a bunch of fields
 --and contains data on how frequently and when tracks were played.
 IF (SELECT [dbo].[MusicTableExists] (N'PlayLogs')) = 0
@@ -273,12 +262,9 @@ BEGIN
 		Title NVARCHAR(435), --The max key length is 900, this takes the rest of the bits
 		Duration DECIMAL,
 		FilePath VARCHAR(260), --windows max path length = 260 characters
-		AverageDecibels DECIMAL,
+		Volume INT, --A user defined value to help when manually matching volume across multiple files
 		[Owner] NVARCHAR(1000), --defaults to the computer username, but can be used for however
-		Linked BIT,
 		ReleaseYear INT,
-		AddDate DATETIME, --will attempt to persist this value during update operations
-		LastModifiedDate DATETIME,
 		Lyrics NVARCHAR(4000),
 		Comment NVARCHAR(4000),
 		BeatsPerMin INT,
@@ -289,7 +275,11 @@ BEGIN
 		Channels INT,
 		SampleRate INT,
 		BitsPerSample INT,
-		GeneratedDate DATETIME --used to determine if updates are needed
+		LinkedTrackPlaylistID INT, --Linked Tracks are any tracks that are best when played back-to-back. This mini-playlist defines the order
+		Rating INT, --User defined only; Not generated because ratings "on" mp3 files are specific to the Windows OS (might consider adding support)
+		AddDate DATETIME, --will attempt to persist this value during update operations
+		LastModifiedDate DATETIME,
+		GeneratedDate DATETIME, --used to determine if updates are needed
 		CONSTRAINT UC_Main UNIQUE (
 			Title,
 			ISRC,
