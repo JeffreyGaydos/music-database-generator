@@ -18,15 +18,25 @@ GO
 USE MusicLibrary;
 
 IF OBJECT_ID(N'MusicTableExists', N'FN') IS NOT NULL
+BEGIN
     DROP FUNCTION MusicTableExists
+END
 GO
+
+USE MusicLibrary;
 
 IF OBJECT_ID(N'MusicTableColumnExists', N'FN') IS NOT NULL
+BEGIN
     DROP FUNCTION MusicTableColumnExists
+END
 GO
 
+USE MusicLibrary;
+
 IF OBJECT_ID(N'MusicViewExists', N'FN') IS NOT NULL
+BEGIN
     DROP FUNCTION MusicViewExists
+END
 GO
 
 /*
@@ -272,8 +282,8 @@ BEGIN
 		Lyrics NVARCHAR(4000),
 		Comment NVARCHAR(4000),
 		BeatsPerMin INT,
-		Copyright VARCHAR(1000),
-		Publisher VARCHAR(1000),
+		Copyright NVARCHAR(1000),
+		Publisher NVARCHAR(1000),
 		ISRC VARCHAR(12), --ISRC codes are explicitly 12 characters long
 		Bitrate INT,
 		Channels INT,
@@ -291,18 +301,23 @@ GO
 
 IF (SELECT [dbo].[MusicViewExists] ('MainDataJoined')) = 0 AND (SELECT [dbo].[MusicViewExists] ('LeadArtists')) = 0
 BEGIN
+	SELECT 1
+END
+ELSE
+BEGIN
+	SELECT 0
 	RETURN --Views must be the only statement in the batch, end early since we can't wrap them
 END
 GO
 
 CREATE VIEW [MainDataJoined] AS
 SELECT M.*, ATR.TrackOrder, A.AlbumName, A.ReleaseYear AS [AlbumReleaseYear], G.GenreName, ART.ArtistName FROM MusicLibrary.dbo.Main M
-JOIN MusicLibrary.dbo.AlbumTracks ATR ON M.TrackID = ATR.TrackID
-JOIN MusicLibrary.dbo.Album A ON A.AlbumID = ATR.AlbumID
-JOIN MusicLibrary.dbo.GenreTracks GTR ON GTR.TrackID = M.TrackID
-JOIN MusicLibrary.dbo.Genre G ON G.GenreID = GTR.GenreID
-JOIN MusicLibrary.dbo.ArtistTracks ARTT ON ARTT.TrackID = M.TrackID
-JOIN MusicLibrary.dbo.Artist ART ON ART.ArtistID = ARTT.ArtistID
+LEFT JOIN MusicLibrary.dbo.AlbumTracks ATR ON M.TrackID = ATR.TrackID
+LEFT JOIN MusicLibrary.dbo.Album A ON A.AlbumID = ATR.AlbumID
+LEFT JOIN MusicLibrary.dbo.GenreTracks GTR ON GTR.TrackID = M.TrackID
+LEFT JOIN MusicLibrary.dbo.Genre G ON G.GenreID = GTR.GenreID
+LEFT JOIN MusicLibrary.dbo.ArtistTracks ARTT ON ARTT.TrackID = M.TrackID
+LEFT JOIN MusicLibrary.dbo.Artist ART ON ART.ArtistID = ARTT.ArtistID
 GO
 
 CREATE VIEW [LeadArtists] AS

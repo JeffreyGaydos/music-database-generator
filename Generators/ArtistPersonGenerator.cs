@@ -43,8 +43,7 @@ namespace MusicDatabaseGenerator.Generators
                     {
                         _data.artistPersons.Add(new ArtistPersons
                         {
-                            PersonName = individualPerson,
-                            PermanentMember = true
+                            PersonName = individualPerson
                         });
                         _data.trackPersons.Add((new TrackPersons(), individualPerson));
                     }
@@ -60,8 +59,7 @@ namespace MusicDatabaseGenerator.Generators
                         {
                             _data.artistPersons.Add(new ArtistPersons
                             {
-                                PersonName = individualPerson,
-                                PermanentMember = true
+                                PersonName = individualPerson
                             });
                             _data.trackPersons.Add((new TrackPersons(), individualPerson));
                         }

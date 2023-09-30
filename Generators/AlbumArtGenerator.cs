@@ -22,11 +22,11 @@ namespace MusicDatabaseGenerator.Generators
 
         public void Generate()
         {
-            _data.albumArt.Add(new AlbumArt()
+            _data.albumArt = new AlbumArt()
             {
                 AlbumArtPath = Path.GetFullPath(_imgFileName),
                 PrimaryColor = ColorToHexString(GetPrimaryColor())
-            });
+            };
         }
 
         private Color GetPrimaryColor()
@@ -36,9 +36,13 @@ namespace MusicDatabaseGenerator.Generators
 
             Dictionary<Color, int> maxColorDictionary = new Dictionary<Color, int>();
 
-            for(int i = 0; i < bounds.Width; i++)
+            int divisble = 25;
+            int divisbleW = bounds.Width < divisble ? (int)bounds.Width : (int)(bounds.Width / divisble);
+            int divisbleH = bounds.Height < divisble ? (int)bounds.Height : (int)(bounds.Height / divisble);
+
+            for (int i = 0; i < bounds.Width; i += divisbleW)
             {
-                for(int j = 0; j < bounds.Height; j++)
+                for(int j = 0; j < bounds.Height; j += divisbleH)
                 {
                     Color pixelColor = _imgFile.GetPixel(i, j);
                     if(maxColorDictionary.TryGetValue(pixelColor, out int count))

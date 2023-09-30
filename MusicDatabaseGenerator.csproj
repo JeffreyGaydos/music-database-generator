@@ -149,6 +149,7 @@
     <Compile Include="Models\Artist.cs" />
     <Compile Include="Models\ArtistPersons.cs" />
     <Compile Include="Models\ArtistTracks.cs" />
+    <Compile Include="Configurator.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\GenreTracks.cs" />
     <Compile Include="Models\LeadArtists.cs" />
@@ -184,6 +185,25 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="SQLStringComparison.cs" />
+    <Compile Include="Synchronizers\AlbumArtSynchronizer.cs" />
+    <Compile Include="Synchronizers\AlbumSynchronizer.cs" />
+    <Compile Include="Synchronizers\AlbumTrackSynchronizer.cs" />
+    <Compile Include="Synchronizers\ArtistPersonsSynchronizer.cs" />
+    <Compile Include="Synchronizers\ArtistSynchronizer.cs" />
+    <Compile Include="Synchronizers\ArtistTrackSynchronizer.cs" />
+    <Compile Include="Synchronizers\ASynchronizer.cs" />
+    <Compile Include="Synchronizers\GenreSynchronizer.cs" />
+    <Compile Include="Synchronizers\GenreTrackSynchronizer.cs" />
+    <Compile Include="Synchronizers\ISynchronizer.cs" />
+    <Compile Include="Synchronizers\LinkedTrackSynchronizer.cs" />
+    <Compile Include="Synchronizers\MainSynchonizer.cs" />
+    <Compile Include="Synchronizers\MoodTrackSynchronizer.cs" />
+    <Compile Include="Synchronizers\PlaylistTrackSynchronizer.cs" />
+    <Compile Include="Synchronizers\PostProcessingSynchronizer.cs" />
+    <Compile Include="Synchronizers\SyncManager.cs" />
+    <Compile Include="Synchronizers\SyncOperation.cs" />
+    <Compile Include="Synchronizers\TrackPersonsSynchronizer.cs" />
     <Compile Include="Models\TrackPersons.cs" />
   </ItemGroup>
   <ItemGroup>
