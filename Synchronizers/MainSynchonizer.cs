@@ -10,6 +10,8 @@ namespace MusicDatabaseGenerator.Synchronizers
     {
         private static List<int> _idsSeen = new List<int>();
         private const int SQLDateTimeMaxPrecision = 99999;
+        
+        public static List<int> TrackIDsDeleted = new List<int>();
 
         public MainSynchonizer(MusicLibraryTrack mlt, MusicLibraryContext context, LoggingUtils logger) {
             _mlt = mlt;
@@ -104,6 +106,7 @@ namespace MusicDatabaseGenerator.Synchronizers
         {
             if (_context.Main.Where(m => !_idsSeen.Contains(m.TrackID)).Any())
             {
+                TrackIDsDeleted = _context.Main.Where(m => !_idsSeen.Contains(m.TrackID)).Select(t => t.TrackID).ToList();
                 _logger.GenerationLogWriteData($"Deleted {_context.Main.Where(m => !_idsSeen.Contains(m.TrackID)).Count()} entry from Main");
                 _context.Main.RemoveRange(_context.Main.Where(m => !_idsSeen.Contains(m.TrackID)));
                 _context.SaveChanges();

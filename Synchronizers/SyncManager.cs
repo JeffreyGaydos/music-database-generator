@@ -98,6 +98,9 @@ namespace MusicDatabaseGenerator.Synchronizers
                     ops |= AlbumSynchronizer.Delete();
                     ops |= ArtistPersonsSynchronizer.Delete();
                     ops |= TrackPersonsSynchronizer.Delete();
+                    ops |= MoodTrackSynchronizer.Delete();
+                    ops |= PlaylistTrackSynchronizer.Delete();
+                    ops |= LinkedTrackSynchronizer.Delete();
                 }
                 transaction.Commit();
             }
