@@ -63,10 +63,6 @@ IF (SELECT [dbo].[MusicTableExists] (N'AlbumArt')) = 1
 BEGIN
     DROP TABLE AlbumArt
 END
-IF (SELECT [dbo].[MusicTableExists] (N'LinkedTracks')) = 1
-BEGIN
-    DROP TABLE LinkedTracks
-END
 IF (SELECT [dbo].[MusicTableExists] (N'PlayLogs')) = 1
 BEGIN
     DROP TABLE PlayLogs

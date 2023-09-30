@@ -20,18 +20,12 @@ namespace MusicDatabaseGenerator
         [StringLength(260)]
         public string FilePath { get; set; }
 
-        public decimal? AverageDecibels { get; set; }
+        public int? Volume { get; set; }
 
         [StringLength(1000)]
         public string Owner { get; set; }
 
-        public bool? Linked { get; set; }
-
         public int? ReleaseYear { get; set; }
-
-        public DateTime? AddDate { get; set; }
-
-        public DateTime? LastModifiedDate { get; set; }
 
         [StringLength(4000)]
         public string Lyrics { get; set; }
@@ -57,6 +51,14 @@ namespace MusicDatabaseGenerator
         public int? SampleRate { get; set; }
 
         public int? BitsPerSample { get; set; }
+
+        public int? LinkedTrackPlaylistID { get; set; }
+
+        public int? Rating { get; set; }
+
+        public DateTime? AddDate { get; set; }
+
+        public DateTime? LastModifiedDate { get; set; }
 
         public DateTime? GeneratedDate { get; set; }
     }
