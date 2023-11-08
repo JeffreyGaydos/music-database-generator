@@ -194,7 +194,6 @@
     <Compile Include="Synchronizers\GenreTrackSynchronizer.cs" />
     <Compile Include="Synchronizers\ISynchronizer.cs" />
     <Compile Include="Synchronizers\MainSynchonizer.cs" />
-    <Compile Include="Synchronizers\MoodTrackSynchronizer.cs" />
     <Compile Include="Synchronizers\PlaylistTrackSynchronizer.cs" />
     <Compile Include="Synchronizers\PostProcessingSynchronizer.cs" />
     <Compile Include="Synchronizers\SyncManager.cs" />
@@ -224,6 +223,7 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Schema\Migrations\dbm_20230711_mood_to_playlists.sql" />
     <None Include="appsettings.json" />
     <Content Include="Schema\db_delete.sql" />
     <Content Include="Schema\db_drop.sql" />
