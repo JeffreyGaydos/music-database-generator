@@ -12,9 +12,6 @@ BEGIN TRAN
 
 USE MusicLibrary
 
-DELETE FROM Mood
-DBCC CHECKIDENT ('dbo.Mood', RESEED, 0)
-DELETE FROM MoodTracks
 DELETE FROM Playlist
 DBCC CHECKIDENT ('dbo.Playlist', RESEED, 0)
 DELETE FROM PlaylistTracks

@@ -11,14 +11,6 @@ BEGIN TRAN
 
 USE MusicLibrary
 
-IF (SELECT [dbo].[MusicTableExists] (N'Mood')) = 1
-BEGIN
-    DROP TABLE Mood
-END
-IF (SELECT [dbo].[MusicTableExists] (N'MoodTracks')) = 1
-BEGIN
-    DROP TABLE MoodTracks
-END
 IF (SELECT [dbo].[MusicTableExists] (N'Playlist')) = 1
 BEGIN
     DROP TABLE Playlist

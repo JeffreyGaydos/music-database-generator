@@ -97,30 +97,6 @@ GO
 
 USE MusicLibrary
 
---"Moods" are essentially simplified playlists, but are specific to the
---track itself, and are perminant descriptors of the song. It's up to
---the user to decide what moods are associated with which tracks
-IF (SELECT [dbo].[MusicTableExists] (N'Mood')) = 0
-BEGIN
-	CREATE TABLE Mood (
-		MoodID INT IDENTITY(1,1) PRIMARY KEY,
-		MoodDesc NVARCHAR(100)
-		CONSTRAINT UC_MoodDesc UNIQUE (MoodDesc)
-	)
-END
-
---Maps your track to its moods
-IF (SELECT [dbo].[MusicTableExists] (N'MoodTracks')) = 0
-BEGIN
-	CREATE TABLE MoodTracks (
-		MoodID INT,
-		TrackID INT,
-		PRIMARY KEY (MoodID, TrackID)
-	)
-END
-
-
-
 --The metadata of the playlists that you create.
 IF (SELECT [dbo].[MusicTableExists] (N'Playlist')) = 0
 BEGIN
@@ -140,7 +116,7 @@ BEGIN
 	CREATE TABLE PlaylistTracks (
 		PlaylistID INT NOT NULL,
 		TrackID INT NOT NULL,
-		TrackOrder INT NOT NULL,
+		TrackOrder INT NULL, --NULL denotes system generated playlists
 		PRIMARY KEY (PlaylistID, TrackID)
 	)
 END
