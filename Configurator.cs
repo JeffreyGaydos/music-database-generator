@@ -13,13 +13,15 @@ namespace MusicDatabaseGenerator
         public bool generateAlbumArtData { get; private set; }
         public bool generateMusicMetadata { get; private set; }
         public bool deleteExistingData { get; private set; }
+        public bool runMigrations { get; private set; }
 
-        public ConfiguratorValues(string pathToSearch, bool generateAlbumArtData, bool generateMusicMetadata, bool deleteExistingData)
+        public ConfiguratorValues(string pathToSearch, bool generateAlbumArtData, bool generateMusicMetadata, bool deleteExistingData, bool runMigrations)
         {
             this.pathToSearch = pathToSearch;
             this.generateAlbumArtData = generateAlbumArtData;
             this.generateMusicMetadata = generateMusicMetadata;
             this.deleteExistingData = deleteExistingData;
+            this.runMigrations = runMigrations;
         }
     }
 
@@ -52,13 +54,20 @@ namespace MusicDatabaseGenerator
                 settings["MusicFolderPathAbsolute"],
                 settings["GenerateAlbumArtData"] == "True",
                 settings["GenerateMusicMetadata"] == "True",
-                settings["DeleteDataOnGeneration"] == "True"
+                settings["DeleteDataOnGeneration"] == "True",
+                settings["RunMigrations"] == "True"
                 );
 
             _logger.GenerationLogWriteData("_CONFIGURATION:__________________________________________________________________");
 
             _logger.GenerationLogWriteData($"Connecting to database via connection string \"{_connectionString}\"...");
             _logger.GenerationLogWriteData($"{(values.deleteExistingData ? "Deleting existing data and resetting IDs..." : "Existing database persisted...")}");
+            _logger.GenerationLogWriteData($"{(values.runMigrations ? "Running migrations..." : "Skipped running migrations.")}");
+
+            if (values.runMigrations)
+            {
+                RunMigrations();
+            }
 
             InitializeDatabaseIfNeeded();
 
@@ -111,6 +120,12 @@ namespace MusicDatabaseGenerator
                     _databasePresent = true;
                 }
             }
+        }
+
+        private void RunMigrations()
+        {
+            ExecuteNonQueryUsingConnection(File.ReadAllText("../../Schema/Migrations/dbm_20231107_moodToPlaylists.sql").Replace("\\r\\n", @"
+").Replace("\\t", "  "));
         }
 
         private void ExecuteNonQueryUsingConnection(string sql)
