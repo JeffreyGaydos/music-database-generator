@@ -53,7 +53,7 @@ namespace MusicDatabaseGenerator.Synchronizers
 
         public static new SyncOperation Delete()
         {
-            if(_context.ArtistTracks.Where(at => _context.Main.Where(m => m.TrackID == at.TrackID).Any()).Any())
+            if(_context.ArtistTracks.Where(at => !_context.Main.Where(m => m.TrackID == at.TrackID).Any() || !_context.Artist.Where(a => a.ArtistID == at.ArtistID).Any()).Any())
             {
                 _logger.GenerationLogWriteData($"Deleted {_context.ArtistTracks.Where(at => _context.Main.Where(m => m.TrackID == at.TrackID).Any()).Count()} entries from ArtistTracks");
                 _context.ArtistTracks.RemoveRange(_context.ArtistTracks.Where(at => _context.Main.Where(m => m.TrackID == at.TrackID).Any()));
