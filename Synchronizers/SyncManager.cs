@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -14,6 +15,7 @@ namespace MusicDatabaseGenerator.Synchronizers
         private int _totalCount;
         private MusicLibraryTrack _mlt;
         private List<ISynchronizer> _synchronizers = new List<ISynchronizer>();
+        private Stopwatch _stopwatch;
         
         private static bool albumArtSync = false;
         public static int Inserts = 0;
@@ -27,6 +29,8 @@ namespace MusicDatabaseGenerator.Synchronizers
             _totalCount = count;
             _mlt = mlt;
             albumArtSync = in_albumArtSync;
+            _stopwatch = new Stopwatch();
+            _stopwatch.Start();
         }
 
         public void Sync()
@@ -52,6 +56,7 @@ namespace MusicDatabaseGenerator.Synchronizers
 
             SyncOperation ops = SyncOperation.None;
 
+            string percentageString = $"{100 * (albumArtSync ? MusicLibraryTrack.albumArtIndex : MusicLibraryTrack.trackIndex) / (decimal)_totalCount:00.00}% | ETA: {(decimal)_stopwatch.ElapsedMilliseconds / (albumArtSync ? MusicLibraryTrack.albumArtIndex : MusicLibraryTrack.trackIndex) * (_totalCount - (albumArtSync ? MusicLibraryTrack.albumArtIndex : MusicLibraryTrack.trackIndex)) * (decimal)1.0:00.00}sec | ";
             using (DbContextTransaction transaction = _context.Database.BeginTransaction())
             {
                 foreach (ISynchronizer synchronizer in _synchronizers)
@@ -62,10 +67,10 @@ namespace MusicDatabaseGenerator.Synchronizers
                     {
                         if(albumArtSync)
                         {
-                            _logger.GenerationLogWriteData($"{100 * MusicLibraryTrack.albumArtIndex / (decimal)_totalCount:00.00}% Finished processing album art {MusicLibraryTrack.albumArtIndex} (skipped) ({_mlt.albumArt.AlbumArtPath})");
+                            _logger.GenerationLogWriteData($"{percentageString} Finished processing album art {MusicLibraryTrack.albumArtIndex} (skipped) ({_mlt.albumArt.AlbumArtPath})");
                         } else
                         {
-                            _logger.GenerationLogWriteData($"{100 * MusicLibraryTrack.trackIndex / (decimal)_totalCount:00.00}% Finished processing track {(albumArtSync ? MusicLibraryTrack.albumArtIndex : MusicLibraryTrack.trackIndex)} (skipped) ({_mlt.main.Title})");
+                            _logger.GenerationLogWriteData($"{percentageString} Finished processing track {(albumArtSync ? MusicLibraryTrack.albumArtIndex : MusicLibraryTrack.trackIndex)} (skipped) ({_mlt.main.Title})");
                         }
                         return; //skip the title
                     }
@@ -73,7 +78,6 @@ namespace MusicDatabaseGenerator.Synchronizers
 
                 transaction.Commit();
             }
-            string percentageString = $"{100 * (albumArtSync ? MusicLibraryTrack.albumArtIndex : MusicLibraryTrack.trackIndex) / (decimal)_totalCount:00.00}%";
             LogOperation(ops, percentageString);
         }
 
