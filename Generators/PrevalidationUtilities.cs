@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MusicDatabaseGenerator.Generators
 {
-    public static class PrevalidationUtilities
+    public static class PVU
     {
         private static LoggingUtils _logger;
 
@@ -59,6 +59,17 @@ namespace MusicDatabaseGenerator.Generators
         }
 
         public static decimal PrevalidateNumberPositive(decimal input, string fieldName)
+        {
+            if (input < 0)
+            {
+                input.GetType();
+                _logger.GenerationLogWriteData($"Decimal {fieldName} was negative, which is invalid (was {input})");
+                return 0;
+            }
+            return input;
+        }
+
+        public static double PrevalidateNumberPositive(double input, string fieldName)
         {
             if (input < 0)
             {
