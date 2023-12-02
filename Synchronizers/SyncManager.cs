@@ -48,7 +48,7 @@ namespace MusicDatabaseGenerator.Synchronizers
             }
 
             SyncOperation ops = SyncOperation.None;
-            string percentageString = $"{100 * (albumArtSync ? MusicLibraryTrack.albumArtIndex : MusicLibraryTrack.trackIndex) / (decimal)_totalCount:00.00}% | ";
+            string percentageString = $"{100 * (albumArtSync ? MusicLibraryTrack.albumArtIndex : MusicLibraryTrack.trackIndex) / (decimal)_totalCount:00.00}% |";
             using (DbContextTransaction transaction = _context.Database.BeginTransaction())
             {
                 foreach (ISynchronizer synchronizer in _synchronizers)
