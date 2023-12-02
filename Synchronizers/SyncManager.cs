@@ -15,7 +15,6 @@ namespace MusicDatabaseGenerator.Synchronizers
         private int _totalCount;
         private MusicLibraryTrack _mlt;
         private List<ISynchronizer> _synchronizers = new List<ISynchronizer>();
-        private Stopwatch _stopwatch;
         
         private static bool albumArtSync = false;
         public static int Inserts = 0;
@@ -30,10 +29,9 @@ namespace MusicDatabaseGenerator.Synchronizers
             _mlt = mlt;
             albumArtSync = in_albumArtSync;
             _stopwatch = new Stopwatch();
-            _stopwatch.Start();
         }
 
-        public void Sync(double etaSeconds)
+        public void Sync()
         {
             if (albumArtSync)
             {
@@ -55,7 +53,7 @@ namespace MusicDatabaseGenerator.Synchronizers
             }
 
             SyncOperation ops = SyncOperation.None;
-            string percentageString = $"{100 * (albumArtSync ? MusicLibraryTrack.albumArtIndex : MusicLibraryTrack.trackIndex) / (decimal)_totalCount:00.00}% | ETA: {(int)(etaSeconds / 3600):00}:{(int)(etaSeconds % 3600 / 60):00}:{(int)(etaSeconds % 60):00}sec | ";
+            string percentageString = $"{100 * (albumArtSync ? MusicLibraryTrack.albumArtIndex : MusicLibraryTrack.trackIndex) / (decimal)_totalCount:00.00}% | ";
             using (DbContextTransaction transaction = _context.Database.BeginTransaction())
             {
                 foreach (ISynchronizer synchronizer in _synchronizers)
@@ -78,7 +76,6 @@ namespace MusicDatabaseGenerator.Synchronizers
                 transaction.Commit();
             }
             LogOperation(ops, percentageString);
-            return;
         }
 
         public static void Delete()

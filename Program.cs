@@ -44,8 +44,7 @@ namespace MusicDatabaseGenerator
                     }
 
                     MusicLibraryTrack.trackIndex += 1;
-                    double averageTrackProcessingTime = sw.Elapsed.TotalMilliseconds / MusicLibraryTrack.trackIndex;
-                    syncManager.Sync(averageTrackProcessingTime * (total - MusicLibraryTrack.trackIndex) / 1000);
+                    syncManager.Sync();
                 }
                 SyncManager.Delete();
                 logger.GenerationLogWriteData($"Inserted {SyncManager.Inserts} record(s)");
@@ -80,8 +79,7 @@ namespace MusicDatabaseGenerator
 
                     MusicLibraryTrack.albumArtIndex += 1;
 
-                    double averageTrackProcessingTime = sw.Elapsed.TotalMilliseconds / MusicLibraryTrack.trackIndex;
-                    syncManager.Sync(averageTrackProcessingTime * (total - MusicLibraryTrack.trackIndex) / 1000);
+                    syncManager.Sync();
                 }
                 SyncManager.Delete();
                 logger.GenerationLogWriteData($"Inserted {SyncManager.Inserts} record(s)");
