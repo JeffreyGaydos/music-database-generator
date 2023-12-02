@@ -143,13 +143,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Generators\PrevalidationUtilities.cs" />
     <Compile Include="Models\Album.cs" />
     <Compile Include="Models\AlbumArt.cs" />
     <Compile Include="Models\AlbumTracks.cs" />
     <Compile Include="Models\Artist.cs" />
     <Compile Include="Models\ArtistPersons.cs" />
     <Compile Include="Models\ArtistTracks.cs" />
+    <Compile Include="Generators\PrevalidationUtilities.cs" />
     <Compile Include="Configurator.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\GenreTracks.cs" />
@@ -164,8 +164,6 @@
     <Compile Include="Generators\IGenerator.cs" />
     <Compile Include="Generators\MainGenerator.cs" />
     <Compile Include="Models\Main.cs" />
-    <Compile Include="Models\Mood.cs" />
-    <Compile Include="Models\MoodTracks.cs" />
     <Compile Include="MusicLibraryContext.cs" />
     <Compile Include="MusicLibraryDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
