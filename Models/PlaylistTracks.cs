@@ -18,6 +18,6 @@ namespace MusicDatabaseGenerator
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int TrackID { get; set; }
 
-        public int TrackOrder { get; set; }
+        public int? TrackOrder { get; set; }
     }
 }

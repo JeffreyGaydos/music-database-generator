@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 
 namespace MusicDatabaseGenerator.Generators
 {
@@ -42,7 +37,7 @@ namespace MusicDatabaseGenerator.Generators
 
             _data.album.Add((new Album()
             {
-                AlbumName = string.IsNullOrWhiteSpace(_file.Tag.Album) ? albumName : _file.Tag.Album
+                AlbumName = PVU.PrevalidateStringTruncate(string.IsNullOrWhiteSpace(_file.Tag.Album) ? albumName : _file.Tag.Album, 446, nameof(Album.AlbumName))
             }, new AlbumTracks()
             {
                 TrackOrder = trackOrder,

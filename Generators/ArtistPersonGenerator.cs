@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MusicDatabaseGenerator.Generators
 {
@@ -43,7 +40,7 @@ namespace MusicDatabaseGenerator.Generators
                     {
                         _data.artistPersons.Add(new ArtistPersons
                         {
-                            PersonName = individualPerson
+                            PersonName = PVU.PrevalidateStringTruncate(individualPerson, 200, nameof(ArtistPersons.PersonName))
                         });
                         _data.trackPersons.Add((new TrackPersons(), individualPerson));
                     }
@@ -59,7 +56,7 @@ namespace MusicDatabaseGenerator.Generators
                         {
                             _data.artistPersons.Add(new ArtistPersons
                             {
-                                PersonName = individualPerson
+                                PersonName = PVU.PrevalidateStringTruncate(individualPerson, 200, nameof(ArtistPersons.PersonName))
                             });
                             _data.trackPersons.Add((new TrackPersons(), individualPerson));
                         }

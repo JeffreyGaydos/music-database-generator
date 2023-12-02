@@ -21,8 +21,6 @@ namespace MusicDatabaseGenerator
         public virtual DbSet<Genre> Genre { get; set; }
         public virtual DbSet<GenreTracks> GenreTracks { get; set; }
         public virtual DbSet<Main> Main { get; set; }
-        public virtual DbSet<Mood> Mood { get; set; }
-        public virtual DbSet<MoodTracks> MoodTracks { get; set; }
         public virtual DbSet<Playlist> Playlist { get; set; }
         public virtual DbSet<PlaylistTracks> PlaylistTracks { get; set; }
         public virtual DbSet<PlayLogs> PlayLogs { get; set; }

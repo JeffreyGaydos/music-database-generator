@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace MusicDatabaseGenerator.Generators
 {
@@ -33,7 +31,7 @@ namespace MusicDatabaseGenerator.Generators
                 {
                     _data.artist.Add(new Artist
                     {
-                        ArtistName = artistName
+                        ArtistName = PVU.PrevalidateStringTruncate(artistName, 100, nameof(Artist.ArtistName)),
                     });
                 }
             }
@@ -46,7 +44,7 @@ namespace MusicDatabaseGenerator.Generators
                     {
                         _data.artist.Add(new Artist
                         {
-                            ArtistName = artistName
+                            ArtistName = PVU.PrevalidateStringTruncate(artistName, 100, nameof(Artist.ArtistName)),
                         });
                     }
                 }
@@ -62,7 +60,7 @@ namespace MusicDatabaseGenerator.Generators
                     {
                         _data.artist.Add(new Artist
                         {
-                            ArtistName = artistName
+                            ArtistName = PVU.PrevalidateStringTruncate(artistName, 100, nameof(Artist.ArtistName)),
                         });
                     }
                 }
@@ -76,7 +74,7 @@ namespace MusicDatabaseGenerator.Generators
             {
                 _data.artist.Add(new Artist
                 {
-                    ArtistName = fallbackArtist
+                    ArtistName = PVU.PrevalidateStringTruncate(fallbackArtist, 100, nameof(Artist.ArtistName)),
                 });
                 _logger.GenerationLogWriteData($"Artist: \"AlbumArtists\" & \"Performers\" & \"Composers\" metadata did not exist on track \"{_data.main.Title}\". Using path/name-based data: \"{fallbackArtist}\"", true);
                 return;

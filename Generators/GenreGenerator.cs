@@ -13,7 +13,7 @@
             {
                 _data.genre.Add(new Genre
                 {
-                    GenreName = genreName.Trim()
+                    GenreName = PVU.PrevalidateStringTruncate(genreName.Trim(), 100, nameof(Genre.GenreName))
                 });
             }
         }        

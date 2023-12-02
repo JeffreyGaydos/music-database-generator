@@ -12,6 +12,7 @@ namespace MusicDatabaseGenerator
         {
             MusicLibraryContext mdbContext = new MusicLibraryContext();
             LoggingUtils logger = new LoggingUtils();
+            PVU.Init(logger);
 
             Configurator configHandle = new Configurator(mdbContext, logger);
             ConfiguratorValues config = configHandle.HandleConfiguration();
