@@ -17,7 +17,7 @@ namespace MusicDatabaseGenerator.Generators
 
         public static string PrevalidateStringTruncate(string input, int maxLength, string fieldName)
         {
-            if (input.Length > maxLength)
+            if (!string.IsNullOrWhiteSpace(input) && input.Length > maxLength)
             {
                 _logger.GenerationLogWriteData($"String {fieldName} was truncated to {input.Substring(0, maxLength)} (was {input})");
                 return input.Substring(0, maxLength);
