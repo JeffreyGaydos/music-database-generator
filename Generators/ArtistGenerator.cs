@@ -7,7 +7,7 @@ namespace MusicDatabaseGenerator.Generators
     public class ArtistGenerator : AGenerator, IGenerator
     {
         private Regex artistNameReg = new Regex("(?<=[\\\\\\/])[^\\\\\\/]*(?= - [^\\\\\\/]* - [^\\\\\\/]*\\.[a-zA-Z]+)", RegexOptions.Compiled);
-        private Regex folderArtistNameReg = new Regex("(?<=[\\\\\\/])[^\\\\\\/]+(?=[\\\\\\/][^\\\\\\/]+[\\\\\\/][^\\\\\\/]+\\.)", RegexOptions.Compiled);
+        private Regex folderArtistNameReg = new Regex("(?<=^[\\\\\\/])[^\\\\\\/]+", RegexOptions.Compiled); //relies on the _inputPath being removed from the file path
         private string _inputPath;
         public ArtistGenerator(TagLib.File file, MusicLibraryTrack data, string inputPath, LoggingUtils logger)
         {

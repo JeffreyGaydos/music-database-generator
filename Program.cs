@@ -44,7 +44,6 @@ namespace MusicDatabaseGenerator
                     }
 
                     MusicLibraryTrack.trackIndex += 1;
-
                     syncManager.Sync();
                 }
                 SyncManager.Delete();
@@ -79,7 +78,7 @@ namespace MusicDatabaseGenerator
                     }
 
                     MusicLibraryTrack.albumArtIndex += 1;
-                
+
                     syncManager.Sync();
                 }
                 SyncManager.Delete();

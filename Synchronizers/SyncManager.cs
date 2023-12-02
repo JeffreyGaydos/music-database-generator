@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace MusicDatabaseGenerator.Synchronizers
 {
@@ -51,7 +48,7 @@ namespace MusicDatabaseGenerator.Synchronizers
             }
 
             SyncOperation ops = SyncOperation.None;
-
+            string percentageString = $"{100 * (albumArtSync ? MusicLibraryTrack.albumArtIndex : MusicLibraryTrack.trackIndex) / (decimal)_totalCount:00.00}% | ";
             using (DbContextTransaction transaction = _context.Database.BeginTransaction())
             {
                 foreach (ISynchronizer synchronizer in _synchronizers)
@@ -62,10 +59,10 @@ namespace MusicDatabaseGenerator.Synchronizers
                     {
                         if(albumArtSync)
                         {
-                            _logger.GenerationLogWriteData($"{100 * MusicLibraryTrack.albumArtIndex / (decimal)_totalCount:00.00}% Finished processing album art {MusicLibraryTrack.albumArtIndex} (skipped) ({_mlt.albumArt.AlbumArtPath})");
+                            _logger.GenerationLogWriteData($"{percentageString} Finished processing album art {MusicLibraryTrack.albumArtIndex} (skipped) ({_mlt.albumArt.AlbumArtPath})");
                         } else
                         {
-                            _logger.GenerationLogWriteData($"{100 * MusicLibraryTrack.trackIndex / (decimal)_totalCount:00.00}% Finished processing track {(albumArtSync ? MusicLibraryTrack.albumArtIndex : MusicLibraryTrack.trackIndex)} (skipped) ({_mlt.main.Title})");
+                            _logger.GenerationLogWriteData($"{percentageString} Finished processing track {(albumArtSync ? MusicLibraryTrack.albumArtIndex : MusicLibraryTrack.trackIndex)} (skipped) ({_mlt.main.Title})");
                         }
                         return; //skip the title
                     }
@@ -73,7 +70,6 @@ namespace MusicDatabaseGenerator.Synchronizers
 
                 transaction.Commit();
             }
-            string percentageString = $"{100 * (albumArtSync ? MusicLibraryTrack.albumArtIndex : MusicLibraryTrack.trackIndex) / (decimal)_totalCount:00.00}%";
             LogOperation(ops, percentageString);
         }
 
