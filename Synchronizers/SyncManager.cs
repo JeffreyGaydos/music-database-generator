@@ -24,7 +24,6 @@ namespace MusicDatabaseGenerator.Synchronizers
             _totalCount = count;
             _mlt = mlt;
             albumArtSync = in_albumArtSync;
-            _stopwatch = new Stopwatch();
         }
 
         public void Sync()
