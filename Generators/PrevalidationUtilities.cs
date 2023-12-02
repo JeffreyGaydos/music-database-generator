@@ -46,38 +46,5 @@ namespace MusicDatabaseGenerator.Generators
             }
             return (int)input;
         }
-
-        public static int PrevalidateNumberPositive(int input, string fieldName)
-        {
-            if(input < 0)
-            {
-                input.GetType();
-                _logger.GenerationLogWriteData($"Int {fieldName} was negative, which is invalid (was {input})");
-                return 0;
-            }
-            return input;
-        }
-
-        public static decimal PrevalidateNumberPositive(decimal input, string fieldName)
-        {
-            if (input < 0)
-            {
-                input.GetType();
-                _logger.GenerationLogWriteData($"Decimal {fieldName} was negative, which is invalid (was {input})");
-                return 0;
-            }
-            return input;
-        }
-
-        public static double PrevalidateNumberPositive(double input, string fieldName)
-        {
-            if (input < 0)
-            {
-                input.GetType();
-                _logger.GenerationLogWriteData($"Decimal {fieldName} was negative, which is invalid (was {input})");
-                return 0;
-            }
-            return input;
-        }
     }
 }
