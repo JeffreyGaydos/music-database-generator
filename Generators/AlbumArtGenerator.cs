@@ -24,7 +24,7 @@ namespace MusicDatabaseGenerator.Generators
         {
             _data.albumArt = new AlbumArt()
             {
-                AlbumArtPath = Path.GetFullPath(_imgFileName),
+                AlbumArtPath = PVU.PrevalidateStringTruncate(Path.GetFullPath(_imgFileName), 260, nameof(AlbumArt.AlbumArtPath)),
                 PrimaryColor = ColorToHexString(GetPrimaryColor())
             };
         }
