@@ -29,7 +29,7 @@ namespace PlaylistTransferTool
             return result;
         }
 
-        public PlaylistTracks[] ParsePlaylistTracks(string file)
+        public PlaylistTracks[] ParsePlaylistTracks(string file, int playlistID)
         {
             throw new NotImplementedException();
         }

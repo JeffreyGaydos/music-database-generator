@@ -3,14 +3,14 @@ using System;
 
 namespace PlaylistTransferTool
 {
-    public class SamsungPlaylistParser : IPlaylistParser
+    public class UnknownPlaylistParser : IPlaylistParser
     {
         public Playlist ParsePlaylist(string file)
         {
             throw new NotImplementedException();
         }
 
-        public PlaylistTracks[] ParsePlaylistTracks(string file)
+        public PlaylistTracks[] ParsePlaylistTracks(string file, int playlistID)
         {
             throw new NotImplementedException();
         }
