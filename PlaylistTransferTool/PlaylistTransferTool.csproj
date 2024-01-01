@@ -133,11 +133,21 @@
   <ItemGroup>
     <Compile Include="Configurator.cs" />
     <Compile Include="FolderReader.cs" />
+    <Compile Include="MusicLibraryDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MusicLibraryDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Parsers\GroovePlaylistParser.cs" />
     <Compile Include="Parsers\IPlaylistParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Parsers\SamsungPlaylistParser.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Synchronizers\PlaylistSynchronizer.cs" />
     <Compile Include="Synchronizers\PlaylistTrackSynchronizer.cs" />
     <Compile Include="Parsers\UnknownPlaylistParser.cs" />
@@ -145,7 +155,22 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="appsettings.json" />
+    <None Include="MusicLibraryDataSet.xsc">
+      <DependentUpon>MusicLibraryDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="MusicLibraryDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MusicLibraryDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="MusicLibraryDataSet.xss">
+      <DependentUpon>MusicLibraryDataSet.xsd</DependentUpon>
+    </None>
     <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MusicDatabaseGenerator\MusicDatabaseGenerator.csproj">
