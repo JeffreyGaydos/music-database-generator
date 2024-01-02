@@ -10,7 +10,7 @@ namespace PlaylistTransferTool
             throw new NotImplementedException();
         }
 
-        public PlaylistTracks[] ParsePlaylistTracks(string file, int playlistID)
+        public PlaylistTracks[] ParsePlaylistTracks(string file, int playlistID, MusicLibraryContext ctx)
         {
             throw new NotImplementedException();
         }

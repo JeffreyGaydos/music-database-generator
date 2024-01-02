@@ -19,7 +19,7 @@ namespace PlaylistTransferTool
                 Playlist playlist = fileTuple.playlistParser.ParsePlaylist(fileTuple.fileName);
                 var plSync = new PlaylistSynchronizer(playlist, mdbContext);
                 plSync.Insert();
-                PlaylistTracks[] playlistTracks = fileTuple.playlistParser.ParsePlaylistTracks(fileTuple.fileName, plSync.GetPlaylistID());
+                PlaylistTracks[] playlistTracks = fileTuple.playlistParser.ParsePlaylistTracks(fileTuple.fileName, plSync.GetPlaylistID(), mdbContext);
                 var pltSync = new PlaylistTrackSynchronizer(playlistTracks, mdbContext);
                 pltSync.Insert();
             }

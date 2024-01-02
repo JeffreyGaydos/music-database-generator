@@ -6,6 +6,6 @@ namespace PlaylistTransferTool
     {
         Playlist ParsePlaylist(string file);
 
-        PlaylistTracks[] ParsePlaylistTracks(string file, int playlistID);
+        PlaylistTracks[] ParsePlaylistTracks(string file, int playlistID, MusicLibraryContext ctx);
     }
 }
