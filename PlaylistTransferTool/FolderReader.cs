@@ -21,15 +21,22 @@ namespace PlaylistTransferTool
             {PlaylistType.Samsung, 0},
         };
 
+        private static LoggingUtils _logger;
+
         private static UnknownPlaylistParser _nonParser = new UnknownPlaylistParser();
-        private static GroovePlaylistParser _grooveParser = new GroovePlaylistParser();
-        private static SamsungPlaylistParser _samsungParser = new SamsungPlaylistParser();
+        private static GroovePlaylistParser _grooveParser = new GroovePlaylistParser(_logger);
+        private static SamsungPlaylistParser _samsungParser = new SamsungPlaylistParser(_logger);
 
         private static Dictionary<PlaylistType, IPlaylistParser> _playlistParserMap = new Dictionary<PlaylistType, IPlaylistParser>
         {
             {PlaylistType.Groove, _grooveParser },            
             {PlaylistType.Samsung, _samsungParser }
         };
+
+        public static void InjectDependencies(LoggingUtils logger)
+        {
+            _logger = logger;
+        }
 
         public static (IPlaylistParser playlistParser, string fileName)[] GetFiles(string inputPath)
         {
@@ -48,7 +55,7 @@ namespace PlaylistTransferTool
             }).ToArray();
             foreach(var key in _playlistTypeCounts.Keys)
             {
-                Console.WriteLine($" * Found {_playlistTypeCounts[key]} \"{key}\" playlist files");
+                _logger.GenerationLogWriteData($" * Found {_playlistTypeCounts[key]} \"{key}\" playlist files");
             }
             return result;
         }

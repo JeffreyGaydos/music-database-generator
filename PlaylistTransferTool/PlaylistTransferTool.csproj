@@ -133,6 +133,7 @@
   <ItemGroup>
     <Compile Include="Configurator.cs" />
     <Compile Include="FolderReader.cs" />
+    <Compile Include="LoggingUtils.cs" />
     <Compile Include="MusicLibraryDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
