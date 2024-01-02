@@ -32,13 +32,6 @@ namespace PlaylistTransferTool
 
         public class Configurator
         {
-            private LoggingUtils _logger;
-
-            public Configurator(LoggingUtils logger)
-            {
-                _logger = logger;
-            }
-
             private PlaylistType StringToPlaylistType(string name)
             {
                 if (Enum.TryParse<PlaylistType>(name, out var type))
@@ -47,10 +40,10 @@ namespace PlaylistTransferTool
                 }
                 else
                 {
-                    _logger.GenerationLogWriteData($"ERROR: Playlist type {name} is not supported. Supported playlist tpyes are:");
+                    LoggingUtils.GenerationLogWriteData($"ERROR: Playlist type {name} is not supported. Supported playlist tpyes are:");
                     foreach (var e in Enum.GetNames(typeof(PlaylistType)))
                     {
-                        _logger.GenerationLogWriteData($" ^-- {e}");
+                        LoggingUtils.GenerationLogWriteData($" ^-- {e}");
                     }
                     return PlaylistType.Unknown;
                 }
@@ -69,13 +62,14 @@ namespace PlaylistTransferTool
                     settings["mergePlaylistWithSameName"] == "True"
                 );
 
-                _logger.GenerationLogWriteData($"--== Ensure that your file structure on both of your devices is the same ==--");
+                LoggingUtils.GenerationLogWriteData($"--== Ensure that your file structure on both of your devices is the same ==--");
 
-                _logger.GenerationLogWriteData("_CONFIGURATION:__________________________________________________________________");
-                _logger.GenerationLogWriteData($"Import Path: {values.playlistImportPath}");
-                _logger.GenerationLogWriteData($"Export Path: {values.playlistExportPath}");
-                _logger.GenerationLogWriteData($"Exporting \"{values.playlistExportType}\" playlists");
-                _logger.GenerationLogWriteData($"Will merge playlists with the same name");
+                LoggingUtils.GenerationLogWriteData("_CONFIGURATION:__________________________________________________________________");
+                LoggingUtils.GenerationLogWriteData($"Import Path: {values.playlistImportPath}");
+                LoggingUtils.GenerationLogWriteData($"Export Path: {values.playlistExportPath}");
+                LoggingUtils.GenerationLogWriteData($"Exporting \"{values.playlistExportType}\" playlists");
+                LoggingUtils.GenerationLogWriteData($"Will merge playlists with the same name");
+                LoggingUtils.GenerationLogWriteData("_________________________________________________________________________________");
 
                 return values;
             }

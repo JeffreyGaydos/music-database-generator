@@ -8,9 +8,8 @@ namespace PlaylistTransferTool
     {
         static void Main(string[] args)
         {
-            var logger = new LoggingUtils();
-            var config = new Configurator(logger).HandleConfiguration();
-            FolderReader.InjectDependencies(logger);
+            LoggingUtils.Init();
+            var config = new Configurator().HandleConfiguration();
             var filesCategorized = FolderReader.GetFiles(config.playlistImportPath);
 
             MusicLibraryContext mdbContext = new MusicLibraryContext();

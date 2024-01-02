@@ -5,12 +5,6 @@ namespace PlaylistTransferTool
 {
     public class SamsungPlaylistParser : IPlaylistParser
     {
-        private LoggingUtils _logger;
-
-        public SamsungPlaylistParser(LoggingUtils logger) {
-            _logger = logger;
-        }
-
         public Playlist ParsePlaylist(string file)
         {
             Playlist result = new Playlist()
@@ -21,7 +15,7 @@ namespace PlaylistTransferTool
                 PlaylistName = "Unknown Title",
             };
 
-
+            throw new NotImplementedException();
         }
 
         public PlaylistTracks[] ParsePlaylistTracks(string file, int playlistID, MusicLibraryContext ctx)

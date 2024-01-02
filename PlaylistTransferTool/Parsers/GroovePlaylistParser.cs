@@ -9,12 +9,6 @@ namespace PlaylistTransferTool
 {
     public class GroovePlaylistParser : IPlaylistParser
     {
-        private LoggingUtils _logger;
-
-        public GroovePlaylistParser(LoggingUtils logger) {
-            _logger = logger;
-        }
-
         public Playlist ParsePlaylist(string file)
         {
             Playlist result = new Playlist()
@@ -35,11 +29,11 @@ namespace PlaylistTransferTool
 
                 var xmlHead = xmlDoc.LastChild.FirstChild;
                 result.PlaylistName = xmlHead.ChildNodes[3].InnerText;
-                _logger.GenerationLogWriteData($"Successfully parsed Groove Music file {file}.");
+                LoggingUtils.GenerationLogWriteData($"Successfully parsed Groove Music file {file}.");
             } catch (Exception ex)
             {
-                _logger.GenerationLogWriteData($"ERROR: Could not parse Groove Music playlist file {file} or title element was not found.");
-                _logger.GenerationLogWriteData($" ^-- {ex.Message}");
+                LoggingUtils.GenerationLogWriteData($"ERROR: Could not parse Groove Music playlist file {file} or title element was not found.");
+                LoggingUtils.GenerationLogWriteData($" ^-- {ex.Message}");
             }
 
             return result;
@@ -78,7 +72,7 @@ namespace PlaylistTransferTool
 
                     if (matchingTrack == null)
                     {
-                        _logger.GenerationLogWriteData($"ERROR: Could not find track corresponding to path {rawSource} in existing database");
+                        LoggingUtils.GenerationLogWriteData($"ERROR: Could not find track corresponding to path {rawSource} in existing database");
                     }
                     else
                     {
@@ -93,8 +87,8 @@ namespace PlaylistTransferTool
                 }
             } catch (Exception ex)
             {
-                _logger.GenerationLogWriteData($"ERROR: Could not parse Groove Music playlist file {file} or track data was not found.");
-                _logger.GenerationLogWriteData($" ^-- {ex.Message}");
+                LoggingUtils.GenerationLogWriteData($"ERROR: Could not parse Groove Music playlist file {file} or track data was not found.");
+                LoggingUtils.GenerationLogWriteData($" ^-- {ex.Message}");
             }
 
             return plts.ToArray();
