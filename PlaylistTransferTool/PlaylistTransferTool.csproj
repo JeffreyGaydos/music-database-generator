@@ -152,6 +152,7 @@
     <Compile Include="Synchronizers\PlaylistSynchronizer.cs" />
     <Compile Include="Synchronizers\PlaylistTrackSynchronizer.cs" />
     <Compile Include="Parsers\UnknownPlaylistParser.cs" />
+    <Compile Include="UniversalPathComparator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

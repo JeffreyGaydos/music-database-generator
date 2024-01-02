@@ -32,7 +32,6 @@ namespace PlaylistTransferTool
 
                 var xmlHead = xmlDoc.LastChild.FirstChild;
                 result.PlaylistName = xmlHead.ChildNodes[3].InnerText;
-                LoggingUtils.GenerationLogWriteData($"Successfully parsed Groove Music file {file}.");
             } catch (Exception ex)
             {
                 LoggingUtils.GenerationLogWriteData($"ERROR: Could not parse Groove Music playlist file {file} or title element was not found.");
@@ -71,7 +70,9 @@ namespace PlaylistTransferTool
                     var reducedSource = rawSource.Substring(rawSource.IndexOf("\\Music\\") + 7);
 
                     //first we assume that the paths are the same
-                    var matchingTrack = ctx.Main.Where(t => t.FilePath.Contains(reducedSource)).FirstOrDefault();
+                    reducedSource = new UniversalPathComparator().ToWindowsPath(reducedSource);
+                    var matchingTrack = ctx.Main.Where(t => t.FilePath.Contains(reducedSource)
+                    ).FirstOrDefault();
 
                     //If that found nothing we need to use the title, duration, and artist to match on a track
                     if (matchingTrack == null)
@@ -103,6 +104,7 @@ namespace PlaylistTransferTool
                 LoggingUtils.GenerationLogWriteData($" ^-- {ex.Message}");
             }
 
+            LoggingUtils.GenerationLogWriteData($"Finished parsing Groove Music Playlist {file}");
             return plts.ToArray();
         }
     }

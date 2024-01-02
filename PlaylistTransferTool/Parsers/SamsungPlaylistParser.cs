@@ -1,5 +1,8 @@
 ﻿using MusicDatabaseGenerator;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace PlaylistTransferTool
@@ -29,7 +32,45 @@ namespace PlaylistTransferTool
 
         public PlaylistTracks[] ParsePlaylistTracks(string file, int playlistID, MusicLibraryContext ctx)
         {
-            throw new NotImplementedException();
+            List<PlaylistTracks> plts = new List<PlaylistTracks>();
+            try
+            {
+                StreamReader reader = new StreamReader(file);
+                var contents = reader.ReadToEnd();
+                var playlistItems = contents.Split('\n');
+
+                var itemIndex = 0;
+                foreach(var item in playlistItems)
+                {
+                    if (item == "#EXTM3U") continue;
+                    var reducedSource = item;
+
+                    //we assume that the paths are the same. There is no other data to go off of for this...
+                    reducedSource = new UniversalPathComparator().ToWindowsPath(reducedSource);
+                    var matchingTrack = ctx.Main.Where(t => t.FilePath.Contains(reducedSource)).FirstOrDefault();
+
+                    if (matchingTrack == null)
+                    {
+                        LoggingUtils.GenerationLogWriteData($"ERROR: Could not find track corresponding to path {item} in existing database");
+                    }
+                    else
+                    {
+                        plts.Add(new PlaylistTracks()
+                        {
+                            PlaylistID = playlistID,
+                            TrackID = matchingTrack.TrackID,
+                            TrackOrder = itemIndex
+                        });
+                    }
+                    itemIndex++;
+                }
+            } catch (Exception e) {
+                LoggingUtils.GenerationLogWriteData($"Failure parsing Samsung playlist file {file}");
+                LoggingUtils.GenerationLogWriteData($" ^-- {e.Message}");
+            }
+            
+            LoggingUtils.GenerationLogWriteData($"Finished parsing Samsung Playlist {file}");
+            return plts.ToArray();
         }
     }
 }
