@@ -1,10 +1,13 @@
 ﻿using MusicDatabaseGenerator;
 using System;
+using System.Text.RegularExpressions;
 
 namespace PlaylistTransferTool
 {
     public class SamsungPlaylistParser : IPlaylistParser
     {
+        Regex titleRegex = new Regex("(?<=\\\\)[^\\\\\\/]+(?=\\.m3u)");
+
         public Playlist ParsePlaylist(string file)
         {
             Playlist result = new Playlist()
@@ -15,7 +18,13 @@ namespace PlaylistTransferTool
                 PlaylistName = "Unknown Title",
             };
 
-            throw new NotImplementedException();
+            var match = titleRegex.Match(file);
+            if(match.Success)
+            {
+                result.PlaylistName = match.Value;
+            }
+
+            return result;
         }
 
         public PlaylistTracks[] ParsePlaylistTracks(string file, int playlistID, MusicLibraryContext ctx)

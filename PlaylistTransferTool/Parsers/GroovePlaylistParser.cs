@@ -3,12 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Xml;
 
 namespace PlaylistTransferTool
 {
     public class GroovePlaylistParser : IPlaylistParser
     {
+        Regex titleRegex = new Regex("(?<=\\\\)[^\\\\\\/]+(?=\\.zpl)");
+
         public Playlist ParsePlaylist(string file)
         {
             Playlist result = new Playlist()
@@ -34,6 +37,15 @@ namespace PlaylistTransferTool
             {
                 LoggingUtils.GenerationLogWriteData($"ERROR: Could not parse Groove Music playlist file {file} or title element was not found.");
                 LoggingUtils.GenerationLogWriteData($" ^-- {ex.Message}");
+                LoggingUtils.GenerationLogWriteData($"Using filename as playlist title");
+                var match = titleRegex.Match(file);
+                if(match.Success)
+                {
+                    LoggingUtils.GenerationLogWriteData($"Used name \"{match.Value}\" as playlist title");
+                } else
+                {
+                    LoggingUtils.GenerationLogWriteData("ERROR: Could not extract playlist title from path");
+                }
             }
 
             return result;
