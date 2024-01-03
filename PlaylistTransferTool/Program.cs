@@ -1,6 +1,7 @@
 ﻿using MusicDatabaseGenerator;
 using MusicDatabaseGenerator.Synchronizers;
 using PlaylistTransferTool.Synchronizers;
+using System;
 using Configurator = PlaylistTransferTool.MusicDatabaseGenerator.Configurator;
 using PlaylistTrackSynchronizer = PlaylistTransferTool.Synchronizers.PlaylistTrackSynchronizer;
 
@@ -35,6 +36,12 @@ namespace PlaylistTransferTool
                 } else
                 {
                     LoggingUtils.GenerationLogWriteData($"Skipping track updates for playlist {playlist.PlaylistName}");
+                }
+
+                if (config.playlistExportType != PlaylistType.None)
+                {
+                    LoggingUtils.GenerationLogWriteData($"Exporting to {Enum.GetName(typeof(PlaylistType), config.playlistExportType)} playlists.");
+                    fileTuple.playlistParser.Export(config.playlistExportPath, mdbContext);
                 }
             }
         }

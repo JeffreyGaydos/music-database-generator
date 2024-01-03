@@ -72,5 +72,10 @@ namespace PlaylistTransferTool
             LoggingUtils.GenerationLogWriteData($"Finished parsing Samsung Playlist {file}");
             return plts.ToArray();
         }
+
+        public void Export(string exportPath, MusicLibraryContext ctx)
+        {
+
+        }
     }
 }

@@ -7,5 +7,7 @@ namespace PlaylistTransferTool
         Playlist ParsePlaylist(string file);
 
         PlaylistTracks[] ParsePlaylistTracks(string file, int playlistID, MusicLibraryContext ctx);
+
+        void Export(string exportPath, MusicLibraryContext ctx);
     }
 }

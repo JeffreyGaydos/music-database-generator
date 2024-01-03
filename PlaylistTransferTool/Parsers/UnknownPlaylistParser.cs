@@ -14,5 +14,10 @@ namespace PlaylistTransferTool
         {
             throw new NotImplementedException();
         }
+
+        public void Export(string exportPath, MusicLibraryContext ctx)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

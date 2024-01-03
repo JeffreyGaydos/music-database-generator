@@ -107,5 +107,90 @@ namespace PlaylistTransferTool
             LoggingUtils.GenerationLogWriteData($"Finished parsing Groove Music Playlist {file}");
             return plts.ToArray();
         }
+
+        private class GroovePlaylist
+        {
+            public string title;
+            public GrooveTrack[] tracks;
+
+            public string GetString()
+            {
+                var totalDuration = tracks.Sum(t => t.duration);
+                var itemCount = tracks.Length;
+                const string generator = "Entertainment Platform -- 10.20112.1011.0";
+                const string zplHeader = "<?zpl version=\"2.0\"?>";
+
+                var zpl = $@"{zplHeader}
+<smil>
+  <head>
+    <meta name=""totalDuration"" content=""{totalDuration * 1000}"" />
+    <meta name=""itemCount"" content=""{itemCount}"" />
+    <meta name=""generator"" content=""{generator}"" />
+    <title>Chill</title>
+  </head>
+  <body>
+    <seq>";
+                foreach(var track in tracks)
+                {
+                    zpl += $@"
+      {track.GetString()}";
+                }
+
+                zpl += $@"
+    </seq>
+  </body>
+</smil>";
+                return zpl;
+            }
+        }
+
+        private class GrooveTrack
+        {
+            public string source;
+            public string albumTitle;
+            public string albumArtist;
+            public string trackTitle;
+            public decimal duration;
+
+            public string GetString()
+            {
+                return $"<media src=\"{source}\" albumTitle=\"{albumTitle}\" albumArtist=\"{albumArtist}\" trackTitle=\"{trackTitle}\" trackArtist=\"{albumArtist}\" duration=\"{duration * 1000}\" />";
+            }
+        }
+
+        public void Export(string exportPath, MusicLibraryContext ctx)
+        {
+            List<GroovePlaylist> playlists = new List<GroovePlaylist>();
+
+            foreach(var list in ctx.Playlist)
+            {
+                var playlist = new GroovePlaylist
+                {
+                    title = list.PlaylistName,
+                    tracks = ctx.PlaylistTracks
+                        .Where(pt => pt.PlaylistID == list.PlaylistID)
+                        .Select(pt => new GrooveTrack
+                        {
+                            albumArtist = ctx.Artist.Where(a => ctx.ArtistTracks.Where(at => at.TrackID == pt.TrackID).FirstOrDefault().ArtistID == a.ArtistID).FirstOrDefault().ArtistName,
+                            albumTitle = ctx.Album.Where(a => ctx.AlbumTracks.Where(at => at.TrackID == pt.TrackID).FirstOrDefault().AlbumID == a.AlbumID).FirstOrDefault().AlbumName,
+                            duration = ctx.Main.Where(t => t.TrackID == pt.TrackID).FirstOrDefault().Duration ?? 0,
+                            source = ctx.Main.Where(t => t.TrackID == pt.TrackID).FirstOrDefault().FilePath,
+                            trackTitle = ctx.Main.Where(t => t.TrackID == pt.TrackID).FirstOrDefault().Title,
+                        }).ToArray(),
+                };
+
+                playlists.Add(playlist);
+            }
+
+            foreach(var groovePlaylist in playlists)
+            {
+                var fileName = groovePlaylist.title + ".zpl";
+                var contents = groovePlaylist.GetString();
+
+                StreamWriter writer = new StreamWriter(exportPath + "\\" + fileName);
+                writer.Write(contents);
+                writer.Close();
+            }
+        }
     }
 }

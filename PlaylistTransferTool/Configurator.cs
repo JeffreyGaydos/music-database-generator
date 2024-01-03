@@ -7,13 +7,6 @@ namespace PlaylistTransferTool
 {
     namespace MusicDatabaseGenerator
     {
-        public enum PlaylistType
-        {
-            Unknown = 0,
-            Groove = 1,
-            Samsung = 2
-        };
-
         public class ConfiguratorValues
         {
             public string playlistImportPath { get; private set; }
@@ -45,7 +38,7 @@ namespace PlaylistTransferTool
                     {
                         LoggingUtils.GenerationLogWriteData($" ^-- {e}");
                     }
-                    return PlaylistType.Unknown;
+                    return PlaylistType.None;
                 }
             }
 

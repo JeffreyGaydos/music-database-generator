@@ -16,7 +16,7 @@ namespace PlaylistTransferTool
 
         private static Dictionary<PlaylistType, int> _playlistTypeCounts = new Dictionary<PlaylistType, int>
         {
-            {PlaylistType.Unknown, 0},
+            {PlaylistType.None, 0},
             {PlaylistType.Groove, 0},
             {PlaylistType.Samsung, 0},
         };
@@ -42,7 +42,7 @@ namespace PlaylistTransferTool
                 }
                 else
                 {
-                    _playlistTypeCounts[PlaylistType.Unknown] += 1;
+                    _playlistTypeCounts[PlaylistType.None] += 1;
                     return (playlistParser: _nonParser, fileName: file);
                 }
             }).ToArray();
