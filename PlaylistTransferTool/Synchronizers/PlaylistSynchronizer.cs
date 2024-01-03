@@ -17,6 +17,14 @@ namespace PlaylistTransferTool.Synchronizers
 
         public SyncOperation Insert()
         {
+            if(_context.Playlist.Where(p => p.PlaylistName == _playlist.PlaylistName).Any())
+            {
+                LoggingUtils.GenerationLogWriteData($"Playlist {_playlist.PlaylistName} already exists.");
+                _playlist.PlaylistID = _context.Playlist.Where(
+                    p => p.PlaylistName == _playlist.PlaylistName
+                ).FirstOrDefault().PlaylistID;
+                return SyncOperation.Skip;
+            }
             _context.Playlist.Add(_playlist);
             _context.SaveChanges();
 
