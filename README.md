@@ -67,7 +67,7 @@ After each run, and if it succeeded, data should exist in the `MusicLibrary.dbo.
 
 :warning: These logs are not appended to, but replaced after each run. Don't forget to copy them if you plan on referencing past runs' logs later
 
-To add your playlists to this database, use the `PlaylistTransferTool` and see its [Readme]().
+To add your playlists to this database, use the `PlaylistTransferTool` and see its [Readme](https://github.com/JeffreyGaydos/music-database-generator/blob/main/PlaylistTransferTool/README.md).
 
 # Schema Explanation & Intent
 

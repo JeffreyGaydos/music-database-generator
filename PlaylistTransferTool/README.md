@@ -12,7 +12,7 @@ This tool takes playlist files from various providers, inserts them into the dat
 
 ## Configuring and Running the Tool
 
-First, you must run the Music Database Generator tool to create a database so that this tool can match music data between playlist providers. See that tool's [Readme]() for details.
+First, you must run the Music Database Generator tool to create a database so that this tool can match music data between playlist providers. See that tool's [Readme](https://github.com/JeffreyGaydos/music-database-generator/blob/main/README.md) for details.
 
 After you have a music database or have updated the database with the most recent music from your playlists, you need to make sure the folder structure of all your devices are exactly the same from the `Music` folder onwards (if you are not transferring playlists from different devices, this is not applicable).
 
