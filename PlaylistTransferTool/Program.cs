@@ -41,7 +41,8 @@ namespace PlaylistTransferTool
                 if (config.playlistExportType != PlaylistType.None)
                 {
                     LoggingUtils.GenerationLogWriteData($"Exporting to {Enum.GetName(typeof(PlaylistType), config.playlistExportType)} playlists.");
-                    fileTuple.playlistParser.Export(config.playlistExportPath, mdbContext);
+                    FolderReader._playlistParserMap.TryGetValue(config.playlistExportType, out var exportParser);
+                    exportParser.Export(config.playlistExportPath, mdbContext);
                 }
             }
         }

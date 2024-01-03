@@ -73,9 +73,26 @@ namespace PlaylistTransferTool
             return plts.ToArray();
         }
 
+        Regex relevantPathPartRGX = new Regex("(?<=\\\\Music\\\\).+");
+
         public void Export(string exportPath, MusicLibraryContext ctx)
         {
+            string contents = "#EXTM3U";
 
+            foreach(var playlist in ctx.Playlist)
+            {
+                var title = playlist.PlaylistName;
+                foreach(var pt in ctx.PlaylistTracks.Where(pt => pt.PlaylistID == playlist.PlaylistID))
+                {
+                    var relevantPath = relevantPathPartRGX.Match(ctx.Main.Where(t => t.TrackID == pt.TrackID).FirstOrDefault().FilePath);
+                    contents += $@"
+{relevantPath}";
+                }
+
+                StreamWriter writer = new StreamWriter(exportPath + "\\" + title + ".m3u");
+                writer.Write(contents);
+                writer.Close();
+            }
         }
     }
 }

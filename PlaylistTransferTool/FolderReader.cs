@@ -25,7 +25,7 @@ namespace PlaylistTransferTool
         private static GroovePlaylistParser _grooveParser = new GroovePlaylistParser();
         private static SamsungPlaylistParser _samsungParser = new SamsungPlaylistParser();
 
-        private static Dictionary<PlaylistType, IPlaylistParser> _playlistParserMap = new Dictionary<PlaylistType, IPlaylistParser>
+        public static Dictionary<PlaylistType, IPlaylistParser> _playlistParserMap = new Dictionary<PlaylistType, IPlaylistParser>
         {
             {PlaylistType.Groove, _grooveParser },            
             {PlaylistType.Samsung, _samsungParser }
