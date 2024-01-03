@@ -13,13 +13,15 @@ namespace PlaylistTransferTool
             public string playlistExportPath { get; private set; }
             public PlaylistType playlistExportType { get; private set; }
             public bool mergePlaylistsWithSameName { get; private set; }
+            public bool deleteExistingPlaylists { get; private set; }
 
-            public ConfiguratorValues(string playlistImportPath, string playlistExportPath, PlaylistType playlistExportType, bool mergePlaylistsWithSameName)
+            public ConfiguratorValues(string playlistImportPath, string playlistExportPath, PlaylistType playlistExportType, bool mergePlaylistsWithSameName, bool deleteExistingPlaylists)
             {
                 this.playlistImportPath = playlistImportPath;
                 this.playlistExportPath = playlistExportPath;
                 this.playlistExportType = playlistExportType;
                 this.mergePlaylistsWithSameName = mergePlaylistsWithSameName;
+                this.deleteExistingPlaylists = deleteExistingPlaylists;
             }
         }
 
@@ -52,7 +54,8 @@ namespace PlaylistTransferTool
                     settings["playlistImportPath"] ?? "",
                     settings["playlistExportPath"] ?? "",
                     StringToPlaylistType(settings["playlistExportType"] ?? ""),
-                    settings["mergePlaylistWithSameName"] == "True"
+                    settings["mergePlaylistWithSameName"] == "True",
+                    settings["deleteExistingPlaylists"] == "True"
                 );
 
                 LoggingUtils.GenerationLogWriteData($"--== Ensure that your file structure on both of your devices is the same ==--");
@@ -62,6 +65,7 @@ namespace PlaylistTransferTool
                 LoggingUtils.GenerationLogWriteData($"Export Path: {values.playlistExportPath}");
                 LoggingUtils.GenerationLogWriteData($"Exporting \"{values.playlistExportType}\" playlists");
                 LoggingUtils.GenerationLogWriteData($"Will merge playlists with the same name");
+                LoggingUtils.GenerationLogWriteData($"Deleting existing playlists from database");
                 LoggingUtils.GenerationLogWriteData("_________________________________________________________________________________");
 
                 return values;

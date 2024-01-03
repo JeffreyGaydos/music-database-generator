@@ -17,6 +17,13 @@ namespace PlaylistTransferTool
 
             MusicLibraryContext mdbContext = new MusicLibraryContext();
 
+            if(config.deleteExistingPlaylists)
+            {
+                mdbContext.Playlist.RemoveRange(mdbContext.Playlist);
+                mdbContext.PlaylistTracks.RemoveRange(mdbContext.PlaylistTracks);
+                mdbContext.SaveChanges();
+            }
+
             foreach (var fileTuple in filesCategorized)
             {
                 Playlist playlist = fileTuple.playlistParser.ParsePlaylist(fileTuple.fileName);
