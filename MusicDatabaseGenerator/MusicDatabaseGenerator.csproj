@@ -201,7 +201,6 @@
     <Compile Include="Models\TrackPersons.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include=".gitignore" />
     <None Include="App.config" />
     <None Include="MusicLibraryDataSet.xsc">
       <DependentUpon>MusicLibraryDataSet.xsd</DependentUpon>
@@ -219,7 +218,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Schema\Migrations\dbm_20231107_moodToPlaylists.sql" />

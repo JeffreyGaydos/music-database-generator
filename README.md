@@ -67,6 +67,8 @@ After each run, and if it succeeded, data should exist in the `MusicLibrary.dbo.
 
 :warning: These logs are not appended to, but replaced after each run. Don't forget to copy them if you plan on referencing past runs' logs later
 
+To add your playlists to this database, use the `PlaylistTransferTool` and see its [Readme](https://github.com/JeffreyGaydos/music-database-generator/blob/main/PlaylistTransferTool/README.md).
+
 # Schema Explanation & Intent
 
 For the details on each field of the table, see the readme in the `Schema` folder [here](https://github.com/JeffreyGaydos/music-database-generator/tree/main/Schema/SCHEMA_README.md). You'll notice that many fields are described as being "non-generated" or "manual". This is referring to those fields that are either too difficult to get out of regular music files or are too opinionated to be generated directly. Again, these fields remain as a placeholder for custom music apps that may use this database.

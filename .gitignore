@@ -1,10 +1,21 @@
-data/*
-data2/*
-data3/*
+MusicDatabasegenerator/data/*
+MusicDatabasegenerator/data2/*
+MusicDatabasegenerator/data3/*
+
+PlaylistTransferTool/data/*
+PlaylistTransferTool/data2/*
+PlaylistTransferTool/output/*
+PlaylistTransferTool/input/*
+
+MusicDatabasegenerator/Properties/*
+PlaylistTransferTool/Properties/*
 
 bin/
 
 obj/
+
+.vs/*
+packages/*
 
 files_with_limited_data.txt
 generation.txt
