@@ -32,6 +32,7 @@ namespace MusicDatabaseGenerator.Generators
                 Duration = PVU.PrevalidateDoubleToDecimalCast(Math.Round(_file.Properties.Duration.TotalSeconds), nameof(Main.Duration)),
                 ReleaseYear = (int?)PVU.PrevalidateUnsignedIntToIntCast(_file.Tag.Year, nameof(Main.ReleaseYear)) == 0 ? null : (int?)PVU.PrevalidateUnsignedIntToIntCast(_file.Tag.Year, nameof(Main.ReleaseYear)),
                 AddDate = new FileInfo(_file.Name).CreationTime,
+                GeneratedDate = DateTime.Now,
                 LastModifiedDate = new FileInfo(_file.Name).LastWriteTime,
                 Lyrics = PVU.PrevalidateStringTruncate(_file.Tag.Lyrics, 4000, nameof(Main.Lyrics)),
                 Comment = PVU.PrevalidateStringTruncate(_file.Tag.Comment, 4000, nameof(Main.Comment)),
