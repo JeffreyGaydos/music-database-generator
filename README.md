@@ -1,5 +1,5 @@
 # Music Database Generator
-This tool takes your existing set of local music files on your file system and transforms them into a SQL Server Database. Updates, inserts, and deletes to the generated database are determined based on changes you make to the files themselves. The database generated from this tool was designed for use in custom music apps and has some empty tables you may use or simply delete. See the readme in the `Schema` folder [here](https://github.com/JeffreyGaydos/music-database-generator/tree/main/Schema/SCHEMA_README.md) for what the database looks like exactly.
+This tool takes your existing set of local music files on your file system and transforms them into a SQL Server Database. Updates, inserts, and deletes to the generated database are determined based on changes you make to the files themselves. The database generated from this tool was designed for use in custom music apps and has some empty tables you may use or simply delete. See the readme in the `Schema` folder [here](https://github.com/JeffreyGaydos/music-database-generator/blob/main/MusicDatabaseGenerator/Schema/SCHEMA_README.md) for what the database looks like exactly.
 
 This project uses `TagLib` to get metadata from MP3 files: https://github.com/taglib/taglib
 
@@ -71,4 +71,4 @@ To add your playlists to this database, use the `PlaylistTransferTool` and see i
 
 # Schema Explanation & Intent
 
-For the details on each field of the table, see the readme in the `Schema` folder [here](https://github.com/JeffreyGaydos/music-database-generator/tree/main/Schema/SCHEMA_README.md). You'll notice that many fields are described as being "non-generated" or "manual". This is referring to those fields that are either too difficult to get out of regular music files or are too opinionated to be generated directly. Again, these fields remain as a placeholder for custom music apps that may use this database.
+For the details on each field of the table, see the readme in the `Schema` folder [here](https://github.com/JeffreyGaydos/music-database-generator/blob/main/MusicDatabaseGenerator/Schema/SCHEMA_README.md). You'll notice that many fields are described as being "non-generated" or "manual". This is referring to those fields that are either too difficult to get out of regular music files or are too opinionated to be generated directly. Again, these fields remain as a placeholder for custom music apps that may use this database.
