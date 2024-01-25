@@ -4,7 +4,7 @@ This table stores metadata that relates directly to 1 track
   - Use this ID to map songs in other tables. These values are unique across all tables that reference this ID.
 - `Title`
 - `Duration`
-  - The duration of the song in seconds
+  - The duration of the song in milliseconds. Stored in milliseconds to avoid tollerance stacking when calculating the duration of playlists.
 - `FilePath`
   - The file path of the song, based on where you tell the source code to look for your files
 - `Volume`
