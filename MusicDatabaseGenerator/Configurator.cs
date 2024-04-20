@@ -189,7 +189,7 @@ namespace MusicDatabaseGenerator
 
         private void ExecuteNonQueryUsingSQLiteConnection(string sql)
         {
-            using (SQLiteConnection conn = new SQLiteConnection("data source=C:/Users/jeff1/source/repos/MusicDatabaseGenerator/MusicDatabaseGenerator/MusicLibrary.db"))
+            using (SQLiteConnection conn = new SQLiteConnection("data source=../../../MusicLibrary.db"))
             {
                 conn.Open();
                 using (SQLiteCommand command = new SQLiteCommand(sql, conn))
