@@ -15,16 +15,14 @@ namespace PlaylistTransferTool
             public PlaylistType playlistExportType { get; private set; }
             public bool mergePlaylistsWithSameName { get; private set; }
             public bool deleteExistingPlaylists { get; private set; }
-            public DatabaseProvider databaseProvider { get; private set; }
 
-            public ConfiguratorValues(string playlistImportPath, string playlistExportPath, PlaylistType playlistExportType, bool mergePlaylistsWithSameName, bool deleteExistingPlaylists, DatabaseProvider dbProdivder)
+            public ConfiguratorValues(string playlistImportPath, string playlistExportPath, PlaylistType playlistExportType, bool mergePlaylistsWithSameName, bool deleteExistingPlaylists)
             {
                 this.playlistImportPath = playlistImportPath;
                 this.playlistExportPath = playlistExportPath;
                 this.playlistExportType = playlistExportType;
                 this.mergePlaylistsWithSameName = mergePlaylistsWithSameName;
                 this.deleteExistingPlaylists = deleteExistingPlaylists;
-                databaseProvider = dbProdivder;
             }
         }
 
