@@ -152,6 +152,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseProvider.cs" />
     <Compile Include="Models\Album.cs" />
     <Compile Include="Models\AlbumArt.cs" />
     <Compile Include="Models\AlbumTracks.cs" />
@@ -230,6 +231,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Schema\Migrations\dbm_20231107_moodToPlaylists.sql" />
+    <Content Include="Schema\SQLite\sqlite_delete.sql" />
     <Content Include="Schema\SQLite\sqlite_initialize.sql" />
     <None Include="appsettings.json" />
     <Content Include="Schema\db_delete.sql" />
