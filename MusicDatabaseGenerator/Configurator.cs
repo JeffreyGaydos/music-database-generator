@@ -60,7 +60,7 @@ namespace MusicDatabaseGenerator
                 settings["GenerateMusicMetadata"] == "True",
                 settings["DeleteDataOnGeneration"] == "True",
                 settings["RunMigrations"] == "True",
-                DatabaseProvider.MSSSQL
+                DatabaseProvider.SQLite
                 );
 
             _logger.GenerationLogWriteData("_CONFIGURATION:__________________________________________________________________");
