@@ -8,7 +8,7 @@
 
 --The metadata of the playlists that you create.
 CREATE TABLE IF NOT EXISTS Playlist (
-	PlaylistID INT IDENTITY(1,1) PRIMARY KEY,
+	PlaylistID INTEGER PRIMARY KEY,
 	PlaylistName NVARCHAR(450),
 	PlaylistDescription NVARCHAR(4000),
 	CreationDate DATETIME,
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS PlaylistTracks (
 
 --This table can be matched with the main table to deremine the artist
 CREATE TABLE IF NOT EXISTS Artist (
-	ArtistID INT IDENTITY(1,1) PRIMARY KEY,
+	ArtistID INTEGER PRIMARY KEY,
 	PrimaryPersonID INT,
 	ArtistName NVARCHAR(100),
 	CONSTRAINT UC_Artist UNIQUE (PrimaryPersonID, ArtistName)
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS ArtistTracks (
 
 --Maps artists to persons associated with that artist or group
 CREATE TABLE IF NOT EXISTS ArtistPersons (
-		PersonID INT IDENTITY(1,1) PRIMARY KEY,
+		PersonID INTEGER PRIMARY KEY,
 		ArtistID INT,
 		PersonName NVARCHAR(200),
 		CONSTRAINT UC_ArtistPerson UNIQUE (ArtistID, PersonName)
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS TrackPersons (
 --traditional genre designation, directly form the MP3 files
 --may or may not be a read only table in future applications
 CREATE TABLE IF NOT EXISTS Genre (
-	GenreID INT IDENTITY(1,1) PRIMARY KEY,
+	GenreID INTEGER PRIMARY KEY,
 	GenreName NVARCHAR(100),
 	CONSTRAINT UC_GenreName UNIQUE (GenreName)
 )
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS GenreTracks (
 --not have track numbers associated with them. The AlbumID can matched with on the Main
 --table to determine all the songs within 1 album.
 CREATE TABLE IF NOT EXISTS Album (
-	AlbumID INT IDENTITY(1,1) PRIMARY KEY,
+	AlbumID INTEGER PRIMARY KEY,
 	AlbumName NVARCHAR(446),
 	TrackCount INT,
 	ReleaseYear INT,
@@ -105,7 +105,7 @@ CREATE TABLE IF NOT EXISTS PlayLogs (
 --The main table has a list of all your songs, some metadata, and IDs that link to other
 --tables with additional meatadata
 CREATE TABLE IF NOT EXISTS Main (
-	TrackID INT IDENTITY(1,1) PRIMARY KEY,
+	TrackID INTEGER PRIMARY KEY,
 	Title NVARCHAR(435), --The max key length is 900, this takes the rest of the bits
 	Duration DECIMAL,
 	FilePath VARCHAR(260), --windows max path length = 260 characters
