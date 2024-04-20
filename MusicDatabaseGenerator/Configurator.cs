@@ -69,7 +69,7 @@ namespace MusicDatabaseGenerator
                 RunMigrations();
             }
 
-            InitializeDatabaseIfNeeded();
+            //InitializeDatabaseIfNeeded();
 
             if (values.deleteExistingData)
             {
