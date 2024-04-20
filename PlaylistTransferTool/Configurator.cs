@@ -2,6 +2,7 @@
 using System.IO;
 using System;
 using System.Linq;
+using MusicDatabaseGenerator;
 
 namespace PlaylistTransferTool
 {

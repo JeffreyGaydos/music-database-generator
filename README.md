@@ -9,7 +9,13 @@ NOTE: Only data stored within music files are used during generation. This tool 
 
 ## Database Connection
 
-First, connect to a local database engine using a database management program of your choice. If you're not sure where to start, keep reading, otherwise skip ahead to the next paragraph of this section. First, you will need to [download SSMS](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16) or another way to execute a sql script on SQL Server. Next, [download SQL Server Express](https://www.microsoft.com/en-us/sql-server/sql-server-downloads). Be sure you get the "Express" version, as this project was not tested using the "Developer" version. If you use the "Basic" settings during installation, this project will be set up automatically to point to your newly created local database engine.
+First, the tool needs to connect to a local database engine using a database management program of your choice. This tool supports MSSQL and SQLite database generation. For each release, there are 2 builds of each kind of tool, named according to the database engine that it supports.
+
+> [!NOTE]
+> If you intend to use this tool in conjunction with the [Synthia Music App](https://github.com/JeffreyGaydos/SynthiaMusicApp), a SQLite database is required.
+
+### MSSQL 
+First, you will need to [download SSMS](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16) or another way to execute a sql script on SQL Server. Next, [download SQL Server Express](https://www.microsoft.com/en-us/sql-server/sql-server-downloads). Be sure you get the "Express" version, as this project was not tested using the "Developer" version. If you use the "Basic" settings during installation, this project will be set up automatically to point to your newly created local database engine.
 
 If your database engine is not named `localhost\SQLEXPRESS`, go to the file `App.config` in this project and change the line that looks like...
 ```xml
@@ -19,6 +25,9 @@ so that the `connectionString` attribute has the name of your database as the `d
 ```xml
 <add name="MusicLibraryContext" connectionString="data source=localhost\MY_LOCAL_DATABASE_NAME;initial catalog=MusicLibrary;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework" providerName="System.Data.SqlClient" />
 ```
+
+### SQLite
+First [download SQLite](https://sqlite.org/download.html). Then, it is recommended that you [download the DB Browser](https://sqlitebrowser.org/dl/) for SQLite so you can easily execute SQL and view your database. The tool (once run) will then generate a `.db` file that you can open with the DB browser called `MusicLibrary.db` at the root of the built folder. It is important that the name of the database remains the same if you intend to use this tool to update the database in the future.
 
 ## Prepare Your "Raw" Music Data
 
