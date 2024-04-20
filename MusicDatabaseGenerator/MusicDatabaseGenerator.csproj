@@ -221,6 +221,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Schema\Migrations\dbm_20231107_moodToPlaylists.sql" />
+    <Content Include="Schema\SQLite\sqlite_initialize.sql" />
     <None Include="appsettings.json" />
     <Content Include="Schema\db_delete.sql" />
     <Content Include="Schema\db_drop.sql" />
