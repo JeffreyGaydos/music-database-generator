@@ -43,8 +43,6 @@ namespace MusicDatabaseGenerator.Synchronizers
                 _synchronizers.Add(new AlbumTrackSynchronizer(_mlt, _context, _logger));
                 _synchronizers.Add(new ArtistPersonsSynchronizer(_mlt, _context, _logger));
                 _synchronizers.Add(new TrackPersonsSynchronizer(_mlt, _context, _logger));
-
-                _synchronizers.Add(new PostProcessingSynchronizer(_context));
             }
 
             SyncOperation ops = SyncOperation.None;
@@ -67,7 +65,6 @@ namespace MusicDatabaseGenerator.Synchronizers
                         return; //skip the title
                     }
                 }
-
                 transaction.Commit();
             }
             LogOperation(ops, percentageString);
