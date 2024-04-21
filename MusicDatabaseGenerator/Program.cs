@@ -38,7 +38,6 @@ namespace MusicDatabaseGenerator
                         new AlbumGenerator(data, trackData, config.pathToSearch, logger),
                         new ArtistPersonGenerator(data, trackData, logger)
                     };
-
                     foreach (IGenerator generator in generators)
                     {
                         generator.Generate();
@@ -47,6 +46,7 @@ namespace MusicDatabaseGenerator
                     MusicLibraryTrack.trackIndex += 1;
                     syncManager.Sync();
                 }
+                new PostProcessingSynchronizer(mdbContext).Synchronize(); //external for performance reasons
                 SyncManager.Delete();
                 logger.GenerationLogWriteData($"Inserted {SyncManager.Inserts} record(s)");
                 logger.GenerationLogWriteData($"Updated {SyncManager.Updates} record(s)");
