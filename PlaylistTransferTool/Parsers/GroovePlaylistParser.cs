@@ -78,9 +78,9 @@ namespace PlaylistTransferTool
                     if (matchingTrack == null)
                     {
                         var title = child.Attributes.Item(3).Value;
-                        var duration = Math.Round(decimal.Parse(child.Attributes.Item(5).Value) / 1000);
+                        var duration = Math.Round(decimal.Parse(child.Attributes.Item(5).Value));
 
-                        matchingTrack = ctx.Main.Where(t => t.Title.Equals(title) && t.Duration == duration).FirstOrDefault();
+                        matchingTrack = ctx.Main.Where(t => t.Title.Equals(title) && (t.Duration >= duration - 1 && t.Duration <= duration + 1)).FirstOrDefault();
                     }
 
                     if (matchingTrack == null)
