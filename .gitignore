@@ -22,3 +22,4 @@ generation.txt
 skipped_duplicates.txt
 
 **/*.db
+**/*.txt
