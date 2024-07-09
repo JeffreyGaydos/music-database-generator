@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -22,11 +23,17 @@ namespace MusicDatabaseGenerator.Generators
 
         public void Generate()
         {
-            _data.albumArt = new AlbumArt()
+            using (MemoryStream stream = new MemoryStream())
             {
-                AlbumArtPath = PVU.PrevalidateStringTruncate(Path.GetFullPath(_imgFileName), 260, nameof(AlbumArt.AlbumArtPath)),
-                PrimaryColor = ColorToHexString(GetPrimaryColor())
-            };
+                _imgFile.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+
+                _data.albumArt = new AlbumArt()
+                {
+                    AlbumArtPath = PVU.PrevalidateStringTruncate(Path.GetFullPath(_imgFileName), 260, nameof(AlbumArt.AlbumArtPath)),
+                    PrimaryColor = ColorToHexString(GetPrimaryColor()),
+                    RawData = stream.GetBuffer()
+                };
+            }
         }
 
         private Color GetPrimaryColor()

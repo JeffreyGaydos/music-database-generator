@@ -215,7 +215,8 @@ BEGIN
 	CREATE TABLE AlbumArt (
 		AlbumArtPath VARCHAR(260) PRIMARY KEY, --windows max path length
 		PrimaryColor VARCHAR(7), --mode color in hex format (#000000)
-		AlbumID INT
+		AlbumID INT,
+		RawData VARBINARY(MAX)
 	)
 END
 

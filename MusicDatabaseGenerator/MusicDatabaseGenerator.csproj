@@ -152,13 +152,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DatabaseProvider.cs" />
     <Compile Include="Models\Album.cs" />
     <Compile Include="Models\AlbumArt.cs" />
     <Compile Include="Models\AlbumTracks.cs" />
     <Compile Include="Models\Artist.cs" />
     <Compile Include="Models\ArtistPersons.cs" />
     <Compile Include="Models\ArtistTracks.cs" />
+    <Compile Include="DatabaseProvider.cs" />
     <Compile Include="Generators\PrevalidationUtilities.cs" />
     <Compile Include="Configurator.cs" />
     <Compile Include="Models\Genre.cs" />
@@ -215,19 +215,19 @@
     <None Include="mssql.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="sqlite.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="MusicLibraryDataSet.xsc">
       <DependentUpon>MusicLibraryDataSet.xsd</DependentUpon>
     </None>
     <None Include="MusicLibraryDataSet.xsd">
+      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>MusicLibraryDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
     <None Include="MusicLibraryDataSet.xss">
       <DependentUpon>MusicLibraryDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="sqlite.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -237,6 +237,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Schema\Migrations\dbm_20231107_moodToPlaylists.sql" />
+    <Content Include="Schema\Migrations\dbm_20240708_rawImageDump.sql" />
     <Content Include="Schema\SQLite\sqlite_delete.sql" />
     <Content Include="Schema\SQLite\sqlite_initialize.sql" />
     <None Include="appsettings.json" />

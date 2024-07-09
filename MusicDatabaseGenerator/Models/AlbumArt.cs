@@ -17,5 +17,7 @@ namespace MusicDatabaseGenerator
         public string PrimaryColor { get; set; }
 
         public int? AlbumID { get; set; }
+
+        public byte[] RawData { get; set; }
     }
 }
