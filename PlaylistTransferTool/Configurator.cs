@@ -65,7 +65,7 @@ namespace PlaylistTransferTool
                 LoggingUtils.GenerationLogWriteData($"Import Path: {values.playlistImportPath}");
                 LoggingUtils.GenerationLogWriteData($"Export Path: {values.playlistExportPath}");
                 LoggingUtils.GenerationLogWriteData($"Exporting \"{values.playlistExportType}\" playlists");
-                LoggingUtils.GenerationLogWriteData($"Will {(values.mergePlaylistsWithSameName ? "" : "not ")}merge playlists with the same name");
+                LoggingUtils.GenerationLogWriteData($"Will {(values.mergePlaylistsWithSameName ? "" : "not ")}merge playlists with the same name NOTE: config not implemented");
                 LoggingUtils.GenerationLogWriteData($"{(values.deleteExistingPlaylists ? "Deleting" : "Persisting")} existing playlists from database");
                 LoggingUtils.GenerationLogWriteData("_________________________________________________________________________________");
 

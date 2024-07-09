@@ -2,6 +2,8 @@
 using MusicDatabaseGenerator.Synchronizers;
 using PlaylistTransferTool.Synchronizers;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Configurator = PlaylistTransferTool.MusicDatabaseGenerator.Configurator;
 using PlaylistTrackSynchronizer = PlaylistTransferTool.Synchronizers.PlaylistTrackSynchronizer;
 
@@ -19,8 +21,8 @@ namespace PlaylistTransferTool
 
             if(config.deleteExistingPlaylists)
             {
-                mdbContext.Playlist.RemoveRange(mdbContext.Playlist);
-                mdbContext.PlaylistTracks.RemoveRange(mdbContext.PlaylistTracks);
+                mdbContext.Database.ExecuteSqlCommand("TRUNCATE TABLE [PlaylistTracks]");
+                mdbContext.Database.ExecuteSqlCommand("TRUNCATE TABLE [Playlist]");
                 mdbContext.SaveChanges();
             }
 
@@ -51,6 +53,14 @@ namespace PlaylistTransferTool
                     FolderReader._playlistParserMap.TryGetValue(config.playlistExportType, out var exportParser);
                     exportParser.Export(config.playlistExportPath, mdbContext);
                 }
+            }
+
+            // So the user can just get all the playlists currently in the database if desired
+            if (!filesCategorized.Any() && config.playlistExportType != PlaylistType.None)
+            {
+                LoggingUtils.GenerationLogWriteData($"Exporting existing playlists in database to {Enum.GetName(typeof(PlaylistType), config.playlistExportType)} playlists.");
+                FolderReader._playlistParserMap.TryGetValue(config.playlistExportType, out var exportParser);
+                exportParser.Export(config.playlistExportPath, mdbContext);
             }
         }
     }
