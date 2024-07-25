@@ -22,6 +22,8 @@ namespace MusicDatabaseGenerator.Generators
 
         public void Generate()
         {
+            UnhideAlbumArtImages(_imgFileName);
+
             _data.albumArt = new AlbumArt()
             {
                 AlbumArtPath = PVU.PrevalidateStringTruncate(Path.GetFullPath(_imgFileName), 260, nameof(AlbumArt.AlbumArtPath)),
@@ -75,5 +77,26 @@ namespace MusicDatabaseGenerator.Generators
             string b = color.B.ToString("X2");
             return $"#{r}{g}{b}";
         }
+
+        private void UnhideAlbumArtImages(string path)
+        {
+            if (File.GetAttributes(path).HasFlag(FileAttributes.Hidden))
+            {
+                File.SetAttributes(path, FileAttributes.Normal);
+            }
+        }
+
+        /*private void TEMP_ExportImages(string path)
+        {
+            string sanitizedPath = path.Replace('\\', '/');
+            string relativePath = sanitizedPath.Substring(sanitizedPath.IndexOf("/Music/"));
+            string fullPath = $"F:/MyMusicImageData_TEMP{relativePath}";
+            string folder = fullPath.Substring(0, fullPath.LastIndexOf("/"));
+            if(!Directory.Exists(folder))
+            {
+                Directory.CreateDirectory(folder);
+            }
+            File.Copy(path, fullPath);
+        }*/
     }
 }
