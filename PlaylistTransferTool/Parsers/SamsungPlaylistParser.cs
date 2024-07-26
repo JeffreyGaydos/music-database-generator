@@ -9,7 +9,8 @@ namespace PlaylistTransferTool
 {
     public class SamsungPlaylistParser : IPlaylistParser
     {
-        Regex titleRegex = new Regex("(?<=\\\\)[^\\\\\\/]+(?=\\.m3u)");
+        Regex titleRegex = new Regex("(?<=\\\\)[^\\\\\\/]+(?=\\.m3u)", RegexOptions.Compiled);
+        Regex trackNameRegex = new Regex(@"((?<=[/\\])[^\\/]+$)|(^[^/\\]+$)", RegexOptions.Compiled);
 
         public Playlist ParsePlaylist(string file)
         {
@@ -42,27 +43,36 @@ namespace PlaylistTransferTool
                 var itemIndex = 0;
                 foreach(var item in playlistItems)
                 {
-                    if (item == "#EXTM3U") continue;
-                    var reducedSource = item;
-
-                    //we assume that the paths are the same. There is no other data to go off of for this...
-                    reducedSource = new UniversalPathComparator().ToWindowsPath(reducedSource);
-                    var matchingTrack = ctx.Main.Where(t => t.FilePath.Contains(reducedSource)).FirstOrDefault();
-
-                    if (matchingTrack == null)
+                    if (item == "#EXTM3U" || string.IsNullOrEmpty(item)) continue;
+                    var mat = trackNameRegex.Match(item);
+                    if (mat.Success)
                     {
-                        LoggingUtils.GenerationLogWriteData($"ERROR: Could not find track corresponding to path {item} in existing database");
-                    }
-                    else
-                    {
-                        plts.Add(new PlaylistTracks()
+                        var matchingTrack = ctx.Main.Where(t => t.FilePath.EndsWith(mat.Value)).FirstOrDefault();
+
+                        if (matchingTrack == null)
                         {
-                            PlaylistID = playlistID,
-                            TrackID = matchingTrack.TrackID,
-                            TrackOrder = itemIndex
-                        });
+                            LoggingUtils.GenerationLogWriteData($"WARNING: Could not find track corresponding to path '{item}' in existing database. Bogus TrackID assigned");
+                            plts.Add(new PlaylistTracks()
+                            {
+                                PlaylistID = playlistID,
+                                TrackID = -itemIndex,
+                                TrackOrder = itemIndex
+                            });
+                        }
+                        else
+                        {
+                            plts.Add(new PlaylistTracks()
+                            {
+                                PlaylistID = playlistID,
+                                TrackID = matchingTrack.TrackID,
+                                TrackOrder = itemIndex
+                            });
+                        }
+                        itemIndex++;
+                    } else
+                    {
+                        LoggingUtils.GenerationLogWriteData($"ERROR: '{item}' does not appear to be a file (is it a directory?)");
                     }
-                    itemIndex++;
                 }
             } catch (Exception e) {
                 LoggingUtils.GenerationLogWriteData($"Failure parsing Samsung playlist file {file}");
@@ -84,6 +94,7 @@ namespace PlaylistTransferTool
                 var title = playlist.PlaylistName;
                 foreach(var pt in ctx.PlaylistTracks.Where(pt => pt.PlaylistID == playlist.PlaylistID))
                 {
+                    //TODO: Attempt to find the path if trackID is 0 (meaning we couldn't fnid the path in the database) ((wehn the config is on))
                     var relevantPath = relevantPathPartRGX.Match(ctx.Main.Where(t => t.TrackID == pt.TrackID).FirstOrDefault().FilePath);
                     contents += $@"
 {relevantPath}";
