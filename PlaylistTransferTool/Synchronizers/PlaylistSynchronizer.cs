@@ -23,12 +23,19 @@ namespace PlaylistTransferTool.Synchronizers
             {
                 if (_config.mergePlaylistsWithSameName)
                 {
-                    LoggingUtils.GenerationLogWriteData($"Playlist '{_playlist.PlaylistName}' already exists.");
                     _playlist.PlaylistID = _context.Playlist.Where(
                         p => p.PlaylistName == _playlist.PlaylistName
                     ).FirstOrDefault().PlaylistID;
 
-                    return SyncOperation.Skip;
+                    if(_context.Playlist.Where(p => p.PlaylistID == _playlist.PlaylistID).FirstOrDefault()?.LastEditDate < _playlist.LastEditDate)
+                    {
+                        LoggingUtils.GenerationLogWriteData($"Playlist '{_playlist.PlaylistName}' already exists, but was modified. Merging...");
+                        return SyncOperation.Update;
+                    } else
+                    {
+                        LoggingUtils.GenerationLogWriteData($"Playlist '{_playlist.PlaylistName}' already exists, but was not modified. Skipping all updates.");
+                        return SyncOperation.Skip;
+                    }
                 }
                 else
                 {
