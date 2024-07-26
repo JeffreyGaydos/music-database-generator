@@ -36,12 +36,12 @@ namespace PlaylistTransferTool
                     LoggingUtils.GenerationLogWriteData($"Merging playlist tracks for playlist {playlist.PlaylistName}");
                     List<(string trackPath, PlaylistTracks track)> playlistTracks = fileTuple.playlistParser.ParsePlaylistTracks(fileTuple.fileName, plSync.GetPlaylistID(), mdbContext);
                     var pltSync = new PlaylistTrackSynchronizer(playlistTracks, mdbContext);
-                    pltSync.Insert();
+                    pltSync.Sync();
                 } else if(op == SyncOperation.Insert) //Insert op implies that the playlist is new
                 {
                     List<(string trackPath, PlaylistTracks track)> playlistTracks = fileTuple.playlistParser.ParsePlaylistTracks(fileTuple.fileName, plSync.GetPlaylistID(), mdbContext);
                     var pltSync = new PlaylistTrackSynchronizer(playlistTracks, mdbContext);
-                    pltSync.Insert();
+                    pltSync.Sync();
                 } else
                 {
                     LoggingUtils.GenerationLogWriteData($"Skipping track updates for playlist {playlist.PlaylistName}");

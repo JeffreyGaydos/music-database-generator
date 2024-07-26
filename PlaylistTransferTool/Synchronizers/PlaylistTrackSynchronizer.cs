@@ -16,7 +16,7 @@ namespace PlaylistTransferTool.Synchronizers
             _context = context;
         }
 
-        public SyncOperation Insert()
+        public SyncOperation Sync()
         {
             SyncOperation op = SyncOperation.None;
             foreach(var plt in _playlistTracks)
