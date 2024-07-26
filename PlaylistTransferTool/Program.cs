@@ -30,14 +30,17 @@ namespace PlaylistTransferTool
                 Playlist playlist = fileTuple.playlistParser.ParsePlaylist(fileTuple.fileName);
                 var plSync = new PlaylistSynchronizer(playlist, mdbContext, config);
                 var op = plSync.Sync();
-                
-                List<(string trackPath, PlaylistTracks track)> playlistTracks = fileTuple.playlistParser.ParsePlaylistTracks(fileTuple.fileName, plSync.GetPlaylistID(), mdbContext);
-                var pltSync = new PlaylistTrackSynchronizer(playlistTracks, mdbContext);
-                pltSync.Sync();
+
+                if(op != SyncOperation.Skip)
+                {
+                    List<(string trackPath, PlaylistTracks track)> playlistTracks = fileTuple.playlistParser.ParsePlaylistTracks(fileTuple.fileName, plSync.GetPlaylistID(), mdbContext);
+                    var pltSync = new PlaylistTrackSynchronizer(playlistTracks, mdbContext);
+                    pltSync.Sync();
+                }
 
                 if (config.playlistExportType != PlaylistType.None)
                 {
-                    LoggingUtils.GenerationLogWriteData($"Exporting to {Enum.GetName(typeof(PlaylistType), config.playlistExportType)} playlists.");
+                    LoggingUtils.GenerationLogWriteData($"Exporting '{fileTuple.fileName}' as a '{Enum.GetName(typeof(PlaylistType), config.playlistExportType)}' playlist.");
                     FolderReader._playlistParserMap.TryGetValue(config.playlistExportType, out var exportParser);
                     exportParser.Export(config.playlistExportPath, mdbContext);
                 }
@@ -46,7 +49,7 @@ namespace PlaylistTransferTool
             // So the user can just get all the playlists currently in the database if desired
             if (!filesCategorized.Any() && config.playlistExportType != PlaylistType.None)
             {
-                LoggingUtils.GenerationLogWriteData($"Exporting existing playlists in database to {Enum.GetName(typeof(PlaylistType), config.playlistExportType)} playlists.");
+                LoggingUtils.GenerationLogWriteData($"Exporting existing playlists in database as '{Enum.GetName(typeof(PlaylistType), config.playlistExportType)}' playlists.");
                 FolderReader._playlistParserMap.TryGetValue(config.playlistExportType, out var exportParser);
                 exportParser.Export(config.playlistExportPath, mdbContext);
             }
