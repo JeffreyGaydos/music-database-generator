@@ -191,6 +191,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Content Include="Schema\Migrations\dbm_20240725_Add_lastKnownFilePath_PlaylistTracks.sql" />
     <Compile Include="SQLStringComparison.cs" />
     <Compile Include="Synchronizers\AlbumArtSynchronizer.cs" />
     <Compile Include="Synchronizers\AlbumSynchronizer.cs" />
