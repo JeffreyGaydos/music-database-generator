@@ -16,8 +16,8 @@ namespace PlaylistTransferTool
         {
             Playlist result = new Playlist()
             {
-                CreationDate = DateTime.Now,
-                LastEditDate = DateTime.Now,
+                CreationDate = File.GetCreationTime(file),
+                LastEditDate = File.GetLastWriteTime(file),
                 PlaylistDescription = $"Imported using the file {file} via the PlaylistTransferTool",
                 PlaylistName = "Unknown Title",
             };
