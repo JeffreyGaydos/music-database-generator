@@ -12,7 +12,6 @@ namespace PlaylistTransferTool
         public PlaylistType playlistExportType { get; private set; }
         public bool mergePlaylistsWithSameName { get; private set; }
         public bool deleteExistingPlaylists { get; private set; }
-        public bool exportOnly { get; private set; }
         public bool findMissingTracks { get; private set; }
 
         public ConfiguratorValues(
@@ -21,7 +20,6 @@ namespace PlaylistTransferTool
             PlaylistType playlistExportType,
             bool mergePlaylistsWithSameName,
             bool deleteExistingPlaylists,
-            bool exportOnly,
             bool findMissingTracks
         )
         {
@@ -30,7 +28,6 @@ namespace PlaylistTransferTool
             this.playlistExportType = playlistExportType;
             this.mergePlaylistsWithSameName = mergePlaylistsWithSameName;
             this.deleteExistingPlaylists = deleteExistingPlaylists;
-            this.exportOnly = exportOnly;
             this.findMissingTracks = findMissingTracks;
         }
     }
@@ -73,8 +70,7 @@ namespace PlaylistTransferTool
             LoggingUtils.GenerationLogWriteData($"--== Ensure that your file structure on both of your devices is the same ==--");
 
             LoggingUtils.GenerationLogWriteData("_CONFIGURATION:__________________________________________________________________");
-            if(!values.exportOnly)
-                LoggingUtils.GenerationLogWriteData($"Will Import playlist files from: {values.playlistImportPath}");
+            LoggingUtils.GenerationLogWriteData($"Will Import playlist files from: {values.playlistImportPath}");
             LoggingUtils.GenerationLogWriteData($"Will Export playlist files to: {values.playlistExportPath}");
             LoggingUtils.GenerationLogWriteData($"Will Export \"{values.playlistExportType}\" playlists");
             LoggingUtils.GenerationLogWriteData($"Will {(values.mergePlaylistsWithSameName ? "" : "NOT ")}merge playlists with the same name NOTE: config not implemented");
