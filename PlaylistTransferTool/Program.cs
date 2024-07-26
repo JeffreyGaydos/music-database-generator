@@ -31,7 +31,7 @@ namespace PlaylistTransferTool
                 Playlist playlist = fileTuple.playlistParser.ParsePlaylist(fileTuple.fileName);
                 var plSync = new PlaylistSynchronizer(playlist, mdbContext);
                 var op = plSync.Insert();
-                if(op == SyncOperation.Skip && config.mergePlaylistsWithSameName) //Skip op implies tht the playlist exists
+                if(op == SyncOperation.Skip && config.mergePlaylistsWithSameName) //Skip op implies that the playlist exists
                 {
                     LoggingUtils.GenerationLogWriteData($"Merging playlist tracks for playlist {playlist.PlaylistName}");
                     PlaylistTracks[] playlistTracks = fileTuple.playlistParser.ParsePlaylistTracks(fileTuple.fileName, plSync.GetPlaylistID(), mdbContext);
