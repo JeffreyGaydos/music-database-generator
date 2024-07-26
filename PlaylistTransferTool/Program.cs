@@ -4,7 +4,6 @@ using PlaylistTransferTool.Synchronizers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Configurator = PlaylistTransferTool.MusicDatabaseGenerator.Configurator;
 using PlaylistTrackSynchronizer = PlaylistTransferTool.Synchronizers.PlaylistTrackSynchronizer;
 
 namespace PlaylistTransferTool
@@ -31,21 +30,10 @@ namespace PlaylistTransferTool
                 Playlist playlist = fileTuple.playlistParser.ParsePlaylist(fileTuple.fileName);
                 var plSync = new PlaylistSynchronizer(playlist, mdbContext, config);
                 var op = plSync.Sync();
-                if(op == SyncOperation.Skip && config.mergePlaylistsWithSameName) //Skip op implies that the playlist exists
-                {
-                    LoggingUtils.GenerationLogWriteData($"Merging playlist tracks for playlist {playlist.PlaylistName}");
-                    List<(string trackPath, PlaylistTracks track)> playlistTracks = fileTuple.playlistParser.ParsePlaylistTracks(fileTuple.fileName, plSync.GetPlaylistID(), mdbContext);
-                    var pltSync = new PlaylistTrackSynchronizer(playlistTracks, mdbContext);
-                    pltSync.Sync();
-                } else if(op == SyncOperation.Insert) //Insert op implies that the playlist is new
-                {
-                    List<(string trackPath, PlaylistTracks track)> playlistTracks = fileTuple.playlistParser.ParsePlaylistTracks(fileTuple.fileName, plSync.GetPlaylistID(), mdbContext);
-                    var pltSync = new PlaylistTrackSynchronizer(playlistTracks, mdbContext);
-                    pltSync.Sync();
-                } else
-                {
-                    LoggingUtils.GenerationLogWriteData($"Skipping track updates for playlist {playlist.PlaylistName}");
-                }
+                
+                List<(string trackPath, PlaylistTracks track)> playlistTracks = fileTuple.playlistParser.ParsePlaylistTracks(fileTuple.fileName, plSync.GetPlaylistID(), mdbContext);
+                var pltSync = new PlaylistTrackSynchronizer(playlistTracks, mdbContext);
+                pltSync.Sync();
 
                 if (config.playlistExportType != PlaylistType.None)
                 {
