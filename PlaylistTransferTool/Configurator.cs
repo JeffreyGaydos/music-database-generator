@@ -12,15 +12,13 @@ namespace PlaylistTransferTool
         public PlaylistType playlistExportType { get; private set; }
         public bool mergePlaylistsWithSameName { get; private set; }
         public bool deleteExistingPlaylists { get; private set; }
-        public bool findMissingTracks { get; private set; }
 
         public ConfiguratorValues(
             string playlistImportPath,
             string playlistExportPath,
             PlaylistType playlistExportType,
             bool mergePlaylistsWithSameName,
-            bool deleteExistingPlaylists,
-            bool findMissingTracks
+            bool deleteExistingPlaylists
         )
         {
             this.playlistImportPath = playlistImportPath;
@@ -28,7 +26,6 @@ namespace PlaylistTransferTool
             this.playlistExportType = playlistExportType;
             this.mergePlaylistsWithSameName = mergePlaylistsWithSameName;
             this.deleteExistingPlaylists = deleteExistingPlaylists;
-            this.findMissingTracks = findMissingTracks;
         }
     }
 
@@ -62,8 +59,7 @@ namespace PlaylistTransferTool
                 settings["playlistExportPath"] ?? "",
                 StringToPlaylistType(settings["playlistExportType"] ?? ""),
                 settings["mergePlaylistWithSameName"] == "True",
-                settings["deleteExistingPlaylists"] == "True",
-                settings["findMissingTracks"] == "True"
+                settings["deleteExistingPlaylists"] == "True"
             );
 
             LoggingUtils.GenerationLogWriteData($"--== Ensure that your file structure on both of your devices is the same ==--");
@@ -72,10 +68,8 @@ namespace PlaylistTransferTool
             LoggingUtils.GenerationLogWriteData($"Will Import playlist files from: {values.playlistImportPath}");
             LoggingUtils.GenerationLogWriteData($"Will Export playlist files to: {values.playlistExportPath}");
             LoggingUtils.GenerationLogWriteData($"Will Export \"{values.playlistExportType}\" playlists");
-            LoggingUtils.GenerationLogWriteData($"Will {(values.mergePlaylistsWithSameName ? "" : "NOT ")}merge playlists with the same name NOTE: config not implemented");
+            LoggingUtils.GenerationLogWriteData($"Will {(values.mergePlaylistsWithSameName ? "merge" : "overwrite")} playlists with the same name NOTE: config not implemented");
             LoggingUtils.GenerationLogWriteData($"Will {(values.deleteExistingPlaylists ? "delete" : "persist")} existing playlists from database");
-            if(!values.findMissingTracks)
-                LoggingUtils.GenerationLogWriteData($"Will attempt to find new paths for missing tracks. NOTE: NOT IMPLEMENTED");
             LoggingUtils.GenerationLogWriteData("_________________________________________________________________________________");
 
             return values;

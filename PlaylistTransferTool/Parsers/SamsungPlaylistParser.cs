@@ -11,6 +11,7 @@ namespace PlaylistTransferTool
     {
         Regex titleRegex = new Regex("(?<=\\\\)[^\\\\\\/]+(?=\\.m3u)", RegexOptions.Compiled);
         Regex trackNameRegex = new Regex(@"((?<=[/\\])[^\\/]+$)|(^[^/\\]+$)", RegexOptions.Compiled);
+        Regex relevantPathPartRGX = new Regex(@"(?<=\\Music\\).+|^[^\\/]+$", RegexOptions.Compiled);
 
         public Playlist ParsePlaylist(string file)
         {
@@ -31,9 +32,9 @@ namespace PlaylistTransferTool
             return result;
         }
 
-        public List<(string trackPath, PlaylistTracks track)> ParsePlaylistTracks(string file, int playlistID, MusicLibraryContext ctx)
+        public List<PlaylistTracks> ParsePlaylistTracks(string file, int playlistID, MusicLibraryContext ctx)
         {
-            List<(string trackPath, PlaylistTracks tracks)> plts = new List<(string, PlaylistTracks)>();
+            List<PlaylistTracks> plts = new List<PlaylistTracks>();
             try
             {
                 StreamReader reader = new StreamReader(file);
@@ -52,27 +53,27 @@ namespace PlaylistTransferTool
                         if (matchingTrack == null)
                         {
                             LoggingUtils.GenerationLogWriteData($"WARNING: Could not find track corresponding to path '{item}' in existing database. Bogus TrackID assigned");
-                            plts.Add((
-                                item,
+                            plts.Add(
                                 new PlaylistTracks()
                                 {
                                     PlaylistID = playlistID,
                                     TrackID = -itemIndex,
-                                    TrackOrder = itemIndex
+                                    TrackOrder = itemIndex,
+                                    LastKnownPath = item
                                 }
-                            ));
+                            );
                         }
                         else
                         {
-                            plts.Add((
-                                item,
+                            plts.Add(
                                 new PlaylistTracks()
                                 {
                                     PlaylistID = playlistID,
                                     TrackID = matchingTrack.TrackID,
-                                    TrackOrder = itemIndex
+                                    TrackOrder = itemIndex,
+                                    LastKnownPath = item
                                 }
-                            ));
+                            );
                         }
                         itemIndex++;
                     } else
@@ -89,8 +90,6 @@ namespace PlaylistTransferTool
             return plts;
         }
 
-        Regex relevantPathPartRGX = new Regex("(?<=\\\\Music\\\\).+");
-
         public void Export(string exportPath, MusicLibraryContext ctx)
         {
             string contents = "#EXTM3U";
@@ -100,10 +99,21 @@ namespace PlaylistTransferTool
                 var title = playlist.PlaylistName;
                 foreach(var pt in ctx.PlaylistTracks.Where(pt => pt.PlaylistID == playlist.PlaylistID))
                 {
-                    //TODO: Attempt to find the path if trackID is 0 (meaning we couldn't fnid the path in the database) ((wehn the config is on))
-                    var relevantPath = relevantPathPartRGX.Match(ctx.Main.Where(t => t.TrackID == pt.TrackID).FirstOrDefault().FilePath);
-                    contents += $@"
-{relevantPath}";
+                    var track = ctx.Main.Where(t => t.TrackID == pt.TrackID).FirstOrDefault();
+                    var mat = relevantPathPartRGX.Match(pt.LastKnownPath);
+                    var relevantPath = mat.Success ? mat.Value : "";
+                    if (track != null)
+                    {
+                        relevantPath = track.FilePath;
+                        mat = relevantPathPartRGX.Match(relevantPath);
+                    }
+                    if(mat.Success && !string.IsNullOrWhiteSpace(mat.Value))
+                    {
+                        contents += $"\n{relevantPath}";
+                    } else
+                    {
+                        LoggingUtils.GenerationLogWriteData($"ERROR: Could not find proper path to use in '{nameof(PlaylistType.Samsung)}' playlist for '{playlist.PlaylistName}', track #{pt.TrackOrder} with last known path of '{pt.LastKnownPath}'");
+                    }
                 }
 
                 StreamWriter writer = new StreamWriter(exportPath + "\\" + title + ".m3u");

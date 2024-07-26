@@ -33,7 +33,7 @@ namespace PlaylistTransferTool
 
                 if(op != SyncOperation.Skip)
                 {
-                    List<(string trackPath, PlaylistTracks track)> playlistTracks = fileTuple.playlistParser.ParsePlaylistTracks(fileTuple.fileName, plSync.GetPlaylistID(), mdbContext);
+                    List<PlaylistTracks> playlistTracks = fileTuple.playlistParser.ParsePlaylistTracks(fileTuple.fileName, plSync.GetPlaylistID(), mdbContext);
                     var pltSync = new PlaylistTrackSynchronizer(playlistTracks, mdbContext);
                     pltSync.Sync();
                 }

@@ -11,7 +11,7 @@ namespace PlaylistTransferTool
             throw new NotImplementedException();
         }
 
-        public List<(string trackPath, PlaylistTracks track)> ParsePlaylistTracks(string file, int playlistID, MusicLibraryContext ctx)
+        public List<PlaylistTracks> ParsePlaylistTracks(string file, int playlistID, MusicLibraryContext ctx)
         {
             throw new NotImplementedException();
         }
