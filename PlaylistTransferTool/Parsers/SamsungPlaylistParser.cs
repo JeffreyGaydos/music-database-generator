@@ -31,9 +31,9 @@ namespace PlaylistTransferTool
             return result;
         }
 
-        public PlaylistTracks[] ParsePlaylistTracks(string file, int playlistID, MusicLibraryContext ctx)
+        public List<(string trackPath, PlaylistTracks track)> ParsePlaylistTracks(string file, int playlistID, MusicLibraryContext ctx)
         {
-            List<PlaylistTracks> plts = new List<PlaylistTracks>();
+            List<(string trackPath, PlaylistTracks tracks)> plts = new List<(string, PlaylistTracks)>();
             try
             {
                 StreamReader reader = new StreamReader(file);
@@ -52,21 +52,27 @@ namespace PlaylistTransferTool
                         if (matchingTrack == null)
                         {
                             LoggingUtils.GenerationLogWriteData($"WARNING: Could not find track corresponding to path '{item}' in existing database. Bogus TrackID assigned");
-                            plts.Add(new PlaylistTracks()
-                            {
-                                PlaylistID = playlistID,
-                                TrackID = -itemIndex,
-                                TrackOrder = itemIndex
-                            });
+                            plts.Add((
+                                item,
+                                new PlaylistTracks()
+                                {
+                                    PlaylistID = playlistID,
+                                    TrackID = -itemIndex,
+                                    TrackOrder = itemIndex
+                                }
+                            ));
                         }
                         else
                         {
-                            plts.Add(new PlaylistTracks()
-                            {
-                                PlaylistID = playlistID,
-                                TrackID = matchingTrack.TrackID,
-                                TrackOrder = itemIndex
-                            });
+                            plts.Add((
+                                item,
+                                new PlaylistTracks()
+                                {
+                                    PlaylistID = playlistID,
+                                    TrackID = matchingTrack.TrackID,
+                                    TrackOrder = itemIndex
+                                }
+                            ));
                         }
                         itemIndex++;
                     } else
@@ -80,7 +86,7 @@ namespace PlaylistTransferTool
             }
             
             LoggingUtils.GenerationLogWriteData($"Finished parsing Samsung Playlist {file}");
-            return plts.ToArray();
+            return plts;
         }
 
         Regex relevantPathPartRGX = new Regex("(?<=\\\\Music\\\\).+");

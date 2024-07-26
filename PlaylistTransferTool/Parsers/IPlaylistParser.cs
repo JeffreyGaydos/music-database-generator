@@ -1,4 +1,5 @@
 ﻿using MusicDatabaseGenerator;
+using System.Collections.Generic;
 
 namespace PlaylistTransferTool
 {
@@ -6,7 +7,7 @@ namespace PlaylistTransferTool
     {
         Playlist ParsePlaylist(string file);
 
-        PlaylistTracks[] ParsePlaylistTracks(string file, int playlistID, MusicLibraryContext ctx);
+        List<(string trackPath, PlaylistTracks track)> ParsePlaylistTracks(string file, int playlistID, MusicLibraryContext ctx);
 
         void Export(string exportPath, MusicLibraryContext ctx);
     }

@@ -50,9 +50,9 @@ namespace PlaylistTransferTool
             return result;
         }
 
-        public PlaylistTracks[] ParsePlaylistTracks(string file, int playlistID, MusicLibraryContext ctx)
+        public List<(string trackPath, PlaylistTracks track)> ParsePlaylistTracks(string file, int playlistID, MusicLibraryContext ctx)
         {
-            List<PlaylistTracks> plts = new List<PlaylistTracks>();
+            List<(string trackPath, PlaylistTracks track)> plts = new List<(string trackPath, PlaylistTracks track)>();
             try
             {
                 var zplFile = new StreamReader(file);
@@ -89,12 +89,12 @@ namespace PlaylistTransferTool
                     }
                     else
                     {
-                        plts.Add(new PlaylistTracks()
+                        plts.Add(("", new PlaylistTracks()
                         {
                             PlaylistID = playlistID,
                             TrackID = matchingTrack.TrackID,
                             TrackOrder = childIndex
-                        });
+                        }));
                     }
                     childIndex++;
                 }
@@ -105,7 +105,7 @@ namespace PlaylistTransferTool
             }
 
             LoggingUtils.GenerationLogWriteData($"Finished parsing Groove Music Playlist {file}");
-            return plts.ToArray();
+            return plts;
         }
 
         private class GroovePlaylist

@@ -34,12 +34,12 @@ namespace PlaylistTransferTool
                 if(op == SyncOperation.Skip && config.mergePlaylistsWithSameName) //Skip op implies that the playlist exists
                 {
                     LoggingUtils.GenerationLogWriteData($"Merging playlist tracks for playlist {playlist.PlaylistName}");
-                    PlaylistTracks[] playlistTracks = fileTuple.playlistParser.ParsePlaylistTracks(fileTuple.fileName, plSync.GetPlaylistID(), mdbContext);
+                    List<(string trackPath, PlaylistTracks track)> playlistTracks = fileTuple.playlistParser.ParsePlaylistTracks(fileTuple.fileName, plSync.GetPlaylistID(), mdbContext);
                     var pltSync = new PlaylistTrackSynchronizer(playlistTracks, mdbContext);
                     pltSync.Insert();
                 } else if(op == SyncOperation.Insert) //Insert op implies that the playlist is new
                 {
-                    PlaylistTracks[] playlistTracks = fileTuple.playlistParser.ParsePlaylistTracks(fileTuple.fileName, plSync.GetPlaylistID(), mdbContext);
+                    List<(string trackPath, PlaylistTracks track)> playlistTracks = fileTuple.playlistParser.ParsePlaylistTracks(fileTuple.fileName, plSync.GetPlaylistID(), mdbContext);
                     var pltSync = new PlaylistTrackSynchronizer(playlistTracks, mdbContext);
                     pltSync.Insert();
                 } else
