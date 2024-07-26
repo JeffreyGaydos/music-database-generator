@@ -152,13 +152,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DatabaseProvider.cs" />
     <Compile Include="Models\Album.cs" />
     <Compile Include="Models\AlbumArt.cs" />
     <Compile Include="Models\AlbumTracks.cs" />
     <Compile Include="Models\Artist.cs" />
     <Compile Include="Models\ArtistPersons.cs" />
     <Compile Include="Models\ArtistTracks.cs" />
+    <Compile Include="DatabaseProvider.cs" />
     <Compile Include="Generators\PrevalidationUtilities.cs" />
     <Compile Include="Configurator.cs" />
     <Compile Include="Models\Genre.cs" />
@@ -191,6 +191,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Models\TrackPersons.cs" />
     <Content Include="Schema\Migrations\dbm_20240725_Add_lastKnownFilePath_PlaylistTracks.sql" />
     <Compile Include="SQLStringComparison.cs" />
     <Compile Include="Synchronizers\AlbumArtSynchronizer.cs" />
@@ -209,26 +210,25 @@
     <Compile Include="Synchronizers\SyncManager.cs" />
     <Compile Include="Synchronizers\SyncOperation.cs" />
     <Compile Include="Synchronizers\TrackPersonsSynchronizer.cs" />
-    <Compile Include="Models\TrackPersons.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="mssql.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="sqlite.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="MusicLibraryDataSet.xsc">
       <DependentUpon>MusicLibraryDataSet.xsd</DependentUpon>
     </None>
     <None Include="MusicLibraryDataSet.xsd">
+      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>MusicLibraryDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
     <None Include="MusicLibraryDataSet.xss">
       <DependentUpon>MusicLibraryDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="sqlite.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

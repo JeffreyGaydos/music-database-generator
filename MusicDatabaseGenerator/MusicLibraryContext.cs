@@ -47,6 +47,10 @@ namespace MusicDatabaseGenerator
             modelBuilder.Entity<Main>()
                 .Property(e => e.ISRC)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<PlaylistTracks>()
+                .Property(e => e.LastKnownPath)
+                .IsUnicode(false);
         }
     }
 }

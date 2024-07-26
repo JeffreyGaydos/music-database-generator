@@ -19,5 +19,8 @@ namespace MusicDatabaseGenerator
         public int TrackID { get; set; }
 
         public int? TrackOrder { get; set; }
+
+        [StringLength(260)]
+        public string LastKnownPath { get; set; }
     }
 }
