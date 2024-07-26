@@ -63,7 +63,6 @@ namespace PlaylistTransferTool
                 StringToPlaylistType(settings["playlistExportType"] ?? ""),
                 settings["mergePlaylistWithSameName"] == "True",
                 settings["deleteExistingPlaylists"] == "True",
-                settings["exportOnly"] == "True",
                 settings["findMissingTracks"] == "True"
             );
 
