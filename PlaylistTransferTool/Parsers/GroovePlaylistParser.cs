@@ -14,6 +14,7 @@ namespace PlaylistTransferTool
         private readonly Regex titleRegex = new Regex("(?<=\\\\)[^\\\\\\/]+(?=\\.zpl)");
         private readonly Regex absoluteRegex = new Regex(@"C:\\Users\\[^\\/]+\\Music\\", RegexOptions.Compiled);
         private readonly Regex trackNameRegex = new Regex(@"((?<=[/\\])[^\\/]+$)|(^[^/\\]+$)", RegexOptions.Compiled);
+        private readonly Regex fileExtension = new Regex(@"\.[a-zA-Z0-9]+$");
 
         public Playlist ParsePlaylist(string file)
         {
@@ -87,7 +88,7 @@ namespace PlaylistTransferTool
 
                         if (matchingTrack == null)
                         {
-                            LoggingUtils.GenerationLogWriteData($"WARNING: Could not find track corresponding to path '{rawSource}' in existing database. Bogus TrackID assigned");
+                            LoggingUtils.GenerationLogWriteData($"WARNING: Could not find track corresponding to path '{rawSource}' in existing database. NULL TrackID assigned");
                             plts.Add(
                                 new PlaylistTracks()
                                 {
@@ -274,7 +275,9 @@ namespace PlaylistTransferTool
             var result = false;
             if(mat.Success)
             {
-                result = filePath.EndsWith(mat.Value);
+                fileExtension.Replace(mat.Value, "");
+                result = fileExtension.Replace(filePath, "").EndsWith("\\" + mat.Value) 
+                    || fileExtension.Replace(filePath, "").EndsWith("/" + mat.Value);
             }
             return result;
         }
