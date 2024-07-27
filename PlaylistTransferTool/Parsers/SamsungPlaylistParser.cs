@@ -13,6 +13,8 @@ namespace PlaylistTransferTool
         Regex trackNameRegex = new Regex(@"((?<=[/\\])[^\\/]+$)|(^[^/\\]+$)", RegexOptions.Compiled);
         Regex relevantPathPartRGX = new Regex(@"(?<=\\Music\\).+|^[^\\/]+$", RegexOptions.Compiled);
 
+        private bool isM3u8ExportRequested = false;
+
         public Playlist ParsePlaylist(string file)
         {
             Playlist result = new Playlist()
@@ -30,6 +32,11 @@ namespace PlaylistTransferTool
             }
 
             return result;
+        }
+
+        public SamsungPlaylistParser(bool m3u8 = false)
+        {
+            isM3u8ExportRequested = m3u8;
         }
 
         public List<PlaylistTracks> ParsePlaylistTracks(string file, int playlistID, MusicLibraryContext ctx)
@@ -114,11 +121,11 @@ namespace PlaylistTransferTool
                         contents += $"\n{relevantPath}";
                     } else
                     {
-                        LoggingUtils.GenerationLogWriteData($"ERROR: Could not find proper path to use in '{nameof(PlaylistType.M3U_OR_M3U8)}' playlist for '{playlist.PlaylistName}', track #{pt.TrackOrder} with last known path of '{pt.LastKnownPath}'");
+                        LoggingUtils.GenerationLogWriteData($"ERROR: Could not find proper path to use in '{(isM3u8ExportRequested ? nameof(PlaylistType.M3U8) : nameof(PlaylistType.M3U))}' playlist for '{playlist.PlaylistName}', track #{pt.TrackOrder} with last known path of '{pt.LastKnownPath}'");
                     }
                 }
 
-                StreamWriter writer = new StreamWriter(exportPath + "\\" + title + ".m3u");
+                StreamWriter writer = new StreamWriter(exportPath + "\\" + title + (isM3u8ExportRequested ? ".m3u8" : ".m3u"));
                 writer.Write(contents);
                 writer.Close();
             }

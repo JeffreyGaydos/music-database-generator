@@ -4,6 +4,7 @@
     {
         None = 0,
         Groove = 1,
-        M3U_OR_M3U8 = 2
+        M3U = 2,
+        M3U8 = 3
     };
 }
