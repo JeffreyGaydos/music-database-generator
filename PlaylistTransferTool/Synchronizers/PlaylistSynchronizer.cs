@@ -29,6 +29,10 @@ namespace PlaylistTransferTool.Synchronizers
 
                     if(_context.Playlist.Where(p => p.PlaylistID == _playlist.PlaylistID).FirstOrDefault()?.LastEditDate < _playlist.LastEditDate)
                     {
+                        _context.Playlist.Where(
+                            p => p.PlaylistName == _playlist.PlaylistName
+                        ).FirstOrDefault().LastEditDate = _playlist.LastEditDate;
+                        _context.SaveChanges();
                         LoggingUtils.GenerationLogWriteData($"Playlist '{_playlist.PlaylistName}' already exists, but was modified. Merging...");
                         return SyncOperation.Update;
                     } else
