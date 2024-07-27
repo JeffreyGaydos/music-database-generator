@@ -1,5 +1,6 @@
 ﻿using MusicDatabaseGenerator.Generators;
 using MusicDatabaseGenerator.Synchronizers;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -88,6 +89,11 @@ namespace MusicDatabaseGenerator
                 logger.GenerationLogWriteData($"Skipped {SyncManager.Skips} record(s)");
                 logger.GenerationLogWriteComment($"Album Art Data Inserted Into Database in {sw.Elapsed.TotalSeconds} seconds");
             }
+
+            logger.GenerationLogWriteData("Music Database Generator completed successfully.");
+
+            Console.WriteLine("Press any key to close this terminal...");
+            Console.ReadKey();
         }
     }
 }
