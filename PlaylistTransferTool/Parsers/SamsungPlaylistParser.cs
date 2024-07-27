@@ -49,7 +49,7 @@ namespace PlaylistTransferTool
                     var mat = trackNameRegex.Match(item);
                     if (mat.Success)
                     {
-                        var matchingTrack = ctx.Main.Where(t => t.FilePath.EndsWith(mat.Value)).FirstOrDefault();
+                        var matchingTrack = ctx.Main.Where(t => t.FilePath.EndsWith("\\" + mat.Value) || t.FilePath.EndsWith("/" + mat.Value)).FirstOrDefault();
 
                         if (matchingTrack == null)
                         {

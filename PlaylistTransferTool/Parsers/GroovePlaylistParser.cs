@@ -73,15 +73,15 @@ namespace PlaylistTransferTool
                     var mat = trackNameRegex.Match(rawSource);
                     if(mat.Success)
                     {
-                        var matchingTrack = ctx.Main.Where(t => t.FilePath.EndsWith(mat.Value)).FirstOrDefault();
+                        var matchingTrack = ctx.Main.Where(t => t.FilePath.EndsWith("\\" + mat.Value) || t.FilePath.EndsWith("/" + mat.Value)).FirstOrDefault();
                         //If that found nothing we need to use the title, duration, and artist to match on a track
                         if (matchingTrack == null)
                         {
                             var title = child.Attributes.Item(3).Value;
                             if(int.TryParse(child.Attributes.Item(5).Value, out var duration))
                             {
-                            matchingTrack = ctx.Main.Where(t => t.Title.Equals(title) && (t.Duration >= duration - 1 && t.Duration <= duration + 1)).FirstOrDefault();
-                        }
+                                matchingTrack = ctx.Main.Where(t => t.Title.Equals(title) && (t.Duration >= duration - 1 && t.Duration <= duration + 1)).FirstOrDefault();
+                            }
                         }
 
                         if (matchingTrack == null)
