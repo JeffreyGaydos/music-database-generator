@@ -27,7 +27,7 @@ namespace PlaylistTransferTool
         private static readonly UnknownPlaylistParser _nonParser = new UnknownPlaylistParser();
         private static readonly GroovePlaylistParser _grooveParser = new GroovePlaylistParser();
         private static readonly SamsungPlaylistParser _samsungParser = new SamsungPlaylistParser();
-        private static readonly SamsungPlaylistParser _m3u8Parser = new SamsungPlaylistParser();
+        private static readonly SamsungPlaylistParser _m3u8Parser = new SamsungPlaylistParser(true);
 
         public static Dictionary<PlaylistType, IPlaylistParser> _playlistParserMap = new Dictionary<PlaylistType, IPlaylistParser>
         {
