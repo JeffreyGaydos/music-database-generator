@@ -116,6 +116,7 @@ namespace PlaylistTransferTool
             {
                 LoggingUtils.GenerationLogWriteData($"ERROR: Could not parse Groove Music playlist file {file} or track data was not found.");
                 LoggingUtils.GenerationLogWriteData($" ^-- {ex.Message}");
+                LoggingUtils.Close();
             }
 
             LoggingUtils.GenerationLogWriteData($"Finished parsing Groove Music Playlist {file}");

@@ -54,6 +54,7 @@ namespace PlaylistTransferTool
                 exportParser.Export(config.playlistExportPath, mdbContext);
             }
             LoggingUtils.GenerationLogWriteData("Playlist Transfer Tool completed successfully.");
+            LoggingUtils.Close();
 
             Console.WriteLine("Press any key to close this terminal...");
             Console.ReadKey();

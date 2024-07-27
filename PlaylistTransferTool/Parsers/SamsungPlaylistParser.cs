@@ -85,6 +85,7 @@ namespace PlaylistTransferTool
             } catch (Exception e) {
                 LoggingUtils.GenerationLogWriteData($"Failure parsing Samsung playlist file {file}");
                 LoggingUtils.GenerationLogWriteData($" ^-- {e.Message}");
+                LoggingUtils.Close();
             }
             
             LoggingUtils.GenerationLogWriteData($"Finished parsing Samsung Playlist {file}");
