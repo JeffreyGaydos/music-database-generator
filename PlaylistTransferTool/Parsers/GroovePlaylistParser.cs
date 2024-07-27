@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Web;
 using System.Xml;
 
 namespace PlaylistTransferTool
@@ -141,7 +142,7 @@ namespace PlaylistTransferTool
     <meta name=""totalDuration"" content=""{totalDuration * 1000}"" />
     <meta name=""itemCount"" content=""{itemCount}"" />
     <meta name=""generator"" content=""{generator}"" />
-    <title>{title}</title>
+    <title>{HttpUtility.HtmlEncode(title)}</title>
   </head>
   <body>
     <seq>";
@@ -169,7 +170,7 @@ namespace PlaylistTransferTool
 
             public string GetString()
             {
-                return $"<media src=\"{source}\" albumTitle=\"{albumTitle}\" albumArtist=\"{albumArtist}\" trackTitle=\"{trackTitle}\" trackArtist=\"{albumArtist}\" duration=\"{duration * 1000}\" />";
+                return $"<media src=\"{HttpUtility.HtmlEncode(source)}\" albumTitle=\"{HttpUtility.HtmlEncode(albumTitle)}\" albumArtist=\"{HttpUtility.HtmlEncode(albumArtist)}\" trackTitle=\"{HttpUtility.HtmlEncode(trackTitle)}\" trackArtist=\"{HttpUtility.HtmlEncode(albumArtist)}\" duration=\"{duration * 1000}\" />";
             }
         }
 
