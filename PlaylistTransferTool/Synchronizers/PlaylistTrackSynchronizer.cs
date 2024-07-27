@@ -29,6 +29,7 @@ namespace PlaylistTransferTool.Synchronizers
                         op |= SyncOperation.Update;
                         LoggingUtils.GenerationLogWriteData($"Track with ID {plt.TrackID} is already in this playlist but has changes, updating");
                         //since our PK uses the track ID, we need to delete and re-insert rather than an in-place update
+
                         _context.PlaylistTracks.Remove(currentPt);
                         _context.PlaylistTracks.Add(plt);
                     } else
@@ -39,7 +40,13 @@ namespace PlaylistTransferTool.Synchronizers
                 } else
                 {
                     op |= SyncOperation.Insert;
-                    _context.PlaylistTracks.Add(plt);
+                    if(_context.PlaylistTracks.Where(pt => pt.TrackID == plt.TrackID && pt.PlaylistID == plt.PlaylistID).Any())
+                    {
+                        LoggingUtils.GenerationLogWriteData($"Track with ID {plt.TrackID} is duplicated in this playlist, refusing to insert to prevent duplicates");
+                    } else
+                    {
+                        _context.PlaylistTracks.Add(plt);
+                    }
                 }
             }
 
