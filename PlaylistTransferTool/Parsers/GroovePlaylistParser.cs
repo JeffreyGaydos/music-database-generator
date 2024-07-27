@@ -69,7 +69,7 @@ namespace PlaylistTransferTool
                 var trackIndex = 0;
                 foreach (XmlNode child in xmlSeq.ChildNodes)
                 {
-                    var rawSource = child.Attributes.Item(0).Value;
+                    var rawSource = child.Attributes.Item(0).Value.Replace("\n", "").Replace("\r", "");
                     var mat = trackNameRegex.Match(rawSource);
                     if(mat.Success)
                     {

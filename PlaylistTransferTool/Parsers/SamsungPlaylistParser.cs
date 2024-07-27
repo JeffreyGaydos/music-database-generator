@@ -40,6 +40,7 @@ namespace PlaylistTransferTool
                 StreamReader reader = new StreamReader(file);
                 var contents = reader.ReadToEnd();
                 var playlistItems = contents.Split('\n');
+                playlistItems = playlistItems.Select(pi => pi.Replace("\r", "")).ToArray();
 
                 var itemIndex = 0;
                 foreach(var item in playlistItems)
