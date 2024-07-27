@@ -13,6 +13,7 @@ namespace PlaylistTransferTool
         static void Main(string[] args)
         {
             LoggingUtils.Init();
+            LoggingUtils.GenerationLogWriteData($"This tool works best when the file paths to your music are the same across devices, but this tool attempts to match if not");
             var config = new Configurator().HandleConfiguration();
             var filesCategorized = FolderReader.GetFiles(config.playlistImportPath);
 

@@ -62,8 +62,6 @@ namespace PlaylistTransferTool
                 settings["deleteExistingPlaylists"] == "True"
             );
 
-            LoggingUtils.GenerationLogWriteData($"--== Ensure that your file structure on both of your devices is the same ==--");
-
             LoggingUtils.GenerationLogWriteData("_CONFIGURATION:__________________________________________________________________");
             LoggingUtils.GenerationLogWriteData($"Will Import playlist files from: {values.playlistImportPath}");
             LoggingUtils.GenerationLogWriteData($"Will Export playlist files to: {values.playlistExportPath}");
