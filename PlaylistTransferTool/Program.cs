@@ -55,6 +55,21 @@ namespace PlaylistTransferTool
                 exportParser.Export(config.PlaylistExportPath, mdbContext);
             }
             LoggingUtils.GenerationLogWriteData("Playlist Transfer Tool completed successfully.");
+            LoggingUtils.GenerationLogWriteData("");
+            LoggingUtils.GenerationLogWriteData("_Final_Report:___________________________________________________________________");
+            if(mdbContext.PlaylistTracks.Where(pt => !pt.TrackID.HasValue).Any())
+            {
+                var missingTracks = mdbContext.PlaylistTracks.Where(pt => !pt.TrackID.HasValue);
+                LoggingUtils.GenerationLogWriteData($"The following {missingTracks.Count()} tracks could not be found in the database:");
+                foreach(var missingTrack in missingTracks)
+                {
+                    LoggingUtils.GenerationLogWriteData($" - '{missingTrack.LastKnownPath}' from playlist '{mdbContext.Playlist.First(p => p.PlaylistID == missingTrack.PlaylistID).PlaylistName}' ({missingTrack.PlaylistID})");
+                }
+            } else
+            {
+                LoggingUtils.GenerationLogWriteData("All tracks were present in the database!");
+            }
+            LoggingUtils.GenerationLogWriteData("_________________________________________________________________________________");
             LoggingUtils.Close();
 
             Console.WriteLine("Press any key to close this terminal...");
