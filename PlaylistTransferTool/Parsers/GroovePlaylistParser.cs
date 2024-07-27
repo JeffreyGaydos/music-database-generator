@@ -90,7 +90,7 @@ namespace PlaylistTransferTool
                                 new PlaylistTracks()
                                 {
                                     PlaylistID = playlistID,
-                                    TrackID = -trackIndex,
+                                    TrackID = null,
                                     TrackOrder = trackIndex,
                                     LastKnownPath = rawSource
                                 }

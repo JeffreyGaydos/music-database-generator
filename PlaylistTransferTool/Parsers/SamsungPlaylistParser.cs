@@ -57,7 +57,7 @@ namespace PlaylistTransferTool
                                 new PlaylistTracks()
                                 {
                                     PlaylistID = playlistID,
-                                    TrackID = -itemIndex,
+                                    TrackID = null,
                                     TrackOrder = itemIndex,
                                     LastKnownPath = item
                                 }
