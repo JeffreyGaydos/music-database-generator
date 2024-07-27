@@ -192,7 +192,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Models\TrackPersons.cs" />
-    <Content Include="Schema\Migrations\dbm_20240725_Add_lastKnownFilePath_PlaylistTracks.sql" />
+    <Content Include="Schema\Migrations\dbm_20240725_playlistTracksTweaks.sql" />
     <Compile Include="SQLStringComparison.cs" />
     <Compile Include="Synchronizers\AlbumArtSynchronizer.cs" />
     <Compile Include="Synchronizers\AlbumSynchronizer.cs" />
