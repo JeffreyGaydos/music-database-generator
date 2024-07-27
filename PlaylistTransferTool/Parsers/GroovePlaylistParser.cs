@@ -141,7 +141,7 @@ namespace PlaylistTransferTool
     <meta name=""totalDuration"" content=""{totalDuration * 1000}"" />
     <meta name=""itemCount"" content=""{itemCount}"" />
     <meta name=""generator"" content=""{generator}"" />
-    <title>Chill</title>
+    <title>{title}</title>
   </head>
   <body>
     <seq>";
