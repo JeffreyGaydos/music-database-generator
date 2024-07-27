@@ -21,7 +21,7 @@ namespace PlaylistTransferTool.Synchronizers
         {
             if(_context.Playlist.Where(p => p.PlaylistName == _playlist.PlaylistName).Any())
             {
-                if (_config.mergePlaylistsWithSameName)
+                if (_config.MergePlaylistsWithSameName)
                 {
                     _playlist.PlaylistID = _context.Playlist.Where(
                         p => p.PlaylistName == _playlist.PlaylistName

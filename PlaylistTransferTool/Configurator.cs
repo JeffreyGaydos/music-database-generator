@@ -7,11 +7,11 @@ namespace PlaylistTransferTool
 {
     public class ConfiguratorValues
     {
-        public string playlistImportPath { get; private set; }
-        public string playlistExportPath { get; private set; }
-        public PlaylistType playlistExportType { get; private set; }
-        public bool mergePlaylistsWithSameName { get; private set; }
-        public bool deleteExistingPlaylists { get; private set; }
+        public string PlaylistImportPath { get; private set; }
+        public string PlaylistExportPath { get; private set; }
+        public PlaylistType PlaylistExportType { get; private set; }
+        public bool MergePlaylistsWithSameName { get; private set; }
+        public bool DeleteExistingPlaylists { get; private set; }
 
         public ConfiguratorValues(
             string playlistImportPath,
@@ -21,11 +21,11 @@ namespace PlaylistTransferTool
             bool deleteExistingPlaylists
         )
         {
-            this.playlistImportPath = playlistImportPath;
-            this.playlistExportPath = playlistExportPath;
-            this.playlistExportType = playlistExportType;
-            this.mergePlaylistsWithSameName = mergePlaylistsWithSameName;
-            this.deleteExistingPlaylists = deleteExistingPlaylists;
+            PlaylistImportPath = playlistImportPath;
+            PlaylistExportPath = playlistExportPath;
+            PlaylistExportType = playlistExportType;
+            MergePlaylistsWithSameName = mergePlaylistsWithSameName;
+            DeleteExistingPlaylists = deleteExistingPlaylists;
         }
     }
 
@@ -63,11 +63,11 @@ namespace PlaylistTransferTool
             );
 
             LoggingUtils.GenerationLogWriteData("_CONFIGURATION:__________________________________________________________________");
-            LoggingUtils.GenerationLogWriteData($"Will Import playlist files from: {values.playlistImportPath}");
-            LoggingUtils.GenerationLogWriteData($"Will Export playlist files to: {values.playlistExportPath}");
-            LoggingUtils.GenerationLogWriteData($"Will Export \"{values.playlistExportType}\" playlists");
-            LoggingUtils.GenerationLogWriteData($"Will {(values.mergePlaylistsWithSameName ? "merge" : "overwrite")} playlists with the same name NOTE: config not implemented");
-            LoggingUtils.GenerationLogWriteData($"Will {(values.deleteExistingPlaylists ? "delete" : "persist")} existing playlists from database");
+            LoggingUtils.GenerationLogWriteData($"Will Import playlist files from: {values.PlaylistImportPath}");
+            LoggingUtils.GenerationLogWriteData($"Will Export playlist files to: {values.PlaylistExportPath}");
+            LoggingUtils.GenerationLogWriteData($"Will Export \"{values.PlaylistExportType}\" playlists");
+            LoggingUtils.GenerationLogWriteData($"Will {(values.MergePlaylistsWithSameName ? "merge" : "overwrite")} playlists with the same name NOTE: config not implemented");
+            LoggingUtils.GenerationLogWriteData($"Will {(values.DeleteExistingPlaylists ? "delete" : "persist")} existing playlists from database");
             LoggingUtils.GenerationLogWriteData("_________________________________________________________________________________");
 
             return values;

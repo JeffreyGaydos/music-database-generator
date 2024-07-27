@@ -9,11 +9,11 @@ namespace PlaylistTransferTool
 {
     public class SamsungPlaylistParser : IPlaylistParser
     {
-        Regex titleRegex = new Regex("(?<=\\\\)[^\\\\\\/]+(?=\\.m3u)", RegexOptions.Compiled);
-        Regex trackNameRegex = new Regex(@"((?<=[/\\])[^\\/]+$)|(^[^/\\]+$)", RegexOptions.Compiled);
-        Regex relevantPathPartRGX = new Regex(@"(?<=\\Music\\).+|^[^\\/]+$", RegexOptions.Compiled);
+        private readonly Regex titleRegex = new Regex("(?<=\\\\)[^\\\\\\/]+(?=\\.m3u)", RegexOptions.Compiled);
+        private readonly Regex trackNameRegex = new Regex(@"((?<=[/\\])[^\\/]+$)|(^[^/\\]+$)", RegexOptions.Compiled);
+        private readonly Regex relevantPathPartRGX = new Regex(@"(?<=\\Music\\).+|^[^\\/]+$", RegexOptions.Compiled);
 
-        private bool isM3u8ExportRequested = false;
+        private readonly bool isM3u8ExportRequested = false;
 
         public Playlist ParsePlaylist(string file)
         {

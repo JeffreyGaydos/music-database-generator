@@ -15,44 +15,44 @@ namespace PlaylistTransferTool
             LoggingUtils.Init();
             LoggingUtils.GenerationLogWriteData($"This tool works best when the file paths to your music are the same across devices, but this tool attempts to match if not");
             var config = new Configurator().HandleConfiguration();
-            var filesCategorized = FolderReader.GetFiles(config.playlistImportPath);
+            var filesCategorized = FolderReader.GetFiles(config.PlaylistImportPath);
 
             MusicLibraryContext mdbContext = new MusicLibraryContext();
 
-            if(config.deleteExistingPlaylists)
+            if(config.DeleteExistingPlaylists)
             {
                 mdbContext.Database.ExecuteSqlCommand("TRUNCATE TABLE [PlaylistTracks]");
                 mdbContext.Database.ExecuteSqlCommand("TRUNCATE TABLE [Playlist]");
                 mdbContext.SaveChanges();
             }
 
-            foreach (var fileTuple in filesCategorized)
+            foreach ((var playlistParser, var fileName) in filesCategorized)
             {
-                Playlist playlist = fileTuple.playlistParser.ParsePlaylist(fileTuple.fileName);
+                Playlist playlist = playlistParser.ParsePlaylist(fileName);
                 var plSync = new PlaylistSynchronizer(playlist, mdbContext, config);
                 var op = plSync.Sync();
 
                 if(op != SyncOperation.Skip)
                 {
-                    List<PlaylistTracks> playlistTracks = fileTuple.playlistParser.ParsePlaylistTracks(fileTuple.fileName, plSync.GetPlaylistID(), mdbContext);
+                    List<PlaylistTracks> playlistTracks = playlistParser.ParsePlaylistTracks(fileName, plSync.GetPlaylistID(), mdbContext);
                     var pltSync = new PlaylistTrackSynchronizer(playlistTracks, mdbContext);
                     pltSync.Sync();
                 }
 
-                if (config.playlistExportType != PlaylistType.None)
+                if (config.PlaylistExportType != PlaylistType.None)
                 {
-                    LoggingUtils.GenerationLogWriteData($"Exporting '{fileTuple.fileName}' as a '{Enum.GetName(typeof(PlaylistType), config.playlistExportType)}' playlist.");
-                    FolderReader._playlistParserMap.TryGetValue(config.playlistExportType, out var exportParser);
-                    exportParser.Export(config.playlistExportPath, mdbContext, plSync.GetPlaylistID());
+                    LoggingUtils.GenerationLogWriteData($"Exporting '{fileName}' as a '{Enum.GetName(typeof(PlaylistType), config.PlaylistExportType)}' playlist.");
+                    FolderReader._playlistParserMap.TryGetValue(config.PlaylistExportType, out var exportParser);
+                    exportParser.Export(config.PlaylistExportPath, mdbContext, plSync.GetPlaylistID());
                 }
             }
 
             // So the user can just get all the playlists currently in the database if desired
-            if (!filesCategorized.Any() && config.playlistExportType != PlaylistType.None)
+            if (!filesCategorized.Any() && config.PlaylistExportType != PlaylistType.None)
             {
-                LoggingUtils.GenerationLogWriteData($"Exporting existing playlists in database as '{Enum.GetName(typeof(PlaylistType), config.playlistExportType)}' playlists.");
-                FolderReader._playlistParserMap.TryGetValue(config.playlistExportType, out var exportParser);
-                exportParser.Export(config.playlistExportPath, mdbContext);
+                LoggingUtils.GenerationLogWriteData($"Exporting existing playlists in database as '{Enum.GetName(typeof(PlaylistType), config.PlaylistExportType)}' playlists.");
+                FolderReader._playlistParserMap.TryGetValue(config.PlaylistExportType, out var exportParser);
+                exportParser.Export(config.PlaylistExportPath, mdbContext);
             }
             LoggingUtils.GenerationLogWriteData("Playlist Transfer Tool completed successfully.");
             LoggingUtils.Close();

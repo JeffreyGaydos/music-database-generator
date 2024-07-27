@@ -11,9 +11,9 @@ namespace PlaylistTransferTool
 {
     public class GroovePlaylistParser : IPlaylistParser
     {
-        Regex titleRegex = new Regex("(?<=\\\\)[^\\\\\\/]+(?=\\.zpl)");
-        Regex absoluteRegex = new Regex(@"C:\\Users\\[^\\/]+\\Music\\", RegexOptions.Compiled);
-        Regex trackNameRegex = new Regex(@"((?<=[/\\])[^\\/]+$)|(^[^/\\]+$)", RegexOptions.Compiled);
+        private readonly Regex titleRegex = new Regex("(?<=\\\\)[^\\\\\\/]+(?=\\.zpl)");
+        private readonly Regex absoluteRegex = new Regex(@"C:\\Users\\[^\\/]+\\Music\\", RegexOptions.Compiled);
+        private readonly Regex trackNameRegex = new Regex(@"((?<=[/\\])[^\\/]+$)|(^[^/\\]+$)", RegexOptions.Compiled);
 
         public Playlist ParsePlaylist(string file)
         {
