@@ -98,7 +98,7 @@ namespace PlaylistTransferTool
             foreach(var playlist in ctx.Playlist)
             {
                 var title = playlist.PlaylistName;
-                foreach(var pt in ctx.PlaylistTracks.Where(pt => pt.PlaylistID == playlist.PlaylistID))
+                foreach(var pt in ctx.PlaylistTracks.Where(pt => pt.PlaylistID == playlist.PlaylistID).OrderBy(pt => pt.TrackOrder))
                 {
                     var track = ctx.Main.Where(t => t.TrackID == pt.TrackID).FirstOrDefault();
                     var mat = relevantPathPartRGX.Match(pt.LastKnownPath);

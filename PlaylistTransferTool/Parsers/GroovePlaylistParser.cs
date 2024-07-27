@@ -183,7 +183,7 @@ namespace PlaylistTransferTool
                     tracks = new List<GrooveTrack>()
                 };
 
-                foreach (var pt in ctx.PlaylistTracks.Where(pt => pt.PlaylistID == playlist.PlaylistID))
+                foreach (var pt in ctx.PlaylistTracks.Where(pt => pt.PlaylistID == playlist.PlaylistID).OrderBy(pt => pt.TrackOrder))
                 {
                     var track = ctx.Main.FirstOrDefault(t => t.TrackID == pt.TrackID);
                     if (track == null)
@@ -193,7 +193,8 @@ namespace PlaylistTransferTool
                         {
                             if(MatchesByTrackName(filePath, pt.LastKnownPath))
                             {
-                                track = ctx.Main.FirstOrDefault(t => t.TrackID == trackDict[filePath]);
+                                int trackID = trackDict[filePath];
+                                track = ctx.Main.FirstOrDefault(t => t.TrackID == trackID);
                                 break;
                             }
                         }
