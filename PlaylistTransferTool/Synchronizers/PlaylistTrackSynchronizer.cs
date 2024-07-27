@@ -21,10 +21,22 @@ namespace PlaylistTransferTool.Synchronizers
             SyncOperation op = SyncOperation.None;
             foreach(var plt in _playlistTracks)
             {
-                if(_context.PlaylistTracks.Where(pt => pt.TrackID == plt.TrackID && pt.PlaylistID == plt.PlaylistID).Any())
+                if(_context.PlaylistTracks.Where(pt => (pt.TrackOrder == plt.TrackOrder || pt.TrackID == plt.TrackID) && pt.PlaylistID == plt.PlaylistID).Any())
                 {
-                    op |= SyncOperation.Skip;
-                    LoggingUtils.GenerationLogWriteData($"Track with ID {plt.TrackID} is already in this playlist, skipping");
+                    var currentPt = _context.PlaylistTracks.FirstOrDefault(pt => pt.TrackOrder == plt.TrackOrder && pt.PlaylistID == plt.PlaylistID)
+                        ?? _context.PlaylistTracks.FirstOrDefault(pt => pt.TrackID == plt.TrackID && pt.PlaylistID == plt.PlaylistID);
+                    if (currentPt.LastKnownPath != plt.LastKnownPath || currentPt.TrackID != plt.TrackID || currentPt.TrackOrder != plt.TrackOrder)
+                    {
+                        op |= SyncOperation.Update;
+                        LoggingUtils.GenerationLogWriteData($"Track with ID {plt.TrackID} is already in this playlist but has changes, updating");
+                        //since our PK uses the track ID, we need to delete and re-insert rather than an in-place update
+                        _context.PlaylistTracks.Remove(currentPt);
+                        _context.PlaylistTracks.Add(plt);
+                    } else
+                    {
+                        op |= SyncOperation.Skip;
+                        LoggingUtils.GenerationLogWriteData($"Track with ID {plt.TrackID} is already in this playlist and has no changes, skipping");
+                    }
                 } else
                 {
                     op |= SyncOperation.Insert;
