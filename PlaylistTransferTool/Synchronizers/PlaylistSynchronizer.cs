@@ -31,7 +31,7 @@ namespace PlaylistTransferTool.Synchronizers
                     {
                         _context.Playlist.Where(
                             p => p.PlaylistName == _playlist.PlaylistName
-                        ).FirstOrDefault().LastEditDate = _playlist.LastEditDate;
+                        ).FirstOrDefault().LastEditDate = System.DateTime.Now; //use .Now to push the udpate date past the modified date. Arguably this date should be the date we modified the database playlist, not the file itself, though it is related
                         _context.SaveChanges();
                         LoggingUtils.GenerationLogWriteData($"Playlist '{_playlist.PlaylistName}' already exists, but was modified. Merging...");
                         return SyncOperation.Update;
