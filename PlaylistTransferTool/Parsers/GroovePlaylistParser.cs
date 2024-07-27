@@ -4,20 +4,24 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Web;
 using System.Xml;
 
 namespace PlaylistTransferTool
 {
     public class GroovePlaylistParser : IPlaylistParser
     {
-        Regex titleRegex = new Regex("(?<=\\\\)[^\\\\\\/]+(?=\\.zpl)");
+        private readonly Regex titleRegex = new Regex("(?<=\\\\)[^\\\\\\/]+(?=\\.zpl)");
+        private readonly Regex absoluteRegex = new Regex(@"C:\\Users\\[^\\/]+\\Music\\", RegexOptions.Compiled);
+        private readonly Regex trackNameRegex = new Regex(@"((?<=[/\\])[^\\/]+$)|(^[^/\\]+$)", RegexOptions.Compiled);
+        private readonly Regex fileExtension = new Regex(@"\.[a-zA-Z0-9]+$");
 
         public Playlist ParsePlaylist(string file)
         {
             Playlist result = new Playlist()
             {
-                CreationDate = DateTime.Now,
-                LastEditDate = DateTime.Now,
+                CreationDate = File.GetCreationTime(file),
+                LastEditDate = File.GetLastWriteTime(file),
                 PlaylistDescription = $"Imported using the file {file} via the PlaylistTransferTool",
                 PlaylistName = "Unknown Title",
             };
@@ -34,13 +38,13 @@ namespace PlaylistTransferTool
                 result.PlaylistName = xmlHead.ChildNodes[3].InnerText;
             } catch (Exception ex)
             {
-                LoggingUtils.GenerationLogWriteData($"ERROR: Could not parse Groove Music playlist file {file} or title element was not found.");
+                LoggingUtils.GenerationLogWriteData($"WARNING: Could not parse Groove Music playlist file {file} or title element was not found.");
                 LoggingUtils.GenerationLogWriteData($" ^-- {ex.Message}");
-                LoggingUtils.GenerationLogWriteData($"Using filename as playlist title");
+                LoggingUtils.GenerationLogWriteData($"WARNING: Using filename as playlist title");
                 var match = titleRegex.Match(file);
                 if(match.Success)
                 {
-                    LoggingUtils.GenerationLogWriteData($"Used name \"{match.Value}\" as playlist title");
+                    LoggingUtils.GenerationLogWriteData($"WARNING: Used name \"{match.Value}\" as playlist title");
                 } else
                 {
                     LoggingUtils.GenerationLogWriteData("ERROR: Could not extract playlist title from path");
@@ -50,7 +54,7 @@ namespace PlaylistTransferTool
             return result;
         }
 
-        public PlaylistTracks[] ParsePlaylistTracks(string file, int playlistID, MusicLibraryContext ctx)
+        public List<PlaylistTracks> ParsePlaylistTracks(string file, int playlistID, MusicLibraryContext ctx)
         {
             List<PlaylistTracks> plts = new List<PlaylistTracks>();
             try
@@ -63,60 +67,73 @@ namespace PlaylistTransferTool
 
                 var xmlSeq = xmlDoc.LastChild.LastChild.FirstChild;
 
-                var childIndex = 0;
+                var trackIndex = 0;
                 foreach (XmlNode child in xmlSeq.ChildNodes)
                 {
-                    var rawSource = child.Attributes.Item(0).Value;
-                    var reducedSource = rawSource.Substring(rawSource.IndexOf("\\Music\\") + 7);
-
-                    //first we assume that the paths are the same
-                    reducedSource = new UniversalPathComparator().ToWindowsPath(reducedSource);
-                    var matchingTrack = ctx.Main.Where(t => t.FilePath.Contains(reducedSource)
-                    ).FirstOrDefault();
-
-                    //If that found nothing we need to use the title, duration, and artist to match on a track
-                    if (matchingTrack == null)
+                    if (child.Attributes.Item(0).Name != "src") continue;
+                    var rawSource = child.Attributes.Item(0).Value.Replace("\n", "").Replace("\r", "");
+                    var mat = trackNameRegex.Match(rawSource);
+                    if(mat.Success)
                     {
-                        var title = child.Attributes.Item(3).Value;
-                        var duration = Math.Round(decimal.Parse(child.Attributes.Item(5).Value) / 1000);
-
-                        matchingTrack = ctx.Main.Where(t => t.Title.Equals(title) && t.Duration == duration).FirstOrDefault();
-                    }
-
-                    if (matchingTrack == null)
-                    {
-                        LoggingUtils.GenerationLogWriteData($"ERROR: Could not find track corresponding to path {rawSource} in existing database");
-                    }
-                    else
-                    {
-                        plts.Add(new PlaylistTracks()
+                        var matchingTrack = ctx.Main.Where(t => t.FilePath.EndsWith("\\" + mat.Value) || t.FilePath.EndsWith("/" + mat.Value)).FirstOrDefault();
+                        //If that found nothing we need to use the title, duration, and artist to match on a track
+                        if (matchingTrack == null)
                         {
-                            PlaylistID = playlistID,
-                            TrackID = matchingTrack.TrackID,
-                            TrackOrder = childIndex
-                        });
+                            var title = child.Attributes.Item(3).Value;
+                            if(int.TryParse(child.Attributes.Item(5).Value, out var duration))
+                            {
+                                matchingTrack = ctx.Main.Where(t => t.Title.Equals(title) && (t.Duration >= duration - 1 && t.Duration <= duration + 1)).FirstOrDefault();
+                            }
+                        }
+
+                        if (matchingTrack == null)
+                        {
+                            LoggingUtils.GenerationLogWriteData($"WARNING: Could not find track corresponding to path '{rawSource}' in existing database. NULL TrackID assigned");
+                            plts.Add(
+                                new PlaylistTracks()
+                                {
+                                    PlaylistID = playlistID,
+                                    TrackID = null,
+                                    TrackOrder = trackIndex,
+                                    LastKnownPath = rawSource
+                                }
+                            );
+                        }
+                        else
+                        {
+                            plts.Add(
+                                new PlaylistTracks()
+                                {
+                                    PlaylistID = playlistID,
+                                    TrackID = matchingTrack.TrackID,
+                                    TrackOrder = trackIndex,
+                                    LastKnownPath = rawSource
+                                }
+                            );
+                        }
+                        trackIndex++;
                     }
-                    childIndex++;
                 }
             } catch (Exception ex)
             {
                 LoggingUtils.GenerationLogWriteData($"ERROR: Could not parse Groove Music playlist file {file} or track data was not found.");
                 LoggingUtils.GenerationLogWriteData($" ^-- {ex.Message}");
+                LoggingUtils.Close();
             }
 
             LoggingUtils.GenerationLogWriteData($"Finished parsing Groove Music Playlist {file}");
-            return plts.ToArray();
+            return plts;
         }
 
         private class GroovePlaylist
         {
             public string title;
-            public GrooveTrack[] tracks;
+            public List<GrooveTrack> tracks;
 
             public string GetString()
             {
                 var totalDuration = tracks.Sum(t => t.duration);
-                var itemCount = tracks.Length;
+                var itemCount = tracks.Count;
                 const string generator = "Entertainment Platform -- 10.20112.1011.0";
                 const string zplHeader = "<?zpl version=\"2.0\"?>";
 
@@ -126,7 +143,7 @@ namespace PlaylistTransferTool
     <meta name=""totalDuration"" content=""{totalDuration * 1000}"" />
     <meta name=""itemCount"" content=""{itemCount}"" />
     <meta name=""generator"" content=""{generator}"" />
-    <title>Chill</title>
+    <title>{HttpUtility.HtmlEncode(title)}</title>
   </head>
   <body>
     <seq>";
@@ -154,32 +171,91 @@ namespace PlaylistTransferTool
 
             public string GetString()
             {
-                return $"<media src=\"{source}\" albumTitle=\"{albumTitle}\" albumArtist=\"{albumArtist}\" trackTitle=\"{trackTitle}\" trackArtist=\"{albumArtist}\" duration=\"{duration * 1000}\" />";
+                return $"<media src=\"{HttpUtility.HtmlEncode(source)}\" albumTitle=\"{HttpUtility.HtmlEncode(albumTitle)}\" albumArtist=\"{HttpUtility.HtmlEncode(albumArtist)}\" trackTitle=\"{HttpUtility.HtmlEncode(trackTitle)}\" trackArtist=\"{HttpUtility.HtmlEncode(albumArtist)}\" duration=\"{duration * 1000}\" />";
             }
         }
 
-        public void Export(string exportPath, MusicLibraryContext ctx)
+        public void Export(string exportPath, MusicLibraryContext ctx, int? playlistIdFilter = null)
         {
             List<GroovePlaylist> playlists = new List<GroovePlaylist>();
 
-            foreach(var list in ctx.Playlist)
+            foreach(var playlist in ctx.Playlist.Where(p => !playlistIdFilter.HasValue || playlistIdFilter == p.PlaylistID))
             {
-                var playlist = new GroovePlaylist
+                var groovePlaylist = new GroovePlaylist
                 {
-                    title = list.PlaylistName,
-                    tracks = ctx.PlaylistTracks
-                        .Where(pt => pt.PlaylistID == list.PlaylistID)
-                        .Select(pt => new GrooveTrack
-                        {
-                            albumArtist = ctx.Artist.Where(a => ctx.ArtistTracks.Where(at => at.TrackID == pt.TrackID).FirstOrDefault().ArtistID == a.ArtistID).FirstOrDefault().ArtistName,
-                            albumTitle = ctx.Album.Where(a => ctx.AlbumTracks.Where(at => at.TrackID == pt.TrackID).FirstOrDefault().AlbumID == a.AlbumID).FirstOrDefault().AlbumName,
-                            duration = ctx.Main.Where(t => t.TrackID == pt.TrackID).FirstOrDefault().Duration ?? 0,
-                            source = ctx.Main.Where(t => t.TrackID == pt.TrackID).FirstOrDefault().FilePath,
-                            trackTitle = ctx.Main.Where(t => t.TrackID == pt.TrackID).FirstOrDefault().Title,
-                        }).ToArray(),
+                    title = playlist.PlaylistName,
+                    tracks = new List<GrooveTrack>()
                 };
 
-                playlists.Add(playlist);
+                foreach (var pt in ctx.PlaylistTracks.Where(pt => pt.PlaylistID == playlist.PlaylistID).OrderBy(pt => pt.TrackOrder))
+                {
+                    var track = ctx.Main.FirstOrDefault(t => t.TrackID == pt.TrackID);
+                    if (track == null)
+                    {
+                        var trackDict = ctx.Main.ToDictionary(t => t.FilePath, t => t.TrackID);
+                        foreach(var filePath in trackDict.Keys)
+                        {
+                            if(MatchesByTrackName(filePath, pt.LastKnownPath))
+                            {
+                                int trackID = trackDict[filePath];
+                                track = ctx.Main.FirstOrDefault(t => t.TrackID == trackID);
+                                break;
+                            }
+                        }
+                    }
+                    if (track == null)
+                    {
+                        if(pt.LastKnownPath == null)
+                        {
+                            LoggingUtils.GenerationLogWriteData($"ERROR: Could not find absolute path to use in '{nameof(PlaylistType.Groove)}' playlist for '{playlist.PlaylistName}', track #{pt.TrackOrder} with last known path of NULL.");
+                        } else
+                        {
+                            if (absoluteRegex.IsMatch(pt.LastKnownPath) || pt.LastKnownPath[1] == ':')
+                            {
+                                //fallback, path is absolute, possibly matching default Music folder path
+                                groovePlaylist.tracks.Add(new GrooveTrack
+                                {
+                                    albumArtist = "",
+                                    albumTitle = "",
+                                    duration = 0,
+                                    trackTitle = trackNameRegex.Match(pt.LastKnownPath).Value ?? "",
+                                    source = pt.LastKnownPath
+                                });
+                            }
+                            else
+                            {
+                                //fallback, missing absolute path part
+                                LoggingUtils.GenerationLogWriteData($"WARNING: Could not find absolute path to use in '{nameof(PlaylistType.Groove)}' playlist for '{playlist.PlaylistName}', track #{pt.TrackOrder} with last known path of '{pt.LastKnownPath}'. Creating abslute path from the default Windows 'Music' folder.");
+                                var fullUser = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+                                var username = fullUser.Substring(fullUser.IndexOf("\\") + 1);
+                                var pathNotSlashPrefixed = pt.LastKnownPath.StartsWith("/") || pt.LastKnownPath.StartsWith("\\") ? pt.LastKnownPath.Substring(1) : pt.LastKnownPath;
+                                groovePlaylist.tracks.Add(new GrooveTrack
+                                {
+                                    albumArtist = "",
+                                    albumTitle = "",
+                                    duration = 0,
+                                    trackTitle = trackNameRegex.Match(pt.LastKnownPath).Value ?? "",
+                                    source = $@"C:\Users\{username}\Music\{pathNotSlashPrefixed}"
+                                });
+                            }
+                        }
+                    }
+                    else
+                    {
+                        var artistID = ctx.ArtistTracks.FirstOrDefault(at => at.TrackID == track.TrackID)?.ArtistID ?? 0;
+                        var albumID = ctx.AlbumTracks.FirstOrDefault(at => at.TrackID == track.TrackID)?.AlbumID ?? 0;
+                        groovePlaylist.tracks.Add(new GrooveTrack
+                        {
+                            albumArtist = ctx.Artist.Where(a => artistID == a.ArtistID).FirstOrDefault()?.ArtistName,
+                            albumTitle = ctx.Album.Where(a => albumID == a.AlbumID).FirstOrDefault()?.AlbumName,
+                            duration = track.Duration ?? 0,
+                            source = track.FilePath,
+                            trackTitle = track.Title,
+                        });
+                    }
+                }
+
+                playlists.Add(groovePlaylist);
             }
 
             foreach(var groovePlaylist in playlists)
@@ -191,6 +267,19 @@ namespace PlaylistTransferTool
                 writer.Write(contents);
                 writer.Close();
             }
+        }
+
+        private bool MatchesByTrackName(string filePath, string lastKnownPath)
+        {
+            var mat = trackNameRegex.Match(lastKnownPath ?? "");
+            var result = false;
+            if(mat.Success)
+            {
+                fileExtension.Replace(mat.Value, "");
+                result = fileExtension.Replace(filePath, "").EndsWith("\\" + mat.Value) 
+                    || fileExtension.Replace(filePath, "").EndsWith("/" + mat.Value);
+            }
+            return result;
         }
     }
 }

@@ -20,5 +20,7 @@ packages/*
 files_with_limited_data.txt
 generation.txt
 skipped_duplicates.txt
+transfer_tool_log.txt
 
 **/*.db
+**/*.txt
