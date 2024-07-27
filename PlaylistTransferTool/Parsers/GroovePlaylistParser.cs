@@ -68,6 +68,7 @@ namespace PlaylistTransferTool
                 var trackIndex = 0;
                 foreach (XmlNode child in xmlSeq.ChildNodes)
                 {
+                    if (child.Attributes.Item(0).Name != "src") continue;
                     var rawSource = child.Attributes.Item(0).Value.Replace("\n", "").Replace("\r", "");
                     var mat = trackNameRegex.Match(rawSource);
                     if(mat.Success)
@@ -77,9 +78,10 @@ namespace PlaylistTransferTool
                         if (matchingTrack == null)
                         {
                             var title = child.Attributes.Item(3).Value;
-                            var duration = Math.Round(decimal.Parse(child.Attributes.Item(5).Value));
-
+                            if(int.TryParse(child.Attributes.Item(5).Value, out var duration))
+                            {
                             matchingTrack = ctx.Main.Where(t => t.Title.Equals(title) && (t.Duration >= duration - 1 && t.Duration <= duration + 1)).FirstOrDefault();
+                        }
                         }
 
                         if (matchingTrack == null)
