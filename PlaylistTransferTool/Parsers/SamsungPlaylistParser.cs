@@ -45,7 +45,7 @@ namespace PlaylistTransferTool
                 var itemIndex = 0;
                 foreach(var item in playlistItems)
                 {
-                    if (item == "#EXTM3U" || string.IsNullOrEmpty(item)) continue;
+                    if (item.StartsWith("#") || string.IsNullOrEmpty(item)) continue;
                     var mat = trackNameRegex.Match(item);
                     if (mat.Success)
                     {

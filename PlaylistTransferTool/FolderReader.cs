@@ -1,16 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace PlaylistTransferTool
 {
     public static class FolderReader
     {
+        private static readonly Regex _extensionRegex = new Regex(@"\.[^\.]+$", RegexOptions.Compiled);
+
         private static Dictionary<string, PlaylistType> _playlistExtensions = new Dictionary<string, PlaylistType>
         {
             { ".zpl", PlaylistType.Groove },
-            { ".m3u", PlaylistType.Samsung }
+            { ".m3u", PlaylistType.Samsung },
+            { ".m3u8", PlaylistType.Samsung }
         };
 
         private static Dictionary<PlaylistType, int> _playlistTypeCounts = new Dictionary<PlaylistType, int>
@@ -34,7 +37,7 @@ namespace PlaylistTransferTool
         {
             var result = Directory.GetFiles(inputPath).Select(file =>
             {
-                if (_playlistExtensions.TryGetValue(file.Substring(file.Length - 4), out var type))
+                if (_playlistExtensions.TryGetValue(_extensionRegex.Match(file).Value, out var type))
                 {
                     _playlistTypeCounts[type] += 1;
                     return (playlistParser: _playlistParserMap[type], fileName: file);
