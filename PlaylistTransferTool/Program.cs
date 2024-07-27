@@ -53,6 +53,10 @@ namespace PlaylistTransferTool
                 FolderReader._playlistParserMap.TryGetValue(config.playlistExportType, out var exportParser);
                 exportParser.Export(config.playlistExportPath, mdbContext);
             }
+            LoggingUtils.GenerationLogWriteData("Playlist Transfer Tool completed successfully.");
+
+            Console.WriteLine("Press any key to close this terminal...");
+            Console.ReadKey();
         }
     }
 }
