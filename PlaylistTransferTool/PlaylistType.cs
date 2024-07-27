@@ -4,6 +4,6 @@
     {
         None = 0,
         Groove = 1,
-        Samsung = 2
+        M3U_OR_M3U8 = 2
     };
 }

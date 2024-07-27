@@ -114,7 +114,7 @@ namespace PlaylistTransferTool
                         contents += $"\n{relevantPath}";
                     } else
                     {
-                        LoggingUtils.GenerationLogWriteData($"ERROR: Could not find proper path to use in '{nameof(PlaylistType.Samsung)}' playlist for '{playlist.PlaylistName}', track #{pt.TrackOrder} with last known path of '{pt.LastKnownPath}'");
+                        LoggingUtils.GenerationLogWriteData($"ERROR: Could not find proper path to use in '{nameof(PlaylistType.M3U_OR_M3U8)}' playlist for '{playlist.PlaylistName}', track #{pt.TrackOrder} with last known path of '{pt.LastKnownPath}'");
                     }
                 }
 

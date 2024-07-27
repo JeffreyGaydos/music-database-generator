@@ -12,15 +12,15 @@ namespace PlaylistTransferTool
         private static Dictionary<string, PlaylistType> _playlistExtensions = new Dictionary<string, PlaylistType>
         {
             { ".zpl", PlaylistType.Groove },
-            { ".m3u", PlaylistType.Samsung },
-            { ".m3u8", PlaylistType.Samsung }
+            { ".m3u", PlaylistType.M3U_OR_M3U8 },
+            { ".m3u8", PlaylistType.M3U_OR_M3U8 }
         };
 
         private static Dictionary<PlaylistType, int> _playlistTypeCounts = new Dictionary<PlaylistType, int>
         {
             {PlaylistType.None, 0},
             {PlaylistType.Groove, 0},
-            {PlaylistType.Samsung, 0},
+            {PlaylistType.M3U_OR_M3U8, 0},
         };
 
         private static UnknownPlaylistParser _nonParser = new UnknownPlaylistParser();
@@ -30,7 +30,7 @@ namespace PlaylistTransferTool
         public static Dictionary<PlaylistType, IPlaylistParser> _playlistParserMap = new Dictionary<PlaylistType, IPlaylistParser>
         {
             {PlaylistType.Groove, _grooveParser },            
-            {PlaylistType.Samsung, _samsungParser }
+            {PlaylistType.M3U_OR_M3U8, _samsungParser }
         };
 
         public static (IPlaylistParser playlistParser, string fileName)[] GetFiles(string inputPath)
