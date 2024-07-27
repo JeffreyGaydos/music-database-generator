@@ -9,6 +9,7 @@ namespace MusicDatabaseGenerator
     public partial class PlaylistTracks
     {
         [Key]
+        [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int PlaylistID { get; set; }
 
@@ -18,5 +19,9 @@ namespace MusicDatabaseGenerator
 
         [StringLength(260)]
         public string LastKnownPath { get; set; }
+
+        [Key]
+        [Column(Order = 1)]
+        public int SurrogateKey { get; set; }
     }
 }

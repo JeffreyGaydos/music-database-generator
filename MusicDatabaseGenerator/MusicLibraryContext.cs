@@ -22,9 +22,9 @@ namespace MusicDatabaseGenerator
         public virtual DbSet<GenreTracks> GenreTracks { get; set; }
         public virtual DbSet<Main> Main { get; set; }
         public virtual DbSet<Playlist> Playlist { get; set; }
-        public virtual DbSet<PlaylistTracks> PlaylistTracks { get; set; }
         public virtual DbSet<PlayLogs> PlayLogs { get; set; }
         public virtual DbSet<TrackPersons> TrackPersons { get; set; }
+        public virtual DbSet<PlaylistTracks> PlaylistTracks { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
