@@ -91,11 +91,11 @@ namespace PlaylistTransferTool
             return plts;
         }
 
-        public void Export(string exportPath, MusicLibraryContext ctx)
+        public void Export(string exportPath, MusicLibraryContext ctx, int? playlistIdFilter = null)
         {
             string contents = "#EXTM3U";
 
-            foreach(var playlist in ctx.Playlist)
+            foreach(var playlist in ctx.Playlist.Where(p => !playlistIdFilter.HasValue || playlistIdFilter == p.PlaylistID))
             {
                 var title = playlist.PlaylistName;
                 foreach(var pt in ctx.PlaylistTracks.Where(pt => pt.PlaylistID == playlist.PlaylistID).OrderBy(pt => pt.TrackOrder))

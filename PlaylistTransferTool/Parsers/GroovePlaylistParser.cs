@@ -170,11 +170,11 @@ namespace PlaylistTransferTool
             }
         }
 
-        public void Export(string exportPath, MusicLibraryContext ctx)
+        public void Export(string exportPath, MusicLibraryContext ctx, int? playlistIdFilter = null)
         {
             List<GroovePlaylist> playlists = new List<GroovePlaylist>();
 
-            foreach(var playlist in ctx.Playlist)
+            foreach(var playlist in ctx.Playlist.Where(p => !playlistIdFilter.HasValue || playlistIdFilter == p.PlaylistID))
             {
                 var groovePlaylist = new GroovePlaylist
                 {

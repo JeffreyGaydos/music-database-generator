@@ -16,7 +16,7 @@ namespace PlaylistTransferTool
             throw new NotImplementedException();
         }
 
-        public void Export(string exportPath, MusicLibraryContext ctx)
+        public void Export(string exportPath, MusicLibraryContext ctx, int? playlistIdFilter)
         {
             throw new NotImplementedException();
         }

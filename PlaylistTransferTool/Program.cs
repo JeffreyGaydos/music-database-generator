@@ -42,7 +42,7 @@ namespace PlaylistTransferTool
                 {
                     LoggingUtils.GenerationLogWriteData($"Exporting '{fileTuple.fileName}' as a '{Enum.GetName(typeof(PlaylistType), config.playlistExportType)}' playlist.");
                     FolderReader._playlistParserMap.TryGetValue(config.playlistExportType, out var exportParser);
-                    exportParser.Export(config.playlistExportPath, mdbContext);
+                    exportParser.Export(config.playlistExportPath, mdbContext, plSync.GetPlaylistID());
                 }
             }
 
