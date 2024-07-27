@@ -12,7 +12,7 @@ namespace PlaylistTransferTool
     public class GroovePlaylistParser : IPlaylistParser
     {
         Regex titleRegex = new Regex("(?<=\\\\)[^\\\\\\/]+(?=\\.zpl)");
-        Regex sourceRegex = new Regex(@"(?<=src\="")[^""]+", RegexOptions.Compiled);
+        Regex absoluteRegex = new Regex(@"C:\\Users\\[^\\/]+\\Music\\", RegexOptions.Compiled);
         Regex trackNameRegex = new Regex(@"((?<=[/\\])[^\\/]+$)|(^[^/\\]+$)", RegexOptions.Compiled);
 
         public Playlist ParsePlaylist(string file)
@@ -200,7 +200,40 @@ namespace PlaylistTransferTool
                     }
                     if (track == null)
                     {
-                        LoggingUtils.GenerationLogWriteData($"ERROR: Could not find proper path to use in '{nameof(PlaylistType.Groove)}' playlist for '{playlist.PlaylistName}', track #{pt.TrackOrder} with last known path of '{pt.LastKnownPath}'");
+                        if(pt.LastKnownPath == null)
+                        {
+                            LoggingUtils.GenerationLogWriteData($"ERROR: Could not find absolute path to use in '{nameof(PlaylistType.Groove)}' playlist for '{playlist.PlaylistName}', track #{pt.TrackOrder} with last known path of NULL.");
+                        } else
+                        {
+                            if (absoluteRegex.IsMatch(pt.LastKnownPath) || pt.LastKnownPath[1] == ':')
+                            {
+                                //fallback, path is absolute, possibly matching default Music folder path
+                                groovePlaylist.tracks.Add(new GrooveTrack
+                                {
+                                    albumArtist = "",
+                                    albumTitle = "",
+                                    duration = 0,
+                                    trackTitle = trackNameRegex.Match(pt.LastKnownPath).Value ?? "",
+                                    source = pt.LastKnownPath
+                                });
+                            }
+                            else
+                            {
+                                //fallback, missing absolute path part
+                                LoggingUtils.GenerationLogWriteData($"WARNING: Could not find absolute path to use in '{nameof(PlaylistType.Groove)}' playlist for '{playlist.PlaylistName}', track #{pt.TrackOrder} with last known path of '{pt.LastKnownPath}'. Creating abslute path from the default Windows 'Music' folder.");
+                                var fullUser = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+                                var username = fullUser.Substring(fullUser.IndexOf("\\") + 1);
+                                var pathNotSlashPrefixed = pt.LastKnownPath.StartsWith("/") || pt.LastKnownPath.StartsWith("\\") ? pt.LastKnownPath.Substring(1) : pt.LastKnownPath;
+                                groovePlaylist.tracks.Add(new GrooveTrack
+                                {
+                                    albumArtist = "",
+                                    albumTitle = "",
+                                    duration = 0,
+                                    trackTitle = trackNameRegex.Match(pt.LastKnownPath).Value ?? "",
+                                    source = $@"C:\Users\{username}\Music\{pathNotSlashPrefixed}"
+                                });
+                            }
+                        }
                     }
                     else
                     {
