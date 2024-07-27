@@ -21,11 +21,10 @@ namespace PlaylistTransferTool.Synchronizers
             SyncOperation op = SyncOperation.None;
             foreach(var plt in _playlistTracks)
             {
-                if(_context.PlaylistTracks.Where(pt => (pt.TrackOrder == plt.TrackOrder || pt.TrackID == plt.TrackID) && pt.PlaylistID == plt.PlaylistID).Any())
+                if(_context.PlaylistTracks.Where(pt => pt.TrackOrder == plt.TrackOrder && pt.PlaylistID == plt.PlaylistID).Any())
                 {
-                    var currentPt = _context.PlaylistTracks.FirstOrDefault(pt => pt.TrackOrder == plt.TrackOrder && pt.PlaylistID == plt.PlaylistID)
-                        ?? _context.PlaylistTracks.FirstOrDefault(pt => pt.TrackID == plt.TrackID && pt.PlaylistID == plt.PlaylistID);
-                    if (currentPt.LastKnownPath != plt.LastKnownPath || currentPt.TrackID != plt.TrackID || currentPt.TrackOrder != plt.TrackOrder)
+                    var currentPt = _context.PlaylistTracks.FirstOrDefault(pt => pt.TrackOrder == plt.TrackOrder && pt.PlaylistID == plt.PlaylistID);
+                    if (currentPt.LastKnownPath != plt.LastKnownPath || currentPt.TrackID != plt.TrackID)
                     {
                         op |= SyncOperation.Update;
                         LoggingUtils.GenerationLogWriteData($"Track with ID {plt.TrackID} is already in this playlist but has changes, updating");
