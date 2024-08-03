@@ -13,7 +13,7 @@ namespace PlaylistTransferTool
     {
         private readonly Regex titleRegex = new Regex("(?<=\\\\)[^\\\\\\/]+(?=\\.zpl)");
         private readonly Regex absoluteRegex = new Regex(@"C:\\Users\\[^\\/]+\\Music\\", RegexOptions.Compiled);
-        private readonly Regex trackNameRegex = new Regex(@"((?<=[/\\])[^\\/]+$)|(^[^/\\]+$)", RegexOptions.Compiled);
+        private readonly Regex trackNameRegex = new Regex(@"(((?<=[/\\])[^\\/]+)|(^[^/\\]+))(?=\.[a-zA-Z0-9]+$)", RegexOptions.Compiled);
         private readonly Regex fileExtension = new Regex(@"\.[a-zA-Z0-9]+$");
 
         public Playlist ParsePlaylist(string file)
@@ -118,7 +118,16 @@ namespace PlaylistTransferTool
                         var mat = trackNameRegex.Match(rawSource);
                         if (mat.Success)
                         {
-                            matchingTrack = ctx.Main.Where(t => t.FilePath.EndsWith("\\" + mat.Value) || t.FilePath.EndsWith("/" + mat.Value)).FirstOrDefault();
+                            var pathDictionary = ctx.Main.ToDictionary(m => m.FilePath);
+                            foreach (var trackPath in pathDictionary.Keys)
+                            {
+                                if(trackPath.Substring(0, trackPath.LastIndexOf(".")).EndsWith("\\" + mat.Value)
+                                    || trackPath.Substring(0, trackPath.LastIndexOf(".")).EndsWith("/" + mat.Value))
+                                {
+                                    matchingTrack = pathDictionary[trackPath];
+                                    break;
+                                }
+                            }
                         }
                     }
 
@@ -130,6 +139,12 @@ namespace PlaylistTransferTool
                         {
                             matchingTrack = ctx.Main.Where(t => t.Title.Equals(title) && (t.Duration >= duration - 1 && t.Duration <= duration + 1)).FirstOrDefault();
                         }
+                    }
+
+                    if(matchingTrack == null && titleAttribute != null && durationAttribute == null)
+                    {
+                        var title = titleAttribute.Value;
+                        matchingTrack = ctx.Main.Where(t => t.Title == title).FirstOrDefault();
                     }
 
                     if (matchingTrack == null)
