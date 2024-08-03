@@ -77,7 +77,7 @@ namespace PlaylistTransferTool
                     {
                         var matchingTrack = ctx.Main.Where(t => t.FilePath.EndsWith("\\" + mat.Value) || t.FilePath.EndsWith("/" + mat.Value)).FirstOrDefault();
                         //If that found nothing we need to use the title, duration, and artist to match on a track
-                        if (matchingTrack == null)
+                        if (matchingTrack == null && child.Attributes.Count > 5)
                         {
                             var title = child.Attributes.Item(3).Value;
                             if(int.TryParse(child.Attributes.Item(5).Value, out var duration))
