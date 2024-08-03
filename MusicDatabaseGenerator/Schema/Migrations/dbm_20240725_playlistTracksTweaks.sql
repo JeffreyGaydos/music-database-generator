@@ -3,7 +3,7 @@
 USE MusicLibrary
 
 ALTER TABLE PlaylistTracks ADD LastKnownPath VARCHAR(260) NULL
-ALTER TABLE MusicLibrary.dbo.PlaylistTracks ADD SurrogateKey INT IDENTITY(1,1)
+ALTER TABLE MusicLibrary.dbo.PlaylistTracks ADD SurrogateKey INT IDENTITY(1,1) PRIMARY KEY
 
 UPDATE PLTS
 SET LastKnownPath = MAIN.FilePath
