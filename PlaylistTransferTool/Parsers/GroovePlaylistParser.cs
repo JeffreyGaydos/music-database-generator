@@ -15,6 +15,7 @@ namespace PlaylistTransferTool
         private readonly Regex absoluteRegex = new Regex(@"C:\\Users\\[^\\/]+\\Music\\", RegexOptions.Compiled);
         private readonly Regex trackNameRegex = new Regex(@"(((?<=[/\\])[^\\/]+)|(^[^/\\]+))(?=\.[a-zA-Z0-9]+$)", RegexOptions.Compiled);
         private readonly Regex fileExtension = new Regex(@"\.[a-zA-Z0-9]+$");
+        private readonly Regex baseFolderRegex = new Regex(@"(?<=Music[\\/])[^\\/]+", RegexOptions.Compiled);
 
         public Playlist ParsePlaylist(string file)
         {
@@ -141,10 +142,17 @@ namespace PlaylistTransferTool
                         }
                     }
 
-                    if(matchingTrack == null && titleAttribute != null && durationAttribute == null)
+                    if(matchingTrack == null && titleAttribute != null && durationAttribute == null && sourceAttribute != null)
                     {
                         var title = titleAttribute.Value;
-                        matchingTrack = ctx.Main.Where(t => t.Title == title).FirstOrDefault();
+                        var source = sourceAttribute.Value;
+                        var mat = baseFolderRegex.Match(source);
+                        if(mat.Success)
+                        {
+                            var baseFolder = mat.Value;
+                            matchingTrack = ctx.Main.Where(t => t.Title == title &&
+                            (t.FilePath.Contains("\\" + baseFolder + "\\") || t.FilePath.Contains("/" + baseFolder + "/"))).FirstOrDefault();
+                        }
                     }
 
                     if (matchingTrack == null)
