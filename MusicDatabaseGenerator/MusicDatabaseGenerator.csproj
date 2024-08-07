@@ -238,6 +238,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Schema\MSSQL\Migrations\dbm_20231107_moodToPlaylists.sql" />
+    <Content Include="Schema\SQLite\db_drop.sql" />
     <Content Include="Schema\SQLite\sqlite_delete.sql" />
     <Content Include="Schema\SQLite\sqlite_initialize.sql" />
     <None Include="appsettings.json" />
