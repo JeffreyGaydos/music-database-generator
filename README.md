@@ -81,3 +81,11 @@ To add your playlists to this database, use the `PlaylistTransferTool` and see i
 # Schema Explanation & Intent
 
 For the details on each field of the table, see the readme in the `Schema` folder [here](https://github.com/JeffreyGaydos/music-database-generator/blob/main/MusicDatabaseGenerator/Schema/SCHEMA_README.md). You'll notice that many fields are described as being "non-generated" or "manual". This is referring to those fields that are either too difficult to get out of regular music files or are too opinionated to be generated directly. Again, these fields remain as a placeholder for custom music apps that may use this database.
+
+## Migrations
+
+Migrations are small scripts that attempt to update an existing database's schema to a newer version. If you have a version of this database already loaded with your music data and prefer not to re-import that data when the schema changes (especially for large collections of music), you can use the migrations to get your schema updated with minimal data-loss.
+
+All migration scripts are found in the relevant database's folder: `MusicDatabaseGenerator/Schema/MSSQL/Migrations` for the Microsoft SQL Server version and `MusicDatabaseGenerator/Schema/SQLite/Migrations` for the SQLite version. All migration scripts are named according to the date at which they were written. i.e. the migration `dbm_20240725_playlistTracksTweaks.sql` was written on 7/25/2024. If you created a database before that date don't want to re-import your data, run that migration. There is no need to run a migration that is dated before you first created the database.
+
+Alternatively, or if a migration fails, you can re-create the database and re-import all data using the `MusicDatabaseGenerator/Schema/MSSQL/db_drop.sql` to delete the schema of your database and then `MusicDatabaseGenerator/Schema/MSSQL/db_initialize.sql` to re-initialize the schema (there are also SQLite counterparts in the `SQLite` folder). Then re-import your data by running the tool.
