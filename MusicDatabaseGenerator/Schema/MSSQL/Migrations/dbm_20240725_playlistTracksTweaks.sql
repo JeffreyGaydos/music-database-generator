@@ -44,13 +44,13 @@ AND Col.Table_Name = 'PlaylistTracks'
 --Recreate PK as Unique constraint with ignored NULLs
 ALTER TABLE PlaylistTracks ALTER COLUMN TrackID INT NULL --first allow NULL
 --create "PK"
-CREATE UNIQUE NONCLUSTERED INDEX UQ__PlaylistID_TrackID
+CREATE UNIQUE NONCLUSTERED INDEX UC_PlaylistID_TrackID
 ON PlaylistTracks(PlaylistID, TrackID)
 WHERE TrackID IS NOT NULL
 
 --enforce no duplicate track order entries for the same playlist
 --This is not a primary key or unique constraint because we want to ignore NULLs in order to allow playlists to be used for Mood or other orderless designations
-CREATE UNIQUE NONCLUSTERED INDEX UQ__PlaylistID_TrackOrder
+CREATE UNIQUE NONCLUSTERED INDEX UC_PlaylistID_TrackOrder
 ON PlaylistTracks(PlaylistID, TrackOrder)
 WHERE TrackOrder IS NOT NULL
 
