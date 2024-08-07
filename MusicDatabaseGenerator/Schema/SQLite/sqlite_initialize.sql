@@ -21,7 +21,9 @@ CREATE TABLE IF NOT EXISTS PlaylistTracks (
 	PlaylistID INT NOT NULL,
 	TrackID INT NOT NULL,
 	TrackOrder INT NULL, --NULL denotes system generated playlists
-	PRIMARY KEY (PlaylistID, TrackID)
+	LastKnownPath VARCHAR(260) PRIMARY KEY,
+	CONSTRAINT UC_PlaylistID_TrackID UNIQUE (PlaylistID, TrackID),
+	CONSTRAINT UC_PlaylistID_TrackOrder UNIQUE (PlaylistID, TrackOrder)
 )
 
 --This table can be matched with the main table to deremine the artist

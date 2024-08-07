@@ -117,7 +117,10 @@ BEGIN
 		PlaylistID INT NOT NULL,
 		TrackID INT NOT NULL,
 		TrackOrder INT NULL, --NULL denotes system generated playlists
-		PRIMARY KEY (PlaylistID, TrackID)
+		LastKnownPath VARCHAR(260) NULL,
+		SurrogateKey INT IDENTITY(1,1) PRIMARY KEY,
+		CONSTRAINT UC_PlaylistID_TrackID UNIQUE (PlaylistID, TrackID),
+		CONSTRAINT UC_PlaylistID_TrackOrder UNIQUE (PlaylistID, TrackOrder)
 	)
 END
 
