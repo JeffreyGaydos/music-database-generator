@@ -192,7 +192,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Models\TrackPersons.cs" />
-    <Content Include="Schema\Migrations\dbm_20240725_playlistTracksTweaks.sql" />
+    <Content Include="Schema\MSSQL\Migrations\dbm_20240725_playlistTracksTweaks.sql" />
     <Compile Include="SQLStringComparison.cs" />
     <Compile Include="Synchronizers\AlbumArtSynchronizer.cs" />
     <Compile Include="Synchronizers\AlbumSynchronizer.cs" />
@@ -237,14 +237,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Schema\Migrations\dbm_20231107_moodToPlaylists.sql" />
+    <Content Include="Schema\MSSQL\Migrations\dbm_20231107_moodToPlaylists.sql" />
     <Content Include="Schema\SQLite\sqlite_delete.sql" />
     <Content Include="Schema\SQLite\sqlite_initialize.sql" />
     <None Include="appsettings.json" />
-    <Content Include="Schema\db_delete.sql" />
-    <Content Include="Schema\db_drop.sql" />
-    <Content Include="Schema\db_example.sql" />
-    <Content Include="Schema\db_initialize.sql" />
+    <Content Include="Schema\MSSQL\db_delete.sql" />
+    <Content Include="Schema\MSSQL\db_drop.sql" />
+    <Content Include="Schema\MSSQL\db_example.sql" />
+    <Content Include="Schema\MSSQL\db_initialize.sql" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
