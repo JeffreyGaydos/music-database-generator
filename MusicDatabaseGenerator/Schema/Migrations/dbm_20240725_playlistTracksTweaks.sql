@@ -1,14 +1,15 @@
-﻿BEGIN TRAN
+﻿/*
+ * WARNING: This migration will delete any existing database information already in the database. Plan to re-import your database files if you run this migration. This is required because of the primary key modifications on these tables.
+ */
+
+SET XACT_ABORT ON;
+
+BEGIN TRAN
 
 USE MusicLibrary
 
-ALTER TABLE PlaylistTracks ADD LastKnownPath VARCHAR(260) NULL
-ALTER TABLE MusicLibrary.dbo.PlaylistTracks ADD SurrogateKey INT IDENTITY(1,1) PRIMARY KEY
-
-UPDATE PLTS
-SET LastKnownPath = MAIN.FilePath
-FROM MusicLibrary.dbo.PlaylistTracks PLTS
-LEFT JOIN MusicLibrary.dbo.Main MAIN ON MAIN.TrackID = PLTS.TrackID
+TRUNCATE TABLE MusicLibrary.dbo.PlaylistTracks
+TRUNCATE TABLE MusicLibrary.dbo.Playlist
 
 --Drop PK
 DECLARE @PKName NVARCHAR(100)
@@ -27,6 +28,9 @@ SELECT @PKName
 DECLARE @PKDrop NVARCHAR(MAX) = 'ALTER TABLE MusicLibrary.dbo.PlaylistTracks DROP CONSTRAINT [' + @PKName + ']'
 
 EXEC sp_sqlexec @PKDrop
+
+ALTER TABLE PlaylistTracks ADD LastKnownPath VARCHAR(260) NULL
+ALTER TABLE MusicLibrary.dbo.PlaylistTracks ADD SurrogateKey INT IDENTITY(1,1) PRIMARY KEY
 
 SELECT 1 AS [ShouldBeEmpty] from
 INFORMATION_SCHEMA.TABLE_CONSTRAINTS Tab,
@@ -50,5 +54,5 @@ CREATE UNIQUE NONCLUSTERED INDEX UQ__PlaylistID_TrackOrder
 ON PlaylistTracks(PlaylistID, TrackOrder)
 WHERE TrackOrder IS NOT NULL
 
---ROLLBACK TRAN
-COMMIT TRAN
+ROLLBACK TRAN
+--COMMIT TRAN
