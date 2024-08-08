@@ -25,10 +25,10 @@ jobs:
     - name: Install dependencies
       run: |
           cd MusicDatabaseGenerator
-          nuget install package.config
+          nuget install packages.config
           cd ..
           cd PlaylistTransferTool
-          nuget install package.config
+          nuget install packages.config
           cd ..
     - name: Compile and Build C#
       run: dotnet build --configuration Release
