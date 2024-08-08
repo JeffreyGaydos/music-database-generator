@@ -117,9 +117,7 @@ jobs:
         $RELEASE_TITLE="$($RELEASE_TAG): ${{ github.event.pull_request.title }}"
         gh release create "$($RELEASE_TAG)" --title "$($RELEASE_TITLE)" --notes "$($RELEASE_BODY)" --target $RELEASE_BRANCH -d
         gh release upload "$($RELEASE_TAG)" "./build/MSSQL_MusicDatabaseGenerator_v$($RELEASE_TAG).zip"
-        gh release upload "$($RELEASE_TAG)" "./build/MSSQL_PlaylistTransferTool_v$($RELEASE_TAG).zip"
         gh release upload "$($RELEASE_TAG)" "./build/SQLite_MusicDatabaseGenerator_v$($RELEASE_TAG).zip"
-        gh release upload "$($RELEASE_TAG)" "./build/SQLite_PlaylistTransferTool_v$($RELEASE_TAG).zip"
     - name: Update Build Version for Next Run
       run: |
           (Get-Content ./prod-versions.ini) -match "[0-9]+$"
