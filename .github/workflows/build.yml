@@ -7,21 +7,21 @@ on:
 jobs:
   prepare-for-release-build:
     if: github.event.label.name == 'Build'
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        dotnet-version: [ '4.8' ]
+    runs-on: windows-latest
+    # strategy:
+    #   matrix:
+    #     dotnet-version: [ '4.8' ]
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
       with:
         ref: ${{ github.event.pull_request.head.ref }}
-    - name: Set up dotnet ${{ matrix.dotnet-version }}
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: ${{ matrix.dotnet-version }}
-    - name: Verify dotnet installation
-      run: dotnet --version
+    # - name: Set up dotnet ${{ matrix.dotnet-version }}
+    #   uses: actions/setup-dotnet@v3
+    #   with:
+    #     dotnet-version: ${{ matrix.dotnet-version }}
+    # - name: Verify dotnet installation
+    #   run: dotnet --version
     - name: Install dependencies
       run: |
           cd MusicDatabaseGenerator
@@ -31,7 +31,7 @@ jobs:
           nuget install packages.config
           cd ..
     - name: Compile and Build C#
-      run: dotnet build --configuration Release
+      run: C:\"Program Files"\"Microsoft Visual Studio"\2022\Community\MSBuild\Current\Bin\MSBuild.exe
     - name: Copy Executables
       run: |
           cp ./MusicDatabaseGenerator/bin/Release/MusicDatabaseGenerator.exe ./build
