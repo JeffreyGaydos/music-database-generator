@@ -35,8 +35,9 @@ jobs:
       run: |
           New-Item -ItemType Directory -Force -Path build
           New-Item -ItemType Directory -Force -Path build/MSSQL
-          cp ./MusicDatabaseGenerator/bin/Release/MusicDatabaseGenerator.exe ./build/MSSQL/MusicDatabaseGenerator/bin/Release/MusicDatabaseGenerator.exe
-          cp ./PlaylistTransferTool/bin/Release/PlaylistTransferTool.exe ./build/MSSQL/PlaylistTransferTool/bin/Release/PlaylistTransferTool.exe
+          New-Item -ItemType Directory -Force -Path build/MSSQL/MusicDatabaseGenerator
+          cp ./MusicDatabaseGenerator/bin/Release/MusicDatabaseGenerator.exe ./build/MSSQL/MusicDatabaseGenerator.exe
+          cp ./PlaylistTransferTool/bin/Release/PlaylistTransferTool.exe ./build/MSSQL/PlaylistTransferTool.exe
     - name: MSSQL - Commit Changes
       run: |
         git config --global user.email "actions@github.com"
@@ -59,8 +60,8 @@ jobs:
       run: |
           New-Item -ItemType Directory -Force -Path build
           New-Item -ItemType Directory -Force -Path build/SQLite
-          cp ./MusicDatabaseGenerator/bin/Release/MusicDatabaseGenerator.exe ./build/SQLite/MusicDatabaseGenerator/bin/Release/MusicDatabaseGenerator.exe
-          cp ./PlaylistTransferTool/bin/Release/PlaylistTransferTool.exe ./build/SQLite/PlaylistTransferTool/bin/Release/PlaylistTransferTool.exe
+          cp ./MusicDatabaseGenerator/bin/Release/MusicDatabaseGenerator.exe ./build/SQLite/MusicDatabaseGenerator.exe
+          cp ./PlaylistTransferTool/bin/Release/PlaylistTransferTool.exe ./build/SQLite/PlaylistTransferTool.exe
     - name: SQLite - Commit Changes
       run: |
         git config --global user.email "actions@github.com"
