@@ -48,6 +48,8 @@ jobs:
           cp ./PlaylistTransferTool/README.md ./build/MSSQL/PlaylistTransferTool/README.md
           
           cp ./README.md ./build/MSSQL
+    - name: MSSQL - Zip Build
+      run: Compress-Archive -Path ./build/MSSQL -DestinationPath ./build/MSSQL_MusicDatabaseGenerator.zip
     - name: MSSQL - Commit Changes
       run: |
         git config --global user.email "actions@github.com"
@@ -83,6 +85,8 @@ jobs:
           cp ./PlaylistTransferTool/README.md ./build/SQLite/PlaylistTransferTool/README.md
           
           cp ./README.md ./build/SQLite
+    - name: SQLite - Zip Build
+      run: Compress-Archive -Path ./build/MSSQL -DestinationPath ./build/MSSQL_MusicDatabaseGenerator.zip
     - name: SQLite - Commit Changes
       run: |
         git config --global user.email "actions@github.com"
