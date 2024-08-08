@@ -105,9 +105,10 @@ jobs:
     - name: Create Release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PR_BODY: ${{ github.event.pull_request.body }}
       run: |
         $RELEASE_BRANCH="${{ github.event.pull_request.head.ref }}"
-        $RELEASE_BODY="""${{ github.event.pull_request.body }}
+        $RELEASE_BODY="""$PR_BODY
 
         ${{ github.event.pull_request.html_url }}"""
         (Get-Content ./prod-versions.ini) -match "(?<=:\s)[0-9\.]+"
