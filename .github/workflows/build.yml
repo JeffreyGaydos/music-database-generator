@@ -31,7 +31,7 @@ jobs:
           nuget install packages.config
           cd ..
     - name: Compile and Build C#
-      run: C:\"Program Files"\"Microsoft Visual Studio"\2022\Community\MSBuild\Current\Bin\MSBuild.exe
+      run: C:\"Program Files"\"Microsoft Visual Studio"\2022\Enterprise\MSBuild\Current\Bin\MSBuild.exe
     - name: Copy Executables
       run: |
           cp ./MusicDatabaseGenerator/bin/Release/MusicDatabaseGenerator.exe ./build
