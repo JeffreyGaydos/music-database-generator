@@ -106,7 +106,7 @@ jobs:
         PR_BODY: ${{ github.event.pull_request.body }}
         PR_URL: ${{ github.event.pull_request.html_url }}
       run: |
-        $RELEASE_BRANCH=${{ github.event.pull_request.head.ref }}
+        $RELEASE_BRANCH="${{ github.event.pull_request.head.ref }}"
         $RELEASE_BODY="""$PR_BODY
 
         $PR_URL"""
