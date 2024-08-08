@@ -22,25 +22,49 @@ jobs:
     #     dotnet-version: ${{ matrix.dotnet-version }}
     # - name: Verify dotnet installation
     #   run: dotnet --version
-    - name: Setup for MSSQL Build
+    - name: MSSQL - Setup for Build
       run: |
           (Get-Content ./MusicDatabaseGenerator/App.config).Replace('<connectionStrings configSource="sqlite.config">', '<connectionStrings configSource="mssql.config">') | Set-Content ./MusicDatabaseGenerator/App.config
           (Get-Content ./PlaylistTransferTool/App.config).Replace('<connectionStrings configSource="sqlite.config">', '<connectionStrings configSource="mssql.config">') | Set-Content ./PlaylistTransferTool/App.config
-    - name: Install dependencies
+    - name: MSSQL - Install dependencies
       run: |
           nuget restore MusicDatabaseGenerator.sln
-    - name: Compile and Build C#
+    - name: MSSQL - Compile and Build C#
       run: C:\"Program Files"\"Microsoft Visual Studio"\2022\Enterprise\MSBuild\Current\Bin\MSBuild.exe -property:Configuration=Release # we could set up a whole fancy path alias thing but who cares honestly
-    - name: Copy Executables
+    - name: MSSQL - Copy Executables
       run: |
-          cp ./MusicDatabaseGenerator/bin/Release/MusicDatabaseGenerator.exe ./build/MSSQL
-          cp ./PlaylistTransferTool/bin/Release/PlaylistTransferTool.exe ./build/MSSQL
-    - name: Commit Changes
+          cp ./MusicDatabaseGenerator/bin/Release/MusicDatabaseGenerator.exe ./build/MSSQL/MusicDatabaseGenerator/bin/Release/MusicDatabaseGenerator.exe
+          cp ./PlaylistTransferTool/bin/Release/PlaylistTransferTool.exe ./build/MSSQL/PlaylistTransferTool/bin/Release/PlaylistTransferTool.exe
+    - name: MSSQL - Commit Changes
       run: |
         git config --global user.email "actions@github.com"
         git config --global user.name "GitHub Actions"
         git add .
-        git commit -m "GHA_BUILD: Zipped pre-built C# executables with necessary appsettings and readmes"
+        git reset ./MusicDatabaseGenerator/App.config
+        git reset ./PlaylistTransferTool/App.config
+        git commit -m "MSSQL: Build and Zip"
+        git push origin ${{ github.event.pull_request.head.ref }}
+    - name: SQLite - Setup for Build
+      run: |
+          (Get-Content ./MusicDatabaseGenerator/App.config).Replace('<connectionStrings configSource="mssql.config">', '<connectionStrings configSource="sqlite.config">') | Set-Content ./MusicDatabaseGenerator/App.config
+          (Get-Content ./PlaylistTransferTool/App.config).Replace('<connectionStrings configSource="mssql.config">', '<connectionStrings configSource="sqlite.config">') | Set-Content ./PlaylistTransferTool/App.config
+    - name: SQLite - Install dependencies
+      run: |
+          nuget restore MusicDatabaseGenerator.sln
+    - name: SQLite - Compile and Build C#
+      run: C:\"Program Files"\"Microsoft Visual Studio"\2022\Enterprise\MSBuild\Current\Bin\MSBuild.exe -property:Configuration=Release # we could set up a whole fancy path alias thing but who cares honestly
+    - name: SQLite - Copy Executables
+      run: |
+          cp ./MusicDatabaseGenerator/bin/Release/MusicDatabaseGenerator.exe ./build/SQLite/MusicDatabaseGenerator/bin/Release/MusicDatabaseGenerator.exe
+          cp ./PlaylistTransferTool/bin/Release/PlaylistTransferTool.exe ./build/SQLite/PlaylistTransferTool/bin/Release/PlaylistTransferTool.exe
+    - name: SQLite - Commit Changes
+      run: |
+        git config --global user.email "actions@github.com"
+        git config --global user.name "GitHub Actions"
+        git add .
+        git reset ./MusicDatabaseGenerator/App.config
+        git reset ./PlaylistTransferTool/App.config
+        git commit -m "SQLite: Build and Zip"
         git push origin ${{ github.event.pull_request.head.ref }}
     # - name: Create Release
     #   env:
