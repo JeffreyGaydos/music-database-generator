@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        dotnet-version: [ '3.1.x', '6.x' ]
+        dotnet-version: [ '6.x' ]
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -24,37 +24,12 @@ jobs:
       run: dotnet --version
     - name: Install dependencies
       run: |
-          dotnet add package EntityFramework --version 6.4.4
-          dotnet add package EntityFramework.SqlServerCompact --version 6.4.4
-          dotnet add package Microsoft.Bcl.AsyncInterfaces --version 7.0.0
-          dotnet add package Microsoft.Extensions.Configuration --version 7.0.0
-          dotnet add package Microsoft.Extensions.Configuration.Abstractions --version 7.0.0
-          dotnet add package Microsoft.Extensions.Configuration.FileExtensions --version 7.0.0
-          dotnet add package Microsoft.Extensions.Configuration.Json --version 7.0.0
-          dotnet add package Microsoft.Extensions.FileProviders.Abstractions --version 7.0.0
-          dotnet add package Microsoft.Extensions.FileProviders.Physical --version 7.0.0
-          dotnet add package Microsoft.Extensions.FileSystemGlobbing --version 7.0.0
-          dotnet add package Microsoft.Extensions.Primitives --version 7.0.0
-          dotnet add package Microsoft.SqlServer.Compact" version --version 0.8876.1
-          dotnet add package Stub.System.Data.SQLite.Core.NetFramework" version --version 0.118.0
-          dotnet add package System.Buffers --version 4.5.1
-          dotnet add package System.Data.SQLite" version --version 0.118.0
-          dotnet add package System.Data.SQLite.Core" version --version 0.118.0
-          dotnet add package System.Data.SQLite.EF6" version --version 0.118.0
-          dotnet add package System.Data.SQLite.Linq" version --version 0.118.0
-          dotnet add package System.IO --version 4.3.0
-          dotnet add package System.Memory --version 4.5.5
-          dotnet add package System.Numerics.Vectors --version 4.5.0
-          dotnet add package System.Runtime --version 4.3.0
-          dotnet add package System.Runtime.CompilerServices.Unsafe --version 6.0.0
-          dotnet add package System.Security.Cryptography.Algorithms --version 4.3.1
-          dotnet add package System.Security.Cryptography.Encoding --version 4.3.0
-          dotnet add package System.Security.Cryptography.Primitives --version 4.3.0
-          dotnet add package System.Text.Encodings.Web --version 7.0.0
-          dotnet add package System.Text.Json --version 7.0.0
-          dotnet add package System.Threading.Tasks.Extensions --version 4.5.4
-          dotnet add package System.ValueTuple --version 4.5.0
-          dotnet add package TagLibSharp --version 2.3.0
+          cd MusicDatabaseGenerator
+          nuget install package.config
+          cd ..
+          cd PlaylistTransferTool
+          nuget install package.config
+          cd ..
     - name: Compile and Build C#
       run: dotnet build --configuration Release
     - name: Copy Executables
