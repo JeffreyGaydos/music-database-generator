@@ -106,14 +106,14 @@ jobs:
         PR_BODY: ${{ github.event.pull_request.body }}
         PR_URL: ${{ github.event.pull_request.html_url }}
       run: |
-        RELEASE_BRANCH=${{ github.event.pull_request.head.ref }}
-        RELEASE_BODY="""$PR_BODY
+        $RELEASE_BRANCH=${{ github.event.pull_request.head.ref }}
+        $RELEASE_BODY="""$PR_BODY
 
         $PR_URL"""
         (Get-Content ./prod-versions.ini) -match "(?<=:\s)[0-9\.]+"
         $RELEASE_TAG=$matches[0]
         $RELEASE_TITLE="$($RELEASE_TAG): ${{ github.event.pull_request.title }}"
-        gh release create "$($RELEASE_TAG)" --title "$($RELEASE_TITLE)" --notes "$($RELEASE_BODY)" --target $($RELEASE_BRANCH) -d
+        gh release create "$($RELEASE_TAG)" --title "$($RELEASE_TITLE)" --notes "$($RELEASE_BODY)" --target $RELEASE_BRANCH -d
         gh release upload "$($RELEASE_TAG)" "./build/MSSQL_MusicDatabaseGenerator_v$($RELEASE_TAG).zip"
         gh release upload "$($RELEASE_TAG)" "./build/MSSQL_PlaylistTransferTool_v$($RELEASE_TAG).zip"
         gh release upload "$($RELEASE_TAG)" "./build/SQLite_MusicDatabaseGenerator_v$($RELEASE_TAG).zip"
