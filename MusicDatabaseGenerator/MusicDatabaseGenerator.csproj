@@ -175,11 +175,6 @@
     <Compile Include="Generators\MainGenerator.cs" />
     <Compile Include="Models\Main.cs" />
     <Compile Include="MusicLibraryContext.cs" />
-    <Compile Include="MusicLibraryDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MusicLibraryDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="MusicLibraryTrack.cs" />
     <Compile Include="Models\Playlist.cs" />
     <Compile Include="Models\PlaylistTracks.cs" />
@@ -209,17 +204,6 @@
     <None Include="App.config" />
     <None Include="mssql.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="MusicLibraryDataSet.xsc">
-      <DependentUpon>MusicLibraryDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="MusicLibraryDataSet.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>MusicLibraryDataSet.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="MusicLibraryDataSet.xss">
-      <DependentUpon>MusicLibraryDataSet.xsd</DependentUpon>
     </None>
     <None Include="sqlite.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
