@@ -108,9 +108,9 @@ jobs:
         PR_BODY: ${{ github.event.pull_request.body }}
       run: |
         $RELEASE_BRANCH="${{ github.event.pull_request.head.ref }}"
-        $RELEASE_BODY="""$PR_BODY
+        $RELEASE_BODY=@"$($PR_BODY)
 
-        ${{ github.event.pull_request.html_url }}"""
+        ${{ github.event.pull_request.html_url }}"@
         (Get-Content ./prod-versions.ini) -match "(?<=:\s)[0-9\.]+"
         $RELEASE_TAG=$matches[0]
         $RELEASE_TITLE="$($RELEASE_TAG): ${{ github.event.pull_request.title }}"
