@@ -49,12 +49,12 @@ jobs:
           
           cp ./README.md ./build/MSSQL
     - name: MSSQL - Zip Build
-      run: Compress-Archive -Path ./build/MSSQL -DestinationPath ./build/MSSQL_MusicDatabaseGenerator.zip
+      run: Compress-Archive -Path ./build/MSSQL -DestinationPath ./build/MSSQL_MusicDatabaseGenerator.zip -Force
     - name: MSSQL - Commit Changes
       run: |
         git config --global user.email "actions@github.com"
         git config --global user.name "GitHub Actions"
-        git add .
+        git add ./build/MSSQL_MusicDatabaseGenerator.zip
         git reset ./MusicDatabaseGenerator/App.config
         git reset ./PlaylistTransferTool/App.config
         git commit -m "MSSQL: Build and Zip"
@@ -86,12 +86,12 @@ jobs:
           
           cp ./README.md ./build/SQLite
     - name: SQLite - Zip Build
-      run: Compress-Archive -Path ./build/MSSQL -DestinationPath ./build/MSSQL_MusicDatabaseGenerator.zip
+      run: Compress-Archive -Path ./build/MSSQL -DestinationPath ./build/MSSQL_MusicDatabaseGenerator.zip -Force
     - name: SQLite - Commit Changes
       run: |
         git config --global user.email "actions@github.com"
         git config --global user.name "GitHub Actions"
-        git add .
+        git add ./build/MSSQL_MusicDatabaseGenerator.zip
         git reset ./MusicDatabaseGenerator/App.config
         git reset ./PlaylistTransferTool/App.config
         git commit -m "SQLite: Build and Zip"
