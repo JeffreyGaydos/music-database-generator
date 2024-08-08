@@ -33,11 +33,21 @@ jobs:
       run: C:\"Program Files"\"Microsoft Visual Studio"\2022\Enterprise\MSBuild\Current\Bin\MSBuild.exe -property:Configuration=Release # we could set up a whole fancy path alias thing but who cares honestly
     - name: MSSQL - Copy Executables
       run: |
-          New-Item -ItemType Directory -Force -Path build
-          New-Item -ItemType Directory -Force -Path build/MSSQL
-          New-Item -ItemType Directory -Force -Path build/MSSQL/MusicDatabaseGenerator
-          cp ./MusicDatabaseGenerator/bin/Release/MusicDatabaseGenerator.exe ./build/MSSQL/MusicDatabaseGenerator.exe
-          cp ./PlaylistTransferTool/bin/Release/PlaylistTransferTool.exe ./build/MSSQL/PlaylistTransferTool.exe
+          New-Item -ItemType Directory -Force -Path build/MSSQL/MusicDatabaseGenerator/bin
+          cp ./MusicDatabaseGenerator/bin/Release ./build/MSSQL/MusicDatabaseGenerator/bin -r
+          New-Item -ItemType Directory -Force -Path build/MSSQL/MusicDatabaseGenerator/Schema
+          cp ./MusicDatabaseGenerator/Schema/MSSQL ./build/MSSQL/MusicDatabaseGenerator/Schema -r
+          cp ./MusicDatabaseGenerator/Schema/SCHEMA_README.md ./build/MSSQL/MusicDatabaseGenerator/Schema/SCHEMA_README.md
+          cp ./MusicDatabaseGenerator/appsettings.json ./build/MSSQL/MusicDatabaseGenerator/appsettings.json
+          
+          New-Item -ItemType Directory -Force -Path build/MSSQL/PlaylistTransferTool/bin
+          cp ./PlaylistTransferTool/bin/Release ./build/MSSQL/PlaylistTransferTool/bin -r
+          New-Item -ItemType Directory -Force -Path build/MSSQL/PlaylistTransferTool/input
+          New-Item -ItemType Directory -Force -Path build/MSSQL/PlaylistTransferTool/output
+          cp ./PlaylistTransferTool/appsettings.json ./build/MSSQL/PlaylistTransferTool/appsettings.json
+          cp ./PlaylistTransferTool/README.md ./build/MSSQL/PlaylistTransferTool/README.md
+          
+          cp ./README.md ./build/MSSQL
     - name: MSSQL - Commit Changes
       run: |
         git config --global user.email "actions@github.com"
@@ -58,10 +68,21 @@ jobs:
       run: C:\"Program Files"\"Microsoft Visual Studio"\2022\Enterprise\MSBuild\Current\Bin\MSBuild.exe -property:Configuration=Release # we could set up a whole fancy path alias thing but who cares honestly
     - name: SQLite - Copy Executables
       run: |
-          New-Item -ItemType Directory -Force -Path build
-          New-Item -ItemType Directory -Force -Path build/SQLite
-          cp ./MusicDatabaseGenerator/bin/Release/MusicDatabaseGenerator.exe ./build/SQLite/MusicDatabaseGenerator.exe
-          cp ./PlaylistTransferTool/bin/Release/PlaylistTransferTool.exe ./build/SQLite/PlaylistTransferTool.exe
+          New-Item -ItemType Directory -Force -Path build/SQLite/MusicDatabaseGenerator/bin
+          cp ./MusicDatabaseGenerator/bin/Release ./build/SQLite/MusicDatabaseGenerator/bin -r
+          New-Item -ItemType Directory -Force -Path build/SQLite/MusicDatabaseGenerator/Schema
+          cp ./MusicDatabaseGenerator/Schema/SQLite ./build/SQLite/MusicDatabaseGenerator/Schema -r
+          cp ./MusicDatabaseGenerator/Schema/SCHEMA_README.md ./build/SQLite/MusicDatabaseGenerator/Schema/SCHEMA_README.md
+          cp ./MusicDatabaseGenerator/appsettings.json ./build/SQLite/MusicDatabaseGenerator/appsettings.json
+          
+          New-Item -ItemType Directory -Force -Path build/SQLite/PlaylistTransferTool/bin
+          cp ./PlaylistTransferTool/bin/Release ./build/SQLite/PlaylistTransferTool/bin -r
+          New-Item -ItemType Directory -Force -Path build/SQLite/PlaylistTransferTool/input
+          New-Item -ItemType Directory -Force -Path build/SQLite/PlaylistTransferTool/output
+          cp ./PlaylistTransferTool/appsettings.json ./build/SQLite/PlaylistTransferTool/appsettings.json
+          cp ./PlaylistTransferTool/README.md ./build/SQLite/PlaylistTransferTool/README.md
+          
+          cp ./README.md ./build/SQLite
     - name: SQLite - Commit Changes
       run: |
         git config --global user.email "actions@github.com"
