@@ -52,15 +52,15 @@ jobs:
       run: |
           (Get-Content ./prod-versions.ini) -match "(?<=:\s)[0-9\.]+"
           Compress-Archive -Path ./build/MSSQL/MusicDatabaseGenerator,./build/MSSQL/PlaylistTransferTool,./build/MSSQL/README.md -DestinationPath "./build/MSSQL_MusicDatabaseGenerator_v$($matches[0]).zip"
-    - name: MSSQL - Commit Changes
-      run: |
-        git config --global user.email "actions@github.com"
-        git config --global user.name "GitHub Actions"
-        git add ./build/MSSQL_MusicDatabaseGenerator.zip
-        git reset ./MusicDatabaseGenerator/App.config
-        git reset ./PlaylistTransferTool/App.config
-        git commit -m "MSSQL: Build and Zip"
-        git push origin ${{ github.event.pull_request.head.ref }}
+    # - name: MSSQL - Commit Changes
+    #   run: |
+    #     git config --global user.email "actions@github.com"
+    #     git config --global user.name "GitHub Actions"
+    #     git add ./build/MSSQL_MusicDatabaseGenerator.zip
+    #     git reset ./MusicDatabaseGenerator/App.config
+    #     git reset ./PlaylistTransferTool/App.config
+    #     git commit -m "MSSQL: Build and Zip"
+    #     git push origin ${{ github.event.pull_request.head.ref }}
     - name: SQLite - Setup for Build
       run: |
           (Get-Content ./MusicDatabaseGenerator/App.config).Replace('<connectionStrings configSource="mssql.config">', '<connectionStrings configSource="sqlite.config">') | Set-Content ./MusicDatabaseGenerator/App.config
@@ -91,32 +91,33 @@ jobs:
       run: |
           (Get-Content ./prod-versions.ini) -match "(?<=:\s)[0-9\.]+"
           Compress-Archive -Path ./build/SQLite/MusicDatabaseGenerator,./build/SQLite/PlaylistTransferTool,./build/SQLite/README.md -DestinationPath "./build/SQLite_MusicDatabaseGenerator_v$($matches[0]).zip"
-    - name: SQLite - Commit Changes
-      run: |
-        git config --global user.email "actions@github.com"
-        git config --global user.name "GitHub Actions"
-        git add ./build/SQLite_MusicDatabaseGenerator.zip
-        git reset ./MusicDatabaseGenerator/App.config
-        git reset ./PlaylistTransferTool/App.config
-        git commit -m "SQLite: Build and Zip"
-        git push origin ${{ github.event.pull_request.head.ref }}
-    # - name: Create Release
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #     PR_BODY: ${{ github.event.pull_request.body }}
-    #     PR_URL: ${{ github.event.pull_request.html_url }}
+    # - name: SQLite - Commit Changes
     #   run: |
-    #     RELEASE_BRANCH=${{ github.event.pull_request.head.ref }}
-    #     RELEASE_BODY="""$PR_BODY
+    #     git config --global user.email "actions@github.com"
+    #     git config --global user.name "GitHub Actions"
+    #     git add ./build/SQLite_MusicDatabaseGenerator.zip
+    #     git reset ./MusicDatabaseGenerator/App.config
+    #     git reset ./PlaylistTransferTool/App.config
+    #     git commit -m "SQLite: Build and Zip"
+    #     git push origin ${{ github.event.pull_request.head.ref }}
+    - name: Create Release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PR_BODY: ${{ github.event.pull_request.body }}
+        PR_URL: ${{ github.event.pull_request.html_url }}
+      run: |
+        RELEASE_BRANCH=${{ github.event.pull_request.head.ref }}
+        RELEASE_BODY="""$PR_BODY
 
-    #     $PR_URL"""
-    #     RELEASE_TAG=$(grep -oP "(?<=music-database-generator: )[0-9]+\.[0-9]+\.[0-9]+" ./prod-versions.ini)
-    #     RELEASE_TITLE="$RELEASE_TAG: ${{ github.event.pull_request.title }}"
-    #     gh release create "$RELEASE_TAG" --title "$RELEASE_TITLE" --notes "$RELEASE_BODY" --target $RELEASE_BRANCH -d
-    #     gh release upload "$RELEASE_TAG" "./build/MSSQL_MusicDatabaseGenerator.zip"
-    #     gh release upload "$RELEASE_TAG" "./build/MSSQL_PlaylistTransferTool.zip"
-    #     gh release upload "$RELEASE_TAG" "./build/SQLite_MusicDatabaseGenerator.zip"
-    #     gh release upload "$RELEASE_TAG" "./build/SQLite_PlaylistTransferTool.zip"
+        $PR_URL"""
+        (Get-Content ./prod-versions.ini) -match "(?<=:\s)[0-9\.]+"
+        $RELEASE_TAG=$matches[0]
+        $RELEASE_TITLE="$($RELEASE_TAG): ${{ github.event.pull_request.title }}"
+        gh release create "$($RELEASE_TAG)" --title "$($RELEASE_TITLE)" --notes "$($RELEASE_BODY)" --target $($RELEASE_BRANCH) -d
+        gh release upload "$($RELEASE_TAG)" "./build/MSSQL_MusicDatabaseGenerator_v$($RELEASE_TAG).zip"
+        gh release upload "$($RELEASE_TAG)" "./build/MSSQL_PlaylistTransferTool_v$($RELEASE_TAG).zip"
+        gh release upload "$($RELEASE_TAG)" "./build/SQLite_MusicDatabaseGenerator_v$($RELEASE_TAG).zip"
+        gh release upload "$($RELEASE_TAG)" "./build/SQLite_PlaylistTransferTool_v$($RELEASE_TAG).zip"
     - name: Update Build Version for Next Run
       run: |
           (Get-Content ./prod-versions.ini) -match "[0-9]+$"
