@@ -52,16 +52,16 @@ jobs:
       run: |
           (Get-Content ./prod-versions.ini) -match "(?<=:\s)[0-9\.]+"
           Compress-Archive -Path ./build/MSSQL/MusicDatabaseGenerator,./build/MSSQL/PlaylistTransferTool,./build/MSSQL/README.md -DestinationPath "./build/MSSQL_MusicDatabaseGenerator_v$($matches[0]).zip"
-    - name: MSSQL - Commit Changes
-      run: |
-        (Get-Content ./prod-versions.ini) -match "(?<=:\s)[0-9\.]+"
-        git config --global user.email "actions@github.com"
-        git config --global user.name "GitHub Actions"
-        git add "./build/MSSQL_MusicDatabaseGenerator_v$($matches[0]).zip"
-        git reset ./MusicDatabaseGenerator/App.config
-        git reset ./PlaylistTransferTool/App.config
-        git commit -m "MSSQL: Build and Zip"
-        git push origin ${{ github.event.pull_request.head.ref }}
+    # - name: MSSQL - Commit Changes
+    #   run: |
+    #     (Get-Content ./prod-versions.ini) -match "(?<=:\s)[0-9\.]+"
+    #     git config --global user.email "actions@github.com"
+    #     git config --global user.name "GitHub Actions"
+    #     git add "./build/MSSQL_MusicDatabaseGenerator_v$($matches[0]).zip"
+    #     git reset ./MusicDatabaseGenerator/App.config
+    #     git reset ./PlaylistTransferTool/App.config
+    #     git commit -m "MSSQL: Build and Zip"
+    #     git push origin ${{ github.event.pull_request.head.ref }}
     - name: SQLite - Setup for Build
       run: |
           (Get-Content ./MusicDatabaseGenerator/App.config).Replace('<connectionStrings configSource="mssql.config">', '<connectionStrings configSource="sqlite.config">') | Set-Content ./MusicDatabaseGenerator/App.config
@@ -92,16 +92,16 @@ jobs:
       run: |
           (Get-Content ./prod-versions.ini) -match "(?<=:\s)[0-9\.]+"
           Compress-Archive -Path ./build/SQLite/MusicDatabaseGenerator,./build/SQLite/PlaylistTransferTool,./build/SQLite/README.md -DestinationPath "./build/SQLite_MusicDatabaseGenerator_v$($matches[0]).zip"
-    - name: SQLite - Commit Changes
-      run: |
-        (Get-Content ./prod-versions.ini) -match "(?<=:\s)[0-9\.]+"
-        git config --global user.email "actions@github.com"
-        git config --global user.name "GitHub Actions"
-        git add "./build/SQLite_MusicDatabaseGenerator_v$($matches[0]).zip"
-        git reset ./MusicDatabaseGenerator/App.config
-        git reset ./PlaylistTransferTool/App.config
-        git commit -m "SQLite: Build and Zip"
-        git push origin ${{ github.event.pull_request.head.ref }}
+    # - name: SQLite - Commit Changes
+    #   run: |
+    #     (Get-Content ./prod-versions.ini) -match "(?<=:\s)[0-9\.]+"
+    #     git config --global user.email "actions@github.com"
+    #     git config --global user.name "GitHub Actions"
+    #     git add "./build/SQLite_MusicDatabaseGenerator_v$($matches[0]).zip"
+    #     git reset ./MusicDatabaseGenerator/App.config
+    #     git reset ./PlaylistTransferTool/App.config
+    #     git commit -m "SQLite: Build and Zip"
+    #     git push origin ${{ github.event.pull_request.head.ref }}
     - name: Create Release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
