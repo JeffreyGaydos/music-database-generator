@@ -19,9 +19,10 @@ CREATE TABLE IF NOT EXISTS Playlist (
 --Just maps from the playlist metadata table to the tracks that are in the playlist
 CREATE TABLE IF NOT EXISTS PlaylistTracks (
 	PlaylistID INT NOT NULL,
-	TrackID INT NOT NULL,
+	TrackID INT NULL,
 	TrackOrder INT NULL, --NULL denotes system generated playlists
-	LastKnownPath VARCHAR(260) PRIMARY KEY,
+	LastKnownPath VARCHAR(260),
+	SurrogateKey INTEGER PRIMARY KEY,
 	CONSTRAINT UC_PlaylistID_TrackID UNIQUE (PlaylistID, TrackID),
 	CONSTRAINT UC_PlaylistID_TrackOrder UNIQUE (PlaylistID, TrackOrder)
 )

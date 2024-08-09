@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data.SQLite;
@@ -60,7 +60,12 @@ namespace MusicDatabaseGenerator
                 settings["GenerateMusicMetadata"] == "True",
                 settings["DeleteDataOnGeneration"] == "True",
                 settings["RunMigrations"] == "True",
-                DatabaseProvider.SQLite
+                /*BUILD_PROCESS_SQLite: INACTIVE
+                 DatabaseProvider.SQLite
+                 /**/
+                ///*BUILD_PROCESS_MSSQL: ACTIVE
+                 DatabaseProvider.MSSQL
+                 /**/
                 );
 
             _logger.GenerationLogWriteData("_CONFIGURATION:__________________________________________________________________");
@@ -101,7 +106,7 @@ namespace MusicDatabaseGenerator
             switch(provider)
             {
                 case DatabaseProvider.SQLite:
-                    string deleteSql = File.ReadAllText("../../Schema/SQLite/sqlite_delete.sql").Replace("\\r\\n", @"
+                    string deleteSql = File.ReadAllText("../../Schema/SQLite/db_delete.sql").Replace("\\r\\n", @"
 ").Replace("\\t", "  ");
                     deleteSql = _removeCommentsSQLite.Replace(deleteSql, "");
                     var deletes = deleteSql.Split(new string[] { "DELETE" }, System.StringSplitOptions.RemoveEmptyEntries);
@@ -111,9 +116,9 @@ namespace MusicDatabaseGenerator
                         ExecuteNonQueryUsingSQLiteConnection($"DELETE{sql}");
                     }
                     break;
-                case DatabaseProvider.MSSSQL:
+                case DatabaseProvider.MSSQL:
                 default:
-                    ExecuteNonQueryUsingConnection(File.ReadAllText("../../Schema/db_delete.sql").Replace("\\r\\n", @"
+                    ExecuteNonQueryUsingConnection(File.ReadAllText("../../Schema/MSSQL/db_delete.sql").Replace("\\r\\n", @"
 ").Replace("\\t", "  "));
                     break;
             }
@@ -124,7 +129,7 @@ namespace MusicDatabaseGenerator
             switch (provider)
             {
                 case DatabaseProvider.SQLite:
-                    string initSQLite = _removeCommentsSQLite.Replace(File.ReadAllText("../../Schema/SQLite/sqlite_initialize.sql"), "");
+                    string initSQLite = _removeCommentsSQLite.Replace(File.ReadAllText("../../Schema/SQLite/db_initialize.sql"), "");
                     initSQLite = initSQLite.Replace("\\r\\n", @"
 ").Replace("\\t", "  ");
                     var SQLiteToExecute = initSQLite.Split(new string[] { "CREATE" }, System.StringSplitOptions.RemoveEmptyEntries);
@@ -135,9 +140,9 @@ namespace MusicDatabaseGenerator
                     }
                     _databasePresent = true;
                     break;
-                case DatabaseProvider.MSSSQL:
+                case DatabaseProvider.MSSQL:
                 default:
-                    string initSQL = File.ReadAllText("../../Schema/db_initialize.sql");
+                    string initSQL = File.ReadAllText("../../Schema/MSSQL/db_initialize.sql");
                     List<string> splitInit = _goSplitter.Split(initSQL).Where(sql => !string.IsNullOrEmpty(sql)).ToList();
 
                     foreach (string statement in splitInit)
@@ -168,7 +173,7 @@ namespace MusicDatabaseGenerator
         {
             if(provider != DatabaseProvider.SQLite)
             {
-                ExecuteNonQueryUsingConnection(File.ReadAllText("../../Schema/Migrations/dbm_20231107_moodToPlaylists.sql")
+                ExecuteNonQueryUsingConnection(File.ReadAllText("../../Schema/MSSQL/Migrations/dbm_20231107_moodToPlaylists.sql")
                 .Replace("\\r\\n", @"
 ").Replace("\\t", "  "));
             }

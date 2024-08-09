@@ -1,0 +1,165 @@
+name: Release Preparation
+
+on:
+  pull_request:
+    types: [labeled]
+
+jobs:
+  prepare-for-release-build:
+    if: github.event.label.name == 'Build'
+    runs-on: windows-latest
+    # strategy:
+    #   matrix:
+    #     dotnet-version: [ '4.8' ]
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.pull_request.head.ref }}
+    # - name: Set up dotnet ${{ matrix.dotnet-version }}
+    #   uses: actions/setup-dotnet@v3
+    #   with:
+    #     dotnet-version: ${{ matrix.dotnet-version }}
+    # - name: Verify dotnet installation
+    #   run: dotnet --version
+    - name: MSSQL - Setup for Build
+      run: |
+          (Get-Content ./MusicDatabaseGenerator/App.config).Replace('<connectionStrings configSource="sqlite.config">', '<connectionStrings configSource="mssql.config">') | Set-Content ./MusicDatabaseGenerator/App.config
+          (Get-Content ./MusicDatabaseGenerator/Configurator.cs).Replace('///*BUILD_PROCESS_SQLite: ACTIVE', '/*BUILD_PROCESS_SQLite: INACTIVE') | Set-Content ./MusicDatabaseGenerator/Configurator.cs
+          (Get-Content ./MusicDatabaseGenerator/Configurator.cs).Replace('/*BUILD_PROCESS_MSSQL: INACTIVE', '///*BUILD_PROCESS_MSSQL: ACTIVE') | Set-Content ./MusicDatabaseGenerator/Configurator.cs
+          (Get-Content ./PlaylistTransferTool/App.config).Replace('<connectionStrings configSource="sqlite.config">', '<connectionStrings configSource="mssql.config">') | Set-Content ./PlaylistTransferTool/App.config
+    - name: MSSQL - Install dependencies
+      run: |
+          nuget restore MusicDatabaseGenerator.sln
+    - name: MSSQL - Compile and Build C#
+      run: C:\"Program Files"\"Microsoft Visual Studio"\2022\Enterprise\MSBuild\Current\Bin\MSBuild.exe -property:Configuration=Release # we could set up a whole fancy path alias thing but who cares honestly
+    - name: MSSQL - Copy Executables
+      run: |
+          New-Item -ItemType Directory -Force -Path build/MSSQL/MusicDatabaseGenerator/bin
+          cp ./MusicDatabaseGenerator/bin/Release ./build/MSSQL/MusicDatabaseGenerator/bin -r
+          New-Item -ItemType Directory -Force -Path build/MSSQL/MusicDatabaseGenerator/Schema
+          cp ./MusicDatabaseGenerator/Schema/MSSQL ./build/MSSQL/MusicDatabaseGenerator/Schema -r
+          cp ./MusicDatabaseGenerator/Schema/SCHEMA_README.md ./build/MSSQL/MusicDatabaseGenerator/Schema/SCHEMA_README.md
+          cp ./MusicDatabaseGenerator/appsettings.json ./build/MSSQL/MusicDatabaseGenerator/appsettings.json
+          
+          New-Item -ItemType Directory -Force -Path build/MSSQL/PlaylistTransferTool/bin
+          cp ./PlaylistTransferTool/bin/Release ./build/MSSQL/PlaylistTransferTool/bin -r
+          New-Item -ItemType Directory -Force -Path build/MSSQL/PlaylistTransferTool/input
+          New-Item -ItemType Directory -Force -Path build/MSSQL/PlaylistTransferTool/output
+          cp ./PlaylistTransferTool/appsettings.json ./build/MSSQL/PlaylistTransferTool/appsettings.json
+          cp ./PlaylistTransferTool/README.md ./build/MSSQL/PlaylistTransferTool/README.md
+          
+          cp ./README.md ./build/MSSQL
+
+          $PTTShortcutContents = @"
+            @echo off
+            cd ./bin/Release
+            start PlaylistTransferTool.exe
+          "@
+
+          Set-Content -Path "./build/MSSQL/PlaylistTransferTool/Playlist Transfer Tool.bat" -Value $PTTShortcutContents
+
+          $MDGShortcutContents = @"
+            @echo off
+            cd ./bin/Release
+            start MusicDatabaseGenerator.exe
+          "@
+
+          Set-Content -Path "./build/MSSQL/MusicDatabaseGenerator/Music Database Generator.bat" -Value $MDGShortcutContents
+    - name: MSSQL - Zip Build
+      run: |
+          (Get-Content ./prod-versions.ini) -match "(?<=:\s)[0-9\.]+"
+          Compress-Archive -Path ./build/MSSQL/MusicDatabaseGenerator,./build/MSSQL/PlaylistTransferTool,./build/MSSQL/README.md -DestinationPath "./build/MSSQL_MusicDatabaseGenerator_v$($matches[0]).zip"
+    # - name: MSSQL - Commit Changes
+    #   run: |
+    #     (Get-Content ./prod-versions.ini) -match "(?<=:\s)[0-9\.]+"
+    #     git config --global user.email "actions@github.com"
+    #     git config --global user.name "GitHub Actions"
+    #     git add "./build/MSSQL_MusicDatabaseGenerator_v$($matches[0]).zip"
+    #     git reset ./MusicDatabaseGenerator/App.config
+    #     git reset ./PlaylistTransferTool/App.config
+    #     git commit -m "MSSQL: Build and Zip"
+    #     git push origin ${{ github.event.pull_request.head.ref }}
+    - name: SQLite - Setup for Build
+      run: |
+          (Get-Content ./MusicDatabaseGenerator/App.config).Replace('<connectionStrings configSource="mssql.config">', '<connectionStrings configSource="sqlite.config">') | Set-Content ./MusicDatabaseGenerator/App.config
+          (Get-Content ./MusicDatabaseGenerator/Configurator.cs).Replace('/*BUILD_PROCESS_SQLite: INACTIVE', '///*BUILD_PROCESS_SQLite: ACTIVE') | Set-Content ./MusicDatabaseGenerator/Configurator.cs
+          (Get-Content ./MusicDatabaseGenerator/Configurator.cs).Replace('///*BUILD_PROCESS_MSSQL: ACTIVE', '/*BUILD_PROCESS_MSSQL: INACTIVE') | Set-Content ./MusicDatabaseGenerator/Configurator.cs
+          (Get-Content ./PlaylistTransferTool/App.config).Replace('<connectionStrings configSource="mssql.config">', '<connectionStrings configSource="sqlite.config">') | Set-Content ./PlaylistTransferTool/App.config
+    - name: SQLite - Install dependencies
+      run: |
+          nuget restore MusicDatabaseGenerator.sln
+    - name: SQLite - Compile and Build C#
+      run: C:\"Program Files"\"Microsoft Visual Studio"\2022\Enterprise\MSBuild\Current\Bin\MSBuild.exe -property:Configuration=Release # we could set up a whole fancy path alias thing but who cares honestly
+    - name: SQLite - Copy Executables
+      run: |
+          New-Item -ItemType Directory -Force -Path build/SQLite/MusicDatabaseGenerator/bin
+          cp ./MusicDatabaseGenerator/bin/Release ./build/SQLite/MusicDatabaseGenerator/bin -r
+          New-Item -ItemType Directory -Force -Path build/SQLite/MusicDatabaseGenerator/Schema
+          cp ./MusicDatabaseGenerator/Schema/SQLite ./build/SQLite/MusicDatabaseGenerator/Schema -r
+          cp ./MusicDatabaseGenerator/Schema/SCHEMA_README.md ./build/SQLite/MusicDatabaseGenerator/Schema/SCHEMA_README.md
+          cp ./MusicDatabaseGenerator/appsettings.json ./build/SQLite/MusicDatabaseGenerator/appsettings.json
+          
+          New-Item -ItemType Directory -Force -Path build/SQLite/PlaylistTransferTool/bin
+          cp ./PlaylistTransferTool/bin/Release ./build/SQLite/PlaylistTransferTool/bin -r
+          New-Item -ItemType Directory -Force -Path build/SQLite/PlaylistTransferTool/input
+          New-Item -ItemType Directory -Force -Path build/SQLite/PlaylistTransferTool/output
+          cp ./PlaylistTransferTool/appsettings.json ./build/SQLite/PlaylistTransferTool/appsettings.json
+          cp ./PlaylistTransferTool/README.md ./build/SQLite/PlaylistTransferTool/README.md
+          
+          cp ./README.md ./build/SQLite
+
+          $PTTShortcutContents = @"
+            @echo off
+            cd ./bin/Release
+            start PlaylistTransferTool.exe
+          "@
+
+          Set-Content -Path "./build/SQLite/PlaylistTransferTool/Playlist Transfer Tool.bat" -Value $PTTShortcutContents
+
+          $MDGShortcutContents = @"
+            @echo off
+            cd ./bin/Release
+            start MusicDatabaseGenerator.exe
+          "@
+
+          Set-Content -Path "./build/SQLite/MusicDatabaseGenerator/Music Database Generator.bat" -Value $MDGShortcutContents
+    - name: SQLite - Zip Build
+      run: |
+          (Get-Content ./prod-versions.ini) -match "(?<=:\s)[0-9\.]+"
+          Compress-Archive -Path ./build/SQLite/MusicDatabaseGenerator,./build/SQLite/PlaylistTransferTool,./build/SQLite/README.md -DestinationPath "./build/SQLite_MusicDatabaseGenerator_v$($matches[0]).zip"
+    # - name: SQLite - Commit Changes
+    #   run: |
+    #     (Get-Content ./prod-versions.ini) -match "(?<=:\s)[0-9\.]+"
+    #     git config --global user.email "actions@github.com"
+    #     git config --global user.name "GitHub Actions"
+    #     git add "./build/SQLite_MusicDatabaseGenerator_v$($matches[0]).zip"
+    #     git reset ./MusicDatabaseGenerator/App.config
+    #     git reset ./PlaylistTransferTool/App.config
+    #     git commit -m "SQLite: Build and Zip"
+    #     git push origin ${{ github.event.pull_request.head.ref }}
+    - name: Create Release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        $RELEASE_BRANCH="${{ github.event.pull_request.head.ref }}"
+        $RELEASE_BODY=@"
+        ${{ github.event.pull_request.body }}
+
+        ${{ github.event.pull_request.html_url }}
+        "@
+        (Get-Content ./prod-versions.ini) -match "(?<=:\s)[0-9\.]+"
+        $RELEASE_TAG=$matches[0]
+        $RELEASE_TITLE="$($RELEASE_TAG): ${{ github.event.pull_request.title }}"
+        gh release create "$($RELEASE_TAG)" --title "$($RELEASE_TITLE)" --notes "$($RELEASE_BODY)" --target $RELEASE_BRANCH -d
+        gh release upload "$($RELEASE_TAG)" "./build/MSSQL_MusicDatabaseGenerator_v$($RELEASE_TAG).zip" --clobber
+        gh release upload "$($RELEASE_TAG)" "./build/SQLite_MusicDatabaseGenerator_v$($RELEASE_TAG).zip" --clobber
+    - name: Update Build Version for Next Run
+      run: |
+          (Get-Content ./prod-versions.ini) -match "[0-9]+$"
+          (Get-Content ./prod-versions.ini).Substring(0, (Get-Content ./prod-versions.ini).Length - $matches[0].Length) + ([int]$matches[0] + 1) | Set-Content ./prod-versions.ini
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git add ./prod-versions.ini
+          git commit -m "BUILD: Update Build Version for Next Run"
+          git push origin ${{ github.event.pull_request.head.ref }}  

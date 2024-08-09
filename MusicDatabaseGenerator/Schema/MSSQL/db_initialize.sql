@@ -115,13 +115,19 @@ IF (SELECT [dbo].[MusicTableExists] (N'PlaylistTracks')) = 0
 BEGIN
 	CREATE TABLE PlaylistTracks (
 		PlaylistID INT NOT NULL,
-		TrackID INT NOT NULL,
+		TrackID INT NULL, --NULL denotes we couldn't find the track in the existing database
 		TrackOrder INT NULL, --NULL denotes system generated playlists
 		LastKnownPath VARCHAR(260) NULL,
 		SurrogateKey INT IDENTITY(1,1) PRIMARY KEY,
-		CONSTRAINT UC_PlaylistID_TrackID UNIQUE (PlaylistID, TrackID),
-		CONSTRAINT UC_PlaylistID_TrackOrder UNIQUE (PlaylistID, TrackOrder)
 	)
+
+	CREATE UNIQUE NONCLUSTERED INDEX UC_PlaylistID_TrackID
+	ON PlaylistTracks(PlaylistID, TrackID)
+	WHERE TrackID IS NOT NULL
+
+	CREATE UNIQUE NONCLUSTERED INDEX UC_PlaylistID_TrackOrder
+	ON PlaylistTracks(PlaylistID, TrackOrder)
+	WHERE TrackOrder IS NOT NULL
 END
 
 --This table can be matched with the main table to deremine the artist
