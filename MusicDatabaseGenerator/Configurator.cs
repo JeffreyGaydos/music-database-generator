@@ -106,7 +106,7 @@ namespace MusicDatabaseGenerator
             switch(provider)
             {
                 case DatabaseProvider.SQLite:
-                    string deleteSql = File.ReadAllText("../../Schema/SQLite/sqlite_delete.sql").Replace("\\r\\n", @"
+                    string deleteSql = File.ReadAllText("../../Schema/SQLite/db_delete.sql").Replace("\\r\\n", @"
 ").Replace("\\t", "  ");
                     deleteSql = _removeCommentsSQLite.Replace(deleteSql, "");
                     var deletes = deleteSql.Split(new string[] { "DELETE" }, System.StringSplitOptions.RemoveEmptyEntries);
@@ -129,7 +129,7 @@ namespace MusicDatabaseGenerator
             switch (provider)
             {
                 case DatabaseProvider.SQLite:
-                    string initSQLite = _removeCommentsSQLite.Replace(File.ReadAllText("../../Schema/SQLite/sqlite_initialize.sql"), "");
+                    string initSQLite = _removeCommentsSQLite.Replace(File.ReadAllText("../../Schema/SQLite/db_initialize.sql"), "");
                     initSQLite = initSQLite.Replace("\\r\\n", @"
 ").Replace("\\t", "  ");
                     var SQLiteToExecute = initSQLite.Split(new string[] { "CREATE" }, System.StringSplitOptions.RemoveEmptyEntries);

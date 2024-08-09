@@ -1,5 +1,5 @@
 /*
- * db_delete.sql
+ * sqlite_delete.sql
  * Schema Version: 1.0.0
  *
  * This script is intended to delete all data in the
@@ -7,9 +7,6 @@
  * tables do not need to be re-built if you only want
  * to regenerate the data in the database.
  */
-
-BEGIN
-
 DELETE FROM Playlist
 DELETE FROM PlaylistTracks
 DELETE FROM Artist
@@ -23,6 +20,3 @@ DELETE FROM AlbumTracks
 DELETE FROM AlbumArt
 DELETE FROM PlayLogs
 DELETE FROM Main
-
-ROLLBACK
---COMMIT
