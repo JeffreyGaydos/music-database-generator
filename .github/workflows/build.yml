@@ -53,12 +53,12 @@ jobs:
 
           $ShortcutPTT = $WScript.CreateShortcut((Join-Path -Path $PWD.Path -ChildPath ".\build\MSSQL\PlaylistTransferTool\Playlist Transfer Tool.lnk"))
           $ShortcutPTT.TargetPath = (Join-Path -Path $PWD.Path -ChildPath ".\build\MSSQL\PlaylistTransferTool\bin\Release\PlaylistTransferTool.exe")
-          $ShortcutPTT.WorkingDirectory = (Join-Path -Path $PWD.Path -ChildPath ".\build\MSSQL\PlaylistTransferTool\bin\Release")
+          $ShortcutPTT.WorkingDirectory = (Join-Path -Path $PWD.Path -ChildPath ".\PlaylistTransferTool\bin\Release")
           $ShortcutPTT.Save()
 
           $ShortcutMDG = $WScript.CreateShortcut((Join-Path -Path $PWD.Path -ChildPath ".\build\MSSQL\MusicDatabaseGenerator\Music Database Generator.lnk"))
           $ShortcutMDG.TargetPath = (Join-Path -Path $PWD.Path -ChildPath ".\build\MSSQL\MusicDatabaseGenerator\bin\Release\MusicDatabaseGenerator.exe")
-          $ShortcutMDG.WorkingDirectory = (Join-Path -Path $PWD.Path -ChildPath ".\build\MSSQL\MusicDatabaseGenerator\bin\Release")
+          $ShortcutMDG.WorkingDirectory = (Join-Path -Path $PWD.Path -ChildPath ".\MusicDatabaseGenerator\bin\Release")
           $ShortcutMDG.Save()
     - name: MSSQL - Zip Build
       run: |
@@ -105,12 +105,12 @@ jobs:
           
           $ShortcutPTT = $WScript.CreateShortcut((Join-Path -Path $PWD.Path -ChildPath ".\build\SQLite\PlaylistTransferTool\Playlist Transfer Tool.lnk"))
           $ShortcutPTT.TargetPath = (Join-Path -Path $PWD.Path -ChildPath ".\build\SQLite\PlaylistTransferTool\bin\Release\PlaylistTransferTool.exe")
-          $ShortcutPTT.WorkingDirectory = (Join-Path -Path $PWD.Path -ChildPath ".\build\SQLite\PlaylistTransferTool\bin\Release")
+          $ShortcutPTT.WorkingDirectory = (Join-Path -Path $PWD.Path -ChildPath ".\PlaylistTransferTool\bin\Release")
           $ShortcutPTT.Save()
 
           $ShortcutMDG = $WScript.CreateShortcut((Join-Path -Path $PWD.Path -ChildPath ".\build\SQLite\MusicDatabaseGenerator\Music Database Generator.lnk"))
           $ShortcutMDG.TargetPath = (Join-Path -Path $PWD.Path -ChildPath ".\build\SQLite\MusicDatabaseGenerator\bin\Release\MusicDatabaseGenerator.exe")
-          $ShortcutMDG.WorkingDirectory = (Join-Path -Path $PWD.Path -ChildPath ".\build\SQLite\MusicDatabaseGenerator\bin\Release")
+          $ShortcutMDG.WorkingDirectory = (Join-Path -Path $PWD.Path -ChildPath ".\MusicDatabaseGenerator\bin\Release")
           $ShortcutMDG.Save()
     - name: SQLite - Zip Build
       run: |
