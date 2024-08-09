@@ -118,7 +118,7 @@ namespace MusicDatabaseGenerator
                     break;
                 case DatabaseProvider.MSSQL:
                 default:
-                    ExecuteNonQueryUsingConnection(File.ReadAllText("../../Schema/db_delete.sql").Replace("\\r\\n", @"
+                    ExecuteNonQueryUsingConnection(File.ReadAllText("../../Schema/MSSQL/db_delete.sql").Replace("\\r\\n", @"
 ").Replace("\\t", "  "));
                     break;
             }
@@ -142,7 +142,7 @@ namespace MusicDatabaseGenerator
                     break;
                 case DatabaseProvider.MSSQL:
                 default:
-                    string initSQL = File.ReadAllText("../../Schema/db_initialize.sql");
+                    string initSQL = File.ReadAllText("../../Schema/MSSQL/db_initialize.sql");
                     List<string> splitInit = _goSplitter.Split(initSQL).Where(sql => !string.IsNullOrEmpty(sql)).ToList();
 
                     foreach (string statement in splitInit)
@@ -173,7 +173,7 @@ namespace MusicDatabaseGenerator
         {
             if(provider != DatabaseProvider.SQLite)
             {
-                ExecuteNonQueryUsingConnection(File.ReadAllText("../../Schema/Migrations/dbm_20231107_moodToPlaylists.sql")
+                ExecuteNonQueryUsingConnection(File.ReadAllText("../../Schema/MSSQL/Migrations/dbm_20231107_moodToPlaylists.sql")
                 .Replace("\\r\\n", @"
 ").Replace("\\t", "  "));
             }
