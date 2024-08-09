@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data.SQLite;
@@ -60,10 +60,10 @@ namespace MusicDatabaseGenerator
                 settings["GenerateMusicMetadata"] == "True",
                 settings["DeleteDataOnGeneration"] == "True",
                 settings["RunMigrations"] == "True",
-                /*BUILD_PROCESS_SQLite
+                /*BUILD_PROCESS_SQLite: INACTIVE
                  DatabaseProvider.SQLite
                  /**/
-                ///*BUILD_PROCESS_MSSQL
+                ///*BUILD_PROCESS_MSSQL: ACTIVE
                  DatabaseProvider.MSSQL
                  /**/
                 );

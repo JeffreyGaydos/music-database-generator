@@ -25,8 +25,8 @@ jobs:
     - name: MSSQL - Setup for Build
       run: |
           (Get-Content ./MusicDatabaseGenerator/App.config).Replace('<connectionStrings configSource="sqlite.config">', '<connectionStrings configSource="mssql.config">') | Set-Content ./MusicDatabaseGenerator/App.config
-          (Get-Content ./MusicDatabaseGenerator/Configurator.cs).Replace('///*BUILD_PROCESS_SQLite', '/*BUILD_PROCESS_SQLite') | Set-Content ./MusicDatabaseGenerator/Configurator.cs
-          (Get-Content ./MusicDatabaseGenerator/Configurator.cs).Replace('/*BUILD_PROCESS_MSSQL', '///*BUILD_PROCESS_MSSQL') | Set-Content ./MusicDatabaseGenerator/Configurator.cs
+          (Get-Content ./MusicDatabaseGenerator/Configurator.cs).Replace('///*BUILD_PROCESS_SQLite: ACTIVE', '/*BUILD_PROCESS_SQLite: INACTIVE') | Set-Content ./MusicDatabaseGenerator/Configurator.cs
+          (Get-Content ./MusicDatabaseGenerator/Configurator.cs).Replace('/*BUILD_PROCESS_MSSQL: INACTIVE', '///*BUILD_PROCESS_MSSQL: ACTIVE') | Set-Content ./MusicDatabaseGenerator/Configurator.cs
           (Get-Content ./PlaylistTransferTool/App.config).Replace('<connectionStrings configSource="sqlite.config">', '<connectionStrings configSource="mssql.config">') | Set-Content ./PlaylistTransferTool/App.config
     - name: MSSQL - Install dependencies
       run: |
@@ -83,8 +83,8 @@ jobs:
     - name: SQLite - Setup for Build
       run: |
           (Get-Content ./MusicDatabaseGenerator/App.config).Replace('<connectionStrings configSource="mssql.config">', '<connectionStrings configSource="sqlite.config">') | Set-Content ./MusicDatabaseGenerator/App.config
-          (Get-Content ./MusicDatabaseGenerator/Configurator.cs).Replace('/*BUILD_PROCESS_SQLite', '///*BUILD_PROCESS_SQLite') | Set-Content ./MusicDatabaseGenerator/Configurator.cs
-          (Get-Content ./MusicDatabaseGenerator/Configurator.cs).Replace('///*BUILD_PROCESS_MSSQL', '/*BUILD_PROCESS_MSSQL') | Set-Content ./MusicDatabaseGenerator/Configurator.cs
+          (Get-Content ./MusicDatabaseGenerator/Configurator.cs).Replace('/*BUILD_PROCESS_SQLite: INACTIVE', '///*BUILD_PROCESS_SQLite: ACTIVE') | Set-Content ./MusicDatabaseGenerator/Configurator.cs
+          (Get-Content ./MusicDatabaseGenerator/Configurator.cs).Replace('///*BUILD_PROCESS_MSSQL: ACTIVE', '/*BUILD_PROCESS_MSSQL: INACTIVE') | Set-Content ./MusicDatabaseGenerator/Configurator.cs
           (Get-Content ./PlaylistTransferTool/App.config).Replace('<connectionStrings configSource="mssql.config">', '<connectionStrings configSource="sqlite.config">') | Set-Content ./PlaylistTransferTool/App.config
     - name: SQLite - Install dependencies
       run: |
