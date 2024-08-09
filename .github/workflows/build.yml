@@ -49,17 +49,21 @@ jobs:
           
           cp ./README.md ./build/MSSQL
 
-          $WScript = New-Object -comObject WScript.Shell
+          $PTTShortcutContents = @"
+            @echo off
+            cd ./bin/Release
+            start PlaylistTransferTool.exe
+          "@
 
-          $ShortcutPTT = $WScript.CreateShortcut((Join-Path -Path $PWD.Path -ChildPath ".\build\MSSQL\PlaylistTransferTool\Playlist Transfer Tool.lnk"))
-          $ShortcutPTT.TargetPath = (Join-Path -Path $PWD.Path -ChildPath ".\build\MSSQL\PlaylistTransferTool\bin\Release\PlaylistTransferTool.exe")
-          $ShortcutPTT.WorkingDirectory = (Join-Path -Path $PWD.Path -ChildPath ".\build\MSSQL\PlaylistTransferTool\bin\Release")
-          $ShortcutPTT.Save()
+          Set-Content -Path "./build/MSSQL/PlaylistTransferTool/Playlist Transfer Tool.bat" -Value $PTTShortcutContents
 
-          $ShortcutMDG = $WScript.CreateShortcut((Join-Path -Path $PWD.Path -ChildPath ".\build\MSSQL\MusicDatabaseGenerator\Music Database Generator.lnk"))
-          $ShortcutMDG.TargetPath = (Join-Path -Path $PWD.Path -ChildPath ".\build\MSSQL\MusicDatabaseGenerator\bin\Release\MusicDatabaseGenerator.exe")
-          $ShortcutMDG.WorkingDirectory = (Join-Path -Path $PWD.Path -ChildPath ".\build\MSSQL\MusicDatabaseGenerator\bin\Release")
-          $ShortcutMDG.Save()
+          $MDGShortcutContents = @"
+            @echo off
+            cd ./bin/Release
+            start MusicDatabaseGenerator.exe
+          "@
+
+          Set-Content -Path "./build/MSSQL/MusicDatabaseGenerator/Music Database Generator.bat" -Value $MDGShortcutContents
     - name: MSSQL - Zip Build
       run: |
           (Get-Content ./prod-versions.ini) -match "(?<=:\s)[0-9\.]+"
@@ -101,17 +105,21 @@ jobs:
           
           cp ./README.md ./build/SQLite
 
-          $WScript = New-Object -comObject WScript.Shell
-          
-          $ShortcutPTT = $WScript.CreateShortcut((Join-Path -Path $PWD.Path -ChildPath ".\build\SQLite\PlaylistTransferTool\Playlist Transfer Tool.lnk"))
-          $ShortcutPTT.TargetPath = (Join-Path -Path $PWD.Path -ChildPath ".\build\SQLite\PlaylistTransferTool\bin\Release\PlaylistTransferTool.exe")
-          $ShortcutPTT.WorkingDirectory = (Join-Path -Path $PWD.Path -ChildPath ".\build\SQLite\PlaylistTransferTool\bin\Release")
-          $ShortcutPTT.Save()
+          $PTTShortcutContents = @"
+            @echo off
+            cd ./bin/Release
+            start PlaylistTransferTool.exe
+          "@
 
-          $ShortcutMDG = $WScript.CreateShortcut((Join-Path -Path $PWD.Path -ChildPath ".\build\SQLite\MusicDatabaseGenerator\Music Database Generator.lnk"))
-          $ShortcutMDG.TargetPath = (Join-Path -Path $PWD.Path -ChildPath ".\build\SQLite\MusicDatabaseGenerator\bin\Release\MusicDatabaseGenerator.exe")
-          $ShortcutMDG.WorkingDirectory = (Join-Path -Path $PWD.Path -ChildPath ".\build\SQLite\MusicDatabaseGenerator\bin\Release")
-          $ShortcutMDG.Save()
+          Set-Content -Path "./build/SQLite/PlaylistTransferTool/Playlist Transfer Tool.bat" -Value $PTTShortcutContents
+
+          $MDGShortcutContents = @"
+            @echo off
+            cd ./bin/Release
+            start MusicDatabaseGenerator.exe
+          "@
+
+          Set-Content -Path "./build/SQLite/MusicDatabaseGenerator/Music Database Generator.bat" -Value $MDGShortcutContents
     - name: SQLite - Zip Build
       run: |
           (Get-Content ./prod-versions.ini) -match "(?<=:\s)[0-9\.]+"
