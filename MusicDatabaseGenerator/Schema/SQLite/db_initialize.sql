@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS PlaylistTracks (
 	TrackID INT NULL,
 	TrackOrder INT NULL, --NULL denotes system generated playlists
 	LastKnownPath VARCHAR(260),
-	SurrogateKey INTEGER PRIMARY KEY
+	SurrogateKey INTEGER PRIMARY KEY,
 	CONSTRAINT UC_PlaylistID_TrackID UNIQUE (PlaylistID, TrackID),
 	CONSTRAINT UC_PlaylistID_TrackOrder UNIQUE (PlaylistID, TrackOrder)
 )
