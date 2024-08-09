@@ -2,7 +2,7 @@
 {
     public enum DatabaseProvider
     {
-        MSSSQL = 0,
+        MSSQL = 0,
         SQLite
     }
 }

@@ -60,7 +60,12 @@ namespace MusicDatabaseGenerator
                 settings["GenerateMusicMetadata"] == "True",
                 settings["DeleteDataOnGeneration"] == "True",
                 settings["RunMigrations"] == "True",
-                DatabaseProvider.SQLite
+                /*BUILD_PROCESS_SQLite
+                 DatabaseProvider.SQLite
+                 /**/
+                ///*BUILD_PROCESS_MSSQL
+                 DatabaseProvider.MSSQL
+                 /**/
                 );
 
             _logger.GenerationLogWriteData("_CONFIGURATION:__________________________________________________________________");
@@ -111,7 +116,7 @@ namespace MusicDatabaseGenerator
                         ExecuteNonQueryUsingSQLiteConnection($"DELETE{sql}");
                     }
                     break;
-                case DatabaseProvider.MSSSQL:
+                case DatabaseProvider.MSSQL:
                 default:
                     ExecuteNonQueryUsingConnection(File.ReadAllText("../../Schema/db_delete.sql").Replace("\\r\\n", @"
 ").Replace("\\t", "  "));
@@ -135,7 +140,7 @@ namespace MusicDatabaseGenerator
                     }
                     _databasePresent = true;
                     break;
-                case DatabaseProvider.MSSSQL:
+                case DatabaseProvider.MSSQL:
                 default:
                     string initSQL = File.ReadAllText("../../Schema/db_initialize.sql");
                     List<string> splitInit = _goSplitter.Split(initSQL).Where(sql => !string.IsNullOrEmpty(sql)).ToList();
