@@ -15,15 +15,20 @@ namespace MusicDatabaseGenerator
         public bool generateMusicMetadata { get; private set; }
         public bool deleteExistingData { get; private set; }
         public bool runMigrations { get; private set; }
+        public string trackOutputPath { get; private set; }
+        public string imageOutputPath { get; private set; }
         public DatabaseProvider databaseProvider { get; private set; }
 
-        public ConfiguratorValues(string pathToSearch, bool generateAlbumArtData, bool generateMusicMetadata, bool deleteExistingData, bool runMigrations, DatabaseProvider dbProvider)
+
+        public ConfiguratorValues(string pathToSearch, bool generateAlbumArtData, bool generateMusicMetadata, bool deleteExistingData, bool runMigrations, string trackOutputPath, string imageOutputPath, DatabaseProvider dbProvider)
         {
             this.pathToSearch = pathToSearch;
             this.generateAlbumArtData = generateAlbumArtData;
             this.generateMusicMetadata = generateMusicMetadata;
             this.deleteExistingData = deleteExistingData;
             this.runMigrations = runMigrations;
+            this.trackOutputPath = trackOutputPath;
+            this.imageOutputPath = imageOutputPath;
             databaseProvider = dbProvider;
         }
     }
@@ -60,6 +65,8 @@ namespace MusicDatabaseGenerator
                 settings["GenerateMusicMetadata"] == "True",
                 settings["DeleteDataOnGeneration"] == "True",
                 settings["RunMigrations"] == "True",
+                settings["NewTrackOutputPath"],
+                settings["AlbumArtOutputPath"],
                 /*BUILD_PROCESS_SQLite: INACTIVE
                  DatabaseProvider.SQLite
                  /**/
