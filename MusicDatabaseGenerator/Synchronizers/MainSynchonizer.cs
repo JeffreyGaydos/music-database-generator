@@ -69,7 +69,10 @@ namespace MusicDatabaseGenerator.Synchronizers
                 || (NumberOfNulls(match) == NumberOfNulls(_mlt.main) && match.Bitrate >= _mlt.main.Bitrate)
                )
             {
-                return SyncOperation.None; //no-op data-wise
+                //no-op data-wise, but still tick the date so that we skip this next time
+                match.LastModifiedDate = _mlt.main.LastModifiedDate;
+                _context.SaveChanges();
+                return SyncOperation.None;
             } else
             {
                 match.SampleRate = _mlt.main.SampleRate;
