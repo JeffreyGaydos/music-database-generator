@@ -55,10 +55,6 @@ namespace MusicDatabaseGenerator.Synchronizers
             Main match = _context.Main.First(m => m.ISRC == _mlt.main.ISRC && m.Duration == _mlt.main.Duration && m.Title == _mlt.main.Title);
             _mlt.main.TrackID = match.TrackID; //maintain ID so other mappings remain sound
             _idsSeen.Add(match.TrackID);
-            if(match.Title == "Fade Out")
-            {
-                Console.WriteLine("Test case");
-            }
             if (SQLCSharpDateTimeComparison(match.LastModifiedDate, _mlt.main.LastModifiedDate) <= 0)
             {
                 match.GeneratedDate = _mlt.main.GeneratedDate;
