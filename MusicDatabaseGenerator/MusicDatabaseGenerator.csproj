@@ -152,6 +152,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileOutputService.cs" />
     <Compile Include="Models\Album.cs" />
     <Compile Include="Models\AlbumArt.cs" />
     <Compile Include="Models\AlbumTracks.cs" />
