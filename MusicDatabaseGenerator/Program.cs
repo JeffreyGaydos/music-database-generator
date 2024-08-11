@@ -74,7 +74,7 @@ namespace MusicDatabaseGenerator
 
                     List<IGenerator> generators = new List<IGenerator>
                     {
-                        new AlbumArtGenerator(img.Item2, img.Item1, trackData),
+                        new AlbumArtGenerator(img.Item2, img.Item1, trackData, config),
                     };
 
                     foreach (IGenerator generator in generators)
