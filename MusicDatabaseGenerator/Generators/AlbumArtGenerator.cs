@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace MusicDatabaseGenerator.Generators
 {
@@ -13,16 +9,21 @@ namespace MusicDatabaseGenerator.Generators
     {
         private Bitmap _imgFile;
         private string _imgFileName;
-        public AlbumArtGenerator(Bitmap imgFile, string imgFileName, MusicLibraryTrack track)
+        private bool _unhideHiddenAlbumArt;
+        public AlbumArtGenerator(Bitmap imgFile, string imgFileName, MusicLibraryTrack track, ConfiguratorValues config)
         {
             _imgFile = imgFile;
             _data = track;
             _imgFileName = imgFileName;
+            _unhideHiddenAlbumArt = config.unhideHiddenAlbumArt;
         }
 
         public void Generate()
         {
-            UnhideAlbumArtImages(_imgFileName);
+            if(_unhideHiddenAlbumArt)
+            {
+                UnhideAlbumArtImages(_imgFileName);
+            }
 
             _data.albumArt = new AlbumArt()
             {
@@ -85,18 +86,5 @@ namespace MusicDatabaseGenerator.Generators
                 File.SetAttributes(path, FileAttributes.Normal);
             }
         }
-
-        /*private void TEMP_ExportImages(string path)
-        {
-            string sanitizedPath = path.Replace('\\', '/');
-            string relativePath = sanitizedPath.Substring(sanitizedPath.IndexOf("/Music/"));
-            string fullPath = $"F:/MyMusicImageData_TEMP{relativePath}";
-            string folder = fullPath.Substring(0, fullPath.LastIndexOf("/"));
-            if(!Directory.Exists(folder))
-            {
-                Directory.CreateDirectory(folder);
-            }
-            File.Copy(path, fullPath);
-        }*/
     }
 }

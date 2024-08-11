@@ -15,15 +15,22 @@ namespace MusicDatabaseGenerator
         public bool generateMusicMetadata { get; private set; }
         public bool deleteExistingData { get; private set; }
         public bool runMigrations { get; private set; }
+        public bool unhideHiddenAlbumArt { get; private set; }
+        public string trackOutputPath { get; private set; }
+        public string imageOutputPath { get; private set; }
         public DatabaseProvider databaseProvider { get; private set; }
 
-        public ConfiguratorValues(string pathToSearch, bool generateAlbumArtData, bool generateMusicMetadata, bool deleteExistingData, bool runMigrations, DatabaseProvider dbProvider)
+
+        public ConfiguratorValues(string pathToSearch, bool generateAlbumArtData, bool generateMusicMetadata, bool deleteExistingData, bool runMigrations, bool unhideHiddenAlbumArt, string trackOutputPath, string imageOutputPath, DatabaseProvider dbProvider)
         {
             this.pathToSearch = pathToSearch;
             this.generateAlbumArtData = generateAlbumArtData;
             this.generateMusicMetadata = generateMusicMetadata;
             this.deleteExistingData = deleteExistingData;
             this.runMigrations = runMigrations;
+            this.unhideHiddenAlbumArt = unhideHiddenAlbumArt;
+            this.trackOutputPath = trackOutputPath;
+            this.imageOutputPath = imageOutputPath;
             databaseProvider = dbProvider;
         }
     }
@@ -60,6 +67,9 @@ namespace MusicDatabaseGenerator
                 settings["GenerateMusicMetadata"] == "True",
                 settings["DeleteDataOnGeneration"] == "True",
                 settings["RunMigrations"] == "True",
+                settings["UnhideHiddenAlbumArtFiles"] == "True",
+                settings["NewTrackOutputPath"],
+                settings["AlbumArtOutputPath"],
                 /*BUILD_PROCESS_SQLite: INACTIVE
                  DatabaseProvider.SQLite
                  /**/
@@ -88,6 +98,9 @@ namespace MusicDatabaseGenerator
             }
 
             _logger.GenerationLogWriteData($"Searching for data at location \"{values.pathToSearch}\"");
+            if(!string.IsNullOrWhiteSpace(values.trackOutputPath)) _logger.GenerationLogWriteData($"Will export newly ingested tracks to \"{values.trackOutputPath}\"");
+            if(!string.IsNullOrWhiteSpace(values.imageOutputPath)) _logger.GenerationLogWriteData($"Will export all album art files \"{values.imageOutputPath}\"");
+            _logger.GenerationLogWriteData($"Will {(values.unhideHiddenAlbumArt ? "" : "NOT ")}unhide album art files extracted from MP3 files.");
             _logger.GenerationLogWriteData($@"{(values.generateAlbumArtData ?
                 values.generateMusicMetadata ?
                     "Will generate music metadata and album art metadata"

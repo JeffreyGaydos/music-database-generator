@@ -20,6 +20,9 @@ namespace MusicDatabaseGenerator
 
             FolderReader.InjectDependencies(logger);
             (List<TagLib.File> tagFiles, List<(string, Bitmap)> coverArt) constructedTuple = FolderReader.ReadToTagLibFiles(config.pathToSearch, true);
+
+            FileOutputService exportService = new FileOutputService(config, logger);
+
             Stopwatch sw = new Stopwatch();
             sw.Start();
 
@@ -45,7 +48,7 @@ namespace MusicDatabaseGenerator
                     }
 
                     MusicLibraryTrack.trackIndex += 1;
-                    syncManager.Sync();
+                    exportService.LoadSynchronizedTrack(syncManager.Sync(), trackData.main.FilePath);
                 }
                 new PostProcessingSynchronizer(mdbContext).Synchronize(); //external for performance reasons
                 SyncManager.Delete();
@@ -71,7 +74,7 @@ namespace MusicDatabaseGenerator
 
                     List<IGenerator> generators = new List<IGenerator>
                     {
-                        new AlbumArtGenerator(img.Item2, img.Item1, trackData),
+                        new AlbumArtGenerator(img.Item2, img.Item1, trackData, config),
                     };
 
                     foreach (IGenerator generator in generators)
@@ -82,6 +85,7 @@ namespace MusicDatabaseGenerator
                     MusicLibraryTrack.albumArtIndex += 1;
 
                     syncManager.Sync();
+                    exportService.LoadSynchronizedImage(img.Item1);
                 }
                 SyncManager.Delete();
                 logger.GenerationLogWriteData($"Inserted {SyncManager.Inserts} record(s)");
@@ -89,6 +93,8 @@ namespace MusicDatabaseGenerator
                 logger.GenerationLogWriteData($"Skipped {SyncManager.Skips} record(s)");
                 logger.GenerationLogWriteComment($"Album Art Data Inserted Into Database in {sw.Elapsed.TotalSeconds} seconds");
             }
+
+            exportService.Export();
 
             logger.GenerationLogWriteData("Music Database Generator completed successfully.");
 

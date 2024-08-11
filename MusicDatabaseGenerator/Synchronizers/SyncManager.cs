@@ -26,7 +26,7 @@ namespace MusicDatabaseGenerator.Synchronizers
             albumArtSync = in_albumArtSync;
         }
 
-        public void Sync()
+        public SyncOperation Sync()
         {
             if (albumArtSync)
             {
@@ -62,12 +62,13 @@ namespace MusicDatabaseGenerator.Synchronizers
                         {
                             _logger.GenerationLogWriteData($"{percentageString} Finished processing track {(albumArtSync ? MusicLibraryTrack.albumArtIndex : MusicLibraryTrack.trackIndex)} (skipped) ({_mlt.main.Title})");
                         }
-                        return; //skip the title
+                        return ops; //skip the title
                     }
                 }
                 transaction.Commit();
             }
             LogOperation(ops, percentageString);
+            return ops;
         }
 
         public static void Delete()
