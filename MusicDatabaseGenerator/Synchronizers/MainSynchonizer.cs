@@ -52,7 +52,10 @@ namespace MusicDatabaseGenerator.Synchronizers
 
         internal override SyncOperation Update()
         {
-            Main match = _context.Main.First(m => m.ISRC == _mlt.main.ISRC && m.Duration == _mlt.main.Duration && m.Title == _mlt.main.Title);
+            Main match = _context.Main.First(m =>
+                m.ISRC == _mlt.main.ISRC
+                && m.Duration >= _mlt.main.Duration - 1 && m.Duration <= _mlt.main.Duration + 1
+                && m.Title == _mlt.main.Title);
             _mlt.main.TrackID = match.TrackID; //maintain ID so other mappings remain sound
             _idsSeen.Add(match.TrackID);
             if (SQLCSharpDateTimeComparison(match.LastModifiedDate, _mlt.main.LastModifiedDate) <= 0)
@@ -66,7 +69,10 @@ namespace MusicDatabaseGenerator.Synchronizers
                 || (NumberOfNulls(match) == NumberOfNulls(_mlt.main) && match.Bitrate >= _mlt.main.Bitrate)
                )
             {
-                return SyncOperation.None; //no-op data-wise
+                //no-op data-wise, but still tick the date so that we skip this next time
+                match.LastModifiedDate = _mlt.main.LastModifiedDate;
+                _context.SaveChanges();
+                return SyncOperation.None;
             } else
             {
                 match.SampleRate = _mlt.main.SampleRate;
