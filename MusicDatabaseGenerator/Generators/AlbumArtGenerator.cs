@@ -86,18 +86,5 @@ namespace MusicDatabaseGenerator.Generators
                 File.SetAttributes(path, FileAttributes.Normal);
             }
         }
-
-        /*private void TEMP_ExportImages(string path)
-        {
-            string sanitizedPath = path.Replace('\\', '/');
-            string relativePath = sanitizedPath.Substring(sanitizedPath.IndexOf("/Music/"));
-            string fullPath = $"F:/MyMusicImageData_TEMP{relativePath}";
-            string folder = fullPath.Substring(0, fullPath.LastIndexOf("/"));
-            if(!Directory.Exists(folder))
-            {
-                Directory.CreateDirectory(folder);
-            }
-            File.Copy(path, fullPath);
-        }*/
     }
 }
