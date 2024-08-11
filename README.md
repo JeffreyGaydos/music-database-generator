@@ -66,7 +66,13 @@ First, use the config variables found in `appsettings.json` to configure how you
 - `DeleteDataOnGeneration`: set to true if you want any and all data existing in the database to be cleared for a full re-generation of your music metadata.
   - This is generally only needed if you need to go from a very large database to a very small one, and don't need the tool to check each file before deleting it.
   - Regardless of the value of this config, database creation & setup will be performed automatically if needed
-- TODO: Add explanation for the new configs
+- `UnhideHiddenAlbumArtFiles`: set to true if you want any hidden album art files that are embedded within mp3 files (typically found on Windows devices) to be unhidden during album art generation.
+- `NewTrackOutputPath`: this path defines a directory where all newly ingested music files will appear.
+  - set to an empty string to not export newly ingested music files (best for first-time generation)
+  - Accepts a relative or absolute path. See the commented out path for a recommended path
+- `AlbumArtOutputPath`: this path defines a directory where all visible album art files will appear.
+  - set to an empty string to not export any album art images
+  - Accepts a relative or absolute path. See the commented out path for a recommended path
 
 Next, run the project by finding the executable `MusicDatabaseGenerator.exe` in the `MusicDatabaseGenerator/bin/Release` folder. The console will output logs of how many tracks/images it has processed and will close when finished. This project takes roughly 1 second to insert 1 new track or update 1 existing track on average, depending on the size of your music library. After importing your files once, this project will check the `modified at` date of your music files to determine if the file needs an update. This process is much faster and runs at about 20 milliseconds per track. When an update occurs, the `TrackID` is preserved as much as possible. If you need to delete a track, simply delete the file and this project will handle removing those references. Essentially, if you need to make an update to the data in your generated database, update the files using your file system and re-run the tool.
 
