@@ -52,7 +52,10 @@ namespace MusicDatabaseGenerator.Synchronizers
 
         internal override SyncOperation Update()
         {
-            Main match = _context.Main.First(m => m.ISRC == _mlt.main.ISRC && m.Duration == _mlt.main.Duration && m.Title == _mlt.main.Title);
+            Main match = _context.Main.First(m =>
+                m.ISRC == _mlt.main.ISRC
+                && m.Duration >= _mlt.main.Duration - 1 && m.Duration <= _mlt.main.Duration + 1
+                && m.Title == _mlt.main.Title);
             _mlt.main.TrackID = match.TrackID; //maintain ID so other mappings remain sound
             _idsSeen.Add(match.TrackID);
             if (SQLCSharpDateTimeComparison(match.LastModifiedDate, _mlt.main.LastModifiedDate) <= 0)
