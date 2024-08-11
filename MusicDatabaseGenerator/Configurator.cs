@@ -14,20 +14,18 @@ namespace MusicDatabaseGenerator
         public bool generateAlbumArtData { get; private set; }
         public bool generateMusicMetadata { get; private set; }
         public bool deleteExistingData { get; private set; }
-        public bool runMigrations { get; private set; }
         public bool unhideHiddenAlbumArt { get; private set; }
         public string trackOutputPath { get; private set; }
         public string imageOutputPath { get; private set; }
         public DatabaseProvider databaseProvider { get; private set; }
 
 
-        public ConfiguratorValues(string pathToSearch, bool generateAlbumArtData, bool generateMusicMetadata, bool deleteExistingData, bool runMigrations, bool unhideHiddenAlbumArt, string trackOutputPath, string imageOutputPath, DatabaseProvider dbProvider)
+        public ConfiguratorValues(string pathToSearch, bool generateAlbumArtData, bool generateMusicMetadata, bool deleteExistingData, bool unhideHiddenAlbumArt, string trackOutputPath, string imageOutputPath, DatabaseProvider dbProvider)
         {
             this.pathToSearch = pathToSearch;
             this.generateAlbumArtData = generateAlbumArtData;
             this.generateMusicMetadata = generateMusicMetadata;
             this.deleteExistingData = deleteExistingData;
-            this.runMigrations = runMigrations;
             this.unhideHiddenAlbumArt = unhideHiddenAlbumArt;
             this.trackOutputPath = trackOutputPath;
             this.imageOutputPath = imageOutputPath;
@@ -66,7 +64,6 @@ namespace MusicDatabaseGenerator
                 settings["GenerateAlbumArtData"] == "True",
                 settings["GenerateMusicMetadata"] == "True",
                 settings["DeleteDataOnGeneration"] == "True",
-                settings["RunMigrations"] == "True",
                 settings["UnhideHiddenAlbumArtFiles"] == "True",
                 settings["NewTrackOutputPath"],
                 settings["AlbumArtOutputPath"],
@@ -82,13 +79,7 @@ namespace MusicDatabaseGenerator
 
             _logger.GenerationLogWriteData($"Connecting to database via connection string \"{_connectionString}\"...");
             _logger.GenerationLogWriteData($"{(values.deleteExistingData ? "Deleting existing data and resetting IDs..." : "Existing database persisted...")}");
-            _logger.GenerationLogWriteData($"{(values.runMigrations ? "Running migrations..." : "Skipped running migrations.")}");
             _logger.GenerationLogWriteData($"Generating a {values.databaseProvider} Database");
-
-            if (values.runMigrations)
-            {
-                RunMigrations(values.databaseProvider);
-            }
 
             InitializeDatabaseIfNeeded(values.databaseProvider);
 
@@ -180,17 +171,6 @@ namespace MusicDatabaseGenerator
                     }
                     break;
             }
-        }
-
-        private void RunMigrations(DatabaseProvider provider)
-        {
-            if(provider != DatabaseProvider.SQLite)
-            {
-                ExecuteNonQueryUsingConnection(File.ReadAllText("../../Schema/MSSQL/Migrations/dbm_20231107_moodToPlaylists.sql")
-                .Replace("\\r\\n", @"
-").Replace("\\t", "  "));
-            }
-            //SQLite implemented after all current migrations were made. Future migrations will be implemented for SQLite and MSSQL
         }
 
         private void ExecuteNonQueryUsingConnection(string sql)
