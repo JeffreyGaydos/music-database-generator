@@ -84,7 +84,8 @@ namespace MusicDatabaseGenerator
 
                     MusicLibraryTrack.albumArtIndex += 1;
 
-                    exportService.LoadSynchronizedImage(syncManager.Sync(), img.Item1);
+                    syncManager.Sync();
+                    exportService.LoadSynchronizedImage(img.Item1);
                 }
                 SyncManager.Delete();
                 logger.GenerationLogWriteData($"Inserted {SyncManager.Inserts} record(s)");
@@ -92,6 +93,8 @@ namespace MusicDatabaseGenerator
                 logger.GenerationLogWriteData($"Skipped {SyncManager.Skips} record(s)");
                 logger.GenerationLogWriteComment($"Album Art Data Inserted Into Database in {sw.Elapsed.TotalSeconds} seconds");
             }
+
+            exportService.Export();
 
             logger.GenerationLogWriteData("Music Database Generator completed successfully.");
 

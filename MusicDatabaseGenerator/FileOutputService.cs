@@ -39,14 +39,11 @@ namespace MusicDatabaseGenerator
             }
         }
 
-        public void LoadSynchronizedImage(SyncOperation op, string imagePath)
+        public void LoadSynchronizedImage(string imagePath)
         {
             if(!string.IsNullOrWhiteSpace(_imageOutputPath))
             {
-                if ((op & SyncOperation.Insert) > 0 || (op & SyncOperation.Update) > 0)
-                {
-                    _tracksToOutput.Add(imagePath);
-                }
+                _imagesToOutput.Add(imagePath);
             }
         }
 
