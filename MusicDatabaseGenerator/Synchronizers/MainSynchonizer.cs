@@ -54,8 +54,15 @@ namespace MusicDatabaseGenerator.Synchronizers
         {
             Main match = _context.Main.First(m =>
                 m.ISRC == _mlt.main.ISRC
-                && m.Duration >= _mlt.main.Duration - 1 && m.Duration <= _mlt.main.Duration + 1
+                && m.Duration == _mlt.main.Duration
                 && m.Title == _mlt.main.Title);
+            if(match == null)
+            {
+                match = _context.Main.First(m =>
+                m.ISRC == _mlt.main.ISRC
+                && m.Duration >= _mlt.main.Duration - 2 && m.Duration <= _mlt.main.Duration + 2
+                && m.Title == _mlt.main.Title);
+            }
             _mlt.main.TrackID = match.TrackID; //maintain ID so other mappings remain sound
             _idsSeen.Add(match.TrackID);
             if (SQLCSharpDateTimeComparison(match.LastModifiedDate, _mlt.main.LastModifiedDate) <= 0)
